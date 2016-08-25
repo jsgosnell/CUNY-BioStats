@@ -6,13 +6,13 @@
 # it's free, extremely powerful, and replicable (you can send code to a colleague
 # or student; compare this to walking someone through JMP steps)
 
-# You can enter stuff directly into R (command line), or you can use a script (like this). 
-# Using a script allows you to save what you did (generally a good idea). To 
+# You can enter stuff directly into R (command line), or you can use a script (like this).
+# Using a script allows you to save what you did (generally a good idea). To
 # run what you have in a script, simply select it, right click, and select "Run
 # line or selection"
 
-# R is an object-based language.  All that means is you can define objects (x=2, 
-# or a list, or a matrix) and then use x for your calculations.  Sometimes it 
+# R is an object-based language.  All that means is you can define objects (x=2,
+# or a list, or a matrix) and then use x for your calculations.  Sometimes it
 # helpful to understand what's happening (is the object being changed, evaluated,
 # or modified?)
 
@@ -20,17 +20,18 @@
 #manipulate different classes in different ways using different commands (functions
 #, see next)
 
-# As a language, R runs commands (normally function) from different libraries.  When you install R 
+# As a language, R runs commands (normally function) from different libraries.  When you install R
 # a number of base packages are installed automatically.  Howevever, you may find
-# you eventually need to download a new library.  We'll walk through this during 
+# you eventually need to download a new package.  We'll walk through this during
 # tutorial.
 
 # Every function (including ones you can make yourself) have to be fed certain inputs.
 # This normally looks somethign like functionname ( part1,part2,part3).  R also
-# recognizes names of the different parts, so you can technically do 
-# functionname(part3 = , part2 = , part1 = ).  It will also guess what you mean if you 
+# recognizes names of the different parts, so you can technically do
+# functionname(part3 = , part2 = , part1 = ).  It will also guess what you mean if you
 # didn't enter something. Sometimes this is bad.  If you forget what a function
-# needs, you can type ?functionname or ??functionname for help.  For example, lm is the linear model
+# needs, you can type ?functionname or ??functionname for help.  For example, lm
+#is the linear model
 # function.
 ?lm
 # under usage, the help file shows you what the function needs to be told.  Any
@@ -63,57 +64,74 @@
 # that should be better.  Now let's make some objects
 
 x <- 2
-#note here:  <- is equivalent in most cases to =, but style guides recommend using <- (and = can supposedly
+#note here:  <- is equivalent in most cases to =, but style guides recommend
+#using <- (and = can supposedly
 #cause trouble in some instances, though I've never seen them
 
 x
 class(x)
 #class (above) is the first recognizable function you've used.  A function is a set of code
 #that has been given a name (saved as an  object).  The code states what type of input
-#(parameters or values, x in the case above) the code needs to run and produce some type of 
-#output. You can recognize functions by their phrase() setup.
+#(parameters or values, x in the case above) the code needs to run and produce some type of
+#output. You can recognize functions by their phrase() setup. Some functions
+# (like class) operate on the data in the variables as a data set and produce
+#a summary.  Ohters apply themselves to each value in the data set (like
+log(x)
 
+#let's assign some more variables
 y <- 2
 y
 x + y
+
 
 #simple enough, but larger lists or objects work the same way
 
 x <- c(2, 2, 2, 2)
 class(x)
 x
-# now you've made a list.  The c stands for concatenate and 
-#you'll see it used often
+# now you've made a list (The c stands for concatenate and you'll see it used often)
 
 
 x <- matrix(c(2, 2, 2, 2), 2, 2)
 class(x)
 x
 
-# and a matrix.  Just a note, if you are doing matrix calculations directly, you 
+# and a matrix. If you need to enter text, you can put it in quotes
+location <- "alpine"
+zones <- c("alpine", "valley", "meadow")
+#entering or manipulating text is important when we wont R to think about factors
+#, or grouping variables, instead of numbers(example to come).R tries to figure
+#out what you want, but you can specify by making someting a factor
+location <- factor(location)
+location
+
+
+#Just a note, if you are doing matrix calculations directly, you
 # need to use different operators:  Example)
 
 
 y <- matrix(data=c(1, 1, 1, 1), nrow=2, ncol=2)
-#note here:  I am usually bad about not specifying parameter inside a function call (compare x and y assignmnets above).
-# R will guess what you want, but if you don't specify things can go wrong
+#note here:  I am usually bad about not specifying parameter inside a function
+#call (compare x and y assignmnets above). R will guess what you want, but if
+#you don't specify things can go wrong
 
 y
 
-x  +y
- 
-x * y 
-# this is wrong 
+x + y
+
+x * y
+# this is wrong
 
 x %*% y
 # this is right
 
-# You can also call out certain parts of a list
+# You can also call out certain parts (elements) of a list or vecto
 
 #making a random number set for illustration
 x <- rnorm(10, 1, 1)
 x
 x[2]
+
 
 # or drop one
 
@@ -122,19 +140,27 @@ x [-2]
 #note here: this isn't replacing x (just using or showing it) unless you assign it, like
 #x <- x[-2]
 
-# Comparing objects or elements
+#you can also call out a subset or specific options
+x[c(1,2)]
+x[x < 1]
+
+
+# above is an example of comparing objects or elements: R compares objects and
+#returns TRUE or FALSE
 
 x <- matrix(c(2, 2, 2, 2), 2, 2)
 x
 y
 x == y
+#Notice the question is asked for each value in the variable, so the return value
+#has the same length (3).
 x != y
 x < y
 x >= y
 
 # all of the above is relatively useless, but it will help you understand later parts
 
-# some useful functions 
+# some useful functions
 
 #making a random number set for illustration
 x <- rnorm( 1000, 100, 1)
@@ -152,38 +178,53 @@ x[x>100]
 subset(x, x > 102)
 
 
-# now, lets play with real data and show how you might actually use this. One of the trickiest
-# parts of R is getting the data in.  Here are a few ways.
+# now, lets play with real data and show how you might actually use this. One of
+#the trickiestparts of R is getting the data in.  Here are a few ways.
 
 file <- file.choose()
 #this should open a popup window. select the provided file
 
 mydataset <- read.csv(file)
 
-# and thats it.  however, this is not a great way to grab data (or automate code).  you can
-#also do
+# and thats it.  however, this is not a great way to grab data (or automate code).
+#you can also do
 
 mydataset <- read.csv("C:/Users/SGosnell/Desktop/Example data set.csv")
 
 #try this using the provided file
 #for your own datasets, note you want to use short column titles and avoid spaces
 #(uses _ or SnakeCase).  You should also use "long format" (one observation per row)
-# and use .csv or .txt formats.
+# and use .csv or .txt formats.  You should also remember R won't mix groups,
+#i.e. if you enter some numbers and some characters, it will coerce everything to a character
 #Later in class we'll discuss using plyr and reshape packages to reformat data
+
+#you can also make a dataset directly in R, though its tedious for larger datasets
+greenness <- c(13766, 50513, 25084)
+habitat <- c("forest", "forest", "grassland")
+date <- c("2009-12-25", "2010-01-01", "2010-01-15")
+#dates can be handled multiple ways in R, but the key idea is to make sure you
+#put them in so they are more than factors
+date <- as.Date(date)
+#as.Date represents time relative 1970-01-01 (earlier dates are negative)
+date[1] < date[2]
+birds <- data.frame(greenness = greenness, habitat = habitat, date = date)
 
 #if your data sets don't have headers, you'll need to adjust the code, but you normally
 # do. to check what function requires, defaults to, or does, type
 
 ?read.csv
 
-# its always good to make sure the data are in correctly. for today we'll be using the built in 
+# its always good to make sure the data are in correctly. for today we'll be using the built in
 #airquality dataset
 
 airquality
 # if this is too big, try
 
 head(airquality)
-# this shows you the first 10 lines
+# this shows you the first 10 lines. note R stores data in vector formats, so we'll
+#try to use commands that take advantage of that to speed up analysis
+str(airquality)
+#shows yous the sructure of the dataframe
 
 summary(airquality)
 #gives you basic summary statistics
@@ -192,7 +233,7 @@ sapply(mydataset, class)
 sapply(airquality, class)
 # a little more complicated. there are a set of commands that let you apply a command across
 # a vector. class is checkign for what type of variable R thinks you have put in (factor,integer,
-# or numeric).  lets assume you need to change a column (a common example is Trial is a 
+# or numeric).  lets assume you need to change a column (a common example is Trial is a
 # factor, not an integer). You can call up a column using the dollar sign
 
 airquality$Month <- as.factor(airquality$Month)
@@ -201,7 +242,7 @@ airquality$Month <- as.factor(airquality$Month)
 
 
 # once your classes are set, let's do some basic plotting.  there are multiple plotting commands in r.  the
-# simplest is plot.  You can plot by specifying x and y coordinates or by using a the formula setup.  In r, 
+# simplest is plot.  You can plot by specifying x and y coordinates or by using a the formula setup.  In r,
 # formulas are marked as something ~ (explained by) something else)
 
 
@@ -211,7 +252,9 @@ plot(Ozone~Solar.R, airquality, type = "l")
 plot(Ozone~Month, airquality)
 pairs(airquality)
 
-#if you check out plot, you'll also notice you can change type and thousand other things,
+#if you check out plot, you'll also notice you can change type and a thousand
+#other things. We'll be introducing another graphing package, ggplot2, later
+#this semester
 
 
 # Now lets do some basic analyses.  the easiest way to do this is using linear models (a more general description
@@ -223,19 +266,19 @@ fitair <- lm(Ozone~Month+Temp+Solar.R+Wind, airquality)
 #now lets look at what we found
 summary(fitair)
 
-#or we can get traditional p values. we need to install a library to do this.  
+#or we can get traditional p values. we need to install a package to do this.
 
 #Illustrating help function:  Let's say you need to use a function but when you run it  you get an error like this
 
 Anova(fitair, type = "III") #could not find function
 
-#then use can use ??Anova to figure out which library its in
+#then use can use ??Anova to figure out which package its in
 
 ??Anova
 
-# and install the library.  To install the library car, in the top row, click packages, install packages.
-# then find a closer mirror.  Then find the car  package. once the library is installed it will stay on your computer forever. However, you'll have to 
-# load it when you need to use it (unless you mess with start up files).  just type 
+# and install the package.  To install the car package, in the top row, click packages, install packages.
+# then find a closer mirror.  Then find the car  package. once the package is installed it will stay on your computer forever. However, you'll have to
+# load it when you need to use it (unless you mess with start up files).  just type
 
 require(car)
 
@@ -251,7 +294,10 @@ Anova(fitairinteractions, type  = "III")
 levels(airquality$Month)
 levels(airquality$Month) <- c("May","June", "July", "August", "September")
 levels(airquality$Month)
-#this is also useful if you want to combine months/treatments
+#this is also useful if you want to combine months/treatments. alternatively,
+#you could have duplicated the column and changed the copy. the main idea here,
+#however, is you are never impacting the actual data file (unless you specifically
+#save over it)
 
 #now look at the plot again
 plot(Temp ~ Month, airquality)
@@ -274,6 +320,13 @@ fitjuly <- lm(Ozone~Temp, subset(airquality, Month == "July"))
 summary(fitjuly)
 Anova(fitjuly, type = "III")
 
+#in general, you can subset dataframes using the subset command (above),
+#where the subset argument specifies rows and the select argument specifies columns,
+#or by using brackets like we did for vectors. The generla format is [rows, columns], like
+airquality[airquality$Month == "July",]
+#an empty space before or afer the comma implies "all", so this is all columns
+#for all rows where the month is July. you can also query by column name
+airquality[,"Month"]
 
 #More advanced code
 
