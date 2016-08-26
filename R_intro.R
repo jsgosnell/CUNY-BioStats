@@ -34,6 +34,8 @@
 #is the linear model
 # function.
 ?lm
+#for odd symbols, put them in single quotes
+?'?'
 # under usage, the help file shows you what the function needs to be told.  Any
 # time it says part = something, thats the default that you don't have to fill in
 
@@ -209,6 +211,7 @@ date <- as.Date(date)
 date[1] < date[2]
 birds <- data.frame(greenness = greenness, habitat = habitat, date = date)
 
+
 #if your data sets don't have headers, you'll need to adjust the code, but you normally
 # do. to check what function requires, defaults to, or does, type
 
@@ -237,8 +240,11 @@ sapply(airquality, class)
 # factor, not an integer). You can call up a column using the dollar sign
 
 airquality$Month <- as.factor(airquality$Month)
-
-#similar commands exist (as.integer, as.numeric) for other classes
+#similar commands exist (as.integer, as.numeric) for other classes.note how you use
+#this as it may give unusual results. Forexample, if you turn factor levels into numbers
+#they will go fro 1 up g (total # of levels) based on the order R had them in (often
+#alphabetical).  If you need to turn numbers from factors to numbers,
+#as.numeric(as.character(x)). the easier lesson is to name things rights to begin with
 
 
 # once your classes are set, let's do some basic plotting.  there are multiple plotting commands in r.  the
@@ -253,7 +259,10 @@ plot(Ozone~Month, airquality)
 pairs(airquality)
 
 #if you check out plot, you'll also notice you can change type and a thousand
-#other things. We'll be introducing another graphing package, ggplot2, later
+#other things.
+plot(Ozone~Temp, airquality, col=airquality$Month)
+
+#We'll be introducing another graphing package, ggplot2, later
 #this semester
 
 
@@ -265,6 +274,7 @@ fitair <- lm(Ozone~Month+Temp+Solar.R+Wind, airquality)
 
 #now lets look at what we found
 summary(fitair)
+
 
 #or we can get traditional p values. we need to install a package to do this.
 
@@ -284,6 +294,12 @@ require(car)
 
 Anova(fitair, type = "III") #always specify type 3, else order matters for the model
 
+#if we do single factors, we can also add lines to plots
+fitair <- lm(Ozone~Temp, airquality)
+plot(Ozone~Temp, airquality)
+abline(fitair)
+#other commands like points() and lines() can also add to existing plots
+
 #we can also consider interactions
 fitairinteractions <- lm(Ozone ~ Month * Temp, airquality)
 summary(fitairinteractions)
@@ -294,10 +310,28 @@ Anova(fitairinteractions, type  = "III")
 levels(airquality$Month)
 levels(airquality$Month) <- c("May","June", "July", "August", "September")
 levels(airquality$Month)
+
+#alternatively, you can specifically change indiviudal names with
+names(airquality) #gives you column names
+names(airquality)[names(airquality) %in% "Month"] = "example_change"
+names(airquality)
+names(airquality)[names(airquality) %in% "example_change"] = "Month"
+
+#you could also call by index
+names(airquality)[3] <- "example_change"
+names(airquality)[3] <- "Wind"
+
+#or for levels
+levels(airquality$Month)[levels(airquality$Month) %in% "August"] = "test_change"
+levels(airquality$Month)[levels(airquality$Month) %in% "test_change"] = "August"
+#other commands will do this easier (relevel) but you can use brackets to specify most changes so you
+#only have to learn one comnand
+
 #this is also useful if you want to combine months/treatments. alternatively,
 #you could have duplicated the column and changed the copy. the main idea here,
 #however, is you are never impacting the actual data file (unless you specifically
-#save over it)
+#save over it). for example, we could add
+airquality$log_Temp <- log(airquality$Temp)
 
 #now look at the plot again
 plot(Temp ~ Month, airquality)
@@ -324,9 +358,21 @@ Anova(fitjuly, type = "III")
 #where the subset argument specifies rows and the select argument specifies columns,
 #or by using brackets like we did for vectors. The generla format is [rows, columns], like
 airquality[airquality$Month == "July",]
+# or you combine commands
+airquality[airquality$Month == "July" & airquality$Temp > 85,] #returns only days in June > 85
+airquality[airquality$Month == "July" | airquality$Temp > 85,] #returns  days in June and days > 85
+
+
+
 #an empty space before or afer the comma implies "all", so this is all columns
 #for all rows where the month is July. you can also query by column name
 airquality[,"Month"]
+
+#you can also use this to sort data
+airquality[order(airquality$Temp),]
+#order (used here to order rows) puts the dataframe in ascending order of temps.
+#in general, order returns the index (row number) neeed to put the dataset in ascending order,
+#while sort returns the value itself
 
 #More advanced code
 
