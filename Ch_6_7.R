@@ -8,7 +8,7 @@
 ###building a probability distribution
 ###sampling exercise
 ###bayesian review
-
+### ggplot2 - line 125
 
 
 
@@ -117,7 +117,10 @@ monty(strat="random")
   #or for distributions
     #this may require sampling procedures to difficulty in solving joint problems
 
-#install BRugs package
+#NEXT  TIME
+
+
+
 
 #intro to ggplot2
 #back to airquality!
