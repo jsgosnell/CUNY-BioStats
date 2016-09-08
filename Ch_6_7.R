@@ -96,9 +96,8 @@ require(binom)
 binom.test(x=30, n=87, p=.512, conf.level=.95)
 
 #binconf can give variety of bounds (all will show you all the options)
-require(Hmisc)
 binom.test(x=20, n=220, p=.15, conf.level=.95)
-binconf(x=20, n=220, alpha=.05, method="all")
+binom.confint(x=20, n=220, alpha=.05, method="all")
 
 
 
