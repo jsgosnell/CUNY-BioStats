@@ -99,7 +99,22 @@ binom.test(x=30, n=87, p=.512, conf.level=.95)
 binom.test(x=20, n=220, p=.15, conf.level=.95)
 binom.confint(x=20, n=220, alpha=.05, method="all")
 
-
+#radiologist example
+using_distribution <- dbinom(0:87,87,.5125)
+radiologist <- data.frame (Number = 0:87, Probability = using_distribution)
+require(ggplot2)
+radiologist$Proportion <- radiologist$Number/87
+radiologist$criteria <- "retain"
+radiologist$criteria[pbinom(radiologist$Number, 87, .512) < .025] <- "reject"
+radiologist$criteria[(1-pbinom(radiologist$Number, 87, .512)) < .025] <- "reject"
+proportion_observed = data.frame(Proportion = 30/87, Probability = .04)
+radiologist_plot <- ggplot(radiologist, aes(x = Proportion, y = Probability))
+radiologist_plot + geom_bar(stat="identity", aes(fill = criteria)) + geom_segment(x = .254, xend = .45,
+                                                            y= .04 , yend =.04, size = 2) +
+  geom_vline(xintercept = .5125, color = "blue") + geom_vline(xintercept = 30/87, color = "black") +
+  geom_point(data= proportion_observed, size = 8) +
+  ggtitle("Comparing p-values and confidence intervals for radiologist problem") +
+  theme(plot.title = element_text(size = rel(2)))
 
 #LAB
 #sourcing a code is a good way to input functions written by yourself or others
@@ -148,4 +163,8 @@ plot_layers_2
 plot_layers_2 + facet_wrap(~Month)
 ggsave("Fig1.jpg")
 
+#for histograms, you only need one axis (frequency is calculated)
+plot_layers <- ggplot(airquality, aes_string(x="Temp"))
+plot_layers + geom_histogram()
+plot_layers + geom_histogram() + facet_wrap(~Month)
 
