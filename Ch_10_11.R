@@ -156,6 +156,7 @@ require(BSDA)
 #if we know the standard deviation is typically .1 m/s
 z.test(x=a,mu = 1.5, sigma.x=.1)
 
+#what if we didn't know the population variance?
 #one sample test (against a prescribed mean)
 t.test(x= a, mu = 1.5)
 
@@ -166,11 +167,15 @@ t.test(x= a, mu = 1.5, alternative = "greater")
 #wilcoxon test
 wilcox.test(a, mu=1.5)
 
+#what if we have no previous information on the species and a small, odd distribution
 #sign test
 #install BSDA package
 #assume median is the same as mean
 SIGN.test(a, md=1.5)
 
+#NOTICE GENERAL DECREASE IN POWER
+
+#another non-parametic option
 #bootstrap
 #for more info, http://www.ats.ucla.edu/stat/r/library/bootstrap.htm
 
@@ -208,12 +213,15 @@ bootstrapjsg(data1=a, null=1.5)
 
 
 
+
 #FOR THE FUTURE
 #2 sample t tests
 #you find another new species in the same forest and wonder, is it the same speed?
 
 b <-  c(1.674370, 1.933666, 1.513185, 1.835873, 2.071608, 1.806574, 1.970640,
         1.765954, 1.712839, 1.748505)
+
+#Bayesian example
 
 #two sample t test
 t.test(a,b)
