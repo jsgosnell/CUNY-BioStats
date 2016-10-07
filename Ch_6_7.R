@@ -164,7 +164,7 @@ plot_layers_2 + facet_wrap(~Month)
 ggsave("Fig1.jpg")
 
 #for histograms, you only need one axis (frequency is calculated)
-plot_layers <- ggplot(airquality, aes_string(x="Temp"))
+plot_layers <- ggplot(airquality, aes_string(x="temp"))
 plot_layers + geom_histogram()
-plot_layers + geom_histogram() + facet_wrap(~Month)
+plot_layers + geom_histogram() + facet_wrap(~month)
 
