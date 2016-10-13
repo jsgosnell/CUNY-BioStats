@@ -241,7 +241,7 @@ sapply(airquality, class)
 
 airquality$Month <- as.factor(airquality$Month)
 #similar commands exist (as.integer, as.numeric) for other classes.note how you use
-#this as it may give unusual results. Forexample, if you turn factor levels into numbers
+#this as it may give unusual results. For example, if you turn factor levels into numbers
 #they will go fro 1 up g (total # of levels) based on the order R had them in (often
 #alphabetical).  If you need to turn numbers from factors to numbers,
 #as.numeric(as.character(x)). the easier lesson is to name things rights to begin with
@@ -335,6 +335,7 @@ airquality$log_Temp <- log(airquality$Temp)
 
 #now look at the plot again
 plot(Temp ~ Month, airquality)
+#note this is a box-whisker plot by default
 #remember, check out ?plot to see more advanced commands
 par(mfrow  = c(2,2), oma  = c(2,0,0,0), mar  = c(5,4,2,2))
 plot(Ozone ~ Temp, subset(airquality, Month == "June"),ylab  =  "Temperature",
@@ -374,8 +375,7 @@ airquality[order(airquality$Temp),]
 #in general, order returns the index (row number) neeed to put the dataset in ascending order,
 #while sort returns the value itself
 
-#More advanced code
-
+#More advanced code, may be of use later, here now for notes
 
 ## PROGRAMMING AND FLOW CONTROL
 #	1. FOR loops
