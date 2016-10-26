@@ -75,9 +75,10 @@ plot(0:20, using_distribution)
 barplot(using_distribution, xlab = "# of Right-handed frogs out of 20", ylab = "Probability of being drawn from population of p = 0.5" )
 
 #probability of 14 or more
-1-sum(dbinom(0:13,20,.5))
+(1-sum(dbinom(0:13,20,.5))) * 2
+#multiply by 2 since symmetrical
 #or
-1-pbinom(13,20,.5)
+(1-pbinom(13,20,.5)) * 2
 #remember the one comes from the fact the entire distribution must sum to 1
 #or
 #using our sample
@@ -92,11 +93,11 @@ binom.test(x=14, n=20, p=.5)
 binom.test( 30, 87, .512)
 
 #binom.confint can give variety of bounds (all will show you all the options)
-require(binom)
 binom.test(x=30, n=87, p=.512, conf.level=.95)
 
 #binconf can give variety of bounds (all will show you all the options)
 binom.test(x=20, n=220, p=.15, conf.level=.95)
+require(binom)
 binom.confint(x=20, n=220, alpha=.05, method="all")
 
 #radiologist example
@@ -130,10 +131,7 @@ monty(strat="random")
   #we can do for events (Monty Hall)
   #or for distributions
     #this may require sampling procedures to difficulty in solving joint problems
-
-#NEXT  TIME
-
-
+  #in the future we'll show how do this using a different process for actually sampling
 
 
 #intro to ggplot2
