@@ -98,5 +98,337 @@ hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R",
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
 
+#getting real data
+#need to use ggplot2 for ease (will get to this later and typically use it)
+require(ggplot2)
+ggplot(iris, aes_string("Species","Sepal.Length")) + 
+  geom_point(aes_string(colour="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#barchart
+
+function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
+                               c("Species"))
+
+ggplot(function_output, aes_string(x="Species", y="mean")) +
+  geom_col(aes_string(fill="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#boxplot
+#
+##just versicolor
+
+ggplot(iris[iris$Species == "versicolor",], aes_string("Species","Sepal.Length")) + 
+  geom_boxplot(aes_string(colour="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of Iris versicolor")+
+  xlab("") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=0), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+ggplot(iris, aes_string("Species","Sepal.Length")) + 
+  geom_boxplot(aes_string(colour="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#cdf
+
+par(cex = 2)
+versi <- ecdf(iris[iris$Species == "versicolor","Sepal.Length"])
+plot(versi, verticals = T, col = "red", main = "CDF of Sepal Length (cm)", 
+     xlab = "Sepal length (cm)", ylab = "Cumulative relative frequencey")
+seto <- ecdf(iris[iris$Species == "setosa","Sepal.Length"])
+plot(seto, add = T, col = "blue", verticals = T)
+virg <- ecdf(iris[iris$Species == "virginica","Sepal.Length"])
+plot(virg, add = T, col = "orange", verticals = T)
+
+
+#stacked histogram
+ggplot(iris, aes_string("Sepal.Length")) + 
+  geom_histogram(aes_string(fill="Species"), size=3) +
+  xlab("Sepal Length (cm)")+
+  ylab("Frequency")+
+  ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#facet
+ggplot(iris, aes_string("Sepal.Length")) + 
+  geom_histogram(aes_string(fill="Species"), size=3) +
+  xlab("Sepal Length (cm)")+
+  ylab("Frequency")+
+  ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        legend.position = "bottom",
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
+  facet_wrap(~Species, ncol = 1)
+
+# long-form vegetation survey data from
+# http://luisdva.github.io/rstats/Diverging-bar-plots/
+# these data should more or less reflect the vegetation patterns at "Quebrada de Cordoba", Chile
+
+vegSurvey <- 
+  data.frame(sampling_point=rep(c(1:5),4),
+             slope=c(rep("North",10),rep("South",10)),
+             veg_Type=rep(c(rep("native",5),rep("introduced",5)),2),
+             spp=as.integer(abs(rnorm(20,5,2))))
+vegSurvey$spp <-   ifelse(vegSurvey$veg_Type =="introduced",vegSurvey$spp+1,vegSurvey$spp)
+
+#grouped bar plot
+ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency")+
+  xlab("Sampling point")+
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
+
+#facet
+ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency")+
+  xlab("Sampling point")+
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  facet_wrap(~slope, nrow = 1)
+
+
+#stacked bar plot
+ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity", 
+           position = position_dodge(width=0.5)) +
+  ylab("Frequency") + 
+  xlab("Sampling point") +
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+library(dplyr)
+library(ggplot2)
+library(extrafont)
+devtools::install_github('bart6114/artyfarty')
+library(artyfarty)
+
+vegSurvey <- vegSurvey %>%  mutate(sppInv= ifelse(veg_Type =="native",spp,spp*-1))
+
+# divergent plot
+
+ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
+  geom_bar(stat="identity",position="identity")+
+  xlab("sampling point")+ylab("number of species")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D"))+
+  coord_flip()+
+  geom_hline(yintercept=0)+
+  xlab("Sampling Points")+
+  ylab("Species number")+
+  scale_y_continuous(breaks = pretty(vegSurvey$sppInv),labels = abs(pretty(vegSurvey$sppInv)))+
+  theme_scientific()+
+  theme(strip.text.x = element_text(face = "bold"))
+
+# plot for both slopes using facetting
+
+ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
+  geom_bar(stat="identity",position="identity")+
+  facet_wrap(~slope)+xlab("sampling point")+ylab("number of species")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D"))+
+  coord_flip()+
+  geom_hline(yintercept=0)+
+  xlab("Sampling Points")+
+  ylab("Species number")+
+  scale_y_continuous(breaks = pretty(vegSurvey$sppInv),labels = abs(pretty(vegSurvey$sppInv)))+
+  theme_scientific()+
+  theme(strip.text.x = element_text(face = "bold"))
+
+#mosaic plot
+#for mosaic plots, need to use other package (ggmosaic) or add frequency column
+#for your choice variable
+
+require(reshape2)
+
+#get total native/invasive per site
+vegSurvey_veg_per_site <- dcast(vegSurvey, sampling_point+veg_Type~ "total_veg_per_site", sum, 
+                                value.var = "spp")
+vegSurvey_per_site <- dcast(vegSurvey, sampling_point ~ "total_per_site", sum, 
+                            value.var = "spp")
+vegSurvey_veg_per_site <- merge(vegSurvey_veg_per_site, vegSurvey_per_site)
+vegSurvey_veg_per_site$Proportion <- vegSurvey_veg_per_site$total_veg_per_site/
+  vegSurvey_veg_per_site$total_per_site
+
+ggplot(vegSurvey_veg_per_site, aes_string(x="sampling_point", y="Proportion")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency") + 
+  xlab("Sampling point") +
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
+
+#per slope
+vegSurvey_per_slope <- dcast(vegSurvey, sampling_point + slope~ "total_per_slope", sum, 
+                             value.var = "spp")
+vegSurvey <- merge(vegSurvey, vegSurvey_per_slope)
+vegSurvey$Proportion <- vegSurvey$spp/vegSurvey$total_per_slope
+
+ggplot(vegSurvey, aes_string(x="sampling_point", y="Proportion")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency") + 
+  xlab("Sampling point") +
+  ggtitle("Invasive and native species based on slope")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  facet_wrap(~slope, ncol=1)
+
+#numerical, numerical relationships
+#
+#scatter
+ggplot(iris, aes_string(y ="Petal.Length",x ="Sepal.Length")) + 
+  geom_point(aes_string(colour="Species"), size = 3) +
+  xlab("Sepal Length (cm)") + 
+  ylab("Petal Length (cm)") +
+  ggtitle("Relationship between sepal and petal lengths in irises")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#line
+#use airquality dataset for time series
+airquality$Date <- as.Date(paste(airquality$Month, airquality$Day, sep="/"), 
+                           format ="%m/%d" )
+ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+  geom_point(size = 3, col = "orange") +
+  xlab("Date") + 
+  ylab("Temperature (C)") +
+  ggtitle("Temperature over time")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+  geom_point(size = 3, col = "orange") +
+  geom_line() +
+  xlab("Date") + 
+  ylab("Temperature (C)") +
+  ggtitle("Temperature over time")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+  geom_point(size = 3, col = "orange") +
+  geom_line() +
+  xlab("Date") + 
+  ylab("Temperature (C)") +
+  ggtitle("Temperature over time")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#outliers and bad fits
+
+good_fit_x <- runif(100, 1, 50)
+good_fit_y <- rnorm(100,25,2)
+good_data <- data.frame(source = "good", x=good_fit_x, y=good_fit_y)
+bad_fit_x <- runif(10, 20, 30)
+bad_fit_y <- rnorm(10,95,1)
+bad_data <- data.frame(source = "outlier", x=bad_fit_x, y=bad_fit_y)
+all_data <- rbind (good_data, bad_data)
+
+#
+ggplot(all_data, aes_string(x ="x",y ="y")) + 
+  geom_point(aes_string(color="source"), size = 3) +
+  xlab("x") + 
+  ylab("y") +
+  ggtitle("Outliers can impact data")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+
+
 
 
