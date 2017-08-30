@@ -113,7 +113,53 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #barchart
+#
+#load function
+#
+### Summarizes data.
+## Gives count, mean, standard deviation, standard error of the mean, and confidence interval (default 95%).
+##   data: a data frame.
+##   measurevar: the name of a column that contains the variable to be summariezed
+##   groupvars: a vector containing names of columns that contain grouping variables
+##   na.rm: a boolean that indicates whether to ignore NA's
+##   conf.interval: the percent range of the confidence interval (default is 95%)
+summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
+                      conf.interval=.95, .drop=TRUE) {
+  library(plyr)
+  
+  # New version of length which can handle NA's: if na.rm==T, don't count them
+  length2 <- function (x, na.rm=FALSE) {
+    if (na.rm) sum(!is.na(x))
+    else       length(x)
+  }
+  
+  # This does the summary. For each group's data frame, return a vector with
+  # N, mean, and sd
+  datac <- ddply(data, groupvars, .drop=.drop,
+                 .fun = function(xx, col) {
+                   c(N    = length2(xx[[col]], na.rm=na.rm),
+                     mean = mean   (xx[[col]], na.rm=na.rm),
+                     sd   = sd     (xx[[col]], na.rm=na.rm)
+                   )
+                 },
+                 measurevar
+  )
+  
+  # Rename the "mean" column
+  #  datac <- rename(datac, c("mean" = measurevar))
+  
+  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
+  
+  # Confidence interval multiplier for standard error
+  # Calculate t-statistic for confidence interval:
+  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
+  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
+  datac$ci <- datac$se * ciMult
+  
+  return(datac)
+}
 
+#now use
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
                                c("Species"))
 
@@ -144,6 +190,7 @@ ggplot(iris[iris$Species == "versicolor",], aes_string("Species","Sepal.Length")
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#all species
 ggplot(iris, aes_string("Species","Sepal.Length")) + 
   geom_boxplot(aes_string(colour="Species"), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
@@ -157,7 +204,7 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
 
 #cdf
 
-par(cex = 2)
+par(cex = 1)
 versi <- ecdf(iris[iris$Species == "versicolor","Sepal.Length"])
 plot(versi, verticals = T, col = "red", main = "CDF of Sepal Length (cm)", 
      xlab = "Sepal length (cm)", ylab = "Cumulative relative frequencey")
@@ -196,6 +243,8 @@ ggplot(iris, aes_string("Sepal.Length")) +
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   facet_wrap(~Species, ncol = 1)
+
+#example of diverging, stacked, and mosaic graphs
 
 # long-form vegetation survey data from
 # http://luisdva.github.io/rstats/Diverging-bar-plots/
@@ -360,8 +409,11 @@ ggplot(iris, aes_string(y ="Petal.Length",x ="Sepal.Length")) +
 
 #line
 #use airquality dataset for time series
+#
 airquality$Date <- as.Date(paste(airquality$Month, airquality$Day, sep="/"), 
                            format ="%m/%d" )
+
+#just points
 ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
   geom_point(size = 3, col = "orange") +
   xlab("Date") + 
@@ -375,6 +427,7 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#points and line
 ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
   geom_point(size = 3, col = "orange") +
   geom_line() +
@@ -389,12 +442,36 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#more than one axis
+#for 1:1 transformation data (anything you can use a function to make on a similar
+#scale)
+#can add easily but not get scale
 ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
   geom_point(size = 3, col = "orange") +
   geom_line() +
+  geom_point(aes_string(y="Wind")) +
   xlab("Date") + 
   ylab("Temperature (C)") +
   ggtitle("Temperature over time")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#manually scale data and get secondary axis
+#have to aes to make tranformation (not aes_string)
+#put colour in quotes in aes to force legend
+ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+  geom_point(aes(col ="Temperature"), size = 3) +
+  geom_line(col="orange") +
+  geom_point(aes(y=Wind+50, col = "Wind speed")) +
+  scale_y_continuous(sec.axis = sec_axis(~.-50, name = "Wind (mph)")) +
+  xlab("Date") + 
+  ylab("Temperature (C)") +
+  ggtitle("Environmental measurements over time")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -413,7 +490,7 @@ bad_fit_y <- rnorm(10,95,1)
 bad_data <- data.frame(source = "outlier", x=bad_fit_x, y=bad_fit_y)
 all_data <- rbind (good_data, bad_data)
 
-#
+#just points
 ggplot(all_data, aes_string(x ="x",y ="y")) + 
   geom_point(aes_string(color="source"), size = 3) +
   xlab("x") + 
@@ -426,6 +503,38 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#curve and scatter
+ggplot(all_data, aes_string(x ="x",y ="y")) + 
+  geom_point(aes_string(color="source"), size = 3) +
+  geom_smooth(se = F) +
+  xlab("x") + 
+  ylab("y") +
+  ggtitle("Outliers can impact data")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#just curve
+ggplot(all_data, aes_string(x ="x",y ="y")) + 
+  geom_smooth(se = F) +
+  xlab("x") + 
+  ylab("y") +
+  ggtitle("Outliers can impact data")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+
 
 
 
