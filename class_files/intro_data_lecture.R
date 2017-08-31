@@ -85,8 +85,21 @@ getmode <- function(v) {
 
 abline(v=(getmode(putnam)), col="blue", lwd = 4)
 legend(x=32.5, y= .04, legend = c("mean", "median", "mode"), fill=c("red","green", 
-                                                             "blue"), cex = 1.5,
+                                                 
+                                                                                "blue"), cex = 1.5,
        bty="n", x.intersp = .1, y.intersp = .5)
+
+#bar chart issues
+hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R", 
+     xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
+     cex.main=title_size, cex.sub=label_size, col = "blue")
+x =hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R", 
+     xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
+     cex.main=title_size, cex.sub=label_size)
+plot(x$breaks[-9], x$counts, main = "Sepal Lengths, auto breaks with R", 
+     xlab = "\n Sepal Length (cm)", ylab = "Frequency", 
+     cex.lab=label_size, cex.axis=1.5, 
+     cex.main=title_size, cex.sub=label_size, col="blue", pch = 16, cex = 3)
 
 hist(iris$Sepal.Length, breaks=3, main = "Sepal length histogram, 3 breaks",
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
@@ -94,9 +107,8 @@ hist(iris$Sepal.Length, breaks=3, main = "Sepal length histogram, 3 breaks",
 hist(iris$Sepal.Length, breaks=10, main = "Sepal length histogram, 10 breaks",
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
-hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R", 
-     xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
-     cex.main=title_size, cex.sub=label_size, col = "blue")
+
+
 
 #getting real data
 #need to use ggplot2 for ease (will get to this later and typically use it)
@@ -204,9 +216,10 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
 
 #cdf
 
-par(cex = 1)
+par(cex = 2)
 versi <- ecdf(iris[iris$Species == "versicolor","Sepal.Length"])
-plot(versi, verticals = T, col = "red", main = "CDF of Sepal Length (cm)", 
+plot(versi, verticals = T, col = "red", 
+     main = "Cumulative frequency distribution  of Sepal Length (cm)", 
      xlab = "Sepal length (cm)", ylab = "Cumulative relative frequencey")
 seto <- ecdf(iris[iris$Species == "setosa","Sepal.Length"])
 plot(seto, add = T, col = "blue", verticals = T)
@@ -533,7 +546,41 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#transformations
 
+sample_data <- data.frame(x = rnorm (1000, 1, 1))
+sample_data$x_add <- sample_data$x+5
+
+ggplot(sample_data) + 
+  geom_histogram(aes(x =x, fill="x"), se = F) +
+  geom_histogram(aes(x = x_add, fill="x+5"), se = F)+
+  labs(fill="Data")+
+  xlab("x") + 
+  ylab("y") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=30),
+        axis.text.x  = element_text(size=30), 
+        legend.text =element_text(size=30),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+sample_data$x_multiply <- sample_data$x*5
+
+ggplot(sample_data) + 
+  geom_histogram(aes(x =x, fill="x"), se = F) +
+  geom_histogram(aes(x = x_multiply, fill="x*5"), se = F)+
+  labs(fill="Data")+
+  xlab("x") + 
+  ylab("y") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=30),
+        axis.text.x  = element_text(size=30), 
+        legend.text =element_text(size=30),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 
 
