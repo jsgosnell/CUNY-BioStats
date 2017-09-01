@@ -5,7 +5,7 @@
 ########################## Things to know about R (General information):
 
 # R is a programming language, and as such it can be annoying to use at first (steep
-#learngin curve). However,it's free, extremely powerful, and replicable (you can 
+#learning curve). However,it's free, extremely powerful, and replicable (you can 
 #send code (scripts, like this file, see below) to a colleague or student or use it again later. 
 #Compare this to walking someone through JMP steps). or updating analysis.
 #It's also very useful to be able to return to code months (or years) later
@@ -219,9 +219,13 @@ subset(x, x > 102)
 #One of the trickiest parts of R is getting the data in.  We'll use some of the built-in 
 #R datasets throughout class to show you how functions work, which also allows these
 #scripts be self contained, but here are a few ways to get data in.
-
+#
+#first, let's make a dataset. open excel, fill in the top row with 3 names (e.g., 
+#x,y,z) and then add a few rows of "data"
+#save this as a .csv file, then run
+#
 file <- file.choose()
-#this should open a popup window. select the provided file. note this is just making a path
+#this should open a popup window. select the file you created. note this is just making a path
 #to the file
 
 file
@@ -231,11 +235,10 @@ file
 my_dataset <- read.csv(file)
 
 # and thats it.  however, this is not a great way to grab data (or automate code).
-#you can also do
+#you can also put your path in directly, e.g., 
+#my_dataset <- read.csv("C:/Users/SGosnell/Desktop/Example data set.csv")
 
-my_dataset <- read.csv("C:/Users/SGosnell/Desktop/Example data set.csv")
-
-#try this using the provided file
+#you can try this using the file you made
 #for your own datasets, note you want to use short column titles and avoid spaces
 #(uses _ or SnakeCase).  You should also use "long format" (one observation per row)
 # and use .csv or .txt formats.  You should also remember R won't mix groups,
@@ -278,7 +281,12 @@ sapply(airquality, class)
 # a little more complicated. there are a set of commands that let you apply a command across
 # a vector. class is checkign for what type of variable R thinks you have put in (factor,integer,
 # or numeric).  lets assume you need to change a column (a common example is Trial is a
-# factor, not an integer). You can call up a column using the dollar sign
+# factor, not an integer). if you don't fix this R may run the wrong analyses (e.g.,
+# a regression when you want an ANOVA).  
+# 
+# You can call up a column using the dollar sign and change it 
+# to a transformed version of itself
+# NOTE NONE OF THIS IS CHANGING THE FILE YOU READ IN TO R!
 
 airquality$Month <- as.factor(airquality$Month)
 #similar commands exist (as.integer, as.numeric) for other classes.note how you use
@@ -354,16 +362,19 @@ summary(ozone_month_relationshipinteractions)
 Anova(ozone_month_relationshipinteractions, type  = "III")
 
 # Renaming and subsetting data
+# there are lots of ways to do this
 # What if we wanted to rename months to their normal names
+# factors have levels that you can change
 levels(airquality$Month)
 levels(airquality$Month) <- c("May","June", "July", "August", "September") 
 #above is a built-in way to do this, but we'll use relevel in class (later) as i
 #find its less prone to mistakes
 levels(airquality$Month)
 
-#alternatively, you can specifically change indiviudal names with
+#data frames have names(headers) you can change similarly
+#you can also specifically change indiviudal names or levels with
 names(airquality) #gives you column names
-names(airquality)[names(airquality) %in% "Month"] = "example_change"
+names(airquality)[names(airquality) %in% "Month"] = "example_change" # %in% looks for matches
 names(airquality)
 names(airquality)[names(airquality) %in% "example_change"] = "Month"
 
@@ -388,7 +399,11 @@ plot(Temp ~ Month, airquality)
 #note this is a box-whisker plot by default
 #remember, check out ?plot to see more advanced commands
 #par lets you set options to multiple plots at once
+#we'll get into this more in depth later, but the par command sets graphic details for
+#upcoming plots. mrfow says to set a 2x2 matrix for table, oma and mar set margins
+#don't worry too much about this now
 par(mfrow  = c(2,2), oma  = c(2,0,0,0), mar  = c(5,4,2,2))
+#notice we are subsetting data by month for the graph
 plot(Ozone ~ Temp, subset(airquality, Month == "June"),ylab  =  "Temperature",
      xlab  = "Ozone level (ppm))", main  = "June", xlim = c(60,100), ylim  = c(0, 175))
 plot(Ozone ~ Temp, subset(airquality, Month == "July"), xlab  = "", ylab  = "",
@@ -400,8 +415,7 @@ plot(Ozone ~ Temp, subset(airquality, Month == "September"), xlab  = "",
 mtext("Figure 1:  Ozone Levels for the Summer Months of 2001", 1, outer=T, cex=1.5, line=1)
 #later in the class we'll transition to using the ggplot2 package for plotting
 
-# what if we only cared about the impact of temperature on Ozone in July
-
+# what if we only cared about the impact of temperature on Ozone in July for models
 july <- lm(Ozone~Temp, subset(airquality, Month == "July"))
 summary(july)
 Anova(july, type = "III")
@@ -410,7 +424,7 @@ Anova(july, type = "III")
 #where the subset argument specifies rows and the select argument specifies columns,
 #or by using brackets like we did for vectors. The generla format is [rows, columns], like
 airquality[airquality$Month == "July",]
-# or you combine commands
+# or you combine commands, with & (and) or | (or) statements
 airquality[airquality$Month == "July" & airquality$Temp > 85,] #returns only days in June > 85
 airquality[airquality$Month == "July" | airquality$Temp > 85,] #returns  days in June and days > 85
 
@@ -418,6 +432,7 @@ airquality[airquality$Month == "July" | airquality$Temp > 85,] #returns  days in
 #for all rows where the month is July. you can also query by column name
 airquality[,"Month"]
 
+#note on sorting data
 #you can also use this to sort data
 airquality[order(airquality$Temp),]
 #order (used here to order rows) puts the dataframe in ascending order of temps.
