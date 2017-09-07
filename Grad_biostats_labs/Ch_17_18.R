@@ -182,6 +182,35 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
   return(datac)
 }
 
+
+#above is a user-defined function
+#
+##MORE ADVANCED CODE####
+
+## PROGRAMMING AND FLOW CONTROL####
+#	1. FOR loops
+
+for(x in 1:10){
+  print(x+1)
+}
+
+#	2. WHILE loops
+x<-1
+while(x<10){
+  print(x)
+  x<-x+x
+}
+
+#	3. Defining functions
+
+timestwo <- function (x) {
+  x+x
+}
+
+timestwo(12)
+
+timestwo(c(1,2,3,4))
+
 #this is better for unbalanced desing and really find the quantiles
 function_output <- summarySE(elephants_female_all, measurevar="girth_heart_cm", groupvars =
                                c("pop"))

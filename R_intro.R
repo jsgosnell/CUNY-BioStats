@@ -1,4 +1,4 @@
-##Introduction to R
+##INTRODUCTION TO R####
 #this is a broad introduction to how R works and what it can do
 #we'll return to individual topics in later classes (both theory and practice)
 
@@ -63,12 +63,16 @@
 # scripts and help you find missing brackets, parentheses, and other errors.
 # Other options include Revolution R
 # 
+# Rstudio also uses sections. Any line marked by at least 4 trailing #,-, or =
+# signs is labelled a section that you can collapse and that is added to the 
+# "label area" below
+# 
 # Using this exercise (in R) assumes you have a computer with R (and maybe Rstudio)
 # on it.  A good thing to do first is use an online program to introduce you the program.
 # CodeSchool has a free browser-based R trainer @
 #  http://tryr.codeschool.com/
 
-############################# Learning by doing: some r examples:
+# LEARNING BY DOING: SOME R EXAMPLES ####
 
 #remember
 #a # sign in front of a line means its not read by the program; its a note
@@ -89,7 +93,10 @@
 
 (2 + 2) * 2
 
-# that should be better.  Now let's make some objects
+# that should be better.  
+# 
+# INTRO TO OBJECTS####
+# Now let's make some objects#
 
 x <- 2
 
@@ -103,7 +110,8 @@ x
 #to see its value.  A few notes on naming things: follow styleguides by keeping it short,
 #simple, but descriptive.  Also try not to use an existing function name!
 
-#now lets go back to the class thing and use our first function
+#YOUR FIRST FUNCTION####
+#now lets go back to the class thing and use our first function#
 class(x)
 #class (above) is the first recognizable function you've used.  A function is a set of code
 #that has been given a name (saved as an  object).  The code states what type of input
@@ -190,7 +198,8 @@ x != y
 x < y
 x >= y
 
-# all of the above is relatively useless, but it will help you understand later parts
+# all of the above is relatively useless (you would never use R for these simple 
+# actions), but it will help you understand later parts
 
 # some useful functions
 
@@ -200,7 +209,7 @@ x <- rnorm( 1000, 1, 1)
 #used for in the function).  you can also write
 x <- rnorm (n = 1000, mean = 1, sd = 1)
 
-#basic ways of summarizing data
+#BASIC WAYS OF SUMMARING DATA####
 
 mean(x)
 var(x)
@@ -216,6 +225,7 @@ subset(x, x > 102)
 
 #now, lets play with real data and show how you might actually use this. 
 
+#GETTING DATA IN ####
 #One of the trickiest parts of R is getting the data in.  We'll use some of the built-in 
 #R datasets throughout class to show you how functions work, which also allows these
 #scripts be self contained, but here are a few ways to get data in.
@@ -237,8 +247,23 @@ my_dataset <- read.csv(file)
 # and thats it.  however, this is not a great way to grab data (or automate code).
 #you can also put your path in directly, e.g., 
 #my_dataset <- read.csv("C:/Users/SGosnell/Desktop/Example data set.csv")
+#
+#Note here: R is always "looking"somewhere for files - we call this place the working
+#directory. It's also where R will eventually save output.   You can check the working directory using
+getwd()
+#Files and folders in that location can be called directly.  You can change the 
+#working directory using the setwd() function. For example, I could also use
+#setwd("C:/Users/SGosnell/Desktop")
+#to change the working directory, then use
+#my_dataset <- read.csv("Example data set.csv") 
+#to call the file.  It's useful to set the working directory at the beginning 
+#of a script so you know where files R going and coming from.
 
-#you can try this using the file you made
+
+#you can try to call the file you made by specifying the location and/or working 
+#directory 
+
+#NOTES ON COLUMN NAMES####
 #for your own datasets, note you want to use short column titles and avoid spaces
 #(uses _ or SnakeCase).  You should also use "long format" (one observation per row)
 # and use .csv or .txt formats.  You should also remember R won't mix groups,
@@ -261,6 +286,7 @@ birds <- data.frame(greenness = greenness, habitat = habitat, date = date)
 
 ?read.csv
 
+#INITIAL DATA CHECKS####
 # its always good to make sure the data are in correctly. for today we'll be using the built in
 #airquality dataset
 
@@ -295,13 +321,14 @@ airquality$Month <- as.factor(airquality$Month)
 #alphabetical).  If you need to turn numbers from factors to numbers,
 #as.numeric(as.character(x)). the easier lesson is to name things rights to begin with
 
+# BASIC PLOTTING####
 # once your classes are set, let's do some basic plotting.  there are multiple 
 # plotting commands in r.  the simplest is plot.  You can plot by specifying x and 
 # y coordinates or by using a the formula setup.  In r, formulas are marked as
 # something ~ (explained by) something else)
 
 plot(airquality$Ozone, airquality$Temp)
-plot(Ozone~Solar.R, data <- airquality)
+plot(Ozone~Solar.R, data = airquality)
 plot(Ozone~Solar.R, airquality, type = "l")
 plot(Ozone~Month, airquality)
 
@@ -317,6 +344,7 @@ plot(Ozone~Temp, airquality, col=airquality$Month)
 
 #We'll be introducing another graphing package, ggplot2, later this semester
 
+#FORMULAS AND TESTS####
 # Now lets do some basic analyses.  the easiest way to do this is using linear models (a more general description
 # for regression, t-tests, ANOVAs, ANCOVAs.  If you prefer there are commands that specifically do these only
 
@@ -330,6 +358,7 @@ summary(ozone_month_relationship)
 #or we can get traditional p values (don't worry if you don't know/remember what 
 #these are).  we need to install a package to do this.
 
+#FUNCTIONS FROM NON-BASIC PACKAGES####
 #Illustrating help function:  Let's say you need to use a function but when you run it  you get an error like this
 
 Anova(ozone_month_relationship, type = "III") #could not find function
@@ -345,7 +374,12 @@ Anova(ozone_month_relationship, type = "III") #could not find function
 # start up files).  just type
 
 require(car)
-#require is better than library function
+#require is better than library function. Packages are "stored" in your library 
+#location. You can set and see this using the .libPaths() function
+.libPaths()
+#Adding a file location in the parentheses makes that a library location.  This 
+#isn't necessary on school computers, but on your own machine you may want different 
+#locations for versions of R if you stick with this.
 
 Anova(ozone_month_relationship, type = "III") #always specify type 3, else order 
 #matters for the model. we'll get to this later
@@ -361,7 +395,7 @@ ozone_month_relationshipinteractions <- lm(Ozone ~ Month * Temp, airquality)
 summary(ozone_month_relationshipinteractions)
 Anova(ozone_month_relationshipinteractions, type  = "III")
 
-# Renaming and subsetting data
+# RENAMING, SUBSETTING, AND SORTING DATA####
 # there are lots of ways to do this
 # What if we wanted to rename months to their normal names
 # factors have levels that you can change
@@ -438,30 +472,4 @@ airquality[order(airquality$Temp),]
 #order (used here to order rows) puts the dataframe in ascending order of temps.
 #in general, order returns the index (row number) neeed to put the dataset in ascending order,
 #while sort returns the value itself
-
-#More advanced code, may be of use later, here now for notes
-
-## PROGRAMMING AND FLOW CONTROL
-#	1. FOR loops
-
-for(x in 1:10){
-	print(x+1)
-}
-
-#	2. WHILE loops
-x<-1
-while(x<10){
-	print(x)
-	x<-x+x
-}
-
-#	3. Defining functions
-
-timestwo <- function (x) {
-	x+x
-}
-
-timestwo(12)
-
-timestwo(c(1,2,3,4))
 
