@@ -348,3 +348,92 @@ ggplot(monthly_wind_data
   ylim(c(0,13.2)) #watch for truncated axes!
 
 #probabilty####
+#
+die_roll <- data.frame(Number = 1:6, Probability = rep(1/6,6))
+ggplot(die_roll, aes_string(x="Number", y= "Probability")) +
+  geom_col(color = "orange", fill="orange") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+#normal curve
+ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1), size = 3, color = "orange") + 
+  ylab("Probablity") +
+  xlab("")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#fill in portion
+#https://dkmathstats.com/plotting-normal-distributions-in-r-using-ggplot2/
+# Shading from x = -1 to x = 1 (within one std deviation):
+
+dnorm_one_sd <- function(x){
+  norm_one_sd <- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_one_sd[x <= -1 | x >= 1] <- NA
+  return(norm_one_sd)
+}
+
+ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1), size = 3, color = "orange") + 
+  stat_function(fun = dnorm_one_sd, geom = "area", fill = "purple") +
+  ylab("Probablity") +
+  xlab("")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#rolling 2 die simulation
+number_of_rolls <- 1000
+sum_of_rolls <- data.frame(index = 1:number_of_rolls, Sum = NA)
+for (i in 1:number_of_rolls){
+  dice_roll_trial <- sample(1:6, size = 2, replace = TRUE)
+  sum_of_rolls$Sum[i] <- sum(dice_roll_trial)
+}
+ggplot(sum_of_rolls, aes_string(x="Sum")) +
+  geom_histogram(color = "orange", fill="orange") +
+  ylab("Frequency") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#use larger number to approximate discrete distribution
+require(reshape2)
+number_of_rolls <- 100000
+sum_of_rolls <- data.frame(index = 1:number_of_rolls, Sum = NA)
+for (i in 1:number_of_rolls){
+  dice_roll_trial <- sample(1:6, size = 2, replace = TRUE)
+  sum_of_rolls$Sum[i] <- sum(dice_roll_trial)
+}
+sum_of_rolls_df <- dcast(sum_of_rolls, Sum ~ "Probability", length )
+sum_of_rolls_df$Probability <- sum_of_rolls_df$Probability/number_of_rolls
+ggplot(sum_of_rolls_df, aes_string(x="Sum", y="Probability")) +
+  geom_col(color = "orange", fill="orange") +
+  ylab("Probability") +
+  scale_x_continuous(breaks = c(2:12))+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))

@@ -71,7 +71,10 @@ while(x<10){
 #while loops evaluate a statement instead of going through a list.
 #
 #We're discussing this because below is a function I'll provide for makign barcharts.
-#If you run it once, it will be available throughout an R session
+#If you run it once, it will be available throughout an R session.  You can select the lines and run them.
+#Another option is to copy (and keep) functions in a separate script that you "source" at the beginning of
+#an R session. You can do this by manually opening file and selecting source button or by using the source()
+#function.  Source means runs the entire script.
 #
 #summarySE function####
 ### Summarizes data.
@@ -190,6 +193,10 @@ ggplot(monthly_wind_data
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   ylim(c(0,13.2)) #watch for truncated axes!
 
+#let's practice source again by opening the central_limit_theorem.R script from
+#the Examples folder on github, sourcing it, and looking at the plots it produce. 
+#Note they show how going from samples of 1 to higher numbers increases the ability of 
+#the means of data from distributions of multiple shapes to approach normality.  
 
 
 
