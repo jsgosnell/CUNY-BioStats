@@ -37,6 +37,25 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      ylab = "Probability of being drawn \n from population of p = 0.5", 
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
+#how often do we see DEVIATION as larger as 14 away
+#using our sample
+length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 6])/
+  length(sampling_experiment)
+
+sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
+sampling_experiment_df$group <- "normal"
+sampling_experiment_df[sampling_experiment_df$Right.Handed >=14 | 
+                         sampling_experiment_df$Right.Handed <= 6, "group"] <- "extreme"
+require(ggplot2)
+ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
+  geom_histogram(aes_string(fill="group"), size=3)
+
+
+
+
+
+
+
 #getting the distribution
 using_distribution = dbinom(0:20,20,.5)
 using_distribution

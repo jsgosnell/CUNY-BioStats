@@ -44,7 +44,7 @@ dreaming_sleep_relationship <- ggplot(sleep, aes_string(x="TotalSleep", y = "Dre
 #Now call the ggplot object you created
 dreaming_sleep_relationship
 #Nothing plots except the axes. Now you have to add layers. For example, you can add points
-dreaming_sleep_relationship <- plot_layers + 
+dreaming_sleep_relationship <- ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) + 
   geom_point()
 dreaming_sleep_relationship
 #Note here I'm saving the object, so to see it I call it. You can also just call directly
