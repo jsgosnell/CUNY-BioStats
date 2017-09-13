@@ -1,4 +1,4 @@
-#from second class
+#plots from 2. Estimation and probability.ppt
 
 
 #create "population" of males

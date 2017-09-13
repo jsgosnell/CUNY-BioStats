@@ -1,3 +1,6 @@
+#this file produces a series of graphs to consider how means of sample date 
+#from various types of distributions converge towards a normal distribution
+
 #normal
 n=c(1,5,10,20,40,80)
 means=1:9000

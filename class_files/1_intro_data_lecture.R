@@ -1,4 +1,4 @@
-#from first class
+#plots from 1. Intro.ppt
 iris
 
 #note hist is odd with cex
