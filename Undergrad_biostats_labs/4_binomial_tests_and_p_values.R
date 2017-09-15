@@ -39,6 +39,14 @@ sampling_experiment = rbinom(10000, 40, .02)
 length(sampling_experiment[sampling_experiment >= 3])/
   length(sampling_experiment)
 
+#confidence intervals####
+#binom.test will provide basic but flawed confidence intervals.  To use the Agresti Coules method 
+# we discussed in class, use binom.confint() from the binom package
+#confidence interval
+require(binom)
+binom.confint(x=3, n=40, alpha=.05, method="all")
+#This provides a number of confidence intervals, including the Agresti Coules correction.
+
 #Bayesian considerations
 #Now that we've developed confidence interval and p-values, lets reconsider how
 #Bayesians differ using the classic Monty Hall question and some code.
