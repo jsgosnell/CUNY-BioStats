@@ -60,10 +60,10 @@ for (j in 1:length(n)){
 #binomial
 n=c(1,5,10,20,40,80)
 means=1:9000
-par(mfrow=c(2,3), ask=F)
+par(mfrow=c(2,3), oma = c(3,2,2,2), ask=F)
 for (j in 1:length(n)){
   for (i in 1:length(means)){
-    means[i]=mean(rbinom(n=n[j], 100, .7))
+    means[i]=mean(rbinom(n=n[j], 1, .7))
   }
   hist(means, main=paste("Binomial, n = ",n[j], sep = ""), col = "orange")
 }

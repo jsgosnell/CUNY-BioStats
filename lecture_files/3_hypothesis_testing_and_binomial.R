@@ -4,7 +4,7 @@
 #get one sample####
 #
 par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(1, 20, .5)
+sampling_experiment = rbinom(1, 18, .5)
 hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      xlab = "# of Right-handed frogs out of 20", 
      ylab = "Probability of being drawn \n from population of p = 0.5", 
@@ -12,6 +12,7 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
 
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
+require(ggplot2)
 ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
   geom_bar(size=3, width = 1, fill="orange")+
   xlim(0,20) +
@@ -33,9 +34,9 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
 #get two samples####
 
 par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(2, 20, .5)
+sampling_experiment = rbinom(2, 18, .5)
 hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 20", 
+     xlab = "# of Right-handed frogs out of 18", 
      ylab = "Probability of being drawn \n from population of p = 0.5", 
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
@@ -60,9 +61,9 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
 
 #get three samples####
 par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(3, 20, .5)
+sampling_experiment = rbinom(3, 18, .5)
 hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 20", 
+     xlab = "# of Right-handed frogs out of 18", 
      ylab = "Probability of being drawn \n from population of p = 0.5", 
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
@@ -86,7 +87,7 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
 
 #get 10,000  samples####
 par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(10000, 20, .5)
+sampling_experiment = rbinom(10000, 18, .5)
 hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      xlab = "# of Right-handed frogs out of 20", 
      ylab = "Probability of being drawn \n from population of p = 0.5", 
@@ -112,13 +113,13 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
 
 #how often do we see DEVIATION as larger as 14 away####
 #using our sample
-length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 6])/
+length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 4])/
   length(sampling_experiment)
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
 sampling_experiment_df$group <- "normal"
 sampling_experiment_df[sampling_experiment_df$Right_Handed >=14 | 
-                         sampling_experiment_df$Right_Handed <= 6, "group"] <- "extreme"
+                         sampling_experiment_df$Right_Handed <= 4, "group"] <- "extreme"
 
 ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
   geom_bar(aes_string(fill="group"), size=3, bins = 20)+
@@ -140,15 +141,15 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
 
 
 #using the binomial distribution####
-using_distribution = dbinom(0:20,20,.5)
+using_distribution = dbinom(0:18,18,.5)
 using_distribution
 sum(using_distribution)
-Number_righthanded = c(0:20)
+Number_righthanded = c(0:18)
 pdf = data.frame(Number_righthanded, using_distribution)
-plot(0:20, using_distribution)
+plot(0:18, using_distribution)
 #for all plots, R takes a best guess at the best type of plot; you can also
 #direct it with the type command.  ?plot for more info
-barplot(using_distribution, xlab = "# of Right-handed frogs out of 20", ylab = "Probability of being drawn from population of p = 0.5" )
+barplot(using_distribution, xlab = "# of Right-handed frogs out of 18", ylab = "Probability of being drawn from population of p = 0.5" )
 
 ggplot(pdf, aes_string(x="Number_righthanded", y="using_distribution")) + 
   geom_bar(size=1, width = 1, fill="orange", color="black", stat = "identity")+
@@ -168,10 +169,10 @@ ggplot(pdf, aes_string(x="Number_righthanded", y="using_distribution")) +
 
 
 #probability of 14 or more####
-(1-sum(dbinom(0:13,20,.5))) * 2
+(1-sum(dbinom(0:13,18,.5))) * 2
 #multiply by 2 since symmetrical
 #or
-(1-pbinom(13,20,.5)) * 2
+(1-pbinom(13,18,.5)) * 2
 #remember the one comes from the fact the entire distribution must sum to 1
 #or
 #using our sample
@@ -179,7 +180,7 @@ length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 6]
   length(sampling_experiment)
 
 #binomial test####
-binom.test(x=14, n=20, p=.5)
+binom.test(x=14, n=18, p=.5)
 
 #explaining sided tests####
 
