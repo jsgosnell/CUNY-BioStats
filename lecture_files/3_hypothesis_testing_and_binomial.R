@@ -273,6 +273,30 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#pvalues are uniformly distributed####
+#example
+num_of_samples <- 10000
+pvalue <- data.frame(sample = 1:num_of_samples, pvalue=NA)
+for (i in 1:num_of_samples){
+  x <- rnorm(100)
+  pvalue$pvalue[i] <- t.test(x,u=0)$p.value
+}
+
+ggplot(pvalue, aes_string(x="pvalue"))+
+  geom_histogram()+
+  ylab("Frequency") +
+  xlab("")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+  
+
 
 #radiologist example####
 binom.test( 30, 87, .512)

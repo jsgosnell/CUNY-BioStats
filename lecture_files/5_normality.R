@@ -87,7 +87,7 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  geom_vline(xintercept = .56, color = "blue")
+  geom_vline(xintercept = -.56, color = "blue")
 
 #normal
 n=c(1,5,10,20,40,80)
