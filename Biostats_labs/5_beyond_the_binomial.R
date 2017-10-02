@@ -3,6 +3,7 @@
 ##days of weeks births####
 ##
 ##
+##chisq test####
 days_of_week_births <- data.frame(Days = c("Sunday", "Monday", "Tuesday", 
                                            "Wednesday", "Thursday", "Friday", 
                                            "Saturday"), Births = 
@@ -94,13 +95,13 @@ results <- chisq.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 results$expected
 results
 
-#fisher's exact test
+#fisher's exact test####
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 
 #wren example
 chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 fisher.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 
-#gtest
+#gtest####
 require(DescTools)
 GTest(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
