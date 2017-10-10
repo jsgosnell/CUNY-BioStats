@@ -99,9 +99,23 @@ results
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 
 #wren example
-chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T)) #warning
+chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))$expected
 fisher.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 
 #gtest####
 require(DescTools)
 GTest(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+
+#what about more categories
+#is smoking independent of exercise
+#http://www.r-tutor.com/elementary-statistics/goodness-fit/chi-squared-test-independence
+smoke <- chisq.test(matrix(c(7, 1, 3, #spacing just for visual use
+                    87,18,84,
+                    12,3,4,
+                    9,1,7), nrow = 4, byrow = T))
+smoke$expected #too small!
+fisher.test(matrix(c(7, 1, 3, #spacing just for visual use
+                    87,18,84,
+                    12,3,4,
+                    9,1,7), nrow = 4, byrow = T))

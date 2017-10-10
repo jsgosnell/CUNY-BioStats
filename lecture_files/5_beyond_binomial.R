@@ -129,7 +129,7 @@ ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#everest 
+#everest ####
 everest <- data.frame(Survived = c("Y","N","Y", "N"),
                       Oxygen = c("Used", "Used", "Not used", "Not used"),
                       Number = c(1045, 32, 88, 8))
@@ -166,7 +166,8 @@ ggplot(everest, aes_string(x= "Survived", y = "Proportion")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-
+#each row is group
+#does survival dependon oxygen use?
 results <- chisq.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 results$expected
 results
@@ -175,9 +176,12 @@ results
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 
 #wren example
+#does song depend on DNA
 chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 fisher.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 
 #gtest
 require(DescTools)
+
+
 GTest(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
