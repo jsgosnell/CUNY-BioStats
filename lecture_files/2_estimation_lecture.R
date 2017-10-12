@@ -5,12 +5,12 @@
 
 population_size <- 10000
 set.seed(42)
-population <- data.frame(id = 1:population_size, 
+population_norm <- data.frame(id = 1:population_size, 
                          height = rnorm(population_size, 70, 3))
 
 require(ggplot2)
 
-ggplot(population, aes_string("height")) + 
+ggplot(population_norm, aes_string("height")) + 
   geom_histogram(size=3) +
   xlab("Height (in)")+
   ylab("Frequency")+
@@ -26,7 +26,7 @@ ggplot(population, aes_string("height")) +
 
 #sample a 100 of these
 
-sample_1 <- population[sample(nrow(population), 100),]
+sample_1 <- population_norm[sample(nrow(population_norm), 100),]
 ggplot(sample_1, aes_string("height")) + 
   geom_histogram(size=3) +
   xlab("Height (in)")+
@@ -48,7 +48,7 @@ number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
 for (i in 1:number_of_samples){
-  sample_1 <- population[sample(nrow(population), 100),]
+  sample_1 <- population_norm[sample(nrow(population_norm), 100),]
   sample_outcomes$mean[i] <- mean(sample_1$height)
   sample_outcomes$sd[i] <- sd(sample_1$height)
   
@@ -76,7 +76,7 @@ number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
 for (i in 1:number_of_samples){
-  sample_1 <- population[sample(nrow(population), 20),]
+  sample_1 <- population_norm[sample(nrow(population_norm), 20),]
   sample_outcomes$mean[i] <- mean(sample_1$height)
   sample_outcomes$sd[i] <- sd(sample_1$height)
   
@@ -104,7 +104,7 @@ number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
 for (i in 1:number_of_samples){
-  sample_1 <- population[sample(nrow(population), 5),]
+  sample_1 <- population_norm[sample(nrow(population_norm), 5),]
   sample_outcomes$mean[i] <- mean(sample_1$height)
   sample_outcomes$sd[i] <- sd(sample_1$height)
   
@@ -151,8 +151,8 @@ ggplot(population_unif, aes_string("height")) +
 
 #sample a 100 of these
 
-sample_unif_1 <- population[sample(nrow(population_unif), 100),]
-ggplot(sample_1, aes_string("height")) + 
+sample_unif_1 <- population_unif[sample(nrow(population_unif), 100),]
+ggplot(sample_unif_1, aes_string("height")) + 
   geom_histogram(size=3) +
   xlab("Height (in)")+
   ylab("Frequency")+
@@ -172,7 +172,7 @@ number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
 for (i in 1:number_of_samples){
-  sample_unif_1 <- population[sample(nrow(population_unif), 100),]
+  sample_unif_1 <- population_unif[sample(nrow(population_unif), 100),]
   sample_outcomes$mean[i] <- mean(sample_unif_1$height)
   sample_outcomes$sd[i] <- sd(sample_unif_1$height)
   
@@ -193,12 +193,13 @@ ggplot(sample_outcomes, aes_string("mean")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #error bars in practice
+#back to our normal population of males
 #using 2 se as rule of thumb
 number_of_samples <- 20
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA, se = NA)
 
 for (i in 1:number_of_samples){
-  sample_1 <- population[sample(nrow(population), 100),]
+  sample_1 <- population_norm[sample(nrow(population_norm), 100),]
   sample_outcomes$mean[i] <- mean(sample_1$height)
   sample_outcomes$sd[i] <- sd(sample_1$height)
   sample_outcomes$se <- sd(sample_1$height)/sqrt(100)
@@ -228,7 +229,7 @@ number_of_samples <- 1
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA, se = NA)
 
 for (i in 1:number_of_samples){
-  sample_1 <- population[sample(nrow(population), 100),]
+  sample_1 <- population_norm[sample(nrow(population_norm), 100),]
   sample_outcomes$mean[i] <- mean(sample_1$height)
   sample_outcomes$sd[i] <- sd(sample_1$height)
   sample_outcomes$se <- sd(sample_1$height)/sqrt(100)
