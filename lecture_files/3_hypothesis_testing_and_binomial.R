@@ -285,7 +285,7 @@ for (i in 1:num_of_samples){
 ggplot(pvalue, aes_string(x="pvalue"))+
   geom_histogram()+
   ylab("Frequency") +
-  xlab("")+
+  xlab("Observed p-value for population that fits null hypothesis")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
