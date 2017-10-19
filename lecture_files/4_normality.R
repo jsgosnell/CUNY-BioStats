@@ -79,11 +79,13 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#show where .56 lies on t distribution #####
+#temperature example####
+#show where -1.679 lies on t distribution #####
+qt(.975,9)
 dt_one_sd <- function(x, df){
   norm_one_sd <- dt(x, df)
   # Have NA values outside interval x in [-1, 1]:
-  norm_one_sd[x <= -2.06 | x >= 2.06] <- NA
+  norm_one_sd[x <= -2.26 | x >= 2.262] <- NA
   return(norm_one_sd)
 }
 ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
@@ -101,6 +103,7 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #add vline to show sample value####
+
 ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
   stat_function(fun = dt, n = 101, args = list( df= 24), size = 3, fill = "purple",
                 geom = "area") +
@@ -114,7 +117,7 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  geom_vline(xintercept = -.56, color = "blue")
+  geom_vline(xintercept = -1.679, color = "blue")
 
 #bootstrap in action
 #back to our fake uniform distributin from the estimation_lecture

@@ -39,7 +39,7 @@ birds <- rbeta(10000,70,5)
 hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
      ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
      cex.main=title_size, cex.sub=label_size)
- 
+
 #bimodal data
 putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
 hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
@@ -582,9 +582,18 @@ ggplot(sample_data) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-
-
-
-
-
+#shift them left
+summary(birds)
+length(birds[birds < .9])
+birds[birds < .9] <- birds[birds < .9] - .2
+hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+abline(v=mean(birds), col="yellow", lwd = 4)
+abline(v=median(birds), col="green", lwd = 4)
+abline(v=(getmode(birds)), col="blue", lwd = 4)
+legend(x=.75, y= 1000, legend = c("mean", "median", "mode"), fill=c("yellow","green", 
+                                                                    
+                                                                    "blue"), cex = 1.5,
+       bty="n", x.intersp = .1, y.intersp = .5)
 
