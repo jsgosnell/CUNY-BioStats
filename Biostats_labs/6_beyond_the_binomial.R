@@ -1,6 +1,29 @@
-#graphs and tables from Beyond the Binomial lecture
+#multiple category binomial tests/goodness of fit tests
+
+#Let's consider heart attack incidences in the US.  Read in the data from 
+#http://statland.org/R/R/heartatk4R.txt", header=T.  
 #
-##days of weeks births####
+#heart<-read.table("http://statland.org/R/R/heartatk4R.txt", header=T)
+head(heart)
+str(heart)
+
+#lets test if heart attacks occur equally across genders, assuming 50% split in population
+#how to get tabular data?
+table(heart$SEX)
+chisq.test(table(heart$SEX))
+#same as
+chisq.test(c(5065,7779))
+#same as
+chisq.test(c(5065,7779), p=c(.5,.5))
+chisq.test(table(heart$SEX), p=c(.5,.5))#same as
+#but we prefer 
+#binom.test(5065, 5065+7779, .5) #why? chi-square is normal approximation
+
+
+
+
+
+#days of weeks births####
 ##
 ##
 ##chisq test####
@@ -115,7 +138,7 @@ smoke <- chisq.test(matrix(c(7, 1, 3, #spacing just for visual use
                     12,3,4,
                     9,1,7), nrow = 4, byrow = T))
 smoke$expected #too small!
-fisher.test(matrix(c(7, 1, 3, #spacing just for visual use
+fisher.test(matrix(c(7, 1, 3, #spacing just for visuals
                     87,18,84,
                     12,3,4,
                     9,1,7), nrow = 4, byrow = T))
