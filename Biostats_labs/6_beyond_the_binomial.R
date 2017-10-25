@@ -3,9 +3,10 @@
 #Let's consider heart attack incidences in the US.  Read in the data from 
 #http://statland.org/R/R/heartatk4R.txt", header=T.  
 #
-#heart<-read.table("http://statland.org/R/R/heartatk4R.txt", header=T)
+heart<-read.table("http://statland.org/R/R/heartatk4R.txt", header=T)
 head(heart)
 str(heart)
+
 
 #lets test if heart attacks occur equally across genders, assuming 50% split in population
 #how to get tabular data?
@@ -17,118 +18,57 @@ chisq.test(c(5065,7779))
 chisq.test(c(5065,7779), p=c(.5,.5))
 chisq.test(table(heart$SEX), p=c(.5,.5))#same as
 #but we prefer 
-#binom.test(5065, 5065+7779, .5) #why? chi-square is normal approximation
-
-
-
-
-
-#days of weeks births####
-##
-##
-##chisq test####
-days_of_week_births <- data.frame(Days = c("Sunday", "Monday", "Tuesday", 
-                                           "Wednesday", "Thursday", "Friday", 
-                                           "Saturday"), Births = 
-                                    c(33,41,63,63,47,56,47))
-
-#can input p for each category, or it assumes equal
-chisq.test(days_of_week_births$Births)
-chisq.test(days_of_week_births$Births, p= rep(1/7, 7))
-
-#soccer goals ####
-soccer_goals <- data.frame(Number_of_goals = factor(0:8), Occurences = 
-                                    c(37,47,27,13,2,1,0,0,1))
-
-ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
-  geom_col(fill = "orange") +
-  xlab("Number of goals") +
-  ylab("Occurences") +
-  ggtitle("Goals scored per game in 2002 World Cup") +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-mu <- sum(as.numeric(as.character(soccer_goals$Number_of_goals)) * soccer_goals$Occurences) /
-  sum(soccer_goals$Occurences)
-
-soccer_goals$Expected_prob <- (exp(-mu) *mu^as.numeric(as.character(soccer_goals$Number_of_goals))) /
-                            factorial(as.numeric(as.character(soccer_goals$Number_of_goals)))
-soccer_goals$Expected_actual <- soccer_goals$Expected_prob * sum(soccer_goals$Occurences)
-
-
-#could reshape and add legend, but maybe later
-ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
-  geom_col(fill = "orange", color = "orange") + 
-  geom_point(aes_string(y="Expected_actual"), color = "blue", size = 3) +
-  xlab("Number of goals") +
-  ylab("Occurences") +
-  ggtitle("Goals scored per game in 2002 World Cup") +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-#everest 
-everest <- data.frame(Survived = c("Y","N","Y", "N"),
-                      Oxygen = c("Used", "Used", "Not used", "Not used"),
-                      Number = c(1045, 32, 88, 8))
-#mosaic plot####
+binom.test(5065, 5065+7779, .5) #why? chi-square is normal approximation
 #
-ggplot(everest, aes_string(x= "Survived", y = "Number")) +
-  geom_col(aes_string(fill = "Oxygen")) + 
-  xlab("Survived?") +
-  ylab("Occurences") +
-  ggtitle("Oxygen use impacts Everest descent outcomes") +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-#make a mosaic
-require(reshape2)
-number_oxygen <- dcast(everest, Survived ~ "total_per_group", value.var = "Number", sum)
-everest <- merge (everest, number_oxygen)
-everest$Proportion <- everest$Number/everest$total_per_group
-ggplot(everest, aes_string(x= "Survived", y = "Proportion")) +
-  geom_col(aes_string(fill = "Oxygen")) + 
-  xlab("Survived?") +
-  ylab("Proportion") +
-  ggtitle("Oxygen use impacts Everest descent outcomes") +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+#we need chi-squared test when we have more than 2 categories####
+#example: what actually led to the heart attack
+#diagnosis tells which part of hear was affected, so lets use that as a proxy
+#change diagnosis to a factor
+heart$DIAGNOSIS <- as.factor(heart$DIAGNOSIS)
+summary(heart$DIAGNOSIS)
+#without knowing what these represent, are they distributed equally among the groups?
+chisq.test(summary(heart$DIAGNOSIS))
+# same as
+chisq.test(summary(heart$DIAGNOSIS), p = c(rep(1/nlevels(heart$DIAGNOSIS), nlevels(heart$DIAGNOSIS))))
+#not equally spread out
+#
+#also need to test independence among groups####
+#is there a relationship between gender and diagnosis?
+table(heart$SEX, heart$DIAGNOSIS)
+chisq.test(table(heart$SEX, heart$DIAGNOSIS)) 
+#p = .0022
+#what does this mean?
 
 
-results <- chisq.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
-results$expected
+#but chisquared test isn't appropriate from small sample sizes
+#whats the split in people under 30?
+table(heart[heart$AGE<30,]$SEX, heart[heart$AGE<30,]$DIAGNOSIS)
+#same as
+table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
+
+chisq.test(table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"]))
+
+#instead, use fisher.test
+fisher.test(table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"]))
+#what are your results? what do they mean?
+
+#putting data in manually
+#requires matrix command
+#each row is group, so put in by row, specify number of rows, and put byrow = T
+table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
+#becomes
+results <- fisher.test(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
+                                    2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))
+
+#if you save object you can call p-value
 results
-
-#fisher's exact test####
-fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
-
-#wren example
-chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T)) #warning
-chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))$expected
-fisher.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+#and expected values
+results$expected
 
 #gtest####
 require(DescTools)
-GTest(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+GTest(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
+                       2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))
 
 #what about more categories
 #is smoking independent of exercise
