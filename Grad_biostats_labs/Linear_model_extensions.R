@@ -108,6 +108,25 @@ Anova(fit, type="III")
 
 
 #what if linear model doesn't seem correct
+#
+
+#what if the outcome isn't numerical
+#generalized linear model
+
+#aka,logistic regression
+#use glm command (instead or arcsin transform!)
+anthrax <- read.csv("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/anthrax.csv")
+head(anthrax)
+#we have to put data in success/failure set
+logistic_fit <- glm(cbind(survived, died)~ anthraxConcentration, anthrax, family=binomial)
+summary(logistic_fit)
+Anova(logistic_fit, type="III") # notice we switched to a deviance table
+#data can also be put in for each individual (just as 1/0)
+#you should really check dispersion here to make sure data isn't over-dispered
+
+#see ?glm for other parameters, but most common other form is poisson for count data
+#poisson_fit=glm(y~x1+x2, data, family=possion)
+
 #glm or glmer for mixed effects
 #put these together
 #data on cervical lenth of deer
