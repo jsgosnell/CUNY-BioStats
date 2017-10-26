@@ -1,4 +1,4 @@
-#sleep vs gestation####
+#lifespan vs gestation####
 #
 require(ggplot2)
 sleep <- read.csv("http://www.jstephengosnell.com/teaching-resources/datasets/sleep.csv?attredirects=0&d=1")
