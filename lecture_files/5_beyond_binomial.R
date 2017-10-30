@@ -87,7 +87,11 @@ chisq.test(days_of_week_births$Births, p= rep(1/7, 7))
 1-pchisq(15.05,6,1/7)
 chisq.test(days_of_week_births$Births, p= rep(1/7, 7), simulate.p.value = T, B=10,000)
 
-
+#sons example####
+chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3), 
+           rescale.p = T)
+#without rescaling
+chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3)/2444)
 
 #soccer goals ####
 soccer_goals <- data.frame(Number_of_goals = factor(0:8), Occurences = 
@@ -106,11 +110,16 @@ ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#this is messier than usual for mean due to table structure
 mu <- sum(as.numeric(as.character(soccer_goals$Number_of_goals)) * soccer_goals$Occurences) /
   sum(soccer_goals$Occurences)
 
+#calcuting expected probabilites manually
 soccer_goals$Expected_prob <- (exp(-mu) *mu^as.numeric(as.character(soccer_goals$Number_of_goals))) /
                             factorial(as.numeric(as.character(soccer_goals$Number_of_goals)))
+#using functions
+expected_prob <- dpois(0:8, mu)
+
 soccer_goals$Expected_actual <- soccer_goals$Expected_prob * sum(soccer_goals$Occurences)
 
 
@@ -129,7 +138,39 @@ ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#to test
+chisq.test(soccer_goals$Occurences, p = soccer_goals$Expected_actual, rescale.p = T)
+#same as
+soccer_goals_test <- chisq.test(soccer_goals$Occurences, p = dpois(0:8, mu),
+                                rescale.p = T)
+#what assumptions did we violate?
+soccer_goals_test$expected
+
+#to fix this
+soccer_goals_combined <- soccer_goals[1:5,1:2]
+soccer_goals_combined
+#just add 4th manually (could code)
+soccer_goals_combined[5,2] <-sum(soccer_goals[5:9,2])
+soccer_goals_combined
+#find new mu
+mu <- sum(as.numeric(as.character(soccer_goals_combined$Number_of_goals)) * 
+            soccer_goals_combined$Occurences) /
+  sum(soccer_goals_combined$Occurences)
+#run new test
+##have to rescale to catch everything above this; could also add up to some 
+##larger number to be more accurate
+chisq.test(soccer_goals_combined$Occurences, p = dpois(0:4, mu), 
+           rescale.p = T)
+#or (more accurate)
+chisq.test(soccer_goals_combined$Occurences, p = c(dpois(0:3, mu), 
+                                                   1 - ppois(3, mu)))
+#check assumptions           
+chisq.test(soccer_goals_combined$Occurences, p = c(dpois(0:3, mu), 
+                                                   1 - ppois(3, mu)))$expected
+#looks ok (<20% of groups <5)
+
 #everest ####
+#make a data frame for ggplot2
 everest <- data.frame(Survived = c("Y","N","Y", "N"),
                       Oxygen = c("Used", "Used", "Not used", "Not used"),
                       Number = c(1045, 32, 88, 8))
@@ -175,13 +216,84 @@ results
 #fisher's exact test
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 
-#wren example
+#wren example####
 #does song depend on DNA
 chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+chisq.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))$expected
 fisher.test(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
 
-#gtest
+#likelihood####
+#example from http://www.johnmyleswhite.com/notebook/2010/04/21/doing-maximum-likelihood-estimation-by-hand-in-r/
+#
+#determine most likely value of p for a bernoulli variable
+p.parameter <- runif(1)
+sequence <- rbinom(10, 1, p.parameter)
+#
+#write a likelihood function to solve for likelihood
+likelihood <- function(sequence, p.parameter)
+{
+  likelihood <- 1
+  
+  for (i in 1:length(sequence))
+  {
+    if (sequence[i] == 1)
+    {
+      likelihood <- likelihood * p.parameter
+    }
+    else
+    {
+      likelihood <- likelihood * (1 - p.parameter)
+    }
+  }
+  
+  return(likelihood)
+}
+
+#then solve and plot
+possible.p <- seq(0, 1, by = 0.001)
+library('ggplot2')
+likelihood_plot <- qplot(possible.p,
+      sapply(possible.p, function (p) {likelihood(sequence, p)}),
+      geom = 'line',
+      main = paste('Likelihood as a Function of P when p = ', p.parameter),
+      xlab = 'P',
+      ylab = 'Likelihood')
+likelihood_plot +
+      theme(axis.title.x = element_text(face="bold", size=28), 
+            axis.title.y = element_text(face="bold", size=28), 
+            axis.text.y  = element_text(size=20),
+            axis.text.x  = element_text(size=20), 
+            legend.text =element_text(size=20),
+            legend.title = element_text(size=20, face="bold"),
+            plot.title = element_text(hjust = 0.5, face="bold", size=32))
+  
+
+#gtest####
 require(DescTools)
-
-
 GTest(x = matrix(c(12, 0, 0, 4), 2, 2, byrow = T))
+
+#dolphin activity####
+dolphin <- read.table("http://www.statsci.org/data/general/dolpacti.txt", sep="", header = T)
+#More info on data @ 
+#http://www.statsci.org/data/general/dolpacti.html
+#difference in activity among time periods
+#easier if you make a table
+travel_table <- as.table(matrix(c(6, 28, 38,
+                                  6, 4, 5,
+                                  14, 0, 9,
+                                  13, 56, 10), nrow = 4, byrow = T))
+colnames(travel_table) = c("travel", "feed", "social")
+rownames(travel_table) = c("morning", "noon", "afternoon", "night")
+#now look at it
+travel_table
+chisq.test(travel_table)
+chisq.test(travel_table)$expected #actually ok
+
+require(fifer)
+chisq.post.hoc(travel_table,
+               control = "bonf")
+chisq.post.hoc(travel_table,
+               control = "holm")
+chisq.post.hoc(travel_table,
+               control = "fdr")
+
