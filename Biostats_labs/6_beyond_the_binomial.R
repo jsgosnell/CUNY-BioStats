@@ -83,30 +83,3 @@ fisher.test(matrix(c(7, 1, 3, #spacing just for visuals
                     12,3,4,
                     9,1,7), nrow = 4, byrow = T))
 
-#what if we do find a significant difference
-#lets use some dolphin data
-#Data on dolphin behavior was collected off the coast of Iceland. Data is @
-#http://www.statsci.org/data/general/dolpacti.txt
-#Since this is a .txt file, not a .csv, you'll need to use something like
-dolphin <- read.table("http://www.statsci.org/data/general/dolpacti.txt", sep="", header = T)
-#More info on data @ 
-#http://www.statsci.org/data/general/dolpacti.html
-#difference between traveling and not traveling by hand  
-travel <- chisq.test(matrix(c(6, 28+ 38, 6, 9, 14, 9, 13, 66), nrow = 4, byrow = T))
-travel
-#wheres the difference
-#easier if you make a table
-travel_table <- as.table(matrix(c(6, 28+ 38, 6, 9, 14, 9, 13, 66), nrow = 4, byrow = T))
-colnames(travel_table) = c("travel", "not_travel")
-rownames(travel_table) = c("morning", "noon", "afternoon", "night")
-#now look at it
-travel_table
-require(fifer)
-chisq.post.hoc(travel_table,
-               control = "holm")
-
-#using table to begin with
-#difference using table
-dolphin_table <- table(dolphin$Period, dolphin$Period)
-chisq.test(dolphin_table)
-chisq.post.hoc(dolphin_table, control = "holm")
