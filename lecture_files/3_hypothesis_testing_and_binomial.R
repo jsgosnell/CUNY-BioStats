@@ -138,8 +138,6 @@ ggplot(sampling_experiment_df, aes_string("Right_Handed")) +
   guides(fill = F)
 
 
-
-
 #using the binomial distribution####
 using_distribution = dbinom(0:18,18,.5)
 using_distribution

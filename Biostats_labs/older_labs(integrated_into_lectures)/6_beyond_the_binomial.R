@@ -1,6 +1,4 @@
 #multiple category binomial tests/goodness of fit tests
-#
-#how to use tables####
 
 #Let's consider heart attack incidences in the US.  Read in the data from 
 #http://statland.org/R/R/heartatk4R.txt", header=T.  
@@ -18,16 +16,41 @@ chisq.test(table(heart$SEX))
 chisq.test(c(5065,7779))
 #same as
 chisq.test(c(5065,7779), p=c(.5,.5))
-chisq.test(table(heart$SEX), p=c(.5,.5))
-
-#is there a relationship between gender and diagnosis? to set this  up
+chisq.test(table(heart$SEX), p=c(.5,.5))#same as
+#but we prefer 
+binom.test(5065, 5065+7779, .5) #why? chi-square is normal approximation
+#
+#we need chi-squared test when we have more than 2 categories####
+#example: what actually led to the heart attack
+#diagnosis tells which part of hear was affected, so lets use that as a proxy
+#change diagnosis to a factor
+heart$DIAGNOSIS <- as.factor(heart$DIAGNOSIS)
+summary(heart$DIAGNOSIS)
+#without knowing what these represent, are they distributed equally among the groups?
+chisq.test(summary(heart$DIAGNOSIS))
+# same as
+chisq.test(summary(heart$DIAGNOSIS), p = c(rep(1/nlevels(heart$DIAGNOSIS), nlevels(heart$DIAGNOSIS))))
+#not equally spread out
+#
+#also need to test independence among groups####
+#is there a relationship between gender and diagnosis?
 table(heart$SEX, heart$DIAGNOSIS)
-chisq.test(table(heart$SEX, heart$DIAGNOSIS))
+chisq.test(table(heart$SEX, heart$DIAGNOSIS)) 
+#p = .0022
+#what does this mean?
 
-##you can subset data just like always
+
+#but chisquared test isn't appropriate from small sample sizes
+#whats the split in people under 30?
+table(heart[heart$AGE<30,]$SEX, heart[heart$AGE<30,]$DIAGNOSIS)
+#same as
 table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
 
-#matrix reminders####
+chisq.test(table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"]))
+
+#instead, use fisher.test
+fisher.test(table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"]))
+#what are your results? what do they mean?
 
 #putting data in manually
 #requires matrix command
@@ -37,13 +60,15 @@ table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
 results <- fisher.test(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
                                     2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))
 
-#calling up results####
 #if you save object you can call p-value
 results
 #and expected values
 results$expected
 
-
+#gtest####
+require(DescTools)
+GTest(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
+                       2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))
 
 #what about more categories
 #is smoking independent of exercise

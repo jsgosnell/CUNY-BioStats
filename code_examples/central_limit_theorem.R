@@ -69,3 +69,5 @@ for (j in 1:length(n)){
 }
 mtext("Draws from a binomial distribution, p = .7", outer = T, side = 1, 
       cex = 3, line = 1)
+
+

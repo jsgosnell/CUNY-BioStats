@@ -36,6 +36,24 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#qqplots ####
+
+x <- rnorm(10000, mean = 0, sd = sqrt(10))
+#to develop plot
+qqnorm(x)
+# to add line
+qqline(x)
+#if data fall near line, it indicates normality
+#
+#z-test example####
+sport <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
+require(BSDA)
+z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=.07)
+
+qqnorm(sport[sport$Sex == "male", "Ht"])
+qqline(sport[sport$Sex == "male", "Ht"])
+
+
 #increasing sample size####
 
 #normal
@@ -79,6 +97,10 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#t-test with athlete data####
+t.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
+
+
 #temperature example####
 #show where -1.679 lies on t distribution #####
 qt(.975,9)
@@ -118,6 +140,12 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   geom_vline(xintercept = -1.679, color = "blue")
+
+#wilcoxon-test with athlete data####
+wilcox.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
+
+#sign-test with athlete data####
+SIGN.test(sport[sport$Sex == "male", "Ht"], md = 175.6)
 
 #bootstrap in action
 #back to our fake uniform distributin from the estimation_lecture
@@ -223,4 +251,25 @@ ggplot(boot.md, aes_string("mean")) +
         legend.title = element_text(size=20, face="bold"),
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+require(simpleboot)
+bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
+{
+  if (is.null(data2)){
+    a=one.boot(na.omit(data1), fun, r)
+    confint=boot.ci(a, conf)
+    p=length(subset(a$t, abs(a$t-mean(a$t))>=abs(null-mean(a$t))))/r
+    output=c(conf, "% Confidence Interval", confint$percent[1,4:5], "p-value", p)
+    return(output)}
+  if (is.null(data2)==F){
+    a=two.boot(na.omit(data1), na.omit(data2), fun, r)
+    confint=boot.ci(a, conf)
+    p=length(subset(a$t, abs(a$t-mean(a$t))>=abs(null-mean(a$t))))/r
+    output=c(conf, "% Percentile Confidence Interval", confint$percent[1,4:5], "p-value", p)
+    return(output)}
+}
+
+#bootstrapping athlete data
+bootstrapjsg(data1=sport[sport$Sex == "male", "Ht"], null=175.6)
+
 

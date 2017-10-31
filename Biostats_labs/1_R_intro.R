@@ -244,6 +244,9 @@ file
 
 my_dataset <- read.csv(file)
 
+#you can also read in data from a website holding a csv (we'll do this often in class)
+australia_athlete_data <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
+
 # and thats it.  however, this is not a great way to grab data (or automate code).
 #you can also put your path in directly, e.g., 
 #my_dataset <- read.csv("C:/Users/SGosnell/Desktop/Example data set.csv")

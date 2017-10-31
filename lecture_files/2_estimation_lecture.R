@@ -1,7 +1,7 @@
 #plots from 2. Estimation and probability.ppt
 
 
-#create "population" of males
+#create "population" of males####
 
 population_size <- 10000
 set.seed(42)
@@ -24,7 +24,7 @@ ggplot(population_norm, aes_string("height")) +
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#sample a 100 of these
+#sample a 100 of these####
 
 sample_1 <- population_norm[sample(nrow(population_norm), 100),]
 ggplot(sample_1, aes_string("height")) + 
@@ -43,7 +43,7 @@ ggplot(sample_1, aes_string("height")) +
 mean(sample_1$height)
 sd(sample_1$height)
 
-#now do this a 1000 times and record it
+#now do this a 1000 times and record the mean of each time#####
 number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
@@ -70,7 +70,7 @@ ggplot(sample_outcomes, aes_string("mean")) +
 mean(sample_outcomes$mean)
 sd(sample_outcomes$mean)
 
-#what if we only sampled 20
+#what if we only sampled 20####
 ##now do this a 1000 times and record it
 number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
@@ -98,7 +98,7 @@ ggplot(sample_outcomes, aes_string("mean")) +
 mean(sample_outcomes$mean)
 sd(sample_outcomes$mean)
 
-#what if we only sampled 5
+#what if we only sampled 5####
 ##now do this a 1000 times and record it
 number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
@@ -128,7 +128,7 @@ sd(sample_outcomes$mean)
 
 #what if underlying data not normal?
 
-#create "population" of males
+#create "population" of males from uniform group ####
 
 population_size <- 10000
 set.seed(42)
@@ -149,7 +149,7 @@ ggplot(population_unif, aes_string("height")) +
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#sample a 100 of these
+#sample a 100 of these####
 
 sample_unif_1 <- population_unif[sample(nrow(population_unif), 100),]
 ggplot(sample_unif_1, aes_string("height")) + 
@@ -167,7 +167,7 @@ ggplot(sample_unif_1, aes_string("height")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 
-#now do this a 1000 times and record it
+#now do this a 1000 times and record the mean each time ####
 number_of_samples <- 1000
 sample_outcomes <- data.frame(mean = rep(NA, number_of_samples), sd = NA)
 
@@ -192,7 +192,7 @@ ggplot(sample_outcomes, aes_string("mean")) +
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#error bars in practice
+#error bars in practice####
 #back to our normal population of males
 #using 2 se as rule of thumb
 number_of_samples <- 20
