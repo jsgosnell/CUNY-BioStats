@@ -20,20 +20,25 @@ ggplot(days_of_week_births, aes_string(x= "Days", y = "Births")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#using the chisq distribution####
-using_distribution = dchisq(0:50,6, 1/7)
-using_distribution
-sum(using_distribution)
-x <- c(0:50)
-pdf <- data.frame(x, using_distribution)
+#generate chi_sq stats by simulation
+#from https://stats.stackexchange.com/questions/14158/how-to-generate-random-categorical-data
+n <- 350
+num_of_simulations <- 10000
+num_of_buckets <- 7
+chi_sq_stats <- data.frame(chisq = rep(NA, num_of_simulations))
+for(i in 1:num_of_simulations){
+simulation <- table(sample(LETTERS[1:num_of_buckets], n, replace=T))
+chi_sq_stats$chisq[i] <- chisq.test(simulation)$statistic
+}
 
+#plot
 require(ggplot2)
-
-#just histogram
-ggplot(pdf, aes_string(x="x", y = "using_distribution")) +
-  geom_col(fill = "orange") +
-  ylab("Probablity") +
-  xlab("")+
+#just histogram, scaled to 1
+ggplot(chi_sq_stats, aes_string(x="chisq")) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange") +
+  ylab(paste("Probablity under ", num_of_simulations, " simulations", 
+sep ="")) +
+  xlab(expression(chi^2))+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -43,11 +48,12 @@ ggplot(pdf, aes_string(x="x", y = "using_distribution")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #with curve
-ggplot(pdf, aes_string(x="x", y = "using_distribution")) +
-  geom_col(fill = "orange") +
+ggplot(chi_sq_stats, aes_string(x="chisq")) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange") +
   stat_function(fun = dchisq, args = list(df = 6),size = 3, color = "green") + 
-  ylab("Probablity") +
-  xlab("")+
+  ylab(paste("Probablity under ", num_of_simulations, " simulations", 
+             sep ="")) +
+  xlab(expression(chi^2))+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -65,12 +71,11 @@ dnorm_one_sd <- function(x){
   return(norm_one_sd)
 }
 
-
-ggplot(pdf, aes_string(x="x", y = "using_distribution")) +
+ggplot(chi_sq_stats, aes_string(x="chisq")) +
   stat_function(fun = dchisq, args = list(df = 6),size = 3, fill = "green", geom = "area") + 
   stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange") +
-  ylab("Probablity") +
-  xlab("")+
+  ylab(expression(paste("Probablity under  ", chi^{2}, " distribution", sep = " "))) +
+  xlab(expression(chi^2))+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -88,10 +93,19 @@ chisq.test(days_of_week_births$Births, p= rep(1/7, 7))
 chisq.test(days_of_week_births$Births, p= rep(1/7, 7), simulate.p.value = T, B=10,000)
 
 #sons example####
+#
+#chisq.test gives correct stat but wrong degrees of freedom
 chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3), 
            rescale.p = T)
 #without rescaling
 chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3)/2444)
+
+#goodfit corrects this
+require(vcd)
+fit_binom <- goodfit(c(rep(0,530),rep(1,1332),rep(2,582)), type = "binomial", 
+                     par = list(size = 2), method = "ML")
+fit_binom
+summary(fit_binom)
 
 #soccer goals ####
 soccer_goals <- data.frame(Number_of_goals = factor(0:8), Occurences = 
@@ -141,10 +155,17 @@ ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
 #to test
 chisq.test(soccer_goals$Occurences, p = soccer_goals$Expected_actual, rescale.p = T)
 #same as
-soccer_goals_test <- chisq.test(soccer_goals$Occurences, p = dpois(0:8, mu),
-                                rescale.p = T)
+chisq.test(soccer_goals$Occurences, p = c(dpois(0:7, mu), 1-ppois(7,mu)))
+#with goodfit to handle degrees of freedom
+#for poisson use table
+soccer_table <- as.table(soccer_goals$Occurences)
+names(soccer_table) <-soccer_goals$Number_of_goals
+fit_pois <- goodfit(soccer_table)
+fit_pois$par
+summary(fit_pois)
+
 #what assumptions did we violate?
-soccer_goals_test$expected
+chisq.test(soccer_goals$Occurences, p = c(dpois(0:7, mu), 1-ppois(7,mu)))$expected
 
 #to fix this
 soccer_goals_combined <- soccer_goals[1:5,1:2]
@@ -168,6 +189,15 @@ chisq.test(soccer_goals_combined$Occurences, p = c(dpois(0:3, mu),
 chisq.test(soccer_goals_combined$Occurences, p = c(dpois(0:3, mu), 
                                                    1 - ppois(3, mu)))$expected
 #looks ok (<20% of groups <5)
+
+soccer_table_new <- as.table(soccer_goals$Occurences[0:5])
+names(soccer_table_new) <-soccer_goals$Number_of_goals[0:5]
+soccer_table_new[5] <- sum(soccer_table[5:9])
+fit_pois <- goodfit(soccer_table_new, method = "ML")
+fit_pois$par
+summary(fit_pois)
+
+
 
 #everest ####
 #make a data frame for ggplot2
@@ -215,6 +245,10 @@ results
 
 #fisher's exact test
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
+
+#relative risk
+(32/(32+1045))/(8/(8+88))
+
 
 #wren example####
 #does song depend on DNA
@@ -290,10 +324,14 @@ chisq.test(travel_table)
 chisq.test(travel_table)$expected #actually ok
 
 require(fifer)
-chisq.post.hoc(travel_table,
+bonf_correct <- chisq.post.hoc(travel_table,
                control = "bonf")
-chisq.post.hoc(travel_table,
+bonf_correct[order(bonf_correct$raw.p),]
+holm_correct <- chisq.post.hoc(travel_table,
                control = "holm")
-chisq.post.hoc(travel_table,
+holm_correct[order(holm_correct$raw.p),]
+fdr_correct <- chisq.post.hoc(travel_table,
                control = "fdr")
+fdr_correct[order(fdr_correct$raw.p),]
+
 
