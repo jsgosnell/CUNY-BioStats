@@ -43,9 +43,13 @@ t.test(secchi$Initial, secchi$Final, paired = T)
 #or
 t.test(Depth ~ Date, secchi_melted, paired = T) #assumes in proper order!
 
+
 #smoke####
-smoke <- read.csv(file.choose())
+smoke <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/smoke.csv?attredirects=0&d=1")
 t.test(smoke$Before, smoke$After, paired = T)
+
+#unpaired 2-sample test ####
+t.test(secchi$Initial, secchi$Final)
 
 #examples of bad data comparison
 
@@ -67,6 +71,29 @@ ggplot(example_bad_summary
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   geom_hline(aes(yintercept=98), size = 3, color = "orange")
+
+
+#garter snake example####
+garter <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/garter.csv?attredirects=0&d=1")
+wilcox.test(Proportion.of.snakes.resistant ~ Locality, garter)
+
+#sign test example####
+insect_speciation <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/insect_speciation.csv?attredirects=0&d=1")
+summary(insect_speciation)
+#dependent
+SIGN.test(insect_speciation$Polyandrous_species, insect_speciation$Monandrous_species)
+#same as
+SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_species), md = 0)
+
+
+
+
+
+
+
+
+
+
 
 
 ##days of weeks births####
