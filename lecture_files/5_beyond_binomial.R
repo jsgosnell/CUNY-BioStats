@@ -89,8 +89,9 @@ ggplot(chi_sq_stats, aes_string(x="chisq")) +
 chisq.test(days_of_week_births$Births)
 chisq.test(days_of_week_births$Births, p= rep(1/7, 7))
 #or
-1-pchisq(15.05,6,1/7)
-chisq.test(days_of_week_births$Births, p= rep(1/7, 7), simulate.p.value = T, B=10,000)
+1-pchisq(15.24,6)
+#can also obtain by simulation (instead of using approximation)
+chisq.test(x=days_of_week_births$Births, p= rep(1/7, 7), simulate.p.value = T, B=10000)
 
 #sons example####
 #
