@@ -136,3 +136,52 @@ independence_test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 #compare to t-test
 t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
+#notes on data manipulation
+#long to wide
+cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
+cholesterol$day <- as.factor(cholesterol$day)
+head(cholesterol)
+require(reshape2)
+#formula gives row ~ columns
+#get daily cholesterol for every patient
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ day, 
+                          value.var ="cholest" )
+head(cholesterol_wide)
+#use fun.aggregate to get other option
+#get average cholesterol per patient
+#simple function to exclude na's (other option is to melt first and then drop them)
+meannona <- function (x) mean(x, na.rm=T)
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ ., #. means no variable, ... means all variables
+                          value.var ="cholest", fun.aggregate = meannona )
+head(cholesterol_wide)
+
+#can also name output column by putting in quotes in formula
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ "cholest", #. means no variable, ... means all variables
+                          value.var ="cholest", fun.aggregate = meannona )
+head(cholesterol_wide)
+
+#wide to long
+cholesterol <- read.table("http://www.statsci.org/data/general/cholestr.txt", header = T)
+head(cholesterol)
+
+#id.vars lists independent values to keep
+#measure.vars is what you are measuring (not used here, and used rarely)
+#variable.name lists what to label things you group
+#value.name gives name to value output
+cholesterol_long <- melt(cholesterol, id.vars =c())
+head(cholesterol_long)
+
+#name outcomes
+cholesterol_long <- melt(cholesterol, id.vars =c(), variable.name = "day", 
+                         value.name = "cholesterol")
+head(cholesterol_long)
+
+#more id variables
+sport_melted <- melt(sport, id.vars = c("Sex", "Sport"),
+                     variable.name = "measure", 
+                     value.name = "value")
+head(sport_melted)
+
+
+
+
