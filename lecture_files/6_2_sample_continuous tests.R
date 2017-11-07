@@ -1,4 +1,4 @@
-#graphs and tables from Tests for 2 samples of continuous data
+#graphs and tables from Tests for 2 samples of continuous data lecture
 #
 #secchi data####
 secchi <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/secchi.csv?attredirects=0&d=1")
