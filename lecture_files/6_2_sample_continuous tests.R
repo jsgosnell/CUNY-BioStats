@@ -80,6 +80,22 @@ wilcox.test(Proportion.of.snakes.resistant ~ Locality, garter)
 #sign test example####
 insect_speciation <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/insect_speciation.csv?attredirects=0&d=1")
 summary(insect_speciation)
+insect_speciation$difference <- insect_speciation$Polyandrous_species - 
+  insect_speciation$Monandrous_species
+
+insect_speciation$difference
+
+ggplot(insect_speciation, aes_string("difference")) +
+  geom_histogram() +
+  ggtitle("Difference in # of species based on promiscuity") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+  
 #dependent
 require(BSDA)
 SIGN.test(insect_speciation$Polyandrous_species, insect_speciation$Monandrous_species)
@@ -107,9 +123,7 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
     return(output)}
 }
 
-#load data from rbioinfo
-require(rbioinfo)
-#bakc to our aussie athlete data
+#back to our aussie athlete data
 sport <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
 
 ggplot(sport, aes_string("Ferr"))+

@@ -1,10 +1,6 @@
 #graphs and tables from normality lecture
-#
-#manipulations of binomial distribution used central_limit_theorem.R script from
-#code_examples folder.  Note rbinom is odd. p is chance of success, n is hte number
-#of observations (how many times you draw N balls from the urn), and size is N 
-#(the number of balls you draw from the urn).  
-#
+
+
 require(ggplot2)
 
 dnorm_one_sd <- function(x){
