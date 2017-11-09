@@ -1,7 +1,5 @@
 #11/9/17 class script
 #example of anova, regression, multiple regression/anova as lm, with extension to 
-#mixed models
-
 #TEAM DATA
 team <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/team_data.csv?attredirects=0&d=1")
 names(team)
@@ -15,7 +13,7 @@ team_model_1 <-lm(PlotCarbon.tonnes ~ Continent, team)
 # The Quantile-quantile plot tests whether your residuals are normally distributed.  It plots each data point vs. its position in a theoretical normal distribution.  If the residuals are normally distributed, the plot will look like a straight line.
 # The scale-location plot is another plot of residuals vs. fitted values:  it shows the square root of the standardized residuals against the fitted values.  This plot may more clearly show if there is an issue with the variance increasing with the mean (in that case the scatter would increase as the fitted values increased).
 # The residuals vs. leverage plot also includes Cook's distance (pale blue dashed line).  Cook's Distance compares the fitted response of the regression which uses every data point, against the fitted response of the regression where a particular data point has been dropped from the analysis (and then sums this difference across all data points). Very influential data points (on the parameter estimates) are identified, and are labeled in this plot.  If there are heavily influential data points, you might consider re-doing the regression model after removing them.
-
+par(mfrow =c(2,2))
 plot(team_model_1)
 summary(team_model_1)
 
@@ -221,83 +219,90 @@ check_mixed_model <- function (model, model_name = NULL) {
 
 check_mixed_model(team_final_mm)
 
+#generalized linear models
 #what if the outcome isn't continuous but is either 0/1 (presence/absence) or 
 #a proportion?
 #We use a generalized linear model, aka logistic regression
 #use glm command (instead or arcsin transform!)
 #data from Needles et al 2014
-anthrax <- read.csv("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/anthrax.csv")
-head(anthrax)
-#we have to put data in success/failure set
-logistic_fit <- glm(cbind(survived, died)~ anthraxConcentration, anthrax, family=binomial)
-summary(logistic_fit)
-Anova(logistic_fit, type="III") # notice we switched to a deviance table
-#data can also be put in for each individual (just as 1/0)
-#you should really check dispersion here to make sure data isn't over-dispered
-#see ?glm for other parameters, but most common other form is poisson for count data
-#poisson_fit=glm(y~x1+x2, data, family=possion)
+otters <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/needles_january.csv?attredirects=0&d=1")
+head(otters)
+#star, otters, and mussels are treatments (1 is present)
+#WASU and notWASU are count data
+otter_fit <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, family=binomial)
+summary(otter_fit)
+#same basic assumption
+plot(otter_fit)
+#can use drop1, stepAIC, etc
 
+#glmm
+#but this is a mixed-model again! multiple measures per piling
+otter_fit_mm <- glmer(cbind(WASU, notWASU)~ Star + Otters + Mussels + (1|Piling), otters, family=binomial)
+summary(otter_fit_mm)
+Anova(otter_fit_mm, type = "III") #uses chisq test
+drop1(otter_fit_mm, test = "Chi") 
+otter_fit_mm_a <- update(otter_fit_mm, .~. - Star)
+Anova(otter_fit_mm_a, type = "III") #uses chisq test
+otter_fit_mm_b <- update(otter_fit_mm_a, .~. - Mussels)
+Anova(otter_fit_mm_b, type = "III") #uses chisq test
 
-
+#nls is used to fit specified functions in R
+whelk <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/whelk.csv?attredirects=0&d=1")
+head(whelk)
+summary(whelk)
+whelk_plot <- ggplot(whelk, aes_string(x="Shell.Length", y = "Mass")) +
+  geom_point(aes_string(colour = "Location")) + 
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+whelk_plot
+#linear fit
+whelk_lm <- lm(Mass ~ Shell.Length, whelk, na.action = na.omit)
+#power fit
+whelk_power <- nls(Mass ~ b0 * Shell.Length^b1, whelk, 
+                   start = list(b0 = 1, b1=3), na.action = na.omit)
+AICc(whelk_lm, whelk_power)
+whelk_plot + geom_smooth(method = "lm", se = FALSE, size = 1.5, color = "orange")+ 
+  geom_smooth(method="nls", 
+              # look at whelk_power$call
+              formula = y ~ b0 * x^b1, 
+              method.args = list(start = list(b0 = 1, 
+                                              b1 = 3)), 
+              se=FALSE, size = 1.5, color = "blue") 
 
 #generalized additive model (gam)
 #non-linear model
 TN <- read.table("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/TeethNitrogen.txt",
                  header=T)
 Moby <- subset(TN, TN$Tooth == "Moby")
-Moby_lm <- lm(X15N ??? Age, data = Moby)
+Moby_lm <- lm(X15N ~ Age, data = Moby)
 op <- par(mfrow = c(2, 2))
-plot(M2, add.smooth = FALSE)
+plot(Moby_lm, add.smooth = FALSE)
 par(op)
 #what issue do you see?
 require(mgcv)
 require(MASS)
-Moby_s <- gam(X15N ~ s(Age),data=Moby)
-summary(Moby_s)
-AIC(Moby_s, Moby_lm)
-
-
-#nls is used to fit specified functions in R
-f <- "http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/2930_Callipepla_squamata_all_factors.txt"
-
-calli <- read.table(f, header=T)  # data file is .txt, so need read.table
-head(calli)
-
-## Key to variables:
-## long4:  longitude      lat4:  latitude
-## log_avg_abun:  average abundance of Callipepla squamata in the years 1995-2005, log transformed
-## log_bm_comp / log_guild_comp_abun / log_family_abun:  abundance of spatially coincident species within 75% and 125% of Callipepla squamata's (scaled quail) biomass; abundance of spatially coincident species in the same guild; abundance of spatially coincident family members
-##  pred_all_abun/ pred_main_abun :  abundances of all predatory birds, or predatory birds that have birds as the main part of their diet
-## log_NPP / ndvi:  Net Primary Productivity (log) or Normalized Differential Vegetation Index
-## AvgOfatr:  Annual temperature range
-## AvgOfhtwm:  hottest temperature in the warmest month
-## AvgOfmpdm:  mean precipitation in the driest month
-## AvgOfmph2oq :  mean precipitation in the wettest quarter
-## AvgOfmtwq :  mean temperature in the warmest quarter
-## AvgOfsdmp/ AvgOfsdmt:  std deviation of mean precipitation / mean temperature
-## hab_suit/ avg_of_dis:  habitat suitability (1,0) / distance to nearest optimal habitat
-
-
-##log_avg_abun is the response, and this file contains a number of possible useful predictors for this abundance.
-
-#lets fit a model.  you must specify the variable (c) and an initial vector.
-#the curve is fit using the Newton-Raphson procedure by default
-
-m2<-nls(log_avg_abun~c/ndvi, data=calli, start=list(c=1))
-summary(m2)
-AIC(m2)
+Moby_gam <- gam(X15N ~ s(Age),data=Moby)
+summary(Moby_gam)
+plot(Moby_gam)
+#can compare fits with AIC
+AIC(Moby_gam, Moby_lm)
 
 #trees
 corn <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/corn_yield.csv")
 head(corn)
 require(tree)
-corn_tree_model <- tree(corn)#uses first term as response if not specified
-corn_tree_model <- tree(log_yield~., corn)#better to specify
+corn_tree_model <- tree(corn, na.action = na.omit)#uses first term as response if not specified
+corn_tree_model <- tree(log_yield~., corn,  na.action = na.omit)#better to specify
 plot(corn_tree_model)
 text(corn_tree_model)
 prune.tree(corn_tree_model)
 plot(prune.tree(corn_tree_model))
-corn_tree_model_2 <- prune.tree(corn_tree_model, best = 4)
+corn_tree_model_2 <- prune.tree(corn_tree_model, best = 7)
 plot(corn_tree_model_2)
 text(corn_tree_model_2)
 
@@ -387,12 +392,6 @@ str(dove_gam_reduced_cv)
 #CV_mse_GAM is your prediction accuracy [not totally sure you can compare this to
 #glm score, but can use to compare models]
 
-#extra credit
-#develop a coin flip experiment where you use Bayesian analysis
-#consider how changing the prior (hint, use a Beta(1,1) for uniform and increase
-#to Beta(30,30)) for a prior centered at .5) and hte experiment size (you can use
-#dbinom(p,N) again, and let your data be the number of samples and number of heads)
-#impacts your results
 
 
 
