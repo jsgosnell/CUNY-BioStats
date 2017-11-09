@@ -335,4 +335,74 @@ fdr_correct <- chisq.post.hoc(travel_table,
                control = "fdr")
 fdr_correct[order(fdr_correct$raw.p),]
 
+#how to use get data in for these tests####
+
+#if data is in long format (not already condensed)
+#Let's consider heart attack incidences in the US.  Read in the data from 
+#http://statland.org/R/R/heartatk4R.txt", header=T.  
+#
+heart<-read.table("http://statland.org/R/R/heartatk4R.txt", header=T)
+head(heart)
+str(heart)
+
+
+#lets test if heart attacks occur equally across genders, assuming 50% split in population
+#how to get tabular data?
+table(heart$SEX)
+chisq.test(table(heart$SEX))
+#same as
+chisq.test(c(5065,7779))
+#same as
+chisq.test(c(5065,7779), p=c(.5,.5))
+chisq.test(table(heart$SEX), p=c(.5,.5))
+
+#is there a relationship between gender and diagnosis? to set this  up
+table(heart$SEX, heart$DIAGNOSIS)
+chisq.test(table(heart$SEX, heart$DIAGNOSIS))
+
+##you can subset data just like always
+table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
+
+#matrix reminders####
+#putting data in manually
+#requires matrix command
+#each row is group, so put in by row, specify number of rows, and put byrow = T
+table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
+#becomes
+results <- chisq.test(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
+                                    2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))
+
+#calling up results####
+#if you save object you can call p-value
+results
+#and expected values
+results$expected
+
+#same as
+chisq.test(x = matrix(c(1,3,0,0,0,0,0, 0, 4, 
+                        2,5,0,1,7,0,4, 0, 0), nrow = 2, byrow = T))$expected
+
+
+#what about more categories
+#is smoking independent of exercise
+#http://www.r-tutor.com/elementary-statistics/goodness-fit/chi-squared-test-independence
+smoke <- chisq.test(matrix(c(7, 1, 3, #spacing just for visual use
+                             87,18,84,
+                             12,3,4,
+                             9,1,7), nrow = 4, byrow = T))
+smoke$expected #too small!
+fisher.test(matrix(c(7, 1, 3, #spacing just for visuals
+                     87,18,84,
+                     12,3,4,
+                     9,1,7), nrow = 4, byrow = T))
+
+#what about a dataframe?
+#I think this only works for two categories, eg, does sex ration differ among 
+#populations
+sex_ratio <- data.frame(pop = c("a", "b"), males = c(55, 65), 
+                        females = c(25, 27) )
+sex_ratio
+chisq.test(sex_ratio$males, sex_ratio$females)
+
+
 
