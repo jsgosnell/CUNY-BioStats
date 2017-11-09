@@ -10,7 +10,12 @@ head(team)
 #lets build a model looking at variation among continents####
 #this is an ANOVA
 team_model_1 <-lm(PlotCarbon.tonnes ~ Continent, team)
-#plot to see if assumptions are met
+#plot to see if assumptions are met. remember what these are (from Lisa Manne)
+# The Residuals vs. Fitted values plot should show no structure; it should not show a trend of residuals against fitted values. The variance should not increase or decrease as you move along the x-axis.  The residuals should be centered around 0.
+# The Quantile-quantile plot tests whether your residuals are normally distributed.  It plots each data point vs. its position in a theoretical normal distribution.  If the residuals are normally distributed, the plot will look like a straight line.
+# The scale-location plot is another plot of residuals vs. fitted values:  it shows the square root of the standardized residuals against the fitted values.  This plot may more clearly show if there is an issue with the variance increasing with the mean (in that case the scatter would increase as the fitted values increased).
+# The residuals vs. leverage plot also includes Cook's distance (pale blue dashed line).  Cook's Distance compares the fitted response of the regression which uses every data point, against the fitted response of the regression where a particular data point has been dropped from the analysis (and then sums this difference across all data points). Very influential data points (on the parameter estimates) are identified, and are labeled in this plot.  If there are heavily influential data points, you might consider re-doing the regression model after removing them.
+
 plot(team_model_1)
 summary(team_model_1)
 
@@ -56,6 +61,7 @@ summary(compare_latin_america_only, test=adjusted("fdr")) #africa is not driving
 #model comparison####
 #does rainfall add anything
 #use update command if you want, . means everything on that side in initial model
+#this is an ANCOVA (categorical + numerical predictor)
 team_model_2 <- update(team_model_1, . ~ . + Precip_mean.mm)
 summary(team_model_2) #good for r2 value
 plot(team_model_2)
@@ -112,85 +118,285 @@ pairs(team_potential, lower.panel=panel.smooth, upper.panel=panel.cor)
 team_model_full <- lm(PlotCarbon.tonnes ~ ., 
                       team_potential)
 drop1(team_model_full)
+#you can drop one at a time. remember goal is lowest AIC. this is still a step-down
+#method
 
+team_model_full_a <- update(team_model_full, .~. - PD)
+drop1(team_model_full_a)
 
+team_model_full_b <- update(team_model_full_a, .~. - CWM.wd)
+drop1(team_model_full_b)
+#... and so on until we see <none> as the lowest AIC
+#can specify test as well. F is ok for linear model. then drop highest p-value and work
+#down until all significant
+drop1(team_model_full, test = "F")
 
+#add1 uses same idea but for smallest model. build small model. 1 means intercept
+team_model_empty <- lm(PlotCarbon.tonnes ~ 1, team_potential)
+#then add whatever you may want to consider in the argument (just doing smaller
+#set here for ease)
+add1(team_model_empty, ~ shannon + wd.RaoQ )
+# 
+add1(team_model_empty, ~ shannon + wd.RaoQ, test = "F" )
 
+#or R can do this for us. default is backwards
+stepAIC(team_model_full)
+#save as object to get output
+stepAIC_final <- stepAIC(team_model_full)
 
-#but we need to consider mixed model here
-require(lme4)
-team_elevation_mm <- lmer (PlotCarbon.tonnes ~ Elevation + (1|Site.Name), team)
-summary(team_elevation_mm)
-#lets cheat a little to speed this up
-variables <- c("Continent", "Country", "Precip_mean.mm", "Precip_CV", "Elevation",
-               "Number.of.Tree.Genus", "shannon","wd.RaoQ", "maxdbh.RaoQ", "CWM.wd",
-               "CWM.maxdbh", "PD")
-#make a chart to fill
-p_values <- data.frame("variable"=rep(NA,length(variables)), "p"=NA, "AIC"=NA, "coeff" = NA)
-for (i in 1:length(variables)){
-  p_values$variable[i]=variables[i]
-  #need to handle NA's that vary throughout
-  team_na <- na.omit(team[,c("Site.Name","PlotCarbon.tonnes",  variables[i])])
-  fit_mm <- lmer(PlotCarbon.tonnes ~ team_na[,names(team_na) == variables[i]] + (1|Site.Name), team_na)
-  fit_under <- lmer(PlotCarbon.tonnes ~ (1|Site.Name), team_na)
-  p_values$p[i] <- anova(fit_mm, fit_under)$Pr[2]
-  #just to show
-  p_values$AIC[i] <- anova(fit_mm, fit_under)$AIC[2]
-}
-head(p_values)
-#we can even order p_values by significance
-p_values <- p_values[order(p_values$p),]
-#point is, we can do single bivariate relationship(you should obviously check
-#assumptions for all of these)
+#or we can go forward
+stepAIC(team_model_empty, ~ shannon + wd.RaoQ, direction = "forward")
 
-#with multivariate regression we can check all at once
-#consider relationship among variables first to worry about relationships
-#use code below to get pairs and correlations at same time
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
-{
-  usr <- par("usr"); on.exit(par(usr))
-  par(usr = c(0, 1, 0, 1))
-  r <- abs(cor(x, y))
-  txt <- format(c(r, 0.123456789), digits=digits)[1]
-  txt <- paste(prefix, txt, sep="")
-  if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
-  
-  test <- cor.test(x,y)
-  # borrowed from printCoefmat
-  Signif <- symnum(test$p.value, corr = FALSE, na = FALSE,
-                   cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                   symbols = c("***", "**", "*", ".", " "))
-  
-  #text(0.5, 0.5, txt, cex = cex * r)
-  text(0.5, 0.5, txt)
-  text(.8, .8, Signif, cex=cex, col=2)
-}
+#remember to check assumptions for final model
+plot(stepAIC_final)
+#you can also check variance inflation factors (vif) for final model to see 
+#if they are too big (>5 indicates high correlation among factors)
+vif(stepAIC_final) #all good
 
-
-pairs(team[, names(team) %in% c(variables, "PlotCarbon.tonnes")], lower.panel=panel.smooth,
-      upper.panel=panel.cor)
-#these look ok, but "PlotBiomass.kg" is too closely related to carbon, CWM.dbh is repated, and lat
-#and long and Evapoptranspiration have some NAs. lat and long should be caught by continent,
-#so we'll remove those and country. na.omit will get rid of empty rows so we can keep
-#evapotranspiration, which I want to incluce
-
-#lets us automated procedure to find best subset of these
-team_full <- team[,names(team) %in% c(variables, "PlotCarbon.tonnes", "Site.Name")]
-team_full <- na.omit(team_full[, names(team_full) %!in% c("Latitude", "Longitude",
-                                                          "Country", "maxdbh.maxdbh")])
+#these are all step-wise methods. we can also use AIC to do a full model search
 require(MuMIn)
+?dredge
 options(na.action = "na.fail")
-team_full_mm <- lmer(PlotCarbon.tonnes ~ (1|Site.Name) + ., team_full)
-#won't run due to singularities...let's try dropping annual_evapotranspiration
-team_full_mm <- lmer(PlotCarbon.tonnes ~ (1|Site.Name) + . - Annual_Evapotranspiration, team_full)
-#example of needing to use biology to make this work. what should we really include?
-team_full_mm <- lmer(PlotCarbon.tonnes ~ (1|Site.Name) + Elevation + Precip_mean.mm + shannon +
-                       Number.of.Tree.Genus + wd.RaoQ + CWM.wd + CWM.maxdbh + PD, team_full)
+auto <- dredge(team_model_full)
+write.csv(auto, "dredge_output.csv", row.names = F)
+#model.avg for output. can decide how far delta can go. look at dredge output
+head(auto)
+#can average top models
+model.avg(auto, subset = delta < 4) #notes uses AICc, best for small samples or 
+#where you have to estimate lots of parameters
+#to get the top 1
+top_model <- get.models(auto, subset = 1)[[1]]
+#check
+plot(top_model)
+vif(top_model)
 
-auto <- dredge(team_full_mm)
+#mixed models####
+#but we need to consider mixed model here, since each plot has 6+ sites at it
+require(lme4) #nlme is another package thats good if you need covariance structures
+#start with same full model
+team_model_full_mm <- lmer(PlotCarbon.tonnes ~ 
+                             #site specific
+                             Continent +
+                           #diversity
+                           shannon + wd.RaoQ + maxdbh.RaoQ + CWM.wd + CWM.maxdbh +
+                             PD +
+                           #environmental
+                           Precip_mean.mm + Elevation +
+                           #random portion, new notation
+                           (1|Site.Name), team)
+summary(team_model_full_mm)
+
+#now to do top-down test we have to use Chi-squared tests (not F)
+Anova(team_model_full_mm, type = "III")
+stepAIC(team_model_full_mm) # won't work with mixed models, so have to do manually
+drop1(team_model_full_mm)
+drop1(team_model_full_mm, test = "Chi")
+
+#dredge will work, but may be slow
+auto <- dredge(team_model_full_mm)
 #write to csv to observe if needed, its sorted by AICc values so top line is bst model
 #still should check assumptions
 write.csv(auto, "dredge_output.csv", row.names = F)
+team_final_mm <- get.models(auto, subset = delta < 4, REML = T)  
+#easy error, just take top
+team_final_mm <- get.models(auto, subset = 1, Re)[[1]]
+#use function check_mixed_model to evaluate mixed model
+
+check_mixed_model <- function (model, model_name = NULL) {
+  #collection of things you might check for mixed model
+  par(mfrow = c(2,3))
+  #not sure what this does with mutliple random effects, so stop with 1 for now
+  if(length(names(ranef(model))<2)){
+    qqnorm(ranef(model, drop = T)[[1]], pch = 19, las = 1, cex = 1.4, main= paste(model_name, 
+                                                                                  "\n Random effects Q-Q plot"))
+  }
+  plot(fitted(model),residuals(model), main = paste(model_name, 
+                                                    "\n residuals vs fitted"))
+  qqnorm(residuals(model), main =paste(model_name, 
+                                       "\nresiduals q-q plot"))
+  qqline(residuals(model))
+  hist(residuals(model), main = paste(model_name, 
+                                      "\nresidual histogram"))
+}
+
+check_mixed_model(team_final_mm)
+
+#what if the outcome isn't continuous but is either 0/1 (presence/absence) or 
+#a proportion?
+#We use a generalized linear model, aka logistic regression
+#use glm command (instead or arcsin transform!)
+#data from Needles et al 2014
+anthrax <- read.csv("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/anthrax.csv")
+head(anthrax)
+#we have to put data in success/failure set
+logistic_fit <- glm(cbind(survived, died)~ anthraxConcentration, anthrax, family=binomial)
+summary(logistic_fit)
+Anova(logistic_fit, type="III") # notice we switched to a deviance table
+#data can also be put in for each individual (just as 1/0)
+#you should really check dispersion here to make sure data isn't over-dispered
+#see ?glm for other parameters, but most common other form is poisson for count data
+#poisson_fit=glm(y~x1+x2, data, family=possion)
+
+
+
+
+#generalized additive model (gam)
+#non-linear model
+TN <- read.table("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/TeethNitrogen.txt",
+                 header=T)
+Moby <- subset(TN, TN$Tooth == "Moby")
+Moby_lm <- lm(X15N ??? Age, data = Moby)
+op <- par(mfrow = c(2, 2))
+plot(M2, add.smooth = FALSE)
+par(op)
+#what issue do you see?
+require(mgcv)
+require(MASS)
+Moby_s <- gam(X15N ~ s(Age),data=Moby)
+summary(Moby_s)
+AIC(Moby_s, Moby_lm)
+
+
+#nls is used to fit specified functions in R
+f <- "http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/2930_Callipepla_squamata_all_factors.txt"
+
+calli <- read.table(f, header=T)  # data file is .txt, so need read.table
+head(calli)
+
+## Key to variables:
+## long4:  longitude      lat4:  latitude
+## log_avg_abun:  average abundance of Callipepla squamata in the years 1995-2005, log transformed
+## log_bm_comp / log_guild_comp_abun / log_family_abun:  abundance of spatially coincident species within 75% and 125% of Callipepla squamata's (scaled quail) biomass; abundance of spatially coincident species in the same guild; abundance of spatially coincident family members
+##  pred_all_abun/ pred_main_abun :  abundances of all predatory birds, or predatory birds that have birds as the main part of their diet
+## log_NPP / ndvi:  Net Primary Productivity (log) or Normalized Differential Vegetation Index
+## AvgOfatr:  Annual temperature range
+## AvgOfhtwm:  hottest temperature in the warmest month
+## AvgOfmpdm:  mean precipitation in the driest month
+## AvgOfmph2oq :  mean precipitation in the wettest quarter
+## AvgOfmtwq :  mean temperature in the warmest quarter
+## AvgOfsdmp/ AvgOfsdmt:  std deviation of mean precipitation / mean temperature
+## hab_suit/ avg_of_dis:  habitat suitability (1,0) / distance to nearest optimal habitat
+
+
+##log_avg_abun is the response, and this file contains a number of possible useful predictors for this abundance.
+
+#lets fit a model.  you must specify the variable (c) and an initial vector.
+#the curve is fit using the Newton-Raphson procedure by default
+
+m2<-nls(log_avg_abun~c/ndvi, data=calli, start=list(c=1))
+summary(m2)
+AIC(m2)
+
+#trees
+corn <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/corn_yield.csv")
+head(corn)
+require(tree)
+corn_tree_model <- tree(corn)#uses first term as response if not specified
+corn_tree_model <- tree(log_yield~., corn)#better to specify
+plot(corn_tree_model)
+text(corn_tree_model)
+prune.tree(corn_tree_model)
+plot(prune.tree(corn_tree_model))
+corn_tree_model_2 <- prune.tree(corn_tree_model, best = 4)
+plot(corn_tree_model_2)
+text(corn_tree_model_2)
+
+#validation techniques
+
+dove_or_waxwing <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/gams_data.csv", header=T)
+
+#column data
+# lat	latitude
+# long	longitude
+# sdmp	standard deviation of mean (annual) precipitation
+# sdmt	standard deviation of mean annual temperature
+# ndvi 	normalized differential vegetation index - a measure of greenness, and thus of productivity
+# mph2om 	mean precipitation in the wettest month
+# htwm 	highest temperature in the warmest month (e.g., to test for extreme temperatures)
+# mpdm 	mean precipitation in the driest month (e.g., to test for drought conditions)
+# s3160 	species 3160 is the mourning dove, presence or absence indicated by 1 or 0
+# s6190	species 6190 is the cedar waxwing, presence or absence indicated by 1 or 0
+
+head(dove_or_waxwing)
+#get rid of odd rows
+dove_or_waxwing <- dove_or_waxwing[,names(dove_or_waxwing) %in% c("lat", "long",
+                                                                  "sdmp", "sdmt", "ndvi", "mph2om", "htwm", "mpdm", "s3160", "s6190")]
+head(dove_or_waxwing)
+tail(dove_or_waxwing)
+
+#can we predict dove presence?
+#fit with glm, all variables except waxing presence
+dove_glm <-glm(s3160~.-s6190, family="binomial", dove_or_waxwing)
+summary(dove_glm)
+#let's pare this down using AIC
+#what else could/should we have done?
+#plot data, check for correlation among explanatory variables...
+dove_glm_reduced <- step(dove_glm)
+
+#..check model assumptions
+#lets see how this does
+plot(fitted.values(dove_glm_reduced), dove_or_waxwing$s3160)
+#not overly helpful
+#calculate AUROC (AUC)
+require(ROCR)
+dove_glm_reduced_pred<-prediction(fitted.values(dove_glm_reduced), dove_or_waxwing$s3160)
+dove_glm_reduced_performance<-performance(dove_glm_reduced_pred,"tpr","fpr")
+plot(dove_glm_reduced_performance)
+(dove_glm_reduced_AUC <- performance(dove_glm_reduced_pred, "auc"))
+#AUC is the y.values
+#to call this
+str(dove_glm_reduced_AUC) #see whats going on
+#compare to
+str(dove_or_waxwing)
+dove_glm_reduced_AUC@y.values
+
+#compare to a gam
+
+require(mgcv)
+dove_gam <- gam(s3160~s(lat) + s(long) + s(sdmp) + s(sdmt) + s(ndvi) + s(mph2om) +
+                  s(htwm) + s(mpdm), data = dove_or_waxwing)
+summary(dove_gam)
+dove_gam_reduced <- update(dove_gam, . ~ . - s(sdmp) - s(ndvi))
+summary(dove_gam_reduced)
+#validation
+dove_gam_reduced_pred<-prediction(fitted.values(dove_gam_reduced), dove_or_waxwing$s3160)
+dove_gam_reduced_performance<-performance(dove_gam_reduced_pred,"tpr","fpr")
+plot(dove_gam_reduced_performance)
+(dove_gam_reduced_AUC <- performance(dove_gam_reduced_pred, "auc"))
+#AUC is the y.values
+#to call this
+str(dove_gam_reduced_AUC) #see whats going on
+#compare to
+str(dove_or_waxwing)
+dove_gam_reduced_AUC@y.values
+AIC(dove_gam_reduced, dove_glm_reduced) #gam is better, AIC is lower
+#can try other smoothers for gam as well if wanted (lo is loess, but you need
+#gam from gam package)
+
+#cross validation
+require(boot)
+dove_glm_reduced_cv<-cv.glm(dove_or_waxwing,  dove_glm_reduced,  K=3)
+str(dove_glm_reduced_cv)
+#delta is the prediction error and the adjusted rate - use adjusted to minimize
+#impact of sampling or outliers
+
+#for gam
+require(gamclass)
+dove_gam_reduced_cv <-CVgam(s3160 ~ s(lat) + s(long) + s(sdmt) + s(mph2om) + s(htwm) + s(mpdm), data = dove_or_waxwing, nfold = 3)
+str(dove_gam_reduced_cv)
+#CV_mse_GAM is your prediction accuracy [not totally sure you can compare this to
+#glm score, but can use to compare models]
+
+#extra credit
+#develop a coin flip experiment where you use Bayesian analysis
+#consider how changing the prior (hint, use a Beta(1,1) for uniform and increase
+#to Beta(30,30)) for a prior centered at .5) and hte experiment size (you can use
+#dbinom(p,N) again, and let your data be the number of samples and number of heads)
+#impacts your results
+
+
+
+
 
 
 
