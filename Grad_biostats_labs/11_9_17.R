@@ -292,21 +292,40 @@ plot(Moby_gam)
 #can compare fits with AIC
 AIC(Moby_gam, Moby_lm)
 
-#trees
-corn <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/corn_yield.csv")
-head(corn)
-require(tree)
-corn_tree_model <- tree(corn, na.action = na.omit)#uses first term as response if not specified
-corn_tree_model <- tree(log_yield~., corn,  na.action = na.omit)#better to specify
-plot(corn_tree_model)
-text(corn_tree_model)
-prune.tree(corn_tree_model)
-plot(prune.tree(corn_tree_model))
-corn_tree_model_2 <- prune.tree(corn_tree_model, best = 7)
-plot(corn_tree_model_2)
-text(corn_tree_model_2)
+#trees are useful way of handling data visually and allow first look
+#building the classification tree
+#install if necessary
+#example with famous iris dataset (built-in)
+#good for species classification!
+library(rpart)
+iris_tree_initial <- rpart(Species ~ ., data = iris, method = "class", 
+                           minsplit = 2, minbucket = 1)
+plot(iris_tree_initial)
+text(iris_tree_initial)
+#or for a prettier graph
+require(rattle)
+fancyRpartPlot(iris_tree_initial, main="Iris")
 
-#validation techniques
+#what if you want fewer splits (less complex model)
+#can use defaults for buckets 
+iris_tree_initial_auto <- rpart(Species ~ ., data = iris)
+fancyRpartPlot(iris_tree_initial_auto, main="Iris")
+
+#or minimize complexity parameter (good for larger models)
+iris_tree_model_2<- prune(iris_tree_initial, 
+                          cp =   iris_tree_initial$cptable[which.min(iris_tree_initial$cptable[,"xerror"]),"CP"])
+#is using this to make decisions
+iris_tree_initial$cptable
+fancyRpartPlot(iris_tree_model_2)
+
+# #validation techniques
+# #UNDER CONSTRUCTION
+# #need 0/1 column for for prediction
+# iris$setosa <- iris$Species
+# levels(iris$setosa)[levels(iris$setosa) == "setosa"]  <- "1"
+# levels(iris$setosa)[levels(iris$setosa) %in% c("versicolor", "virginica")] <- "0"
+# iris$setosa <- as.numeric(as.character(iris$setosa))
+# 
 
 dove_or_waxwing <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/gams_data.csv", header=T)
 
@@ -378,21 +397,22 @@ AIC(dove_gam_reduced, dove_glm_reduced) #gam is better, AIC is lower
 #can try other smoothers for gam as well if wanted (lo is loess, but you need
 #gam from gam package)
 
-#cross validation
-require(boot)
-dove_glm_reduced_cv<-cv.glm(dove_or_waxwing,  dove_glm_reduced,  K=3)
-str(dove_glm_reduced_cv)
-#delta is the prediction error and the adjusted rate - use adjusted to minimize
-#impact of sampling or outliers
-
-#for gam
-require(gamclass)
-dove_gam_reduced_cv <-CVgam(s3160 ~ s(lat) + s(long) + s(sdmt) + s(mph2om) + s(htwm) + s(mpdm), data = dove_or_waxwing, nfold = 3)
-str(dove_gam_reduced_cv)
-#CV_mse_GAM is your prediction accuracy [not totally sure you can compare this to
-#glm score, but can use to compare models]
-
-
+# #cross validation
+# UNDER CONSTRUCTION
+# require(boot)
+# dove_glm_reduced_cv<-cv.glm(dove_or_waxwing,  dove_glm_reduced,  K=3)
+# str(dove_glm_reduced_cv)
+# #delta is the prediction error and the adjusted rate - use adjusted to minimize
+# #impact of sampling or outliers
+# 
+# #for gam
+# require(gamclass)
+# dove_gam_reduced_cv <-CVgam(s3160 ~ s(lat) + s(long) + s(sdmt) + s(mph2om) + s(htwm) + s(mpdm), data = dove_or_waxwing, nfold = 3)
+# str(dove_gam_reduced_cv)
+# #CV_mse_GAM is your prediction accuracy [not totally sure you can compare this to
+# #glm score, but can use to compare models]
+# 
+# 
 
 
 
