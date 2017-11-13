@@ -48,6 +48,63 @@ t.test(Depth ~ Date, secchi_melted, paired = T) #assumes in proper order!
 smoke <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/smoke.csv?attredirects=0&d=1")
 t.test(smoke$Before, smoke$After, paired = T)
 
+#cavity example simulation####
+mean_cavity <-(51 * 39.6 + 56 * 43.9)/(51 + 56)
+variance_cavity <-((51-1)*9.4 + (56-1)*10.7)/((51 + 56)-2)
+#sample
+means = data.frame(rep = 1:10000, difference = rep(NA,10000))
+for(i in 1:10000){
+  means$difference[i] <- mean(rnorm(51, mean_cavity, sd= sqrt(variance_cavity))) - 
+    mean(rnorm(56, mean_cavity, sd= sqrt(variance_cavity)))
+  
+}
+
+ggplot(means, aes_string("difference")) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+  ggtitle("Signal under null hypothesis") +
+  ylab("Probability") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#with line
+ggplot(means, aes_string("difference")) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+  ggtitle("Signal under null hypothesis") +
+  ylab("Probability") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_vline(xintercept = 43.9 - 39.6, size = 1.5, color = "orange")
+
+count(abs(means$difference)>= (43.9 - 39.6))
+
+#with t distribution overly
+ggplot(means, aes_string("difference")) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+  stat_function(fun = dt, args = list(df = (56+51-2)),size = 3, color = "green") +   ggtitle("Signal under null hypothesis") +
+  ylab("Probability") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_vline(xintercept = 56 - 51, size = 1.5, color = "orange")
+
+2 * (1 - pt(2.213, (56+51-2)))
+
+
+
 #unpaired 2-sample test ####
 t.test(secchi$Initial, secchi$Final)
 

@@ -402,7 +402,16 @@ fisher.test(matrix(c(7, 1, 3, #spacing just for visuals
 sex_ratio <- data.frame(pop = c("a", "b"), males = c(55, 65), 
                         females = c(25, 27) )
 sex_ratio
+#not right
 chisq.test(sex_ratio$males, sex_ratio$females)
+#what about
+chisq.test(matrix(c(sex_ratio$males, sex_ratio$females), nrow = 2)) #note byrow = F here by default
+#same as
+chisq.test(matrix(c(55,25,65,27), byrow = T, nrow = 2))
+#or 
+chisq.test(cbind(sex_ratio$males, sex_ratio$females))
+
+
 
 
 
