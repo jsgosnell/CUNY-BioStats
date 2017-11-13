@@ -318,101 +318,52 @@ iris_tree_model_2<- prune(iris_tree_initial,
 iris_tree_initial$cptable
 fancyRpartPlot(iris_tree_model_2)
 
-# #validation techniques
-# #UNDER CONSTRUCTION
-# #need 0/1 column for for prediction
-# iris$setosa <- iris$Species
-# levels(iris$setosa)[levels(iris$setosa) == "setosa"]  <- "1"
-# levels(iris$setosa)[levels(iris$setosa) %in% c("versicolor", "virginica")] <- "0"
-# iris$setosa <- as.numeric(as.character(iris$setosa))
-# 
+#validation techniques
+#UNDER CONSTRUCTION
+#need 0/1 column for for prediction
+iris$virginica <- iris$Species
+levels(iris$virginica)[levels(iris$virginica) == "virginica"]  <- "1"
+levels(iris$virginica)[levels(iris$virginica) %in% c("setosa", "versicolor")] <- "0"
+iris$virginica <- as.numeric(as.character(iris$virginica))
 
-dove_or_waxwing <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/gams_data.csv", header=T)
+#compare glm and gam 
+iris_glm <- glm(virginica ~ . - Species, iris, family = binomial)
+summary(iris_glm)
+iris_glm_final <- stepAIC(iris_glm)
 
-#column data
-# lat	latitude
-# long	longitude
-# sdmp	standard deviation of mean (annual) precipitation
-# sdmt	standard deviation of mean annual temperature
-# ndvi 	normalized differential vegetation index - a measure of greenness, and thus of productivity
-# mph2om 	mean precipitation in the wettest month
-# htwm 	highest temperature in the warmest month (e.g., to test for extreme temperatures)
-# mpdm 	mean precipitation in the driest month (e.g., to test for drought conditions)
-# s3160 	species 3160 is the mourning dove, presence or absence indicated by 1 or 0
-# s6190	species 6190 is the cedar waxwing, presence or absence indicated by 1 or 0
+iris_gam <- gam(virginica ~ s(Sepal.Length) + s(Sepal.Width) + 
+                  s(Petal.Length) + s(Petal.Width), data = iris)
+summary(iris_gam)
+iris_gam_a <-update(iris_gam, . ~ . - s(Petal.Width))
+summary(iris_gam_a)
+iris_gam_b <-update(iris_gam_a, . ~ . - s(Sepal.Width))
+summary(iris_gam_b)
 
-head(dove_or_waxwing)
-#get rid of odd rows
-dove_or_waxwing <- dove_or_waxwing[,names(dove_or_waxwing) %in% c("lat", "long",
-                                                                  "sdmp", "sdmt", "ndvi", "mph2om", "htwm", "mpdm", "s3160", "s6190")]
-head(dove_or_waxwing)
-tail(dove_or_waxwing)
+AICc(iris_gam_b,  iris_glm_final)
 
-#can we predict dove presence?
-#fit with glm, all variables except waxing presence
-dove_glm <-glm(s3160~.-s6190, family="binomial", dove_or_waxwing)
-summary(dove_glm)
-#let's pare this down using AIC
-#what else could/should we have done?
-#plot data, check for correlation among explanatory variables...
-dove_glm_reduced <- step(dove_glm)
-
-#..check model assumptions
-#lets see how this does
-plot(fitted.values(dove_glm_reduced), dove_or_waxwing$s3160)
-#not overly helpful
+#compare visually using AUC
 #calculate AUROC (AUC)
 require(ROCR)
-dove_glm_reduced_pred<-prediction(fitted.values(dove_glm_reduced), dove_or_waxwing$s3160)
-dove_glm_reduced_performance<-performance(dove_glm_reduced_pred,"tpr","fpr")
-plot(dove_glm_reduced_performance)
-(dove_glm_reduced_AUC <- performance(dove_glm_reduced_pred, "auc"))
-#AUC is the y.values
-#to call this
-str(dove_glm_reduced_AUC) #see whats going on
-#compare to
-str(dove_or_waxwing)
-dove_glm_reduced_AUC@y.values
+iris_glm_final_predict<-prediction(fitted.values(iris_glm_final), iris$virginica)
+iris_glm_final_performance<-performance(iris_glm_predict,"tpr","fpr")
+#to see auc
+plot(iris_glm_performance, main = "glm AUC")
 
-#compare to a gam
+#compare to gam
+iris_gam_b_predict<-prediction(fitted.values(iris_gam_b), iris$virginica)
+iris_gam_b_performance<-performance(iris_gam_b_predict,"tpr","fpr")
+#to see auc
+plot(iris_gam_b_performance, main = "gam AUC")
 
-require(mgcv)
-dove_gam <- gam(s3160~s(lat) + s(long) + s(sdmp) + s(sdmt) + s(ndvi) + s(mph2om) +
-                  s(htwm) + s(mpdm), data = dove_or_waxwing)
-summary(dove_gam)
-dove_gam_reduced <- update(dove_gam, . ~ . - s(sdmp) - s(ndvi))
-summary(dove_gam_reduced)
-#validation
-dove_gam_reduced_pred<-prediction(fitted.values(dove_gam_reduced), dove_or_waxwing$s3160)
-dove_gam_reduced_performance<-performance(dove_gam_reduced_pred,"tpr","fpr")
-plot(dove_gam_reduced_performance)
-(dove_gam_reduced_AUC <- performance(dove_gam_reduced_pred, "auc"))
-#AUC is the y.values
-#to call this
-str(dove_gam_reduced_AUC) #see whats going on
-#compare to
-str(dove_or_waxwing)
-dove_gam_reduced_AUC@y.values
-AIC(dove_gam_reduced, dove_glm_reduced) #gam is better, AIC is lower
-#can try other smoothers for gam as well if wanted (lo is loess, but you need
-#gam from gam package)
+#cross validation
+require(boot)
+#K is the number of groups to put data into. default is "leave-one"out" design
+iris_glm_final_cv<-cv.glm(iris,  iris_glm_final)
+str(iris_glm_final_cv)
+#delta is the prediction error and the adjusted rate - use adjusted to minimize
+#impact of sampling or outliers
 
-# #cross validation
-# UNDER CONSTRUCTION
-# require(boot)
-# dove_glm_reduced_cv<-cv.glm(dove_or_waxwing,  dove_glm_reduced,  K=3)
-# str(dove_glm_reduced_cv)
-# #delta is the prediction error and the adjusted rate - use adjusted to minimize
-# #impact of sampling or outliers
-# 
-# #for gam
-# require(gamclass)
-# dove_gam_reduced_cv <-CVgam(s3160 ~ s(lat) + s(long) + s(sdmt) + s(mph2om) + s(htwm) + s(mpdm), data = dove_or_waxwing, nfold = 3)
-# str(dove_gam_reduced_cv)
-# #CV_mse_GAM is your prediction accuracy [not totally sure you can compare this to
-# #glm score, but can use to compare models]
-# 
-# 
+
 
 
 
