@@ -224,7 +224,12 @@ ggplot(ratio, aes_string("ratio")) +
           plot.title = element_text(hjust = 0.5, face="bold", size=32))
   
 #build model without intercept####
-iris_anova <- lm(Sepal.Length~Species - 1, iris)
+iris_anova_no_intercept <- lm(Sepal.Length~Species - 1, iris)
+summary(iris_anova_no_intercept)
+#but don't do this in general (R and F stats will be skewed!)
+#just use to get group coefficients if needed
+
+iris_anova <- lm(Sepal.Length~Species, iris)
 summary(iris_anova)
 require(car)
 Anova(iris_anova, type = "III")
@@ -236,8 +241,70 @@ plot(iris_anova)
 #multcomp
 require(multcomp)
 
-  
+#where's the almost difference? use Tukey's HSD for all pairs
+require(multcomp)
+compare_cont_tukey <- glht(iris_anova, linfct = mcp(Species = "Tukey"))
+summary(compare_cont_tukey)
 
+#or you can specify what you want to consider
+compare_virginica_only <- glht(iris_anova, linfct = mcp(Species = 
+                                                                c("virginica - versicolor = 0", 
+                                                                  "virginica - setosa = 0")))
+#remember to control for error rates!
+summary(compare_virginica_only, test=adjusted("holm")) 
+#other options
+summary(compare_virginica_only, test=adjusted("fdr")) 
+#we can "find" significance more easily, but you need to justify why you did this
+
+#R2####
+summary(iris_anova)
+#or
+summary(iris_anova)$r.squared
+
+#graphical comparison####
+#add comparison portion to fuction_output
+function_output$comparison <- "NA"
+#enter by hand for small groups by comparing function_output means with multcomp 
+#output (usually tukey)
+function_output
+summary(compare_cont_tukey)
+#all different here, so
+function_output$comparison <- letters[1:3]
+ggplot(function_output, aes_string(x="Species", y="mean")) +
+  geom_point(aes_string(fill="Species"), size = 3) +
+  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
+  #offset from mean by hand
+  geom_text(aes(x = Species, y = mean + .35, label = comparison), size = 28)
+
+#kruskal.wallis####
+kruskal.test(Sepal.Length ~ Species, data = iris)
+pairwise.wilcox.test(iris$Sepal.Length, 
+                          iris$Species, 
+                          p.adjust.method="holm")
+
+#building to bootstrap options####
+require(WRS2)
+#first, just using trimmed means, which help
+t1way(Sepal.Length~Species, iris)
+contrasts <- lincon(Sepal.Length~Species, iris)
+contrasts
+
+#if we don't trim mean, we use Welch's approximation for ANOVA
+t1way(Sepal.Length~Species, iris, tr = 0)
+contrasts <- lincon(Sepal.Length~Species, iris, tr = 0)
+contrasts
+
+#to actually use the bootstrap version
+t1waybt(Sepal.Length~Species, iris)
+mcppb20(Sepal.Length~Species, iris)
 
 
 
