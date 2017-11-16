@@ -91,21 +91,38 @@ Anova(cholest, type = "III")
 summary(comp_cholest)
 
 #what if we care about other factor
-pulse <- read.table("http://www.statsci.org/data/oz/ms212.txt", header = T)
-pulse$change <- pulse$Pulse2 - pulse$Pulse1
-pulse$Exercise <-as.factor(pulse$Exercise)
-levels(pulse$Exercise)
-require(plyr)
-pulse$Exercise <- revalue(pulse$Exercise, c("1" = "low" ,"2" = "medium",
-                                            "3" = "high"))
+#oyster exposure ####
+oyster <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/oyster_exposure.csv?attredirects=0&d=1")
 
-function_output <- summarySE(pulse[pulse$Ran == 1, ], measurevar="change", groupvars =
-                               c("Exercise"), na.rm = T)
+#graph
+function_output <- summarySE(oyster, measurevar="Mass", groupvars =
+                               c("Predator", "Exposure"), na.rm = T)
 
-ggplot(function_output, aes_string(x="Exercise", y="mean")) +
-  geom_col(size = 3) +
+require(ggplot2)
+ggplot(function_output, aes_string(x="Exposure", y="mean",color="Predator", 
+                                                      shape = "Predator",linetype="Predator")) +
+  geom_point(size = 5) +
   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  ylab("Pulse rate")+ggtitle("Effect of frequency of exercise on pulse")+
+  ylab("Oyster mass (g)")+ 
+  xlab("Days exposed per week") + 
+  ggtitle("Impacts of predators on oyster growth")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#with line
+ggplot(function_output, aes_string(x="Exposure", y="mean",color="Predator", 
+                                   shape = "Predator",linetype="Predator")) +
+  geom_point(size = 5) +
+  geom_line(aes_string(group="Predator", linetype = "Predator"), size=2) +
+  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  ylab("Oyster mass (g)")+ 
+  xlab("Days exposed per week") + 
+  ggtitle("Impacts of predators on oyster growth")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -115,12 +132,75 @@ ggplot(function_output, aes_string(x="Exercise", y="mean")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 
-change <- lm(change ~ Exercise, pulse[pulse$Ran == 1, ])
-summary(change)
-Anova(change, type = "III")
-#odd
+oyster_lm <- lm(Mass ~ Predator + Exposure, oyster)
+summary(oyster_lm)
+require(car)
+Anova(oyster_lm, type = "III")
+#why?
+#having the control level included presents issues here
+#you can skip
+Anova(oyster_lm, type = "III", singular.ok = T)
+#or drop 
+##define not in function
+"%!in%" <- function(x,table) match(x,table, nomatch = 0) == 0
+oyster_lm <- lm(Mass ~ Predator + Exposure, oyster[oyster$Predator %!in% c("None"),])
+Anova(oyster_lm, type = "III")
 
-#what if we add other factors
-change_with_gender <- lm(change ~ Gender, pulse[pulse$Ran == 1, ])
-summary(change_with_gender)
-Anova(change_with_gender, type = "III")
+mass_compare <- glht(oyster_lm, linfct = mcp(Predator = "Tukey"))
+summary(mass_compare)
+
+exposure_compare <- glht(oyster_lm, linfct = mcp(Exposure = "Tukey"))
+summary(exposure_compare)
+
+#this is ugly (from multcomp extra examples)
+#https://cran.r-project.org/web/packages/multcomp/vignettes/multcomp-examples.pdf
+K1 <- glht(oyster_lm, mcp(Predator = "Tukey"))$linfct
+K2 <- glht(oyster_lm, mcp(Exposure = "Tukey"))$linfct
+#simultaneously compare the levels of each factor using
+exposure_compare <- glht(oyster_lm, linfct = rbind(K1, K2))
+summary(exposure_compare)
+
+#interactions####
+oyster_lm <- lm(Mass ~ Predator * Exposure, oyster[oyster$Predator %!in% c("None"),])
+Anova(oyster_lm, type = "III")
+
+oyster$tw <- interaction(oyster$Predator, oyster$Exposure)
+oyster_lm_2<-lm(Mass~-1+tw, oyster[oyster$Predator %!in% c("None"),])
+summary(glht(oyster_lm_2,linfct=mcp(tw="Tukey")))
+
+
+
+#for ease
+reduced_data <- oyster[oyster$Predator %!in% c("None"),]
+reduced_data$Predator <- factor(reduced_data$Predator)
+reduced_data$Exposure <- factor(reduced_data$Exposure)
+oyster_lm <- lm(Mass ~ Exposure * Predator, reduced_data)
+
+
+tmp <- expand.grid(Predator = unique(reduced_data$Predator),
+                   Exposure = unique(reduced_data$Exposure))
+X <- model.matrix(~ Exposure * Predator, data = tmp)
+glht(oyster_lm, linfct = X)
+
+Tukey <- contrMat(table(reduced_data$Predator), "Tukey")
+K1 <- cbind(Tukey, matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)))
+rownames(K1) <- paste(levels(reduced_data$Exposure)[1], rownames(K1), sep = ":")
+K2 <- cbind(matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), Tukey, matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)))
+rownames(K2) <- paste(levels(reduced_data$Exposure)[2], rownames(K2), sep = ":")
+K3 <- cbind(matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), Tukey, matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)))
+rownames(K3) <- paste(levels(reduced_data$Exposure)[3], rownames(K3), sep = ":")
+K4 <- cbind(matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), matrix(0, nrow = nrow(Tukey), ncol = ncol(Tukey)), Tukey)
+rownames(K4) <- paste(levels(reduced_data$Exposure)[4], rownames(K3), sep = ":")
+K <- rbind(K1, K2, K3,K4)
+colnames(K) <- c(colnames(Tukey), colnames(Tukey), colnames(Tukey), colnames(Tukey))
+summary(glht(oyster_lm, linfct = K %*% X))
+
+
+#easier for all comparisons
+require(lsmeans)
+lsmeans(oyster_lm, pairwise ~ Exposure | Predator)
+
+
+  
+
+

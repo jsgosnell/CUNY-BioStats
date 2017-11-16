@@ -1,0 +1,1201 @@
+Length,Growth,Mass,Predator,Exposure,Presence,expunit,Alive
+56.9,40.05,24.49,Conchs,1,present,Conchs_1_b,A
+43.35,28.2,17.12,Conchs,1,present,Conchs_1_b,A
+42.45,36.85,28.77,Conchs,1,present,Conchs_1_b,A
+51.7,26.35,35.15,Conchs,1,present,Conchs_1_b,A
+41.06,34.15,NA,Conchs,1,present,Conchs_1_b,A
+43.8,26.75,30.09,Conchs,1,present,Conchs_1_b,A
+40.75,27.6,NA,Conchs,1,present,Conchs_1_b,A
+37.8,26.7,12.52,Conchs,1,present,Conchs_1_b,A
+61.95,41.2,29.06,Conchs,1,present,Conchs_1_b,A
+53.1,36.05,25.56,Conchs,1,present,Conchs_1_b,A
+51.55,33.2,18.69,Conchs,1,present,Conchs_1_b,A
+53.1,46.8,25.8,Conchs,1,present,Conchs_1_b,A
+50.65,32.55,16.19,Conchs,1,present,Conchs_1_b,A
+42.15,25.5,13.58,Conchs,1,present,Conchs_1_b,A
+46.7,32.4,19.76,Conchs,1,present,Conchs_1_b,A
+58.1,42.7,24.88,Conchs,1,present,Conchs_1_b,A
+48.3,31.35,17.72,Conchs,1,present,Conchs_1_b,A
+45.75,36.25,12.8,Conchs,1,present,Conchs_1_b,A
+39.6,25.75,14.02,Conchs,1,present,Conchs_1_b,A
+45.5,29.05,14.51,Conchs,1,present,Conchs_1_b,A
+37.75,31.8,17.15,Conchs,1,present,Conchs_1_g,A
+49.7,34.05,17.57,Conchs,1,present,Conchs_1_g,A
+47.3,36.7,31.45,Conchs,1,present,Conchs_1_g,A
+50.4,32.3,NA,Conchs,1,present,Conchs_1_g,A
+48.55,30.65,24.93,Conchs,1,present,Conchs_1_g,A
+40.65,31.8,25.49,Conchs,1,present,Conchs_1_g,A
+44.3,34.35,30.18,Conchs,1,present,Conchs_1_g,A
+39.45,25.4,19.78,Conchs,1,present,Conchs_1_g,A
+40.15,26.45,15.22,Conchs,1,present,Conchs_1_g,A
+55.3,42.3,20.35,Conchs,1,present,Conchs_1_g,A
+48.35,33.05,14.22,Conchs,1,present,Conchs_1_g,A
+5.3,34.85,18.01,Conchs,1,present,Conchs_1_g,A
+44.6,31.35,13.46,Conchs,1,present,Conchs_1_g,A
+40.95,25.15,8.86,Conchs,1,present,Conchs_1_g,A
+48.2,37.45,18.05,Conchs,1,present,Conchs_1_g,A
+45.7,31.65,16.84,Conchs,1,present,Conchs_1_g,A
+46.2,38.25,14.41,Conchs,1,present,Conchs_1_g,A
+47.65,36.4,20.22,Conchs,1,present,Conchs_1_g,A
+46.75,32.3,16.13,Conchs,1,present,Conchs_1_g,A
+55.9,40.6,24.36,Conchs,1,present,Conchs_1_g,A
+42.6,27.5,11.16,Conchs,1,present,Conchs_1_o,A
+43.4,NA,26.71,Conchs,1,present,Conchs_1_o,A
+42.15,30.1,14.11,Conchs,1,present,Conchs_1_o,A
+41.7,24.9,14.81,Conchs,1,present,Conchs_1_o,A
+45.95,32.7,15.18,Conchs,1,present,Conchs_1_o,A
+48.8,32.5,15.78,Conchs,1,present,Conchs_1_o,A
+41.35,25.3,15.4,Conchs,1,present,Conchs_1_o,A
+47.5,29.4,17.27,Conchs,1,present,Conchs_1_o,A
+40.7,27.6,11.78,Conchs,1,present,Conchs_1_o,A
+46.4,33.6,16.3,Conchs,1,present,Conchs_1_o,A
+46.05,33.7,19.15,Conchs,1,present,Conchs_1_o,A
+54.75,41.8,24.94,Conchs,1,present,Conchs_1_o,A
+42.4,28.3,13.84,Conchs,1,present,Conchs_1_o,A
+39.9,26.3,14.71,Conchs,1,present,Conchs_1_o,A
+42.3,24,11.79,Conchs,1,present,Conchs_1_o,A
+41.15,26.3,10.8,Conchs,1,present,Conchs_1_o,A
+43.5,34.1,14.49,Conchs,1,present,Conchs_1_o,A
+39.1,31.35,11.84,Conchs,1,present,Conchs_1_o,A
+43.35,29.25,13.94,Conchs,1,present,Conchs_1_o,A
+53.6,39.55,31.68,Conchs,1,present,Conchs_1_o,A
+48.05,30.3,18.74,Conchs,1,present,Conchs_1_p,A
+49.4,34.2,20.79,Conchs,1,present,Conchs_1_p,A
+52.15,31.3,31.8,Conchs,1,present,Conchs_1_p,A
+47.85,34.5,NA,Conchs,1,present,Conchs_1_p,A
+47.65,37.3,27.34,Conchs,1,present,Conchs_1_p,A
+40.6,31.75,NA,Conchs,1,present,Conchs_1_p,A
+45.5,34.35,16.35,Conchs,1,present,Conchs_1_p,A
+55.7,44.2,29.73,Conchs,1,present,Conchs_1_p,A
+47.55,30.2,14.41,Conchs,1,present,Conchs_1_p,A
+45.1,34.6,17.57,Conchs,1,present,Conchs_1_p,A
+39.1,29.45,13.23,Conchs,1,present,Conchs_1_p,A
+62.3,50.55,34.42,Conchs,1,present,Conchs_1_p,A
+43.15,30.2,14.71,Conchs,1,present,Conchs_1_p,A
+42.4,36.6,32.26,Conchs,1,present,Conchs_1_p,A
+53.8,39.05,NA,Conchs,1,present,Conchs_1_p,A
+45.8,27.7,18.09,Conchs,1,present,Conchs_1_p,A
+50.1,35.3,19.91,Conchs,1,present,Conchs_1_p,A
+45.6,34.55,14.42,Conchs,1,present,Conchs_1_p,A
+52.55,34.2,18.66,Conchs,1,present,Conchs_1_p,A
+46.75,34.7,16.63,Conchs,1,present,Conchs_1_p,A
+46.05,28.5,13.55,Conchs,6,present,Conchs_6_b,A
+56.6,43.25,21.6,Conchs,6,present,Conchs_6_b,A
+36.6,23.35,11.75,Conchs,6,present,Conchs_6_b,A
+35.35,26.15,17.32,Conchs,6,present,Conchs_6_b,A
+46.2,29.1,16.42,Conchs,6,present,Conchs_6_b,A
+44.15,32.6,16.01,Conchs,6,present,Conchs_6_b,A
+50.2,32.25,18.33,Conchs,6,present,Conchs_6_b,A
+48.3,25.3,11.38,Conchs,6,present,Conchs_6_b,A
+32.85,18.45,9.49,Conchs,6,present,Conchs_6_b,A
+32.65,21.85,8.82,Conchs,6,present,Conchs_6_b,A
+42.8,27.4,16.57,Conchs,6,present,Conchs_6_b,A
+46.7,30.35,17.28,Conchs,6,present,Conchs_6_b,A
+45.6,36.75,16.14,Conchs,6,present,Conchs_6_b,A
+45.2,31.3,15.93,Conchs,6,present,Conchs_6_b,A
+42.7,27.45,13.37,Conchs,6,present,Conchs_6_b,A
+41.35,29.4,13.8,Conchs,6,present,Conchs_6_b,A
+52.95,37.35,13.2,Conchs,6,present,Conchs_6_b,A
+41.7,30.5,15.3,Conchs,6,present,Conchs_6_b,A
+35.15,33.6,8.69,Conchs,6,present,Conchs_6_b,A
+41.55,30.7,14.05,Conchs,6,present,Conchs_6_b,A
+52.4,41.55,38.8,Conchs,6,present,Conchs_6_g,A
+53.25,37.8,16.93,Conchs,6,present,Conchs_6_g,A
+57.4,43.2,23.54,Conchs,6,present,Conchs_6_g,A
+47.2,30.6,12.83,Conchs,6,present,Conchs_6_g,A
+52.3,34.6,31.5,Conchs,6,present,Conchs_6_g,A
+47.8,33.15,17.74,Conchs,6,present,Conchs_6_g,A
+38.35,28.7,10.47,Conchs,6,present,Conchs_6_g,A
+42.4,26.05,14.03,Conchs,6,present,Conchs_6_g,A
+44.8,33.15,16.19,Conchs,6,present,Conchs_6_g,A
+56.1,40.25,18.15,Conchs,6,present,Conchs_6_g,A
+48.6,35.9,16.93,Conchs,6,present,Conchs_6_g,A
+54.3,35.65,NA,Conchs,6,present,Conchs_6_g,A
+41.45,23.7,13.91,Conchs,6,present,Conchs_6_g,A
+42.85,24.45,11.97,Conchs,6,present,Conchs_6_g,A
+39.4,27.5,9.6,Conchs,6,present,Conchs_6_g,A
+54.6,40.35,30.22,Conchs,6,present,Conchs_6_g,A
+38.2,24.2,12.12,Conchs,6,present,Conchs_6_g,A
+60.4,40.7,32.94,Conchs,6,present,Conchs_6_g,A
+61.25,44.9,28.82,Conchs,6,present,Conchs_6_g,A
+50.05,33.1,13.4,Conchs,6,present,Conchs_6_o,A
+36.1,23.55,10.41,Conchs,6,present,Conchs_6_o,A
+37.4,22.3,7.32,Conchs,6,present,Conchs_6_o,A
+38.7,23.15,11.74,Conchs,6,present,Conchs_6_o,A
+38.05,25.2,13.14,Conchs,6,present,Conchs_6_o,A
+41.6,26.9,11.48,Conchs,6,present,Conchs_6_o,A
+40.6,29.4,10.66,Conchs,6,present,Conchs_6_o,A
+41.2,28.7,13.45,Conchs,6,present,Conchs_6_o,A
+34.5,26.1,10.6,Conchs,6,present,Conchs_6_o,A
+43.05,25.65,13.5,Conchs,6,present,Conchs_6_o,A
+42.75,28.1,14.71,Conchs,6,present,Conchs_6_o,A
+46.3,31.15,12.3,Conchs,6,present,Conchs_6_o,A
+50.65,30.65,28.4,Conchs,6,present,Conchs_6_o,A
+42.6,29.25,11.83,Conchs,6,present,Conchs_6_o,A
+37.35,24.05,10.44,Conchs,6,present,Conchs_6_o,A
+34.45,19.15,9.93,Conchs,6,present,Conchs_6_o,A
+43.2,31.05,10.98,Conchs,6,present,Conchs_6_o,A
+38.15,26.9,11.78,Conchs,6,present,Conchs_6_o,A
+45.1,30.45,16.15,Conchs,6,present,Conchs_6_o,A
+42.05,29.3,14.83,Conchs,6,present,Conchs_6_o,A
+41.25,28.65,7.56,Conchs,6,present,Conchs_6_p,A
+52.2,33.05,20.9,Conchs,6,present,Conchs_6_p,A
+38.05,27.6,8.44,Conchs,6,present,Conchs_6_p,A
+42.45,30.8,11.3,Conchs,6,present,Conchs_6_p,A
+51.8,37.55,17.18,Conchs,6,present,Conchs_6_p,A
+44.3,28.6,11.61,Conchs,6,present,Conchs_6_p,A
+38.9,24.8,6.93,Conchs,6,present,Conchs_6_p,A
+37.7,22.55,9.94,Conchs,6,present,Conchs_6_p,A
+38.35,28.1,12.33,Conchs,6,present,Conchs_6_p,A
+45.3,31.2,10.78,Conchs,6,present,Conchs_6_p,A
+50.8,30.55,18.45,Conchs,6,present,Conchs_6_p,A
+52.4,33.15,29.92,Conchs,6,present,Conchs_6_p,A
+39.1,27.2,13.17,Conchs,6,present,Conchs_6_p,A
+51.15,35.8,25.5,Conchs,6,present,Conchs_6_p,A
+41.6,28.15,11.82,Conchs,6,present,Conchs_6_p,A
+38.35,25.25,10.99,Conchs,6,present,Conchs_6_p,A
+54.6,38.25,17.92,Conchs,6,present,Conchs_6_p,A
+45.6,27.65,10.63,Conchs,6,present,Conchs_6_p,A
+56.25,43.55,18.77,Conchs,6,present,Conchs_6_p,A
+42.55,30.85,15.43,Conchs,6,present,Conchs_6_p,A
+51.05,31.8,26.13,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+42.1,25.85,16.52,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+42.35,28.1,13.92,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+48.7,34.8,19.28,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+48.25,28.6,16.32,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+63.7,49.7,22.82,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+51.55,40.6,17.13,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+45.3,33.45,14.7,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+46.15,28.8,14.53,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+45.2,30.7,14.71,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+52.5,38.7,20.41,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+49.4,36.05,15.36,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+50.25,40.25,16.45,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+45.35,27.5,17.27,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+57.75,42.8,37.12,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+55.9,35.7,25.97,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+50.1,33.05,16.23,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+44.5,34.65,15.7,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+50.7,31.8,29.62,Conchs,"3 
+ con",present,"Conchs_3 
+ con_g",A
+58.15,42.4,23.34,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+40.2,30.1,14.26,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+56.25,30.05,36.86,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+49.95,33.4,NA,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+54.2,35.05,26.63,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+39.45,28.3,12.76,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+57.2,37.05,18.33,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+39.8,33.1,17.72,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+53.6,36.05,17.94,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+47.9,36.8,13.84,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+54.7,41.8,20.12,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+42.5,27.3,19.71,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+36.6,25.8,11.45,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+52.9,31.35,18.77,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+43.7,27.25,14.18,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+53.85,37.3,16.82,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+48.5,34.8,15.07,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+57.25,43.25,22.22,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+41.05,25.55,12.57,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+45.9,31.35,16.11,Conchs,"3 
+ con",present,"Conchs_3 
+ con_o",A
+39.8,31.5,12.08,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+48.35,32.1,18.33,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+56.95,46.2,24.42,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+36.05,24.25,11.3,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+51.8,39.4,25.87,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+42.4,26.9,12.19,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+51.7,40.7,11.78,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+47.8,35.3,16,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+44.8,29.7,12.76,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+39.4,20.85,13.56,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+42.3,22.2,10.01,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+42.55,28.65,14.17,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+46.55,30.25,19.4,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+51.5,37.5,13.55,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+54.45,36.5,24.9,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+56.1,38.1,33.88,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+53.1,34.3,NA,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+38.2,26.65,14.74,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+50.65,34.7,17.28,Conchs,"3 
+ con",present,"Conchs_3 
+ con_p",A
+47.5,30.15,20.81,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+43.9,30.55,14.81,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+48.3,32.75,18.63,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+51.3,30.1,37.95,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+49.9,34.4,NA,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+61.7,38.05,34.92,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+49.2,32.5,17.66,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+56.3,34.45,27.82,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+53.65,41.9,20.65,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+43.5,NA,31.32,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+43.65,29.75,27.02,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+49.8,33.7,18.93,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+48.3,34.25,18.17,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+48.8,32.9,22.01,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+41.5,32.5,15.33,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+53.7,41.45,22.09,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+49.2,38.05,15.36,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+44.6,32.05,25.71,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+46.55,34.5,16.05,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_b",A
+53.7,28.6,19.37,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+7.6,31.2,15.53,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+33.3,19.05,9.01,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+49.7,37.4,19.67,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+49.5,31.1,15.61,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+39.35,27.65,1.3,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+48.25,30.6,13.9,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+46.15,30.4,12.31,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+36.5,32.05,15.58,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+57.4,43.35,23.1,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+42.9,27.8,13.84,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+48.3,34.1,19.96,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+59.9,38.3,30.96,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+44.75,30.55,15.69,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+48.6,33.7,16.54,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+43.8,31.25,15.67,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+47.15,30.4,16.9,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+40.5,27.2,12.18,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+52.3,36.1,16.38,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+36.2,28.05,12.52,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_g",A
+50.4,32.7,13.01,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+59.8,45.65,29.27,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+46.2,31.15,18.15,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+45.05,28.7,13.91,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+61.5,44.6,34.41,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+53.3,39.65,36.44,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+46.5,33.7,13.54,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+51.75,33.05,25.47,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+46.55,34.3,14.28,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+45.9,34.6,15.04,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+50.35,35.05,21.85,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+49.3,33.1,13.61,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+46.8,29.6,15.63,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+42.15,31.2,13.56,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+53.9,34.15,29.43,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+38.6,26.2,14.55,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+52.8,39.1,15.27,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+43.55,29.75,14.85,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+45.85,28.6,21.86,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+42.1,29.2,9.96,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_o",A
+45.4,32.05,14.08,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+40.25,21.7,15.11,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+39.35,28.5,12.79,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+41.55,32.6,15.37,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+39.3,27.2,12.22,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+42.1,28.4,10.37,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+50.55,36.4,13.47,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+45.6,33.2,15.67,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+43.35,32.85,12.3,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+44.15,29.05,15.45,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+54.55,38.4,20.42,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+41.35,24.1,11.85,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+39.75,26.3,13.4,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+40.05,29.3,8.98,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+37.2,21.3,9.54,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+50.3,35.65,19.33,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+35.6,25.4,10.42,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+42.6,32.2,13.26,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+47.85,NA,12.82,Conchs,"3 
+ iso",present,"Conchs_3 
+ iso_p",A
+58.1,42.9,25.19,Crabs,1,present,Crabs_1_b,A
+58.4,45.55,29.23,Crabs,1,present,Crabs_1_b,A
+47.9,33.1,32.99,Crabs,1,present,Crabs_1_b,A
+42.2,26.5,NA,Crabs,1,present,Crabs_1_b,A
+50.45,38.05,33.64,Crabs,1,present,Crabs_1_b,A
+46.45,35.5,NA,Crabs,1,present,Crabs_1_b,A
+50.2,36.2,22.82,Crabs,1,present,Crabs_1_b,A
+55.9,39.85,25.45,Crabs,1,present,Crabs_1_b,A
+46.5,28.7,16.38,Crabs,1,present,Crabs_1_b,A
+52.55,36.05,22.61,Crabs,1,present,Crabs_1_b,A
+43.9,30.6,19,Crabs,1,present,Crabs_1_b,A
+44.45,30.7,14.74,Crabs,1,present,Crabs_1_b,A
+46.7,34.3,19.8,Crabs,1,present,Crabs_1_b,A
+51.4,37.2,21.31,Crabs,1,present,Crabs_1_b,A
+47.65,31.2,15.98,Crabs,1,present,Crabs_1_b,A
+47.4,29.05,14.11,Crabs,1,present,Crabs_1_b,A
+43.65,35.05,17.04,Crabs,1,present,Crabs_1_b,A
+50.05,35.4,14.44,Crabs,1,present,Crabs_1_b,A
+47.1,34.05,19.21,Crabs,1,present,Crabs_1_b,A
+45.15,28.7,26.06,Crabs,1,present,Crabs_1_g,A
+54.05,36.7,19.94,Crabs,1,present,Crabs_1_g,A
+63.7,42.3,43.57,Crabs,1,present,Crabs_1_g,A
+60.5,43.35,NA,Crabs,1,present,Crabs_1_g,A
+59.6,51.3,37.13,Crabs,1,present,Crabs_1_g,A
+56.8,36.75,NA,Crabs,1,present,Crabs_1_g,A
+66.7,58.85,26.93,Crabs,1,present,Crabs_1_g,A
+47.15,30.6,16.72,Crabs,1,present,Crabs_1_g,A
+65.2,46.25,27.42,Crabs,1,present,Crabs_1_g,A
+51.15,37.25,21.5,Crabs,1,present,Crabs_1_g,A
+45.75,31.7,13.18,Crabs,1,present,Crabs_1_g,A
+48.2,31.05,NA,Crabs,1,present,Crabs_1_g,A
+52.1,31.55,15.53,Crabs,1,present,Crabs_1_g,A
+46.7,32.4,21.15,Crabs,1,present,Crabs_1_g,A
+54.05,29.6,25.19,Crabs,1,present,Crabs_1_g,A
+45.5,31.35,15.41,Crabs,1,present,Crabs_1_g,A
+60.9,48.4,31.65,Crabs,1,present,Crabs_1_g,A
+43.3,24.7,12.97,Crabs,1,present,Crabs_1_g,A
+52.75,32.9,24.77,Crabs,1,present,Crabs_1_g,A
+48.2,37.6,20.47,Crabs,1,present,Crabs_1_g,A
+48.55,32.6,18.24,Crabs,1,present,Crabs_1_o,A
+35.05,23.3,10.3,Crabs,1,present,Crabs_1_o,A
+52.6,39.45,38.06,Crabs,1,present,Crabs_1_o,A
+61.7,36.5,34.66,Crabs,1,present,Crabs_1_o,A
+43.1,36.8,30.35,Crabs,1,present,Crabs_1_o,A
+50.85,37.5,34.67,Crabs,1,present,Crabs_1_o,A
+58.4,40.3,26.46,Crabs,1,present,Crabs_1_o,A
+46.05,39.7,19.39,Crabs,1,present,Crabs_1_o,A
+53.4,40.2,21.18,Crabs,1,present,Crabs_1_o,A
+50.4,40.25,17.94,Crabs,1,present,Crabs_1_o,A
+40.2,32.05,14.73,Crabs,1,present,Crabs_1_o,A
+39.85,31.35,14.22,Crabs,1,present,Crabs_1_o,A
+44.85,30.35,18.15,Crabs,1,present,Crabs_1_o,A
+40.55,28.6,13.14,Crabs,1,present,Crabs_1_o,A
+46.8,30.05,17.28,Crabs,1,present,Crabs_1_o,A
+45.05,31.05,16.64,Crabs,1,present,Crabs_1_o,A
+45.3,34.15,18.17,Crabs,1,present,Crabs_1_o,A
+48.05,33.65,15.6,Crabs,1,present,Crabs_1_o,A
+49.3,34.8,18.48,Crabs,1,present,Crabs_1_o,A
+44.1,24.15,13.54,Crabs,1,present,Crabs_1_o,A
+50.5,39.55,17.54,Crabs,1,present,Crabs_1_p,A
+60.8,46.4,24.24,Crabs,1,present,Crabs_1_p,A
+47.35,35.65,27.19,Crabs,1,present,Crabs_1_p,A
+47.05,34.9,NA,Crabs,1,present,Crabs_1_p,A
+38.6,28.1,14.93,Crabs,1,present,Crabs_1_p,A
+43.6,31.25,11.84,Crabs,1,present,Crabs_1_p,A
+53.6,35.3,17.85,Crabs,1,present,Crabs_1_p,A
+51.4,32.1,22.63,Crabs,1,present,Crabs_1_p,A
+42.1,28.6,16.58,Crabs,1,present,Crabs_1_p,A
+52.6,39.8,20.91,Crabs,1,present,Crabs_1_p,A
+50.4,36.7,22.4,Crabs,1,present,Crabs_1_p,A
+38.9,23.05,8.64,Crabs,1,present,Crabs_1_p,A
+52.6,37.5,19.49,Crabs,1,present,Crabs_1_p,A
+39.85,26.5,13.19,Crabs,1,present,Crabs_1_p,A
+44.3,26.7,16.37,Crabs,1,present,Crabs_1_p,A
+51.85,3.7,21.46,Crabs,1,present,Crabs_1_p,A
+60.1,42.6,16.98,Crabs,1,present,Crabs_1_p,A
+48.9,32.75,18.88,Crabs,1,present,Crabs_1_p,A
+51.2,30.2,19.6,Crabs,1,present,Crabs_1_p,A
+58.6,40.3,21.75,Crabs,1,present,Crabs_1_p,A
+56.8,36.7,20.01,Crabs,6,present,Crabs_6_b,A
+52.2,43.8,21.28,Crabs,6,present,Crabs_6_b,A
+51.1,41.3,33.67,Crabs,6,present,Crabs_6_b,A
+5.3,38.3,NA,Crabs,6,present,Crabs_6_b,A
+56.7,45.7,31,Crabs,6,present,Crabs_6_b,A
+59.05,426,23.62,Crabs,6,present,Crabs_6_b,A
+51.4,32.8,23.21,Crabs,6,present,Crabs_6_b,A
+56.5,33.1,28.88,Crabs,6,present,Crabs_6_b,A
+44.9,33.6,13.84,Crabs,6,present,Crabs_6_b,A
+49.7,30.6,21.95,Crabs,6,present,Crabs_6_b,A
+58.6,44.35,21.48,Crabs,6,present,Crabs_6_b,A
+55.6,43.4,16.2,Crabs,6,present,Crabs_6_b,A
+47.75,33.6,17.86,Crabs,6,present,Crabs_6_b,A
+49.7,35.75,18.84,Crabs,6,present,Crabs_6_b,A
+55.5,41.3,24.27,Crabs,6,present,Crabs_6_b,A
+54.1,37.7,23.78,Crabs,6,present,Crabs_6_b,A
+44.4,29.85,13.13,Crabs,6,present,Crabs_6_b,A
+55.15,35.8,20.26,Crabs,6,present,Crabs_6_b,A
+56.1,41.5,29.35,Crabs,6,present,Crabs_6_b,A
+47.75,28.5,13.64,Crabs,6,present,Crabs_6_b,A
+49.6,36.7,18.69,Crabs,6,present,Crabs_6_g,A
+38.05,34.05,19.76,Crabs,6,present,Crabs_6_g,A
+65.4,43.65,48.68,Crabs,6,present,Crabs_6_g,A
+53.15,41.2,NA,Crabs,6,present,Crabs_6_g,A
+45.5,34.5,27.73,Crabs,6,present,Crabs_6_g,A
+42.35,31.6,NA,Crabs,6,present,Crabs_6_g,A
+57.1,44.5,30.21,Crabs,6,present,Crabs_6_g,A
+64.3,47.9,28.27,Crabs,6,present,Crabs_6_g,A
+42.7,34.15,15,Crabs,6,present,Crabs_6_g,A
+44.4,34.4,16.9,Crabs,6,present,Crabs_6_g,A
+46.35,31.05,15.31,Crabs,6,present,Crabs_6_g,A
+45.25,38.4,18.05,Crabs,6,present,Crabs_6_g,A
+47.35,33.05,19.24,Crabs,6,present,Crabs_6_g,A
+46.8,35.85,12.53,Crabs,6,present,Crabs_6_g,A
+43.05,33.4,15.18,Crabs,6,present,Crabs_6_g,A
+49.1,33.7,18.18,Crabs,6,present,Crabs_6_g,A
+39.3,27.4,10.96,Crabs,6,present,Crabs_6_g,A
+54.05,43.15,17.41,Crabs,6,present,Crabs_6_g,A
+50.45,40.8,20.99,Crabs,6,present,Crabs_6_g,A
+43.05,33.7,20.12,Crabs,6,present,Crabs_6_g,A
+47.5,30.05,22.64,Crabs,6,present,Crabs_6_o,A
+50.05,36.4,17.28,Crabs,6,present,Crabs_6_o,A
+59.8,42.3,27.15,Crabs,6,present,Crabs_6_o,A
+42.6,29.5,14.24,Crabs,6,present,Crabs_6_o,A
+43.05,27.55,12.44,Crabs,6,present,Crabs_6_o,A
+43.4,28.4,16.91,Crabs,6,present,Crabs_6_o,A
+60.05,35.55,30.67,Crabs,6,present,Crabs_6_o,A
+51.2,40.2,16.91,Crabs,6,present,Crabs_6_o,A
+40.9,27.5,15.1,Crabs,6,present,Crabs_6_o,A
+39.1,33.2,19.24,Crabs,6,present,Crabs_6_o,A
+48.45,34.55,17.21,Crabs,6,present,Crabs_6_o,A
+44.05,28.1,27.53,Crabs,6,present,Crabs_6_o,A
+39.95,31.9,14.94,Crabs,6,present,Crabs_6_o,A
+43.65,35.05,18.49,Crabs,6,present,Crabs_6_o,A
+53.6,34.1,18.89,Crabs,6,present,Crabs_6_o,A
+43.3,30.3,12.88,Crabs,6,present,Crabs_6_o,A
+53.9,39.55,19.42,Crabs,6,present,Crabs_6_o,A
+50.35,35.4,16.64,Crabs,6,present,Crabs_6_o,A
+46.15,29.6,12.77,Crabs,6,present,Crabs_6_o,A
+46.2,32.6,18.83,Crabs,6,present,Crabs_6_o,A
+58.5,41.25,24.61,Crabs,6,present,Crabs_6_p,A
+48.35,38.4,16.22,Crabs,6,present,Crabs_6_p,A
+44.05,32.05,18.69,Crabs,6,present,Crabs_6_p,A
+38.65,28.85,14.28,Crabs,6,present,Crabs_6_p,A
+40.45,29.45,14.57,Crabs,6,present,Crabs_6_p,A
+49.7,39.8,18.22,Crabs,6,present,Crabs_6_p,A
+66.4,42.5,39.71,Crabs,6,present,Crabs_6_p,A
+61.55,NA,50.21,Crabs,6,present,Crabs_6_p,A
+53.9,37.2,38.93,Crabs,6,present,Crabs_6_p,A
+51.95,40.1,31.84,Crabs,6,present,Crabs_6_p,A
+49.8,39.4,20.42,Crabs,6,present,Crabs_6_p,A
+57.9,41.3,24.79,Crabs,6,present,Crabs_6_p,A
+45.05,37.8,8.62,Crabs,6,present,Crabs_6_p,A
+58.35,41.85,26.52,Crabs,6,present,Crabs_6_p,A
+62.85,45.8,29.27,Crabs,6,present,Crabs_6_p,A
+52.85,42.3,21.43,Crabs,6,present,Crabs_6_p,A
+64.6,42.65,31.5,Crabs,6,present,Crabs_6_p,A
+52.6,32.95,27.58,Crabs,6,present,Crabs_6_p,A
+47.35,28.8,16.2,Crabs,6,present,Crabs_6_p,A
+44.15,34.25,14.27,Crabs,6,present,Crabs_6_p,A
+33.6,22.8,21.32,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+57.3,38.85,24.14,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+61.55,45.7,21.23,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+56.55,39.1,21.17,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+52.95,41.3,20.07,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+45.1,34.35,15.47,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+52.1,38.8,19.59,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+49.75,35.3,27.49,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+49.7,33.45,27.5,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+51.5,32.6,25.3,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+55.9,41.7,21.4,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+52.5,32.2,13.6,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+45.05,28.15,12.71,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+39.55,29.1,16.62,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+45.9,37.6,17.84,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+45.05,32.25,15.1,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+43.3,33.95,27.51,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+46.5,35.9,27.51,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+38.9,28.2,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_b",A
+52.45,44.05,16.78,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+37.3,25.25,11.74,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+60.2,41.7,38.43,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+52.4,43.1,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+53.05,38.2,34.23,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+48.5,35.3,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+56.45,37.7,40.58,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+55.15,43.2,22.27,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+44.2,31.2,15.2,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+41.7,29.8,14.64,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+46.3,32.7,13.66,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+57.3,41.2,8.74,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+36.35,24.4,9.83,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+47.85,38.6,19.42,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+42.6,33.2,17.49,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+41.4,27.3,13.37,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+55.85,37.7,13.95,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+40.05,28.5,11.41,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+41.05,34.2,16.31,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+46.6,35.05,14.22,Crabs,"3 
+ con",present,"Crabs_3 
+ con_g",A
+49.55,33.2,20.08,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+49.15,33.3,15.26,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+45.5,29.15,18.66,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+53.5,45.3,37.58,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+49.4,42.4,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+54.05,38.8,33.11,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+49.9,41.2,34.11,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+46.9,23.6,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+65.1,36.55,33.09,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+52.2,36.1,27.44,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+53.3,40.65,23.46,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+43.7,32.6,18.39,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+62.7,51.05,20.86,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+55.05,37.2,18.06,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+51.9,48.55,20.02,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+52.1,39.3,18.1,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+61.65,52.6,25.16,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+51.75,33.6,20.76,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+54.3,42.25,28.25,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+55.2,38.8,20.37,Crabs,"3 
+ con",present,"Crabs_3 
+ con_o",A
+48.1,34.2,20.23,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+49.3,29.15,17.17,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+55.8,37.4,44.71,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+49.1,38.2,NA,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+50.9,28.45,11.43,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+59.2,39.05,37.44,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+43.5,28.25,25.58,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+59.6,44.9,25.45,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+57.2,42.25,19.42,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+45.05,30.3,13.2,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+56.55,41.2,22.99,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+40.2,27.15,15.77,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+50.8,35.5,14.67,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+42.75,31.2,14.87,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+53.95,32.3,20.53,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+40.35,31.25,13.39,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+50.3,37.4,20.52,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+45.95,29.8,17.71,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+40.4,28.25,15.12,Crabs,"3 
+ con",present,"Crabs_3 
+ con_p",A
+60.15,48.1,23.8,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+45.45,31.15,16.76,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+62.2,41.4,69.46,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+49.1,39.25,29.23,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+50.65,38.5,19.65,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+50.2,35.4,19.11,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+48.3,37.25,19.78,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+46.6,36.85,20.23,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+55.2,37.4,22.74,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+55.4,43.1,25.22,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+59.6,39.3,20.65,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+49.55,33.5,23.42,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+56.45,39.6,20.72,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+44.05,32.2,13.1,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+44.3,29.7,16.47,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+51.3,31.5,20.08,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+49.9,37.55,15.94,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+43.5,36.35,14.18,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+50.4,35.55,16.11,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+49.2,27.4,15.37,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_b",A
+48.1,32.5,19.69,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+58.5,4.3,29.25,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+56.2,38.25,41.76,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+52.9,44.6,NA,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+47.4,47.45,43.64,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+54.7,39.5,NA,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+54.6,39.05,28.88,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+62.4,44.2,26.49,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+49.6,30.75,18.39,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+58.7,36.3,19.41,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+45.2,33.5,16.58,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+45.55,27.7,19.59,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+53.4,32.1,25,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+52.55,38.7,22.83,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+46.15,34.1,20.04,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+5.6,39.2,21.83,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+61.6,49.8,21.84,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+49.2,41.55,22.18,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+53.1,37.35,24.27,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+63.7,46.15,32.18,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_g",A
+54.2,48.05,19.81,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+52.55,33.3,16.26,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+48.4,30.8,27.32,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+53.45,35.05,31.35,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+45.05,29.35,33.27,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+46.35,25.6,27.59,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+45.15,NA,35.8,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+51.6,35.1,24.26,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+48.3,29.75,20,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+39.05,29.5,13.51,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+49.6,28.4,14.17,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+58.3,45.3,34.97,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+43.4,32.05,15.82,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+48.6,29.5,19.23,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+43.4,32.4,17.87,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+50.7,33.6,20.45,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+42.2,35.1,18.3,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+49.5,37.8,19.34,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+50.05,35.5,26.16,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+39.3,31.7,18.23,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_o",A
+47.6,34.4,15.96,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+48.15,37.15,17.34,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+57.6,45.7,32.82,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+50.65,37.5,37.02,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+52.75,32.3,NA,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+41.6,29.4,20.39,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+50.15,35.35,25.69,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+48.65,33.7,19.02,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+61.3,42.8,24.47,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+42.7,22.15,9.38,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+59.35,41.85,31.09,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+46.3,38.3,16,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+59.5,38.45,23.58,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+43.4,32.5,14.59,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+43.4,35.5,10.78,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+4.25,257,6.34,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+45.3,32.15,12.74,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+44.35,25.2,14.32,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+46.6,29.05,15.67,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A
+58.85,35.6,31.71,Crabs,"3 
+ iso",present,"Crabs_3 
+ iso_p",A

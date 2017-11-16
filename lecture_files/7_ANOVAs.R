@@ -223,21 +223,30 @@ ggplot(ratio, aes_string("ratio")) +
           legend.title = element_text(size=20, face="bold"),
           plot.title = element_text(hjust = 0.5, face="bold", size=32))
   
-#build model without intercept####
-iris_anova_no_intercept <- lm(Sepal.Length~Species - 1, iris)
-summary(iris_anova_no_intercept)
-#but don't do this in general (R and F stats will be skewed!)
-#just use to get group coefficients if needed
-
+#build model intercept####
 iris_anova <- lm(Sepal.Length~Species, iris)
-summary(iris_anova)
-require(car)
-Anova(iris_anova, type = "III")
+#it creates an object you can manipulate
 
 #check assumptions####
 par(mfrow = c(2,2))
 plot(iris_anova)
 
+#look at outputs using p-values
+summary(iris_anova)
+
+#you can get specific group means by builidng model without intercept
+iris_anova_no_intercept <- lm(Sepal.Length~Species - 1, iris)
+summary(iris_anova_no_intercept)
+#but don't do this in general (R and F stats will be skewed!)
+#just use to get group coefficients if needed
+#note relationship between model coefficients here as well
+
+#Anova command from car package is needed to give overall group p-value
+require(car)
+Anova(iris_anova, type = "III")
+
+#since our overall anova was significant, we need to carry out multiple comparisons
+#to see what groups are driving the difference
 #multcomp
 require(multcomp)
 
@@ -257,9 +266,12 @@ summary(compare_virginica_only, test=adjusted("fdr"))
 #we can "find" significance more easily, but you need to justify why you did this
 
 #R2####
+#R2 explains how much variation is explained by our model (groups in this instance)
 summary(iris_anova)
 #or
 summary(iris_anova)$r.squared
+#note you can have a low p-value model that also explains only small amount of 
+#variation in the data
 
 #graphical comparison####
 #add comparison portion to fuction_output
