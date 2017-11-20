@@ -335,6 +335,7 @@ oyster_lm_conchs_only <- lm(Mass ~ Exposure, oyster[oyster$Predator %in% c("Conc
 par(mfrow=c(2,2))
 plot(oyster_lm_conchs_only)
 Anova(oyster_lm_conchs_only, type = "III") #significant
+summary(oyster_lm_conchs_only)
 exposure_compare <- glht(oyster_lm_conchs_only, linfct = mcp(Exposure = "Tukey"))
 summary(exposure_compare)
 
