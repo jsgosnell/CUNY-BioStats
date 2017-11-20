@@ -207,7 +207,8 @@ ggplot(ratio, aes_string("ratio")) +
           plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   
     
-#with f
+#with f####
+#notice i specify degrees of freedom for numerator (df1) and denomitor (df2)
 ggplot(ratio, aes_string("ratio")) +
     geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", 
                    breaks = seq(0,15,1)) +
