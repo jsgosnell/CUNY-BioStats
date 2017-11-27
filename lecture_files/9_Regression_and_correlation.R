@@ -97,11 +97,26 @@ Anova(cholest_regression, type = "III")
 model.matrix(cholest_regression)[1,]
 coef(cholest_regression)
 
-#plot with lm
+#plot with lm####
 ggplot(cholesterol, aes_string(x="day", y="cholest")) +
   geom_point(size = 3) +
   geom_smooth(method = "lm") +
   ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#improve ####
+ggplot(cholesterol, aes_string(x="day", y="cholest")) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm") +
+  ylab("Cholesterol level") + 
+  xlab("Days since heart attack") + 
+  ggtitle("Cholesterol level decreases following a heart attack")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -116,8 +131,55 @@ summary(comp_cholest)
 
 #correlation####
 summary(cholest_regression)
+cor.test(~ cholest + day, data = na.omit(cholesterol))
+#note
+(-.2257696)^2 #is equal to 0.05097, multiple r2 from lm output
 
 #spearman rank
 monkey <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/monkey.csv?attredirects=0&d=1")
 cor.test(~ eggs_per_gram + Dominance_rank, monkey, method = "spearman")
 
+require(coin)
+independence_test(cholest ~ day, cholesterol)
+
+#leverage and outliers
+cholesterol$source <- "original"
+#make outlier
+cholesterol_seven <- data.frame(day = "7", cholest = "240", source = "new")
+cholesterol_merged <- merge(cholesterol, cholesterol_seven, all = T)
+#look at model to make "good" point
+coef(cholest_regression)
+cholesterol_twenty <- data.frame(day = "20", 
+                                 cholest = coef(cholest_regression)[1] +
+                                   20 * coef(cholest_regression)[2],
+                                 source = "new")
+cholesterol_merged <- merge(cholesterol_merged, cholesterol_twenty, all = T)
+cholesterol_twenty_outlier <- data.frame(day = "20", 
+                                 cholest = coef(cholest_regression)[1] +
+                                   20 * coef(cholest_regression)[2] * 5,
+                                 source = "new")
+cholesterol_merged <- merge(cholesterol_merged, cholesterol_twenty_outlier, all = T)
+cholesterol_merged$day <- as.numeric(as.character(cholesterol_merged$day))
+cholesterol_merged$cholest <- as.numeric(as.character(cholesterol_merged$cholest))
+#plot
+
+ggplot(cholesterol_merged, aes_string(x="day", y="cholest")) +
+  geom_point(aes_string(color = "source"), size = 3) +
+  geom_smooth(method = "lm") +
+  ylab("Cholesterol level") + 
+  xlab("Days since heart attack") + 
+  ggtitle("Cholesterol level decreases following a heart attack")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+cholest_regression_merged <- lm(cholest ~ day, cholesterol_merged)
+plot(cholest_regression_merged)
+cholesterol_merged[58,]
+
+cholest_regression_merged <- lm(cholest ~ day, cholesterol_merged[-58,])
+plot(cholest_regression_merged)

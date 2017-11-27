@@ -232,7 +232,7 @@ ggplot(function_output, aes_string(x="Exposure", y="mean",color="Predator",
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#with line
+#with line####
 ggplot(function_output, aes_string(x="Exposure", y="mean",color="Predator", 
                                    shape = "Predator")) +
   geom_point(size = 5) +
