@@ -61,7 +61,7 @@ fev <- read.table("http://www.statsci.org/data/general/fev.txt", header = T)
 head(fev)
 fev_age <- lm(FEV ~ Age, fev)
 plot(fev_age)
-Anova(fev_age)
+Anova(fev_age, type = "III")
 summary(fev_age)
 
 #age plot####
@@ -79,7 +79,7 @@ ggplot(fev, aes_string(x="Age", y="FEV")) +
 
 fev_height <- lm(FEV ~ Height, fev)
 plot(fev_height)
-Anova(fev_height)
+Anova(fev_height, type = "III")
 summary(fev_height)
 
 #height plot####
