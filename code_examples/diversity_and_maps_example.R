@@ -49,6 +49,7 @@ sport_melted <- melt(sport, id.vars = c("Sex", "Sport"),
 head(sport_melted)
 
 #team analysis####
+#download diversity_files folder from CUNY-Biostats/code_example 
 tree_data <- read.csv("tree_data_clean_wd_dbh.csv", 
                       na.strings=c("NA","-","", "NULL", "null", "Null", "Unknown", "unknown", 
                                "unidentifiable", "Unidentifiable"), 
@@ -357,6 +358,8 @@ ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="gro
 #get average richness per site
 
 mean_richness <- dcast(site_info_most_recent_year, Longitude + Latitude ~ "Mean_Richness", value.var = "richness", mean)
+
+#plot
 ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
   geom_polygon(colour="black", fill="white") +
   xlab("Longitude")+
@@ -371,5 +374,71 @@ ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="gro
   geom_point(data = mean_richness, 
              aes_string(x="Longitude",y="Latitude", group = NA, color = "Mean_Richness"), size = 10) +
   scale_color_continuous(guide = guide_legend(title = "Mean richness"))
-  
+
+#UNDER CONSTRUCTION####
+
+#other map examples####
+state_map <- readOGR(paste("C:/Dropbox/Stephen/Science tools/GIS from natural earth/state boundaries", sep="/"), 
+                 layer="ne_10m_admin_1_states_provinces") 
+plot(state_map)
+state_map_fortified=fortify(state_map)
+names(state_map_fortified)[names(state_map_fortified) == "long"] <- "Longitude"
+names(state_map_fortified)[names(state_map_fortified) == "lat"] <- "Latitude"
+
+#working with labels
+state_map_labels <- readOGR(paste("C:/Dropbox/Stephen/Science tools/GIS from natural earth/state boundary labels", sep="/"), 
+                                     layer="ne_10m_admin_1_label_points") 
+plot(state_map_labels) #messy
+#look at data
+state_map_labels@data
+#fortify
+state_map_labels_fortified <- as.data.frame(state_map_labels)
+head(state_map_labels)
+summary(state_map_labels_fortified)
+names(state_map_labels_fortified)[names(state_map_labels_fortified) == "coords.x1"] <- "Longitude"
+names(state_map_labels_fortified)[names(state_map_labels_fortified) == "coords.x2"] <- "Latitude"
+
+
+#for US
+US_state_labels <- melt(state_map_labels_fortified[state_map_labels_fortified$admin=="United States of America",], 
+                        id.var=c("name"), measure.vars=c("Longitude", "Latitude"))
+US_state_labels <- dcast(US_state_labels, name~variable, mean)
+head(US_state_labels)
+
+#labels and using coord_fixed to zoom
+
+ggplot(data=state_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
+  geom_polygon(colour="black", fill="white") +
+  coord_fixed(xlim=c(-125,-70), ylim = c(25,50)) +
+  geom_text(data = US_state_labels, 
+            aes_string(x = "Longitude", y = "Latitude", label="name", group = NA)) +
+  xlab("Longitude")+
+  ylab("Latitude") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
 #add code for scale bar
+#source the ggplot2_scale_bar_and_arrow_revised.R file
+ggplot(data=state_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
+  geom_polygon(colour="black", fill="white") +
+  coord_fixed(xlim=c(-125,-70), ylim = c(25,50)) +
+  geom_text(data = US_state_labels, 
+            aes_string(x = "Longitude", y = "Latitude", label="name", group = NA)) +
+  xlab("Longitude")+
+  ylab("Latitude") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  scaleBar(Longitude = -120.95, Latitude =  = 33.8, distanceLongitude = 25,
+           distanceLatitude = 5, distanceLegend = 10, dist.unit = "km",
+           arrow.length=20, arrow.distance=15, legend.size=5, arrow.North.size=10, arrow.size=1.25)
+  
