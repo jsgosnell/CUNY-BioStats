@@ -1,4 +1,51 @@
 #example code to work with diversity data and map it
+
+#notes on data manipulation####
+#long to wide
+cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
+cholesterol$day <- as.factor(cholesterol$day)
+head(cholesterol)
+require(reshape2)
+#formula gives row ~ columns
+#get daily cholesterol for every patient
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ day, 
+                          value.var ="cholest" )
+head(cholesterol_wide)
+#use fun.aggregate to get other option
+#get average cholesterol per patient
+#simple function to exclude na's (other option is to melt first and then drop them)
+meannona <- function (x) mean(x, na.rm=T)
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ ., #. means no variable, ... means all variables
+                          value.var ="cholest", fun.aggregate = meannona )
+head(cholesterol_wide)
+
+#can also name output column by putting in quotes in formula
+cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ "cholest", #. means no variable, ... means all variables
+                          value.var ="cholest", fun.aggregate = meannona )
+head(cholesterol_wide)
+
+#wide to long
+cholesterol <- read.table("http://www.statsci.org/data/general/cholestr.txt", header = T)
+head(cholesterol)
+
+#id.vars lists independent values to keep
+#measure.vars is what you are measuring (not used here, and used rarely)
+#variable.name lists what to label things you group
+#value.name gives name to value output
+cholesterol_long <- melt(cholesterol, id.vars =c())
+head(cholesterol_long)
+
+#name outcomes
+cholesterol_long <- melt(cholesterol, id.vars =c(), variable.name = "day", 
+                         value.name = "cholesterol")
+head(cholesterol_long)
+
+#more id variables
+sport_melted <- melt(sport, id.vars = c("Sex", "Sport"),
+                     variable.name = "measure", 
+                     value.name = "value")
+head(sport_melted)
+
 setwd("C:/Users/Stephen/Desktop")
 
 tree_data <- read.csv(file.choose(), 
@@ -19,20 +66,23 @@ tree_data_wide=dcast(tree_data, Site.Name+X1ha.Plot.Number+Sampling.Period~Famil
 #check this out
 tree_data_wide[1:3,1:10]
 
+#make other datafames
+#only feed diversityresult the species columns
+names(tree_data_wide)[1:15]
+abundance_data <- tree_data_wide[,4:ncol(tree_data_wide)]
+#and make site_info dataframe
+site_info <- tree_data_wide[,1:3]
+
 #get biodiversity measures####
 #taxonomic####
 require(BiodiversityR)
-#only feed diversityresult the species columns
-names(tree_data_wide)[1:15]
-#and make site_info dataframe
-site_info <- tree_data_wide[,1:3]
-richness <- diversityresult(tree_data_wide[,4:ncol(tree_data_wide)], method="each site", index = "richness")
+richness <- diversityresult(abundance_data, method="each site", index = "richness")
 site_info$richness=richness$richness
 
-shannon <- diversityresult(tree_data_wide[,4:ncol(tree_data_wide)], method="each site", index = "Shannon")
+shannon <- diversityresult(abundance_data, method="each site", index = "Shannon")
 site_info$shannon=shannon$Shannon
 
-berger <- diversityresult(tree_data_wide[,4:ncol(tree_data_wide)], method="each site", index = "Berger")
+berger <- diversityresult(abundance_data, method="each site", index = "Berger")
 site_info$berger=berger$Berger
 
 #functional diversity measures
@@ -54,15 +104,15 @@ abundance_for_wd_fd=cast(tree_data, Site.Name+X1ha.Plot.Number+Sampling.Period~F
 names(abundance_for_wd_fd)
 names(tree_data_wide)
 names(wd_trait)
-all.equal(wd_trait$Family_Genus, names(tree_data_wide[,4:ncol(tree_data_wide)]),
+all.equal(wd_trait$Family_Genus, names(abundance_data),
           check.attributes = F)
 
 #now make matrix without extra columns and with rownames
 #remove extra columsn (you just want species)
-tree_data_wide_matrix <- as.matrix(tree_data_wide[,4:ncol(tree_data_wide)])
+tree_data_wide_matrix <- as.matrix(abundance_data)
 rownames(tree_data_wide_matrix) <- paste(tree_data_wide$Site.Name, tree_data_wide$X1ha.Plot.Number, 
                                          tree_data_wide$Sampling.Period, sep = "_")
-colnames(tree_data_wide_matrix)=names(tree_data_wide[,4:ncol(tree_data_wide)])
+colnames(tree_data_wide_matrix)=names(abundance_data)
 wd_trait_matrix <- as.matrix(wd_trait["wd"])
 rownames(wd_trait_matrix) <- wd_trait$Family_Genus
 
@@ -266,6 +316,41 @@ site_info <- merge(site_info,long_lat_evapotranspiration,
 write.csv(site_info, "tree_data_complete.csv")
 
 #mapping
+#using natural earth gis layers and ggplot2
+require(rgdal)
+base_map <- readOGR(paste("C:/Dropbox/Stephen/Science tools/GIS from natural earth/land", sep="/"),
+                 layer="ne_10m_land")
+class(base_map)
+plot(base_map)
+#see data
+base_map@data
 
+require(ggplot2)
 
+mymapfortified=fortify(mymap)
+#Creat a base plot
+#coord_fixed keeps scale right (1:1)
+#coord_map uses map projections
+ggplot(data=mymapfortified,aes_string(x="long",y="lat", group="group") +
+         geom_polygon(colour="black", fill="white") +
+         xlab("Longitude")+
+         ylab("Latitude")
+       
+#input collection points and use coord_fixed to zoom in
+
+ggplot(data=mymapfortified,aes_string(x="long",y="lat", group="group") +
+         geom_polygon(colour="black", fill="white") + 
+         xlab("Longitude")+
+         ylab("Latitude") +
+         geom_point() +
+         coord_fixed(xlim=c(min(bysite$Longitude)-.5,max(bysite$Longitude)+.5)
+       
+                     annotate("text", label="Florida", x=-84.75, y=30.5, size=14)+
+                       annotate("text", label="FSUCML", x=-84.72, y=29.95, size=10)+
+                       annotate("text", label="Wakulla Beach", x=-84.25, y=30.17, size=10)
+                     
+                     
+                     scaleBar(lon = -84.4, lat = 29.7, distanceLon = 25,
+                              distanceLat = 5, distanceLegend = 10, dist.unit = "km",
+                              arrow.length=20, arrow.distance=15, legend.size=5, arrow.North.size=10, arrow.size=1.25)
 

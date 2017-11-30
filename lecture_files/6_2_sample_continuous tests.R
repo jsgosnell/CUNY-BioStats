@@ -207,7 +207,7 @@ independence_test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 #compare to t-test
 t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
-#notes on data manipulation
+#notes on data manipulation####
 #long to wide
 cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
 cholesterol$day <- as.factor(cholesterol$day)
