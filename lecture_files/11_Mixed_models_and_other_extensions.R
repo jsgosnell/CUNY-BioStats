@@ -1,4 +1,21 @@
 #lecture on mixed models and other lm extensions
+
+team <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/team_data_no_spaces.csv?attredirects=0&d=1")
+names(team)
+head(team)
+
+#for ease just pull those out (not required, just for viewing here)
+team_potential <- team[,colnames(team) %in% c(#site specific
+  "Continent",
+  #diversity
+  "shannon", "wd.RaoQ", "maxdbh.RaoQ", "CWM.wd", "CWM.maxdbh", "PD",
+  #environmental
+  "Precip_mean.mm", "Elevation",
+  #outcome
+  "PlotCarbon.tonnes")]
+
+stepAIC(team_model_full)
+
 #mixed models####
 #but we need to consider mixed model here, since each plot has 6+ sites at it
 require(lme4) #nlme is another package thats good if you need covariance structures
@@ -16,6 +33,7 @@ team_model_full_mm <- lmer(PlotCarbon.tonnes ~
 summary(team_model_full_mm)
 
 #now to do top-down test we have to use Chi-squared tests (not F)
+require(car)
 Anova(team_model_full_mm, type = "III")
 stepAIC(team_model_full_mm) # won't work with mixed models, so have to do manually
 drop1(team_model_full_mm)
@@ -61,6 +79,7 @@ head(otters)
 #star, otters, and mussels are treatments (1 is present)
 #WASU and notWASU are count data
 otter_fit <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, family=binomial)
+Anova(otter_fit, type = "III")
 summary(otter_fit)
 #same basic assumption
 plot(otter_fit)
@@ -69,15 +88,27 @@ plot(otter_fit)
 #glmm
 #but this is a mixed-model again! multiple measures per piling
 otter_fit_mm <- glmer(cbind(WASU, notWASU)~ Star + Otters + Mussels + (1|Piling), otters, family=binomial)
-summary(otter_fit_mm)
 Anova(otter_fit_mm, type = "III") #uses chisq test
+#check assumptions
+#function belows passed from R-sig-ME discussion on checking for overdispersion  
+dispersion_glmer <- function(modelglmer){
+  ## computing  estimated scale  ( binomial model)
+  #following  D. Bates :
+  #That quantity is the square root of the penalized residual sum of
+  #squares divided by n, the number of observations, evaluated as:
+  n <- length(residuals(modelglmer))
+  return(  sqrt( sum(c(residuals(modelglmer), modelglmer@u) ^2) / n ) )
+}
+dispersion_glmer(otter_fit_mm)
+#not overdispered
+
 drop1(otter_fit_mm, test = "Chi") 
 otter_fit_mm_a <- update(otter_fit_mm, .~. - Star)
 Anova(otter_fit_mm_a, type = "III") #uses chisq test
 otter_fit_mm_b <- update(otter_fit_mm_a, .~. - Mussels)
 Anova(otter_fit_mm_b, type = "III") #uses chisq test
 
-#nls is used to fit specified functions in R
+#nls is used to fit specified functions in R####
 whelk <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/whelk.csv?attredirects=0&d=1")
 head(whelk)
 summary(whelk)
