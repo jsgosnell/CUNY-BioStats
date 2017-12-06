@@ -136,23 +136,34 @@ whelk_plot + geom_smooth(method = "lm", se = FALSE, size = 1.5, color = "orange"
                                               b1 = 3)), 
               se=FALSE, size = 1.5, color = "blue") 
 
-#generalized additive model (gam)
+#generalized additive model (gam)####
 #non-linear model
-TN <- read.table("http://sites.google.com/site/stephengosnell/teaching-resources/datasets/TeethNitrogen.txt",
-                 header=T)
-Moby <- subset(TN, TN$Tooth == "Moby")
-Moby_lm <- lm(X15N ~ Age, data = Moby)
-op <- par(mfrow = c(2, 2))
-plot(Moby_lm, add.smooth = FALSE)
-par(op)
-#what issue do you see?
+
+#compare fit to whelk mass-length to that produced by gam
 require(mgcv)
 require(MASS)
-Moby_gam <- gam(X15N ~ s(Age),data=Moby)
-summary(Moby_gam)
-plot(Moby_gam)
+#this just produces an lm
+whelk_gam_lm <- gam(Mass ~ Shell.Length, data = whelk)
+summary(whelk_gam_lm)
+plot(whelk_gam_lm)
+#or we can specify using spline
+whelk_gam_spline <- gam(Mass ~ s(Shell.Length), data = whelk)
+summary(whelk_gam_spline)
+#gam.check(whelk_gam_spline)
+plot(whelk_gam_spline)
+#or using ggplot2
+whelk_plot + geom_smooth(method = "lm", se = FALSE, size = 1.5, color = "orange")+ 
+  geom_smooth(method="nls", 
+              # look at whelk_power$call
+              formula = y ~ b0 * x^b1, 
+              method.args = list(start = list(b0 = 1, 
+                                              b1 = 3)), 
+              se=FALSE, size = 1.5, color = "blue") + 
+  geom_smooth(stat= "smooth", method = "gam", formula = y ~ s(x), 
+                         color = "yellow")
+
 #can compare fits with AIC
-AIC(Moby_gam, Moby_lm)
+AICc(whelk_gam_spline, whelk_lm, whelk_power)
 
 #trees are useful way of handling data visually and allow first look
 #building the classification tree

@@ -50,6 +50,7 @@ head(sport_melted)
 
 #team analysis####
 #download diversity_files folder from dropbox link and place files on desktop
+#https://www.dropbox.com/sh/ub64q6nidfa11mf/AAB8GRc8qOIlKy_iHKn2E-dJa?dl=0
 #or redirect path below 
 tree_data <- read.csv("tree_data_clean_wd_dbh.csv", 
                       na.strings=c("NA","-","", "NULL", "null", "Null", "Unknown", "unknown", 
