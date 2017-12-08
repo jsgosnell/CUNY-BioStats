@@ -273,6 +273,38 @@ K2 <- glht(oyster_lm_combined_drop_control, mcp(Exposure = "Tukey"))$linfct
 combined_compare <- glht(oyster_lm_combined_drop_control, linfct = rbind(K1, K2))
 summary(combined_compare, test=adjusted("holm"))
 
+#example of no interaction####
+#modified version of biomass project
+biomass <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/biomass_experiment.csv?attredirects=0&d=1")
+function_output <- summarySE(biomass, measurevar="Mass", groupvars =
+                               c("PredSize", "PredNumber"), na.rm = T)
+#make NA's control
+function_output$PredSize <- as.character(function_output$PredSize)
+function_output$PredNumber <- as.character(function_output$PredNumber)
+function_output[5,1:2]  <- "Control"
+#change back to factor to change order
+function_output$PredSize <- factor(function_output$PredSize, 
+                                   levels = c("Control", "Small", "Large"))
+ggplot(function_output, aes_string(x="PredSize", y="mean",color="PredNumber", 
+                                   shape = "PredNumber")) +
+  geom_point(size = 5) +
+  geom_line(aes_string(group="PredNumber", linetype ="PredNumber"), size=2) +
+  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  ylab("Oyster mass (g)")+ 
+  xlab("Conch Size") + 
+  scale_color_discrete(name = "Number of Conchs")+
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  ggtitle("Impacts of conch biomass on oyster growth")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
 #interactions####
 #add using colon (for just interaction) or asterisk to get MAIN EFFECTS and 
 #INTERACTION
