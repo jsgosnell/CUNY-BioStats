@@ -513,7 +513,7 @@ dim(sleep)
 str(sleep)
 summary(sleep)
 
-#start graphical analysis.
+#start graphical analysis
 pairs(sleep)
 
 #several interesting patterns. Now lets introduce ggplot2 for plotting them. We'll 
@@ -725,9 +725,7 @@ ggplot(sleep, aes_string(x="Dreaming")) +
         strip.text.x = element_text(size = 18, colour = "purple"))
 
 
-#Barcharts are common but hard to do in ggplot2.  We'll come back to those after
-# we discuss estimation as they commonly (and need) to include error bars.
-# 
+
 # Finally, remember you can subset the dataframes you feed to the ggplot functions
 # (or any other function for that matter). For example, let's just do a histogram 
 # of primate sleep.
@@ -761,28 +759,25 @@ ggplot(sleep[sleep$Taxa == "Primate",], aes_string(x="Dreaming")) +
 #estimating and an estimate of uncertaintly. We'll tie this into statistical tests
 #next.  
 
-#Let's go back to the airquality dataset and estimate the average wind speed for each month.
-#First, lets change months to factors and label them
-str(airquality) #just a reminder
-#for safety, lets make a date column before converting month to a factor. Dates are 
-#annoying but sometimes you need them 
-airquality$Date <- as.Date(paste(airquality$Month, airquality$Day, sep="/"), 
-                           format ="%m/%d" )
+#Let's go back to the sleep dataset and estimate the average total sleep time speed 
+#for each exposure level
+#First, lets change exposure to factors and label them
+str(sleep) #just a reminder
+sleep$Exposure <- factor(sleep$Exposure)
+#check levels
+levels(sleep$Exposure)
+#relabel if you want (just for example here)
+levels(sleep$Exposure)<- c("Least","Less", "Average", "More", "Most") 
 
-
-airquality$Month <- factor(airquality$Month)
-levels(airquality$Month) <- c("May","June", "July", "August", "September") 
-
-
-
-#revalue gave me issues here with numbers going to characters
-#
-#Let's just focus on July first
-mean(airquality[airquality$Month == "July", "Wind"])
+#Let's just focus on least first to calculate confidence intervals. note we have 
+#to remove NA
+mean(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T)
 #this is our estimate.  The standard deviation of this estimate is
-sd(airquality[airquality$Month == "July", "Wind"]) / nrow(airquality[airquality$Month == "July",])
+sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) / 
+  length(sleep[sleep$Exposure == "Least" & is.na(sleep$TotalSleep) == F, "TotalSleep"])
 # is equivalent to
-sd(airquality[airquality$Month == "July", "Wind"]) / length(airquality[airquality$Month == "July", "Wind"])
+sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) / 
+  length(na.omit(sleep[sleep$Exposure == "Least", "TotalSleep"]))
 #we also call this the standard error of the mean. If we assume the estimate 
 #(not the data!) is normally distributed, we can assume things about uncertainty.
 #Namely, we can build a 95% confidence interval around our estimate (meaning the true mean
@@ -878,20 +873,16 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 }
 
 #BAR PLOTS####
-#Now let's use this to get the confidence intervals for each month and plot them
-monthly_wind_data <- summarySE(airquality, measurevar = "Wind", groupvars = "Month")
+#Now let's use this to get the confidence intervals for each exposure level and plot them
+sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Exposure", na.rm = T)
 #look at it
-monthly_wind_data
-
-#now plot it in ggplot2
-
+sleep_by_exposure
 require(ggplot2)
-
-ggplot(monthly_wind_data
-       , aes_string(x="Month", y="mean")) +
+ggplot(sleep_by_exposure
+       , aes_string(x="Exposure", y="mean")) +
   geom_col(size = 3) +
   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  ylab("Wind speed (mph)")+ggtitle("Wind speed over time")+
+  ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -899,56 +890,20 @@ ggplot(monthly_wind_data
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
-#or better
-ggplot(monthly_wind_data
-       , aes_string(x="Month", y="mean")) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  ylab("Wind speed (mph)")+ggtitle("Wind speed over time")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  ylim(c(0,13.2)) #watch for truncated axes!
 
-#Below just shows why you might need dates
-#What if you wanted to add a line between months?
-ggplot(monthly_wind_data
-       , aes_string(x="Month", y="mean")) +
+#or better
+ggplot(sleep_by_exposure
+       , aes_string(x="Exposure", y="mean")) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  geom_line(size = 2)+
-  ylab("Wind speed (mph)")+ggtitle("Wind speed over time")+
+  ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
         axis.text.x  = element_text(size=20), 
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  ylim(c(0,13.2)) #watch for truncated axes!
-#This doesn't work because you have factors for months (no logical relationship)
-#
-#Quick cheat is to just add group aesthetic
-#Below just shows why you might need dates
-#What if you wanted to add a line between months?
-ggplot(monthly_wind_data
-       , aes_string(x="Month", y="mean", group = 1)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  geom_line(size = 2)+
-  ylab("Wind speed (mph)")+ggtitle("Wind speed over time")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  ylim(c(0,13.2)) #watch for truncated axes!
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #let's practice source again by opening the central_limit_theorem.R script from
 #the Examples folder on github, sourcing it, and looking at the plots it produce. 
