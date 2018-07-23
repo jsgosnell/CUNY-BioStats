@@ -257,7 +257,7 @@ ggplot(iris, aes_string("Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   facet_wrap(~Species, ncol = 1)
 
-#example of diverging, stacked, and mosaic graphs
+#example of diverging, stacked, and mosaic graphs####
 
 # long-form vegetation survey data from
 # http://luisdva.github.io/rstats/Diverging-bar-plots/
@@ -270,7 +270,7 @@ vegSurvey <-
              spp=as.integer(abs(rnorm(20,5,2))))
 vegSurvey$spp <-   ifelse(vegSurvey$veg_Type =="introduced",vegSurvey$spp+1,vegSurvey$spp)
 
-#grouped bar plot
+#stacked bar plot####
 ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
   geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
   ylab("Frequency")+
@@ -302,7 +302,7 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
   facet_wrap(~slope, nrow = 1)
 
 
-#stacked bar plot
+#grouped bar plot####
 ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
   geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity", 
            position = position_dodge(width=0.5)) +
