@@ -1,6 +1,7 @@
 #plots from 1. Intro.ppt####
 iris
 
+#base histograms####
 #note hist is odd with cex
 label_size <- 2
 title_size <- 2.5
@@ -9,7 +10,7 @@ par(mar = c(7,7,7,7))
 #if you get an error about "figure margins too large", reset this to 
 par(mar = c(rep(5,4)))
 #this is just issue with trying to size figures for lecture slides
-
+#may also have issues with some images...
 
 hist(iris$Sepal.Length, main = "Sepal Lengths", 
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
@@ -521,6 +522,8 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #skewed left with measures of central tendency####
+##weird issues with margins and legends
+par(mar = c(rep(4,4)))
 birds <- rbeta(10000,70,5)
 hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
      ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
@@ -535,11 +538,12 @@ getmode <- function(v) {
 }
 
 abline(v=(getmode(birds)), col="blue", lwd = 4)
-legend(x=.85, y= 1000, legend = c("mean", "median", "mode"), fill=c("yellow",
+legend("topleft", legend = c("mean", "median", "mode"), fill=c("yellow",
                                                                     "green","blue"), 
        cex = 1.5, bty = "n", x.intersp = .1, y.intersp = .5)
 
 #bimodal data with measures of central tendency#####
+par(mar = c(rep(2,4)))
 putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
 hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
      ylab = "Frequency (#)\n", col = "orange", cex.lab=label_size, cex.axis=1.25, 
@@ -548,12 +552,72 @@ lines(density(putnam), col = "black", lwd = 4)   # add a density estimate with d
 abline(v=mean(putnam), col="red", lwd = 4)
 abline(v=median(putnam), col="green", lwd = 4)
 abline(v=(getmode(putnam)), col="blue", lwd = 4)
-legend(x=32.5, y= .04, legend = c("mean", "median", "mode"), fill=c("red","green", 
+legend("bottomright", legend = c("mean", "median", "mode"), fill=c("red","green", 
                                                                     
                                                                     "blue"), cex = 1.5,
        bty="n", x.intersp = .1, y.intersp = .5)
 
-#transformations
+#illustrate variance####
+#add sample #
+iris$sample <- 1:nrow(iris)
+
+#just scatter plot
+
+ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+  geom_point(size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
+    theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#add mean
+ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+  geom_point(size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
+  geom_hline(yintercept = mean(iris[iris$Species == "setosa", "Sepal.Length"]), 
+             color = "blue", size = 2) +
+  annotate("text", label = "mean", x = 20, y = 4.9 , size = 8, color = "blue") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#add segment for each point
+segment_data = data.frame(
+  x = 1:50,
+  xend = 1:50, 
+  y = iris[iris$Species == "setosa", "Sepal.Length"],
+  yend = mean(iris[iris$Species == "setosa", "Sepal.Length"])
+)
+
+ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+  geom_point(size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
+  geom_hline(yintercept = mean(iris[iris$Species == "setosa", "Sepal.Length"]), 
+             color = "blue", size = 2) +
+  annotate("text", label = "mean", x = 20, y = 4.9 , size = 8, color = "blue") +
+  annotate("text", label = "square each red line  \n and find average", x = 25, 
+           y = 5.5 , size = 8, color = "red") +
+  geom_segment(data = segment_data, aes(x = x, y = y, xend = xend, yend = yend),
+               color= "red", size = 1.1) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+  
+
+#transformations####
 
 sample_data <- data.frame(x = rnorm (1000, 1, 1))
 sample_data$x_add <- sample_data$x+5
@@ -571,7 +635,6 @@ ggplot(sample_data) +
         legend.text =element_text(size=30),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
 
 sample_data$x_multiply <- sample_data$x*5
 
