@@ -667,11 +667,34 @@ legend(x=.75, y= 1000, legend = c("mean", "median", "mode"), fill=c("yellow","gr
                                                                     "blue"), cex = 1.5,
        bty="n", x.intersp = .1, y.intersp = .5)
 
+#categorical data####
+head(iris)
+iris$random <- runif(1:nrow(iris))
+iris$LL <- 0
+iris$LL[iris$random > .7] <- 1
+
+ggplot(iris[iris$Species == "setosa", ], aes_string("LL")) + 
+  geom_histogram(size=3) +
+  xlab("Genotype score")+
+  ylab("Frequency")+
+  ggtitle("Genotype score in an iris species")+
+  geom_vline(xintercept = mean(iris[iris$Species == "setosa", "LL"]), color = "blue") +
+  annotate("text", label = "proportion", x = .25, y = 20 , size = 8, color = "blue") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+
 ##INTRODUCTION TO R####
 #this is a broad introduction to how R works and what it can do
 #we'll return to individual topics in later classes (both theory and practice)
 
-########################## Things to know about R (General information):
+#Things to know about R (General information):####
 
 # R is a programming language, and as such it can be annoying to use at first (steep
 #learning curve). However,it's free, extremely powerful, and replicable (you can 
@@ -686,8 +709,8 @@ legend(x=.75, y= 1000, legend = c("mean", "median", "mode"), fill=c("yellow","gr
 # run what you have in a script, simply select it, right click, and select "Run
 # line or selection".  You can also add comments to a script to guide others (and you)
 # on what you were trying to do.  A # sign in front of a line (like all these)
-# means its not read by the program; its a note.  Think of this as your lab notebook; 
-# write down what you are doing and why!
+# means its not read by the program; its a note.  #### will automate a "table of contents"
+# in Rstudio.  Think of this as your lab notebook; write down what you are doing and why!
 # 
 # if you are writing scripts, its good practice (and will make your life easier) to develop 
 #and implement good habits (not always practiced in these scripts... a classic do as I 
@@ -1045,8 +1068,8 @@ Anova(ozone_month_relationship, type = "III") #could not find function
 # However, you'll have to load it when you need to use it (unless you mess with 
 # start up files).  just type
 
-require(car)
-#require is better than library function. Packages are "stored" in your library 
+library(car)
+#library is better than require function. Packages are "stored" in your library 
 #location. You can set and see this using the .libPaths() function
 .libPaths()
 #Adding a file location in the parentheses makes that a library location.  This 
