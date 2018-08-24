@@ -1,4 +1,4 @@
-#plots from 1. Intro.ppt
+#plots from 1. Intro.ppt####
 iris
 
 #note hist is odd with cex
@@ -6,18 +6,62 @@ label_size <- 2
 title_size <- 2.5
 
 par(mar = c(7,7,7,7))
+#if you get an error about "figure margins too large", reset this to 
+par(mar = c(rep(5,4)))
+#this is just issue with trying to size figures for lecture slides
+
 
 hist(iris$Sepal.Length, main = "Sepal Lengths", 
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
 
-#add density overlay
+#skewed left####
+birds <- rbeta(10000,70,5)
+hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+
+#normal data####
+putnam <- c(rnorm(1000,20,4))
+hist(putnam, main="Weight of Westchester parrots", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "green", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+
+#uniform data####
+putnam <- c(runif(1000,.1,8))
+hist(putnam, main="Weight of Westchester Robins", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "Pink", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+
+#skewed right####
+birds <- rbeta(10000,2,12)
+hist(birds, main="Weight of Westchester Blue Jays", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "blue", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+
+#bimodal data####
+putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
+hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "orange", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+
+#add density overlay to histograms####
 hist(iris$Sepal.Length, main = "Sepal Lengths", 
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue", prob = T)
 lines(density(iris$Sepal.Length), col = "red")             # add a density estimate with defaults
 
-#specifics
+
+#normal data with density overly and true normal#####
+putnam <- c(rnorm(1000,20,4))
+hist(putnam, main="Weight of Westchester parrots", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "green", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size, probability = T)
+lines(density(putnam), col = "black")   # add a density estimate with defaults
+curve(dnorm(x, mean=20, sd=4), 
+      col="darkblue", lwd=2, add=TRUE, yaxt="n")
+
+#bar charts for categorical data####
 head(USArrests)
 names(USArrests)
 USArrests$State <- as.factor(rownames(USArrests))
@@ -28,71 +72,12 @@ write.csv(USArrests, "USArrests.csv", row.names = F)
 
 write.csv(iris, "iris.csv", row.names = F)
 
-#skewed right
-birds <- rbeta(10000,2,12)
-hist(birds, main="Weight of Westchester Blue Jays", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "blue", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size)
-
-#skewed left
-birds <- rbeta(10000,70,5)
-hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size)
-
-#bimodal data
-putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
-hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "orange", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size)
-
-#normal data
-putnam <- c(rnorm(1000,20,4))
-hist(putnam, main="Weight of Westchester parrots", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "green", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size)
-
-
-#uniform data
-putnam <- c(runif(1000,.1,8))
-hist(putnam, main="Weight of Westchester Robins", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "Pink", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size)
-
-#normal data
-putnam <- c(rnorm(1000,20,4))
-hist(putnam, main="Weight of Westchester parrots", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "green", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size, probability = T)
-lines(density(putnam), col = "black")   # add a density estimate with defaults
-curve(dnorm(x, mean=20, sd=4), 
-      col="darkblue", lwd=2, add=TRUE, yaxt="n")
-
-#bimodal data
-putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
-hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
-     ylab = "Frequency (#)\n", col = "orange", cex.lab=label_size, cex.axis=1.25, 
-     cex.main=title_size, cex.sub=label_size, probability = T)
-lines(density(putnam), col = "black", lwd = 4)   # add a density estimate with defaults
-abline(v=mean(putnam), col="red", lwd = 4)
-abline(v=median(putnam), col="green", lwd = 4)
-#no built in mode function....
-# Create the function.
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-abline(v=(getmode(putnam)), col="blue", lwd = 4)
-legend(x=32.5, y= .04, legend = c("mean", "median", "mode"), fill=c("red","green", 
-                                                 
-                                                                                "blue"), cex = 1.5,
-       bty="n", x.intersp = .1, y.intersp = .5)
-
-#bar chart issues
+#bar chart issues####
+#auto breaks####
 hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R", 
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
+#counts of auto breaks####
 x =hist(iris$Sepal.Length, main = "Sepal Lengths, auto breaks with R", 
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size)
@@ -100,7 +85,7 @@ plot(x$breaks[-9], x$counts, main = "Sepal Lengths, auto breaks with R",
      xlab = "\n Sepal Length (cm)", ylab = "Frequency", 
      cex.lab=label_size, cex.axis=1.5, 
      cex.main=title_size, cex.sub=label_size, col="blue", pch = 16, cex = 3)
-
+#setting own breaks####
 hist(iris$Sepal.Length, breaks=3, main = "Sepal length histogram, 3 breaks",
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
@@ -108,23 +93,23 @@ hist(iris$Sepal.Length, breaks=10, main = "Sepal length histogram, 10 breaks",
      xlab = "Sepal Length (cm)", cex.lab=label_size, cex.axis=label_size, 
      cex.main=title_size, cex.sub=label_size, col = "blue")
 
-
-
-#getting real data
+#boxplot versicolor####
 #need to use ggplot2 for ease (will get to this later and typically use it)
-require(ggplot2)
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
-  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+library(ggplot2)
+ggplot(iris[iris$Species == "versicolor",], aes_string("Species","Sepal.Length")) + 
+  geom_boxplot(aes_string(colour="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of Iris versicolor")+
+  xlab("") +
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
+        axis.text.x  = element_text(size=0), 
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#barchart
+#data from multiple groups####
+#barchart ####
 #
 #load function
 #
@@ -186,25 +171,9 @@ ggplot(function_output, aes_string(x="Species", y="mean")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#boxplot
-#
-##just versicolor
-
-ggplot(iris[iris$Species == "versicolor",], aes_string("Species","Sepal.Length")) + 
-  geom_boxplot(aes_string(colour="Species"), size = 3) +
-  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of Iris versicolor")+
-  xlab("") +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=0), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-#all species
+#scatterplot all species####
 ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_boxplot(aes_string(colour="Species"), size = 3) +
+  geom_point(aes_string(colour="Species"), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -214,20 +183,8 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#cdf
 
-par(cex = 2)
-versi <- ecdf(iris[iris$Species == "versicolor","Sepal.Length"])
-plot(versi, verticals = T, col = "red", 
-     main = "Cumulative frequency distribution  of Sepal Length (cm)", 
-     xlab = "Sepal length (cm)", ylab = "Cumulative relative frequencey")
-seto <- ecdf(iris[iris$Species == "setosa","Sepal.Length"])
-plot(seto, add = T, col = "blue", verticals = T)
-virg <- ecdf(iris[iris$Species == "virginica","Sepal.Length"])
-plot(virg, add = T, col = "orange", verticals = T)
-
-
-#stacked histogram
+#stacked histogram####
 ggplot(iris, aes_string("Sepal.Length")) + 
   geom_histogram(aes_string(fill="Species"), size=3) +
   xlab("Sepal Length (cm)")+
@@ -241,7 +198,7 @@ ggplot(iris, aes_string("Sepal.Length")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#facet
+#facetted stacked histogram####
 ggplot(iris, aes_string("Sepal.Length")) + 
   geom_histogram(aes_string(fill="Species"), size=3) +
   xlab("Sepal Length (cm)")+
@@ -257,7 +214,31 @@ ggplot(iris, aes_string("Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   facet_wrap(~Species, ncol = 1)
 
+#boxplot all species####
+ggplot(iris, aes_string("Species","Sepal.Length")) + 
+  geom_boxplot(aes_string(colour="Species"), size = 3) +
+  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#cdf all species####
+par(cex = 2)
+versi <- ecdf(iris[iris$Species == "versicolor","Sepal.Length"])
+plot(versi, verticals = T, col = "red", 
+     main = "Cumulative frequency distribution  of Sepal Length (cm)", 
+     xlab = "Sepal length (cm)", ylab = "Cumulative relative frequencey")
+seto <- ecdf(iris[iris$Species == "setosa","Sepal.Length"])
+plot(seto, add = T, col = "blue", verticals = T)
+virg <- ecdf(iris[iris$Species == "virginica","Sepal.Length"])
+plot(virg, add = T, col = "orange", verticals = T)
+
 #example of diverging, stacked, and mosaic graphs####
+library(dplyr)
 
 # long-form vegetation survey data from
 # http://luisdva.github.io/rstats/Diverging-bar-plots/
@@ -270,37 +251,8 @@ vegSurvey <-
              spp=as.integer(abs(rnorm(20,5,2))))
 vegSurvey$spp <-   ifelse(vegSurvey$veg_Type =="introduced",vegSurvey$spp+1,vegSurvey$spp)
 
-#stacked bar plot####
-ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
-  ylab("Frequency")+
-  xlab("Sampling point")+
-  ggtitle("Invasive and native species based on site")+
-  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
 
-#facet
-ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
-  ylab("Frequency")+
-  xlab("Sampling point")+
-  ggtitle("Invasive and native species based on site")+
-  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
-  facet_wrap(~slope, nrow = 1)
-
+vegSurvey <- vegSurvey %>%  mutate(sppInv= ifelse(veg_Type =="native",spp,spp*-1))
 
 #grouped bar plot####
 ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
@@ -318,15 +270,39 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-library(dplyr)
-library(ggplot2)
-library(extrafont)
-devtools::install_github('bart6114/artyfarty')
-library(artyfarty)
+#stacked bar plot####
+ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency")+
+  xlab("Sampling point")+
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
 
-vegSurvey <- vegSurvey %>%  mutate(sppInv= ifelse(veg_Type =="native",spp,spp*-1))
+#facetted stacked####
+ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency")+
+  xlab("Sampling point")+
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  facet_wrap(~slope, nrow = 1)
 
-# divergent plot
+
+# divergent plot####
 
 ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
   geom_bar(stat="identity",position="identity")+
@@ -337,10 +313,9 @@ ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
   xlab("Sampling Points")+
   ylab("Species number")+
   scale_y_continuous(breaks = pretty(vegSurvey$sppInv),labels = abs(pretty(vegSurvey$sppInv)))+
-  theme_scientific()+
   theme(strip.text.x = element_text(face = "bold"))
 
-# plot for both slopes using facetting
+# divergent plot with facetting by slope####
 
 ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
   geom_bar(stat="identity",position="identity")+
@@ -351,10 +326,9 @@ ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
   xlab("Sampling Points")+
   ylab("Species number")+
   scale_y_continuous(breaks = pretty(vegSurvey$sppInv),labels = abs(pretty(vegSurvey$sppInv)))+
-  theme_scientific()+
   theme(strip.text.x = element_text(face = "bold"))
 
-#mosaic plot
+#mosaic plot####
 #for mosaic plots, need to use other package (ggmosaic) or add frequency column
 #for your choice variable
 
@@ -383,7 +357,7 @@ ggplot(vegSurvey_veg_per_site, aes_string(x="sampling_point", y="Proportion")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
 
-#per slope
+#mosaic plot facetted by slope####
 vegSurvey_per_slope <- dcast(vegSurvey, sampling_point + slope~ "total_per_slope", sum, 
                              value.var = "spp")
 vegSurvey <- merge(vegSurvey, vegSurvey_per_slope)
@@ -404,9 +378,9 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="Proportion")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   facet_wrap(~slope, ncol=1)
 
-#numerical, numerical relationships
+#numerical, numerical relationships ####
 #
-#scatter
+#scatter####
 ggplot(iris, aes_string(y ="Petal.Length",x ="Sepal.Length")) + 
   geom_point(aes_string(colour="Species"), size = 3) +
   xlab("Sepal Length (cm)") + 
@@ -420,13 +394,13 @@ ggplot(iris, aes_string(y ="Petal.Length",x ="Sepal.Length")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#line
+#data over time####
 #use airquality dataset for time series
 #
 airquality$Date <- as.Date(paste(airquality$Month, airquality$Day, sep="/"), 
                            format ="%m/%d" )
 
-#just points
+#just points####
 ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
   geom_point(size = 3, col = "orange") +
   xlab("Date") + 
@@ -440,7 +414,7 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#points and line
+#points and line####
 ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
   geom_point(size = 3, col = "orange") +
   geom_line() +
@@ -455,7 +429,7 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#more than one axis
+#more than one axis####
 #for 1:1 transformation data (anything you can use a function to make on a similar
 #scale)
 #can add easily but not get scale
@@ -493,7 +467,7 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#outliers and bad fits
+#outliers and bad fits####
 
 good_fit_x <- runif(100, 1, 50)
 good_fit_y <- rnorm(100,25,2)
@@ -503,7 +477,7 @@ bad_fit_y <- rnorm(10,95,1)
 bad_data <- data.frame(source = "outlier", x=bad_fit_x, y=bad_fit_y)
 all_data <- rbind (good_data, bad_data)
 
-#just points
+#just points####
 ggplot(all_data, aes_string(x ="x",y ="y")) + 
   geom_point(aes_string(color="source"), size = 3) +
   xlab("x") + 
@@ -517,7 +491,7 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#curve and scatter
+#curve and scatter####
 ggplot(all_data, aes_string(x ="x",y ="y")) + 
   geom_point(aes_string(color="source"), size = 3) +
   geom_smooth(se = F) +
@@ -532,7 +506,7 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#just curve
+#just curve####
 ggplot(all_data, aes_string(x ="x",y ="y")) + 
   geom_smooth(se = F) +
   xlab("x") + 
@@ -545,6 +519,39 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#skewed left with measures of central tendency####
+birds <- rbeta(10000,70,5)
+hist(birds, main="Weight of Westchester cardinals", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "red", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size)
+abline(v=mean(birds), col="yellow", lwd = 4)
+abline(v=median(birds), col="green", lwd = 4)
+#no built in mode function....
+# Create the function.
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+abline(v=(getmode(birds)), col="blue", lwd = 4)
+legend(x=.85, y= 1000, legend = c("mean", "median", "mode"), fill=c("yellow",
+                                                                    "green","blue"), 
+       cex = 1.5, bty = "n", x.intersp = .1, y.intersp = .5)
+
+#bimodal data with measures of central tendency#####
+putnam <- c(rnorm(100,20,4),rnorm(100,40,4))
+hist(putnam, main="Weight of Westchester woodpeckers", xlab = "\n Weight (g)", 
+     ylab = "Frequency (#)\n", col = "orange", cex.lab=label_size, cex.axis=1.25, 
+     cex.main=title_size, cex.sub=label_size, probability = T)
+lines(density(putnam), col = "black", lwd = 4)   # add a density estimate with defaults
+abline(v=mean(putnam), col="red", lwd = 4)
+abline(v=median(putnam), col="green", lwd = 4)
+abline(v=(getmode(putnam)), col="blue", lwd = 4)
+legend(x=32.5, y= .04, legend = c("mean", "median", "mode"), fill=c("red","green", 
+                                                                    
+                                                                    "blue"), cex = 1.5,
+       bty="n", x.intersp = .1, y.intersp = .5)
 
 #transformations
 
