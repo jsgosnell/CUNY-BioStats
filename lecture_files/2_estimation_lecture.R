@@ -492,6 +492,7 @@ ggplot(sum_of_rolls_df, aes_string(x="Sum", y="Probability")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #probability trees
+##below code is unfortunately cumbersome
 #from https://daranzolin.github.io/2018-01-07-probability-trees/
 #
 library(DiagrammeR)
@@ -509,7 +510,7 @@ bayes_probability_tree <- function(prior, true_positive, true_negative, label1 =
   c_tp <- 1 - true_positive
   c_tn <- 1 - true_negative
   
-  round4 <- purrr::partial(round, digits = 4)
+  round4 <- purrr::partial(round, digits = 5)
   
   b1 <- round4(prior * true_positive)
   b2 <- round4(prior * c_tp)
@@ -602,16 +603,28 @@ bayes_probability_tree <- function(prior, true_positive, true_negative, label1 =
         label = "="
       )
     ) 
-  message(glue::glue("The probability of having (prior) after testing positive is {bp}"))
+  message(glue::glue("The probability of having {label1} after testing {label3} is {bp}"))
   print(render_graph(tree))
   invisible(tree)
 }
 
-#firt example
+#first example
 bayes_probability_tree(prior = 0.5, true_positive = 0.6, true_negative = 0.9, label1 = "medicine", label2 = "placebo",
                        label3 = "cured", label4 = "not cured",
                        label5 = "cured", label6 = "not cured")
 
+#second example
+bayes_probability_tree(prior = 0.0001, true_positive = 0.9, true_negative = 0.999, label1 = "cancer", 
+                       label2 = "not cancer",
+                       label3 = "positive", 
+                       label4 = "negative",
+                       label5 = "positive", 
+                       label6 = "negative")
+
+#add nodes
+.00009 + .00001 + .001 + .9989
+
+(.00009)/(.001+ .00009)
 
 #MORE DATA MANIPULATION AND INTRODUCTION TO GGPLOT2####
 #many extra ggplot2 examples and code are found in the first lecture and 
