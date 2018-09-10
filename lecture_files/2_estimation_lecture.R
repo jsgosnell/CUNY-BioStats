@@ -607,7 +607,10 @@ bayes_probability_tree <- function(prior, true_positive, true_negative, label1 =
   invisible(tree)
 }
 
-bayes_probability_tree(prior = 0.07, true_positive = 0.95, true_negative = 0.98)
+#firt example
+bayes_probability_tree(prior = 0.5, true_positive = 0.6, true_negative = 0.9, label1 = "medicine", label2 = "placebo",
+                       label3 = "cured", label4 = "not cured",
+                       label5 = "cured", label6 = "not cured")
 
 
 #MORE DATA MANIPULATION AND INTRODUCTION TO GGPLOT2####
