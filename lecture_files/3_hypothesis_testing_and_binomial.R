@@ -384,6 +384,8 @@ require(ggplot2)
 #to make a plot, first set a base layer
 #lets start with a scatter plot and focus on relationship between time spent sleeping
 #and time spent dreaming
+#calling data from two weeks ago
+sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #first, add your layers
 dreaming_sleep_relationship <- ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming"))
 #Now call the ggplot object you created
@@ -576,8 +578,6 @@ ggplot(sleep, aes_string(x="Dreaming")) +
         legend.background = element_rect(fill="gray"),
         strip.text.x = element_text(size = 18, colour = "purple"))
 
-
-
 # Finally, remember you can subset the dataframes you feed to the ggplot functions
 # (or any other function for that matter). For example, let's just do a histogram 
 # of primate sleep.
@@ -729,7 +729,6 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Exposure", na.rm = T)
 #look at it
 sleep_by_exposure
-require(ggplot2)
 ggplot(sleep_by_exposure
        , aes_string(x="Exposure", y="mean")) +
   geom_col(size = 3) +
