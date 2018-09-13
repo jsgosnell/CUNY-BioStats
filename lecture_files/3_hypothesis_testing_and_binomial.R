@@ -174,7 +174,7 @@ ggplot(pdf, aes_string(x="Number_righthanded", y="using_distribution")) +
 #remember the one comes from the fact the entire distribution must sum to 1
 #or
 #using our sample
-length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 6])/
+length(sampling_experiment[sampling_experiment >= 14 | sampling_experiment <= 4])/
   length(sampling_experiment)
 
 #binomial test####
@@ -329,3 +329,48 @@ ggplot(radiologist, aes(x = Proportion, y = Probability)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   guides(fill = F)
+
+#bayesian analysis####
+#frog analysis
+require(LearnBayes)
+#for proportions, we often use beta
+#beta curve peaked at .5####
+ggplot(data = data.frame(x = c(0, 1)), aes(x)) +
+  stat_function(fun = dbeta, n = 101, args = list(shape1 = 20, shape2 = 20),
+                aes(color = "20, 20"),
+                size = 3,geom = "line") + 
+  stat_function(fun = dbeta, n = 101, args = list(shape1 = 2, shape2 = 2),
+                aes(color = "2, 2"),
+                size = 3,geom = "line") + 
+  stat_function(fun = dbeta, n = 101, args = list(shape1 = 5, shape2 = 20),
+                aes(color = "5, 20"),
+                size = 3,geom = "line") +
+  stat_function(fun = dbeta, n = 101, args = list(shape1 = 1, shape2 = 1), 
+                aes(color = "1, 1"),
+                size = 3,geom = "line") + 
+  ylab("Probablity") +
+  xlab("")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  labs(colour = "Parameters (a, b)")
+
+#triplot####
+#peaked at .5 (more certain)
+triplot(prior = c(20,20), data = c(14,4), where = "topleft")
+#less peaked at .5
+triplot(prior = c(2,2), data = c(14,4), where = "topleft")
+
+#get a credible interval####
+#for posterior we can simply add shape 1 + success, shape2 + failures
+qbeta(c(0.025, 0.975),shape1 =  20+14, shape2 = 20+4)
+
+
+
+
+
+
