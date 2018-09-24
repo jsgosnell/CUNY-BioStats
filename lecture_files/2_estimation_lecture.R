@@ -638,7 +638,7 @@ bayes_probability_tree(prior = 0.0001, true_positive = 0.9, true_negative = 0.99
 #from the internet.  
 #
 #lets return to the sleeping dataset
-sleep <- read.csv("http://www.jstephengosnell.com/teaching-resources/datasets/sleep.csv?attredirects=0&d=1")
+sleep <- sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #you can find info on the dataset @ 
 #http://www.statsci.org/data/general/sleep.html
 
@@ -657,6 +657,7 @@ pairs(sleep)
 #INTRO TO GGPLOT2####
 #ggplot2 is a great plotting package that allows a lot of control over your output
 #lets do some examples using the sleep dataset
+sleep <- sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #
 #ggplot2 works in layers so you can or subtract as needed. Provided code is verbose here
 #so you can see what its doing.
