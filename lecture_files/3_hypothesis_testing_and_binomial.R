@@ -372,6 +372,8 @@ qbeta(c(0.025, 0.975),shape1 =  2+14, shape2 = 2+4)
 
 #INTRO TO GGPLOT2####
 #copied here from earlier script for 78001/78002
+sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
+
 #ggplot2 is a great plotting package that allows a lot of control over your output
 #lets do some examples using the sleep dataset
 #

@@ -638,7 +638,7 @@ bayes_probability_tree(prior = 0.0001, true_positive = 0.9, true_negative = 0.99
 #from the internet.  
 #
 #lets return to the sleeping dataset
-sleep <- sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
+sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #you can find info on the dataset @ 
 #http://www.statsci.org/data/general/sleep.html
 
@@ -657,7 +657,7 @@ pairs(sleep)
 #INTRO TO GGPLOT2####
 #ggplot2 is a great plotting package that allows a lot of control over your output
 #lets do some examples using the sleep dataset
-sleep <- sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
+sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #
 #ggplot2 works in layers so you can or subtract as needed. Provided code is verbose here
 #so you can see what its doing.
@@ -910,10 +910,10 @@ levels(sleep$Exposure)<- c("Least","Less", "Average", "More", "Most")
 mean(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T)
 #this is our estimate.  The standard deviation of this estimate is
 sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) / 
-  length(sleep[sleep$Exposure == "Least" & is.na(sleep$TotalSleep) == F, "TotalSleep"])
+  sqrt(length(sleep[sleep$Exposure == "Least" & is.na(sleep$TotalSleep) == F, "TotalSleep"]))
 # is equivalent to
 sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) / 
-  length(na.omit(sleep[sleep$Exposure == "Least", "TotalSleep"]))
+  sqrt(length(na.omit(sleep[sleep$Exposure == "Least", "TotalSleep"])))
 #we also call this the standard error of the mean. If we assume the estimate 
 #(not the data!) is normally distributed, we can assume things about uncertainty.
 #Namely, we can build a 95% confidence interval around our estimate (meaning the true mean

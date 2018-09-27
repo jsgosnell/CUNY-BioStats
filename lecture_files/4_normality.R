@@ -42,7 +42,8 @@ qqline(x)
 #if data fall near line, it indicates normality
 #
 #z-test example####
-sport <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
+
 require(BSDA)
 z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=.07)
 
@@ -268,4 +269,51 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 #bootstrapping athlete data
 bootstrapjsg(data1=sport[sport$Sex == "male", "Ht"], null=175.6)
 
+#bayesian
+#bayes factor using athlete data
+#remember the normal t-test
+t.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
+library(BayesFactor)
+#uses JZS
+ggplot(data = data.frame(x = c(-10, 10)), aes(x)) +
+  stat_function(fun = dcauchy, n = 101, args = list(location = 0, scale = 1),
+                aes(color = "0, 1"),
+                size = 3,geom = "line") + 
+  stat_function(fun = dcauchy, n = 101, args = list(location = 0, scale = 2),
+                aes(color = "0,2"),
+                size = 3,geom = "line") + 
+  stat_function(fun = dcauchy, n = 101, args = list(location = 2, scale = 1),
+                aes(color = "2,1"),
+                size = 3,geom = "line") +
+  ylab("Probablity") +
+  xlab("")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  labs(colour = "Parameters (location, scale)")
+
+
+bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6)
+bf #this is bf10 (alternative over null). can reverse with 
+1/bf
+
+#what if we support null more?
+bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6, 
+             rscale  = "ultrawide")
+bf
+
+#or sample posterior
+chains <- posterior(bf, iterations = 1000)
+summary(chains)
+
+#can recomputer more chains
+chains2 <- recompute(chains, iterations = 10000)
+plot(chains2[,1:2])
+
+#BEST method
+#://www.sumsar.net/best_online/
 
