@@ -301,7 +301,7 @@ bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6)
 bf #this is bf10 (alternative over null). can reverse with 
 1/bf
 
-#what if we support null more?
+#what if we support null less?
 bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6, 
              rscale  = "ultrawide")
 bf
