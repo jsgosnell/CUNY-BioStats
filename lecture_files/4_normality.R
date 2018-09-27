@@ -274,7 +274,7 @@ bootstrapjsg(data1=sport[sport$Sex == "male", "Ht"], null=175.6)
 #remember the normal t-test
 t.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
 library(BayesFactor)
-#uses JZS
+#uses JZS, which relies on cauchy
 ggplot(data = data.frame(x = c(-10, 10)), aes(x)) +
   stat_function(fun = dcauchy, n = 101, args = list(location = 0, scale = 1),
                 aes(color = "0, 1"),
