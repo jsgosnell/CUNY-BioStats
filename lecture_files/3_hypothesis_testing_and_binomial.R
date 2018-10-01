@@ -297,14 +297,11 @@ ggplot(pvalue, aes_string(x="pvalue"))+
 
 
 #radiologist example####
-binom.test( 30, 87, .512)
-
-#binom.confint can give variety of bounds (all will show you all the options)
-binom.test(x=30, n=87, p=.512, conf.level=.95)
+binom.test(30, 87, .512)
 
 #binom.confint can give variety of bounds (all will show you all the options)
 require(binom)
-binom.confint(x=30, n=87, alpha=.05, method="all")
+binom.confint(x=30, n=87, conf.level=.95, method="all")
 
 #compare confidence intervals and tests####
 using_distribution <- dbinom(0:87,87,.5125)
