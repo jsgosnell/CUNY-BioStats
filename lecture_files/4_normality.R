@@ -269,7 +269,7 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 #bootstrapping athlete data
 bootstrapjsg(data1=sport[sport$Sex == "male", "Ht"], null=175.6)
 
-#bayesian
+#bayesian####
 #bayes factor using athlete data
 #remember the normal t-test
 t.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
@@ -298,10 +298,10 @@ ggplot(data = data.frame(x = c(-10, 10)), aes(x)) +
 
 
 bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6)
-bf #this is bf10 (alternative over null). can reverse with 
-1/bf
+bf #this is bf10 (alternative over null).can reverse with
+#1/bf10 #to get bf01, but hard to see difference here!
 
-#what if we support null less?
+#what if we support null more?
 bf = ttestBF(x = sport[sport$Sex == "male", "Ht"], mu = 175.6, 
              rscale  = "ultrawide")
 bf
