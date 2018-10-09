@@ -303,7 +303,16 @@ GTest(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 #relative risk and odds####
 fisher.test(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 #relative risk
+(1045/(32+1045))/(88/(8+88))
+#reverse###
+fisher.test(x = matrix(c(88, 1045, 8, 32), 2, 2, byrow = T))
+#relative risk
 (32/(32+1045))/(8/(8+88))
+
+#stroke example data####
+fisher.test(x=matrix (c(299, (673- 299), 403, (735 - 403)), 2, 2, byrow = T))
+#relative risk
+(299/(673))/(403/(735))
 
 #dolphin activity####
 dolphin <- read.table("http://www.statsci.org/data/general/dolpacti.txt", sep="", header = T)

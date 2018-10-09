@@ -45,7 +45,7 @@ qqline(x)
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 
 require(BSDA)
-z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=.07)
+z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=7)
 
 qqnorm(sport[sport$Sex == "male", "Ht"])
 qqline(sport[sport$Sex == "male", "Ht"])
