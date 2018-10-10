@@ -144,7 +144,7 @@ wilcox.test(sport[sport$Sex == "male", "Ht"], mu = 175.6)
 #sign-test with athlete data####
 SIGN.test(sport[sport$Sex == "male", "Ht"], md = 175.6)
 
-#bootstrap in action
+#bootstrap####
 #back to our fake uniform distributin from the estimation_lecture
 #
 #create "population" of males
