@@ -341,7 +341,10 @@ contrasts
 
 #to actually use the bootstrap version
 t1waybt(Sepal.Length~Species, iris)
-mcppb20(Sepal.Length~Species, iris)
+bootstrap_post_hoc <- mcppb20(Sepal.Length~Species, iris)
+#use p.adjust to correct for FWER
+p.adjust(as.numeric(bootstrap_post_hoc$comp[,6]), "holm")
+
 
 
 
