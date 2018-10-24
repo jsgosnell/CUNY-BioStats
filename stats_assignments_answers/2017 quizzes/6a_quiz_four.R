@@ -1,4 +1,4 @@
-sport <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 ##HO: average weight of males training at the facility is no different than average weight of australian male
 #HA: average weight of males training at the facility is different than average weight of australian male
 ##normal based method
