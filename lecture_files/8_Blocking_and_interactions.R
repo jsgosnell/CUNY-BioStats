@@ -133,7 +133,7 @@ ggplot(function_output, aes_string(x="Age", y="mean",color="Process",
 #  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
   ylab("Words remembered")+ 
   xlab("Age") + 
-  ggtitle("Process type")+
+  ggtitle("Process type interacts with age to impact memory")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
