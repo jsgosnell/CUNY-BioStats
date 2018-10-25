@@ -1,8 +1,13 @@
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 ##HO: average weight of males training at the facility is no different than average weight of australian male
 #HA: average weight of males training at the facility is different than average weight of australian male
+
+#looks spread/normal and sample size is large
+plot(sport[sport$Sex == "female" & sport$Sport == "Netball", "RCC"])
+hist(sport[sport$Sex == "female" & sport$Sport == "Netball", "RCC"])
+
 ##normal based method
-t.test(sport[sport$Sex == "female", "Wt"], mu = 71.1)
+t.test(sport[sport$Sex == "female" & sport$Sport == "Netball", "RCC"], mu = 4.8)
 
 require(simpleboot)
 bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
@@ -21,4 +26,4 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
     return(output)}
 }
 
-bootstrapjsg(sport[sport$Sex == "female", "Wt"], null = 71.1)
+bootstrapjsg(sport[sport$Sex == "female" & sport$Sport == "Netball", "RCC"], null = 4.8)
