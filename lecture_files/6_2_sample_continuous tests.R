@@ -207,11 +207,15 @@ independence_test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 #compare to t-test
 t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
-#Bayesian analysis
+#Bayesian analysis####
 require(BayesFactor)
 ttestBF(formula = Ferr ~ Sport, data = sport[sport$Sport %in% c("BBall", "Row"),])
 
-#get data for http://www.sumsar.net/best_online/
+#get data for online BF test  http://pcl.missouri.edu/bf-two-sample####
+t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
+summary(sport[sport$Sport %in% c("BBall", "Row"),])
+
+#get data for online BEST test http://www.sumsar.net/best_online/ ####
 sport[sport$Sport == "BBall", "Ferr"]
 sport[sport$Sport == "Row", "Ferr"]
 
