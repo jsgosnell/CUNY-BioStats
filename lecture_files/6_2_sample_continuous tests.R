@@ -207,6 +207,14 @@ independence_test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 #compare to t-test
 t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
+#Bayesian analysis
+require(BayesFactor)
+ttestBF(formula = Ferr ~ Sport, data = sport[sport$Sport %in% c("BBall", "Row"),])
+
+#get data for http://www.sumsar.net/best_online/
+sport[sport$Sport == "BBall", "Ferr"]
+sport[sport$Sport == "Row", "Ferr"]
+
 #notes on data manipulation####
 #long to wide
 cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)

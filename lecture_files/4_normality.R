@@ -249,6 +249,7 @@ ggplot(boot.md, aes_string("mean")) +
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#bootstrapjsg function####
 require(simpleboot)
 bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 {
