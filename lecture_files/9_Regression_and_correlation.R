@@ -136,8 +136,10 @@ cor.test(~ cholest + day, data = na.omit(cholesterol))
 (-.2257696)^2 #is equal to 0.05097, multiple r2 from lm output
 
 #spearman rank####
-monkey <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/monkey.csv?attredirects=0&d=1")
+monkey <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/monkey.csv")
 cor.test(~ eggs_per_gram + Dominance_rank, monkey, method = "spearman")
+cor.test(monkey$eggs_per_gram, monkey$Dominance_rank, method = "spearman")
+
 
 #permutation####
 require(coin)
