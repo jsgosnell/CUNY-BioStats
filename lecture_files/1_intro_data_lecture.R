@@ -253,6 +253,7 @@ vegSurvey <-
 vegSurvey$spp <-   ifelse(vegSurvey$veg_Type =="introduced",vegSurvey$spp+1,vegSurvey$spp)
 
 
+
 vegSurvey <- vegSurvey %>%  mutate(sppInv= ifelse(veg_Type =="native",spp,spp*-1))
 
 #grouped bar plot####
@@ -285,6 +286,7 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
+
 
 #facetted stacked####
 ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
@@ -357,6 +359,47 @@ ggplot(vegSurvey_veg_per_site, aes_string(x="sampling_point", y="Proportion")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) 
+
+#turn this into pie chart####
+vegSurvey_veg_per_site$sampling_point <- factor(vegSurvey_per_site$sampling_point)
+#have to make weird empty factor else you get concentric circles
+vegSurvey_veg_per_site$Share <- ""
+ggplot(vegSurvey_veg_per_site, aes_string(x="Share", y="Proportion")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency") + 
+  xlab("Sampling point") +
+  ggtitle("Invasive and native species based on site")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  coord_polar(theta="y") +
+  facet_wrap(~sampling_point)
+
+#or (not in slides) cast to get single plot/split####
+vegSurvey_veg_per_site_cast <- dcast(vegSurvey_veg_per_site, veg_Type ~ "Proportion", value.var = "Proportion", mean)
+
+vegSurvey_veg_per_site_cast$Site <- ""
+
+ggplot(vegSurvey_veg_per_site_cast, aes_string(x="Site", y="Proportion")) +
+  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+  ylab("Frequency") + 
+  xlab("") +
+  ggtitle("Overall composition of invasive and native species across sites")+
+  scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  coord_polar(theta="y") 
+
 
 #mosaic plot facetted by slope####
 vegSurvey_per_slope <- dcast(vegSurvey, sampling_point + slope~ "total_per_slope", sum, 
