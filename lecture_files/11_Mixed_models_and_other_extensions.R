@@ -74,7 +74,7 @@ check_mixed_model(team_final_mm)
 #We use a generalized linear model, aka logistic regression
 #use glm command (instead or arcsin transform!)
 #data from Needles et al 2014
-otters <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/needles_january.csv?attredirects=0&d=1")
+otters <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/needles_january.csv")
 head(otters)
 #star, otters, and mussels are treatments (1 is present)
 #WASU and notWASU are count data
@@ -109,7 +109,7 @@ otter_fit_mm_b <- update(otter_fit_mm_a, .~. - Mussels)
 Anova(otter_fit_mm_b, type = "III") #uses chisq test
 
 #nls is used to fit specified functions in R####
-whelk <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/whelk.csv?attredirects=0&d=1")
+whelk <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/whelk.csv")
 head(whelk)
 summary(whelk)
 whelk_plot <- ggplot(whelk, aes_string(x="Shell.Length", y = "Mass")) +
