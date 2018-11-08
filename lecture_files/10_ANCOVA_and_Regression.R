@@ -260,7 +260,7 @@ likelihood_plot +
 
 
 #TEAM example####
-team <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/team_data_no_spaces.csv?attredirects=0&d=1")
+team <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/team_data_no_spaces.csv")
 names(team)
 head(team)
 
