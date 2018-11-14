@@ -28,10 +28,9 @@ rownames(travel_table) = c("morning", "noon", "afternoon", "night")
 #now look at it
 travel_table
 chisq.test(travel_table)
-require(fifer)
+require(rcompanion)
 chisq.test(travel_table)
-chisq.post.hoc(travel_table,
-               control = "holm")
+pairwiseNominalIndependence(travel_table, compare = "row", method = "holm")
 
 
 #6 
