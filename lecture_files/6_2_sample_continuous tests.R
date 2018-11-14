@@ -181,7 +181,7 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 }
 
 #back to our aussie athlete data
-sport <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/sport.csv?attredirects=0&d=1")
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 
 ggplot(sport, aes_string("Ferr"))+
   geom_histogram() +
