@@ -224,7 +224,7 @@ ggplot(ratio, aes_string("ratio")) +
           legend.title = element_text(size=20, face="bold"),
           plot.title = element_text(hjust = 0.5, face="bold", size=32))
   
-#build model intercept####
+#build model####
 iris_anova <- lm(Sepal.Length~Species, iris)
 #it creates an object you can manipulate
 
