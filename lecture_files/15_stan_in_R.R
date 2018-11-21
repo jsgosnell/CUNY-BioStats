@@ -78,6 +78,7 @@ compare_cont_tukey <- glht(iris_anova, linfct = mcp(Species = "Tukey"))
 summary(compare_cont_tukey)
 
 #with stan
+library(rstanarm)
 bayesian_iris_anova <- stan_aov(Sepal.Length~Species, data = iris, 
                   prior = R2(what = "median", location = 0.5), adapt_delta = 0.9999)
                   
@@ -109,7 +110,7 @@ ggplot(newdata) +
              position = position_jitter(width = 0.1, height = 0),
              color = "black")
 
-#leave one out cross validation
+#leave one out cross validation #not in lecture
 loo_bayesian_iris_anova <- loo(bayesian_iris_anova)
 plot(loo_bayesian_iris_anova)
 
@@ -157,19 +158,39 @@ mcmcpvalue(as.matrix(bayesian_iris_anova)[, "Speciesvirginica"])  # effect of (v
 mcmcpvalue(as.matrix(bayesian_iris_anova)[, 2:4]) #effect of all groups
 
 
+#or write as lmer
+#with defaults
+bayesian_iris_anova_lmer <- stan_lmer(Sepal.Length ~ 1 + (1|Species),
+                                 data = iris, adapt_delta = 0.99, iter = 4000)
 
-
-bayesian_iris_anova <- stan_lmer(Sepal.Length ~ 1 + (1|Species),
-                                 data = iris, prior_intercept = cauchy(),
-                                 prior_covariance = decov(shape = 2, scale = 2))
-
-#increase adapt_delta and iter due to error
-bayesian_iris_anova <- stan_lmer(Sepal.Length ~ 1 + (1|Species),
+#with other priors
+#increased adapt_delta and iter due to error
+bayesian_iris_anova_lmer_prior_choices <- stan_lmer(Sepal.Length ~ 1 + (1|Species),
                                  data = iris, prior_intercept = cauchy(),
                                  prior_covariance = decov(shape = 2, scale = 2), 
                                  adapt_delta = 0.99, iter = 4000)
-bayesian_iris_anova
-launch_shinystan(bayesian_iris_anova)
+
+#can check and validate
+bayesian_iris_anova_lmer
+launch_shinystan(bayesian_iris_anova_lmer)
+
+#compare models using loo
+#leave one out cross validation #not in lecture
+loo_bayesian_iris_anova <- loo(bayesian_iris_anova)
+print(loo_bayesian_iris_anova)
+loo_bayesian_iris_anova_lmer <- loo(bayesian_iris_anova_lmer)
+print(loo_bayesian_iris_anova_lmer)
+compare_models(loo_bayesian_iris_anova,loo_bayesian_iris_anova_lmer)
+
+#or using an information criterion
+waic_bayesian_iris_anova <- waic(bayesian_iris_anova)
+print(waic_bayesian_iris_anova)
+waic_bayesian_iris_anova_lmer <- waic(bayesian_iris_anova_lmer)
+print(waic_bayesian_iris_anova_lmer)
+compare_models(waic_bayesian_iris_anova,waic_bayesian_iris_anova_lmer)
+
+
+
 
 #regression example####
 cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
@@ -214,7 +235,6 @@ summary(bayesian_cholest_regression)
 binom.test(x=14, n=18, p=.5)
 
 #compare intercept in stan_glm
-library(rstanarm)
 #make dataframe
 frog_data <- data.frame(hand = c(rep(1,14), rep(0,4)))
 bayesian_frog <-stan_glm(hand ~ 1, frog_data, family = "binomial")
