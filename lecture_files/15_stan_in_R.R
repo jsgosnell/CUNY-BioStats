@@ -45,14 +45,6 @@ for (i in 1:(N-1)) {
 plot(mu, main = paste("initial estimate = ", mu[1]))
 }
 remove(p)
-#binomial example####
-#binomial test####
-binom.test(x=14, n=18, p=.5)
-
-#compare intercept in stan_glm
-#make dataframe
-frog_data <- data.frame(hand = c(rep(1,14), rep(0,4)))
-bayesian_frog <-stan_glm(hand ~ 1, frog)
 
 #ANOVA example####
 #build model####
@@ -86,8 +78,6 @@ compare_cont_tukey <- glht(iris_anova, linfct = mcp(Species = "Tukey"))
 summary(compare_cont_tukey)
 
 #with stan
-require(rstanarm)
-
 bayesian_iris_anova <- stan_aov(Sepal.Length~Species, data = iris, 
                   prior = R2(what = "median", location = 0.5), adapt_delta = 0.9999)
                   
@@ -188,4 +178,62 @@ par(mfrow = c(2,2))
 plot(cholest_regression)
 require(car)
 Anova(cholest_regression, type = "III")
+summary(cholest_regression)
+
+#with rstanarm#
+
+#for uniform prior (bad idea) use NULL
+bayesian_cholest_regression <- stan_lm(cholest ~ day, na.omit(cholesterol),
+                                       prior = NULL)
+
+#otherwise can specify as predicted R2 again
+bayesian_cholest_regression <- stan_lm(cholest ~ day, na.omit(cholesterol),
+                                       prior = R2(what = "median", location = 0.5))
+#analyze draws####
+launch_shinystan(bayesian_cholest_regression)
+
+#model validation####
+#check model#### 
+#check residuals for patterns
+resid = resid(bayesian_cholest_regression)
+fit = fitted(bayesian_cholest_regression)
+ggplot() + geom_point(data = NULL, aes(y = resid, x = fit))
+
+#analyze posterior####
+#have to call certainty interval by dummy variable!
+
+summary(bayesian_iris_anova)
+
+
+
+#analyze posterior####
+summary(bayesian_cholest_regression)
+
+#binomial example####
+#binomial test####
+binom.test(x=14, n=18, p=.5)
+
+#compare intercept in stan_glm
+library(rstanarm)
+#make dataframe
+frog_data <- data.frame(hand = c(rep(1,14), rep(0,4)))
+bayesian_frog <-stan_glm(hand ~ 1, frog_data, family = "binomial")
+
+bayesian_frog
+#note intercept is equal to 1.3. we would expect 0 under normal binomial link.
+#why?
+#link is
+#log(p/1-p) = (linear outcome)
+log(.5/(1-.5)) # equal 0
+#so if we get a value for the intercept, we can say it equals to
+#exp(predicted intercept)/(1-exp(predicted intercept))
+exp(1.3)/(1 + (exp(1.3))) #close to binomial test prediction (probably no reason 
+#to do this)
+
+#check sampling outcomes####
+launch_shinystan(bayesian_frog)
+
+#analyze posterior####
+summary(bayesian_frog)
+
 
