@@ -50,6 +50,7 @@ head(sport_melted)
 
 #team analysis####
 #download diversity_files folder from dropbox link and place files on desktop
+#set folder as working directory
 #https://www.dropbox.com/sh/ub64q6nidfa11mf/AAB8GRc8qOIlKy_iHKn2E-dJa?dl=0
 #or redirect path below 
 tree_data <- read.csv("tree_data_clean_wd_dbh.csv", 
@@ -108,13 +109,13 @@ require(FD)
 #make each objec
 #first make as dataframe
 #for wd 
-wd_trait <- aggregate(wd~Family_Genus, tree_data, mean)
+wd_trait <- aggregate(wd~Family, tree_data, mean)
 head(wd_trait)
 
 #make sure taxa are in same order
 names(abundance_data)
 names(wd_trait)
-all.equal(wd_trait$Family_Genus, names(abundance_data),
+all.equal(wd_trait$Family, as.factor(names(abundance_data)),
           check.attributes = F)
 
 #now make matrix without extra columns and with rownames
@@ -124,7 +125,7 @@ rownames(abundance_data_matrix) <- paste(tree_data_wide$Site.Name, tree_data_wid
                                          tree_data_wide$Sampling.Period, sep = "_")
 colnames(abundance_data_matrix) = names(abundance_data)
 wd_trait_matrix <- as.matrix(wd_trait["wd"])
-rownames(wd_trait_matrix) <- wd_trait$Family_Genus
+rownames(wd_trait_matrix) <- wd_trait$Family
 
 #do the calculations
 calc_wd_fd <- dbFD(wd_trait_matrix,abundance_data_matrix,calc.FRic = T, calc.CWM = T, calc.FDiv = T)
@@ -143,16 +144,16 @@ calc_wd_fd <- cbind (location_info, calc_wd_fd)
 site_info <- merge(site_info,calc_wd_fd, all.x=T, all.y=T)
 
 #phylogenetic diversity####
-#make tree with genus
-genus_matrix <- dcast(tree_data, Site.Name+X1ha.Plot.Number+Sampling.Period~Genus,
+#make tree with family
+family_matrix <- dcast(tree_data, Site.Name+X1ha.Plot.Number+Sampling.Period~Family,
                      length)
 #for traits, use
-trait_matrix_genus <- aggregate(cbind(wd, max_dbh)~ Genus + Family, tree_data, mean)
+trait_matrix_family <- aggregate(cbind(wd, max_dbh)~ Family, tree_data, mean)
 
 require(brranching)
-tree_genus <- phylomatic (taxa=tolower(as.character(trait_matrix_genus$Genus)), storedtree='R20120829', get='POST')
-plot(tree_genus, no.margin = T)
-write.tree(tree_genus, file="TEAMtreeonlygenus.tre")
+tree_family <- phylomatic (taxa=tolower(as.character(trait_matrix_family$Family)), storedtree='R20120829', get='POST')
+plot(tree_family, no.margin = T)
+write.tree(tree_family, file="TEAMtreeonlyfamily.tre")
 
 #age tree####
 #code below will age tree
@@ -166,26 +167,31 @@ write.tree(tree_genus, file="TEAMtreeonlygenus.tre")
 #extracted
 #made a new folder
 #put in 
-  #phylocom (exe file)
-  #phylomatic (exe file)
-  #wikistrom.ages (ages file)
-  #copied wikistromages and renamed ages
-  #R20100701.new (supertree)
+  #phylocom (exe file) from w32 folder (macs will need to use different 
+  #file from mac folder)
+  #phylomatic (exe file) from w32 folder (macs will need to use different 
+  #file from mac folder)
+  #wikstrom.ages (ages file from bladj folder)
+  #copied wikstrom.ages and renamed ages (removed .ages ext)
+  #R20100701.new (supertree) from example_data/phylomatic_example folder
   
 #my output file
 # mycleanoutfile<- paste("phylocom_calculations/","taxafile",".clean.new",sep="")
 # #dated newick file
 
-setwd("phylocom_calculations") #set the working directory to the phylocom folder
+setwd("phylocom_family") #set the working directory to the phylocom folder
 
 #run models
-#my genus list
-write.table(paste(tolower(trait_matrix_genus$Family), tolower(trait_matrix_genus$Genus), sep="/"),
+#my family list (lowest level must be lowercase!)
+write.table(paste(tolower(trait_matrix_family$Family), 
+                  tolower(trait_matrix_family$Family), sep = "/"),
             "taxa_for_phylomatic.txt", row.names = F, quote = F, col.names = F)
 #extract a tree from the mastertree
+#if this doesn't work, copy into command prompt (issue on some computers)
 system(paste(getwd(), "/phylomatic -f ", "R20100701.new"," -t ","taxa_for_phylomatic.txt", " > ","taxafile.new",sep="")) 
 
 #cleanphy to remove one-daughter nodes
+#also may need to paste into command prompt
 system(paste(getwd(),"/phylocom cleanphy -f ", "taxafile.new"," -e > ","taxafile_clean.new",sep="")) 
 
 #date the nodes using Wikstrom dates
@@ -193,7 +199,7 @@ system(paste(getwd(),"/phylocom bladj -f ", "taxafile_clean.new"," > ",
              "taxafile_dated.new",sep="")) 
 
 #read in dated newick file
-tree_genus_dated <- read.tree("taxafile_dated.new")
+tree_family_dated <- read.tree("taxafile_dated.new")
 
 #return to main working directory
 setwd("C:/Users/Stephen/Desktop")
@@ -202,6 +208,7 @@ setwd("C:/Users/Stephen/Desktop")
 source("http://bioconductor.org/biocLite.R") # downloads the latest bioconductor script/repos
 biocLite("ggtree")
 
+#no longer functioning as of 12/3/2018, I may need to reload/update packages
 require(ggtree)
 #make circular tree
 circular_cladogram <- ggtree(tree_genus_dated, layout="circular", branch.length="none") +
@@ -211,77 +218,77 @@ circular_cladogram + geom_tiplab(size=3, color="blue")
 #prune tree
 require(picante)
 
-#clean up genus_matrix by makign rownames and removing extraneous columns
+#clean up family_matrix by makign rownames and removing extraneous columns
 "%!in%" <- function(x,table) match(x,table, nomatch = 0) == 0
 
-rownames(genus_matrix) <- paste(genus_matrix$X1ha.Plot.Number,
-                                genus_matrix$Sampling.Period)
-genus_matrix_clean <- genus_matrix[, names(genus_matrix)
+rownames(family_matrix) <- paste(family_matrix$X1ha.Plot.Number,
+                                family_matrix$Sampling.Period)
+family_matrix_clean <- family_matrix[, names(family_matrix)
                                     %!in% c("X1ha.Plot.Number",
                                             "Sampling.Period",
                                             "Site.Name")]
-names(genus_matrix_clean) <- tolower(names(genus_matrix_clean))
+names(family_matrix_clean) <- tolower(names(family_matrix_clean))
 #remove species not found in tree; pd will run ohterwise but only counts toward
 #species richness; mpd function will not run
-genus_matrix_clean_in_tree <- genus_matrix_clean[,names(genus_matrix_clean) %in%
+family_matrix_clean_in_tree <- family_matrix_clean[,names(family_matrix_clean) %in%
                                                    tree_genus_dated$tip.label]
 
 
 #make tree with only known species
-tree_genus_dated_pruned <- prune.sample (genus_matrix_clean_in_tree, tree_genus_dated)
+tree_family_dated_pruned <- prune.sample (family_matrix_clean_in_tree, tree_family_dated)
 
 #faith's phylogenetic diversity
-TEAM_pd <- pd(genus_matrix_clean_in_tree, tree_genus_dated_pruned)
+TEAM_pd <- pd(family_matrix_clean_in_tree, tree_family_dated_pruned)
 TEAM_pd$siteyear <- rownames(TEAM_pd)
 
 #mean pairwise distance
-TEAM_distance <- cophenetic.phylo(tree_genus_dated_pruned)
-TEAM_mpd <- mpd(na.omit(genus_matrix_clean_in_tree), TEAM_distance)
+TEAM_distance <- cophenetic.phylo(tree_family_dated_pruned)
+TEAM_mpd <- mpd(na.omit(family_matrix_clean_in_tree), TEAM_distance)
 TEAM_mpd <- as.data.frame(TEAM_mpd)
-TEAM_mpd$siteyear <- rownames(genus_matrix_clean_in_tree)
+TEAM_mpd$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #mean pairwise distance with abundance
-TEAM_mpd_with_abundance <- mpd(na.omit(genus_matrix_clean_in_tree), TEAM_distance, abundance.weighted = T)
+TEAM_mpd_with_abundance <- mpd(na.omit(family_matrix_clean_in_tree), TEAM_distance, abundance.weighted = T)
 TEAM_mpd_with_abundance <- as.data.frame(TEAM_mpd_with_abundance)
-TEAM_mpd_with_abundance$siteyear <- rownames(genus_matrix_clean_in_tree)
+TEAM_mpd_with_abundance$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #standardized effect score of mpd (equal to -1 * nri, net relatedness index)
-# TEAM_nri <- ses.mpd(na.omit(genus_matrix_clean_in_tree), TEAM_distance)
+# TEAM_nri <- ses.mpd(na.omit(family_matrix_clean_in_tree), TEAM_distance)
 # TEAM_nri <- as.data.frame(TEAM_nri)
-# TEAM_nri$siteyear <- rownames(genus_matrix_clean_in_tree)
+# TEAM_nri$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #core ancestor cost
 # require(PhyloMeasures)
-# TEAM_cac <- cac.query(tree = tree_genus_dated_pruned, matrix = genus_matrix_clean_in_tree,
+# TEAM_cac <- cac.query(tree = tree_family_dated_pruned, matrix = family_matrix_clean_in_tree,
 #                       chi = .9)
 # TEAM_cac <- as.data.frame(TEAM_cac)
-# TEAM_cac$siteyear <- rownames(genus_matrix_clean_in_tree)
+# TEAM_cac$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #taxonomic distinctiveness
-TEAM_td_lists <- taxondive(genus_matrix_clean_in_tree, TEAM_distance, match.force = FALSE)
+TEAM_td_lists <- taxondive(family_matrix_clean_in_tree, TEAM_distance, match.force = FALSE)
 TEAM_td <- as.data.frame(TEAM_td_lists[1])
 for(i in 2:length(TEAM_td_lists)){
   TEAM_td <- cbind(TEAM_td,as.data.frame(TEAM_td_lists[i]))
 }
-TEAM_td$siteyear <- rownames(genus_matrix_clean_in_tree)
+TEAM_td$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #mntd
-TEAM_mntd <- mntd(genus_matrix_clean_in_tree, TEAM_distance)
+TEAM_mntd <- mntd(family_matrix_clean_in_tree, TEAM_distance)
 TEAM_mntd <- as.data.frame(TEAM_mntd)
-TEAM_mntd$siteyear <- rownames(genus_matrix_clean_in_tree)
+TEAM_mntd$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #mntd with abundance
-TEAM_mntd_with_abundance <- mntd(genus_matrix_clean_in_tree, TEAM_distance, abundance.weighted = T)
+TEAM_mntd_with_abundance <- mntd(family_matrix_clean_in_tree, TEAM_distance, abundance.weighted = T)
 TEAM_mntd_with_abundance <- as.data.frame(TEAM_mntd_with_abundance)
-TEAM_mntd_with_abundance$siteyear <- rownames(genus_matrix_clean_in_tree)
+TEAM_mntd_with_abundance$siteyear <- rownames(family_matrix_clean_in_tree)
 
 #phylogenetic entropy
 require(entropart)
 #need ultrametic rooted tree and only one row/site at a time
-tree_genus_dated_pruned_ultrametric <- multi2di(chronos(tree_genus_dated_pruned))
+tree_family_dated_pruned_ultrametric <- multi2di(chronos(tree_family_dated_pruned))
 for(i in 1:dim(TEAM_mntd)[1]){
-  TEAM_mntd$phy_ent[i] <- as.numeric(PhyloEntropy(as.SpeciesDistribution(genus_matrix_clean_in_tree[i,]),
-                                                  q=1, tree_genus_dated_pruned_ultrametric)$Total)
+  TEAM_mntd$phy_ent[i] <- as.numeric(PhyloEntropy(as.SpeciesDistribution(family_matrix_clean_in_tree[i,]),
+                                                  q=1, tree_family_dated_pruned_ultrametric)$Total)
 }
 
 #merge in phylogenetic measures
