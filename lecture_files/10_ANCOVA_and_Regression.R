@@ -56,6 +56,190 @@ ggplot(cholesterol, aes_string(x="day", y="cholest", color = "patient")) +
 model.matrix(cholest_multiple)[1,]
 coef(cholest_multiple)
 
+#ancova with interactions example - simulated
+iris_example_species <-data.frame(
+  Species = c(rep("x",25), rep("y", 25), rep("z", 25)),
+  Sepal_Length = runif(75,2,4 ),
+  #no difference based on species or sepal length
+  Petal_no_impacts = runif (75, 4, 6))
+#no difference based on species
+iris_example_species$Petal_no_impact_species <- 
+  iris_example_species$Sepal_Length * 2 + rnorm(75)
+#no impact of petal length
+iris_example_species$Petal_no_relationship <-rnorm(75) +
+  c(rep(2,25), rep(3,25), rep(4,25))
+#impact of species and petal length but no interaction
+iris_example_species$Petal_no_interaction <- 
+  iris_example_species$Sepal_Length * 2 + rnorm(75) +
+  c(rep(2,25), rep(3,25), rep(4,25))
+#impact of species and petal length with interaction
+iris_example_species$Petal_interaction <- 
+  iris_example_species$Sepal_Length * c(rep(-2, 25),rep(2,25), rep(5,25)) + 
+  c(rep(2,25), rep(3,25), rep(4,25)) + rnorm(75)
+
+#no impact species or relationship
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_impacts, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+Anova(lm(Petal_no_impacts ~ Sepal_Length * Species, iris_example_species), 
+      type = "III")
+Anova(lm(Petal_no_impacts ~ Sepal_Length + Species, iris_example_species), 
+      type = "III")
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_impacts, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_smooth(method = "lm", se = F)
+
+#no impact species but relationship
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_impact_species, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+Anova(lm(Petal_no_impact_species ~ Sepal_Length * Species, iris_example_species), 
+      type = "III")
+Anova(lm(Petal_no_impact_species ~ Sepal_Length + Species, iris_example_species), 
+      type = "III")
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_impact_species, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_smooth(method = "lm", se = F)
+
+# impact species but no relationship
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_relationship, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+Anova(lm(Petal_no_relationship ~ Sepal_Length * Species, iris_example_species), 
+      type = "III")
+Anova(lm(Petal_no_relationship ~ Sepal_Length + Species, iris_example_species), 
+      type = "III")
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_relationship, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_smooth(method = "lm", se = F)
+
+# impacts species and relationship but no interaction
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_interaction, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+Anova(lm(Petal_no_interaction ~ Sepal_Length * Species, iris_example_species), 
+      type = "III")
+Anova(lm(Petal_no_interaction ~ Sepal_Length + Species, iris_example_species), 
+      type = "III")
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_interaction, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_smooth(method = "lm", se = F)
+
+# impacts species and relationship with interaction####
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_interaction, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+Anova(lm(Petal_interaction ~ Sepal_Length * Species, iris_example_species), 
+      type = "III")
+ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_interaction, color = Species)) +
+  geom_point(size = 3)+
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  ggtitle("Impact of Sepal Length and Species on Petal Length") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_smooth(method = "lm", se = F)
+
+#interpret interactions (remove intercept for ease)
+coef(lm(Petal_interaction ~ Sepal_Length * Species - 1, iris_example_species))
+
+summary(lm(Petal_interaction ~ Sepal_Length, 
+         iris_example_species[iris_example_species$Species == "x",]))
+summary(lm(Petal_interaction ~ Sepal_Length, 
+           iris_example_species[iris_example_species$Species == "y",]))
+summary(lm(Petal_interaction ~ Sepal_Length, 
+           iris_example_species[iris_example_species$Species == "z",]))
+
 #fev data####
 fev <- read.table("http://www.statsci.org/data/general/fev.txt", header = T)
 head(fev)

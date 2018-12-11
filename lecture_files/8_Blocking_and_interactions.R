@@ -167,6 +167,9 @@ summary(comp_young)
 require(lsmeans)
 lsmeans(memory_interactions, pairwise ~ Process | Age)
 
+#interpret coef (subtract intercept for ease)
+coef(update(memory_interactions, .~.-1))
+
 #example of no interaction####
 #modified version of biomass project
 biomass <- read.csv("http://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/biomass_experiment.csv")
