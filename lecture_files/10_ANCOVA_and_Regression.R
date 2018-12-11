@@ -169,6 +169,10 @@ ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_relationship, col
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   geom_smooth(method = "lm", se = F)
+require(multcomp)
+summary(glht(lm(Petal_no_relationship ~ Sepal_Length + Species, iris_example_species), 
+             linfct =mcp(Species = "Tukey")))
+
 
 # impacts species and relationship but no interaction
 ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_interaction, color = Species)) +
@@ -200,6 +204,8 @@ ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_no_interaction, colo
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   geom_smooth(method = "lm", se = F)
+summary(glht(lm(Petal_no_interaction ~ Sepal_Length + Species, iris_example_species), 
+             linfct =mcp(Species = "Tukey")))
 
 # impacts species and relationship with interaction####
 ggplot(iris_example_species, aes(x= Sepal_Length, y = Petal_interaction, color = Species)) +
