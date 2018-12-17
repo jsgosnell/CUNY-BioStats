@@ -62,7 +62,6 @@ summary(iris_anova)
 require(car)
 Anova(iris_anova, type = "III")
 
-
 #you can get specific group means by builidng model without intercept
 iris_anova_no_intercept <- lm(Sepal.Length~Species - 1, iris)
 summary(iris_anova_no_intercept)
