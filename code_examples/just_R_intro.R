@@ -346,7 +346,88 @@ pairs(airquality)
 #other things.
 plot(Ozone~Temp, airquality, col=airquality$Month)
 
-#We'll be introducing another graphing package, ggplot2, later this semester
+#ggplot2####
+#ggplot2 is more complicated but produces customizable, publication quality graphs
+library(ggplot2)
+
+#to make a plot, first set a base layer
+#lets start with a scatter plot and focus on relationship between time spent sleeping
+#and time spent dreaming
+#first, add your layers
+ozone_temp_relationship <- ggplot(airquality, aes_string(x="Temp", y = "Ozone"))
+#Now call the ggplot object you created
+ozone_temp_relationship
+#Nothing plots except the axes. Now you have to add layers. For example, you can add points
+ozone_temp_relationship <- ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+geom_point()
+ozone_temp_relationship
+#Note here I'm saving the object, so to see it I call it. You can also just call directly
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point()
+#then you get long calls that are easier (maybe) to manipulate
+#Now you have a basic plot.  You can use other arguments in geom_layer commands 
+#to add to it or themes or functions to change its look
+
+#geom_ layers without any arguments assume you are using the base layers. You can 
+#change this to add extra info to a plot. For example, let's color these by primate
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point(aes_string(colour="Month"))
+
+#now we've added information on primates. Note this is different from
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point(colour="Month")
+#or
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point(colour="blue")
+#you have to put things you want to plot in the aes argument area (stands for aesthetics)
+#, and anything outside of that changes the entire plot. Also note the 2nd method
+#loses the legend as color now conveys no information
+#
+#this is also a good to talk about renaming factor labels. You may want to change 
+#Month levels to months for your graph. Lots of ways to do this, but revalue 
+#in the plyr package is nice (and works with the ggplot2 package, plyr, and reshape) 
+#
+
+require(plyr)
+airquality$Month <- revalue(airquality$Month, 
+                            c("5" = "May", "6" = "June",
+                              "7" = "July", "8" = "August", 
+                              "9"= "September"))
+#notice what I did above. I made a new column from an existing one using a name 
+#I might want on a legend
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point(aes_string(colour="Month"))
+#I can also just change the legend title directly or change legend text, but often 
+#workign with the dataframe is easier for me
+
+#if we wanted these in a different order, we can use relevel to set one as the 
+#"first" level (and then do this sequentially to get them in the right order if 
+#needed".  You can also change level orders using the factor or ordered functions 
+#for multiple levels at once
+
+# Now lets change the axis labels,sizes, etc using theme function. Again, I left this
+# verbose so you can change as needed. Also note the size argument in geom_point
+ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
+  geom_point(aes_string(colour="Month"), size = 4) +
+  #below here is ylabel, xlabel, and main title
+  ylab("Ozone level") +
+  xlab(expression(bold("Temperature " ( degree~F)))) +
+  ggtitle("Ozone level increases with temperature") +
+  #theme sets sizes, text, etc
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32),
+        # change plot background, grid lines, etc (just examples so you can see)
+        panel.background = element_rect(fill="white"),
+        panel.grid.minor.y = element_line(size=3),
+        panel.grid.major = element_line(colour = "black"),
+        plot.background = element_rect(fill="gray"),
+        legend.background = element_rect(fill="gray"))
+
 
 #FORMULAS AND TESTS####
 # Now lets do some basic analyses.  the easiest way to do this is using linear models (a more general description
@@ -400,65 +481,8 @@ summary(ozone_month_relationshipinteractions)
 Anova(ozone_month_relationshipinteractions, type  = "III")
 
 # RENAMING, SUBSETTING, AND SORTING DATA####
-# there are lots of ways to do this
-# What if we wanted to rename months to their normal names
-# factors have levels that you can change
-levels(airquality$Month)
-levels(airquality$Month) <- c("May","June", "July", "August", "September") 
-#above is a built-in way to do this, but we'll use relevel in class (later) as i
-#find its less prone to mistakes
-levels(airquality$Month)
 
-#data frames have names(headers) you can change similarly
-#you can also specifically change indiviudal names or levels with
-names(airquality) #gives you column names
-names(airquality)[names(airquality) %in% "Month"] = "example_change" # %in% looks for matches
-names(airquality)
-names(airquality)[names(airquality) %in% "example_change"] = "Month"
-
-#you could also call by index
-names(airquality)[3] <- "example_change"
-names(airquality)
-names(airquality)[3] <- "Wind"
-
-#or for levels
-levels(airquality$Month)[levels(airquality$Month) %in% "August"] = "test_change"
-levels(airquality$Month)[levels(airquality$Month) %in% "test_change"] = "August"
-#other commands will do this easier (relevel) but you can use brackets to specify most changes 
-
-#this is also useful if you want to combine months/treatments. alternatively,
-#you could have duplicated the column and changed the copy. the main idea here,
-#however, is you are never impacting the actual data file (unless you specifically
-#save over it). for example, we could add
-airquality$log_Temp <- log(airquality$Temp)
-
-#now look at the plot again
-plot(Temp ~ Month, airquality)
-#note this is a box-whisker plot by default
-#remember, check out ?plot to see more advanced commands
-#par lets you set options to multiple plots at once
-#we'll get into this more in depth later, but the par command sets graphic details for
-#upcoming plots. mrfow says to set a 2x2 matrix for table, oma and mar set margins
-#don't worry too much about this now
-par(mfrow  = c(2,2), oma  = c(2,0,0,0), mar  = c(5,4,2,2))
-#notice we are subsetting data by month for the graph
-plot(Ozone ~ Temp, subset(airquality, Month == "June"),ylab  =  "Temperature",
-     xlab  = "Ozone level (ppm))", main  = "June", xlim = c(60,100), ylim  = c(0, 175))
-plot(Ozone ~ Temp, subset(airquality, Month == "July"), xlab  = "", ylab  = "",
-     main  = "July", xlim  = c(60,100), ylim  = c(0, 175))
-plot(Ozone ~ Temp, subset(airquality, Month == "August"), xlab  = "", ylab  = "",
-     main  = "August", xlim  = c(60,100), ylim  = c(0, 175))
-plot(Ozone ~ Temp, subset(airquality, Month == "September"), xlab  = "",
-     ylab  = "", main  = "September", xlim  = c(60,100), ylim  = c(0, 175))
-mtext("Figure 1:  Ozone Levels for the Summer Months of 2001", 1, outer=T, cex=1.5, line=1)
-#later in the class we'll transition to using the ggplot2 package for plotting
-
-# what if we only cared about the impact of temperature on Ozone in July for models
-july <- lm(Ozone~Temp, subset(airquality, Month == "July"))
-summary(july)
-Anova(july, type = "III")
-
-#in general, you can subset dataframes using the subset command (above),
+#in general, you can subset dataframes using the subset command,
 #where the subset argument specifies rows and the select argument specifies columns,
 #or by using brackets like we did for vectors. The generla format is [rows, columns], like
 airquality[airquality$Month == "July",]
