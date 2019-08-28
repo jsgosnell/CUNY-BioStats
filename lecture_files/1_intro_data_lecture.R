@@ -803,9 +803,9 @@ ggplot(iris[iris$Species == "setosa", ], aes_string("LL")) +
 # "label area" below
 # 
 # Using this exercise (in R) assumes you have a computer with R (and maybe Rstudio)
-# on it.  A good thing to do first is use an online program to introduce you the program.
-# CodeSchool has a free browser-based R trainer @
-#  http://tryr.codeschool.com/
+# on it.  A practice guide similar to this is available in the first three chapters of
+# YaRrr! The Pirate's Guide to R
+# https://bookdown.org/ndphillips/YaRrr/
 
 # LEARNING BY DOING: SOME R EXAMPLES ####
 

@@ -373,7 +373,7 @@ ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
 ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
   geom_point(aes_string(colour="Month"))
 
-#now we've added information on primates. Note this is different from
+#now we've added information on months Note this is different from
 ggplot(airquality, aes_string(x="Temp", y = "Ozone"))+
   geom_point(colour="Month")
 #or
