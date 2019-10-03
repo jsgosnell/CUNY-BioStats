@@ -998,5 +998,24 @@ ggplot(sleep_by_exposure
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#factorial example plot####
+
+sleep_by_exposure_primate <- summarySE(sleep, measurevar = "TotalSleep", 
+                                       groupvars = c("Exposure", "Primate"), na.rm = T)
+#look at it
+sleep_by_exposure_primate
+ggplot(sleep_by_exposure_primate
+       , aes_string(x="Exposure", y="mean",color="Primate", 
+                    shape = "Primate")) +
+   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  ylab("Total sleep (hours per day")+
+  ggtitle("Sleep across different exposure levels")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 
