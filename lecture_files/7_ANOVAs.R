@@ -204,7 +204,7 @@ ggplot(ratio, aes_string("ratio")) +
           axis.text.x  = element_text(size=20), 
           legend.text =element_text(size=20),
           legend.title = element_text(size=20, face="bold"),
-          plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+          plot.title = element_text(hjust = 0.5, face="bold", size=32))
   
     
 #with f####
@@ -265,6 +265,18 @@ summary(compare_virginica_only, test=adjusted("holm"))
 #other options
 summary(compare_virginica_only, test=adjusted("fdr")) 
 #we can "find" significance more easily, but you need to justify why you did this
+#we can "find" significance more easily, but you need to justify why you did this
+#using set contrasts####
+#are versicolor and virginica different from setosa
+contr <- rbind("setosa - virginica - setosa" = c(-1,.5,.5))
+summary(glht(iris_anova, linfct = mcp(Species = contr)))
+summary(iris_anova) # this appears to be right
+
+#orthogonal
+contr <- rbind("setosa - virginica - setosa" = c(-1,.5,.5),
+               "virginica - setosa" = c(0,-1,1))
+summary(glht(iris_anova, linfct = mcp(Species = contr)))
+summary(iris_anova) # this appears to be right
 
 #R2####
 #R2 explains how much variation is explained by our model (groups in this instance)
