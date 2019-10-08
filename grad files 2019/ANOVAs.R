@@ -967,7 +967,8 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 
 #BAR PLOTS####
 #Now let's use this to get the confidence intervals for each exposure level and plot them
-sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Exposure", na.rm = T)
+sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", 
+                               groupvars = "Exposure", na.rm = T)
 #look at it
 sleep_by_exposure
 require(ggplot2)
@@ -1017,5 +1018,7 @@ ggplot(sleep_by_exposure_primate
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#other useful functions
 
 
