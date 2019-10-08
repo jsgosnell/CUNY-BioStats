@@ -317,6 +317,7 @@ ggplot(sleep_by_predation
 #rename some levels
 #have to use quotes around numbers (another reason this is bad idea to start with)
 angry$Sports <- revalue(angry$Sports, c( "1" = "Athlete", "2" = "Not athlete"))
+angry$Sports <- relevel(angry$Sports, "Not athlete")
 angry$Gender <- revalue (angry$Gender, c("1" = "Males", "2" = "Females"))
 anger_by_gender_and_athlete <- summarySE(angry, measurevar = "Anger_Expression", 
                                        groupvars = c("Sports", "Gender"), na.rm = T)
@@ -325,10 +326,11 @@ anger_by_gender_and_athlete
 ggplot(anger_by_gender_and_athlete
        , aes_string(x="Sports", y="mean",color="Gender", 
                     shape = "Gender")) +
+  geom_point(size = 5) +
+  geom_line(aes_string(group="Gender", linetype = "Gender"), size=2) +
   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
-  geom_line(aes_string(group="Sports", linetype = "Sports"), size=2) +
-  ylab("Total sleep (hours per day")+
-  ggtitle("Sleep across different exposure levels")+
+  ylab("Anger")+
+  ggtitle("Athletes show less aggression across genders")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
@@ -337,8 +339,23 @@ ggplot(anger_by_gender_and_athlete
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#or
 
-
-
+ggplot(anger_by_gender_and_athlete
+       , aes_string(x="Sports", y="mean",color="Gender", 
+                    shape = "Gender")) +
+  geom_bar(aes_string(fill="Gender"), size = 3, stat = "identity", 
+           position = position_dodge(.5), width = .5) +
+  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci),  
+                position = position_dodge(0.5), size=1.5, color = "black") +
+  ylab("Anger")+
+  ggtitle("Athletes show less aggression across genders")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 
