@@ -1,6 +1,6 @@
 #quiz
 #
-summarySEjsg <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
+summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
                       conf.interval=.95, .drop=TRUE) {
   library(plyr)
   
@@ -39,7 +39,7 @@ summarySEjsg <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 require(plyr)
 sleep$Primate <- revalue (sleep$Primate, c("Y" = "Yes", "N" = "No"))
-gestation_by_primate<- summarySEjsg(sleep, measurevar = "Gestation", groupvars = "Primate", na.rm = T)
+gestation_by_primate<- summarySE(sleep, measurevar = "Gestation", groupvars = "Primate", na.rm = T)
 #look at it
 gestation_by_primate
 require(ggplot2)
