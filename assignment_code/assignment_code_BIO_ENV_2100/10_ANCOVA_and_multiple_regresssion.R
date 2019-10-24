@@ -68,7 +68,7 @@ summary(horse_final)
 require(MuMIn)
 options(na.action = "na.fail")
 auto <- dredge(horse_full)
-write.csv(auto, "dredge_output.csv", row.names = F)
+write.csv(auto, "dredge_output.csv", row.names = F) #R saves this to your working directory; try getwd() to find that if needed
 top_model <- get.models(auto, subset = 1)[[1]]
 Anova(top_model, type ="III")
 summary(top_model)
