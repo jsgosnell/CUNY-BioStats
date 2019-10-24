@@ -44,9 +44,18 @@ ggplot(heat, aes_string(x="Temp", y="Gas", color = "Insulate")) +
 cherry <- read.table("http://www.statsci.org/data/general/cherry.txt",
                      header = T)
 head(cherry)
+
+#if only considering main effects (one option)
 cherry_full <- lm(Volume ~ Diam + Height, cherry)
 plot(cherry_full)
 Anova(cherry_full, type = "III")
+#both are significant, so finished
+
+#could also consider interactions 
+cherry_full <- lm(Volume ~ Diam * Height, cherry)
+plot(cherry_full)
+Anova(cherry_full, type = "III")
+#all significant, so finished
 
 #3####
 horse <- read.table("http://www.statsci.org/data/oz/horses.txt",
