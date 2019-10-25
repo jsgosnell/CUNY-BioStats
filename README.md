@@ -10,3 +10,9 @@ old_files is archived material (standalone code intros, previous course code)
 
 stats_assignment_answers has practice problems, including work from past years
 
+Note: Fall 2019 I switched to using summarySE function from Rmisc package instead
+of function I had written with same name. Package version provides examples and help files. 
+I will slowly change/update files, but only differences are
+*whatever you put in for measurevar column in summary is what you use for the y in ggplot
+calls (so for updating, replacing "mean" with that string)
+

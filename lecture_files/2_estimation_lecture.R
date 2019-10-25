@@ -275,42 +275,7 @@ ggplot(example_clarity
 
 #comparing groups
 #
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
-
+library(RMisc)
 #BAR PLOTS####
 #Now let's use this to get the confidence intervals for each month and plot them
 monthly_wind_data <- summarySE(airquality, measurevar = "Wind", groupvars = "Month")
@@ -322,9 +287,9 @@ monthly_wind_data
 require(ggplot2)
 
 ggplot(monthly_wind_data
-       , aes_string(x="Month", y="mean")) +
+       , aes_string(x="Month", y="Wind")) +
   geom_col(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=Wind-ci, ymax=Wind+ci), size=1.5) +
   ylab("Wind speed (mph)")+ggtitle("Wind speed over time")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -349,48 +314,13 @@ ggplot(monthly_wind_data
   ylim(c(0,13.2)) #watch for truncated axes!
 
 #iris example####
-#summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
 
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
                                c("Species"))
 
-ggplot(function_output, aes_string(x="Species", y="mean")) +
+ggplot(function_output, aes_string(x="Species", y="Sepal.Length")) +
   geom_col(aes_string(fill="Species"), size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=Sepal.Length-ci, ymax=Sepal.Length+ci), size=1.5) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -958,55 +888,6 @@ while(x<10){
 }
 #while loops evaluate a statement instead of going through a list.
 #
-#We're discussing this because below is a function I'll provide for makign barcharts.
-#If you run it once, it will be available throughout an R session.  You can select the lines and run them.
-#Another option is to copy (and keep) functions in a separate script that you "source" at the beginning of
-#an R session. You can do this by manually opening file and selecting source button or by using the source()
-#function.  Source means runs the entire script.
-#
-#summarySE function####
-### Summarizes data.
-## Gives count, mean, standard deviation, standard error of the mean, and confidence interval (default 95%).
-##   data: a data frame.
-##   measurevar: the name of a column that contains the variable to be summariezed
-##   groupvars: a vector containing names of columns that contain grouping variables
-##   na.rm: a boolean that indicates whether to ignore NA's
-##   conf.interval: the percent range of the confidence interval (default is 95%)
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                      conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
 
 #BAR PLOTS####
 #Now let's use this to get the confidence intervals for each exposure level and plot them
@@ -1015,9 +896,9 @@ sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Ex
 sleep_by_exposure
 require(ggplot2)
 ggplot(sleep_by_exposure
-       , aes_string(x="Exposure", y="mean")) +
+       , aes_string(x="Exposure", y="TotalSleep")) +
   geom_col(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=TotalSleep-ci, ymax=TotalSleep+ci), size=1.5) +
   ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
