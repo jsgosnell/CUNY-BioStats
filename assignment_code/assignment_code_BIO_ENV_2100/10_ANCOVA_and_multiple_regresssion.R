@@ -44,9 +44,18 @@ ggplot(heat, aes_string(x="Temp", y="Gas", color = "Insulate")) +
 cherry <- read.table("http://www.statsci.org/data/general/cherry.txt",
                      header = T)
 head(cherry)
+
+#if only considering main effects (one option)
 cherry_full <- lm(Volume ~ Diam + Height, cherry)
 plot(cherry_full)
 Anova(cherry_full, type = "III")
+#both are significant, so finished
+
+#could also consider interactions 
+cherry_full <- lm(Volume ~ Diam * Height, cherry)
+plot(cherry_full)
+Anova(cherry_full, type = "III")
+#all significant, so finished
 
 #3####
 horse <- read.table("http://www.statsci.org/data/oz/horses.txt",
@@ -59,7 +68,7 @@ summary(horse_final)
 require(MuMIn)
 options(na.action = "na.fail")
 auto <- dredge(horse_full)
-write.csv(auto, "dredge_output.csv", row.names = F)
+write.csv(auto, "dredge_output.csv", row.names = F) #R saves this to your working directory; try getwd() to find that if needed
 top_model <- get.models(auto, subset = 1)[[1]]
 Anova(top_model, type ="III")
 summary(top_model)
