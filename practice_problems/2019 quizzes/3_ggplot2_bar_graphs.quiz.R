@@ -14,7 +14,7 @@ ggplot(brainwt_by_primate
        , aes_string(x="Primate", y="BrainWt")) +
   geom_col(size = 3) +
   geom_errorbar(aes(ymin=BrainWt-ci, ymax=BrainWt+ci), size=1.5) +
-  ylab("Brain Weight(kg)")+ggtitle("Brain weight is not higher in primates")+
+  ylab("Brain Weight(g)")+ggtitle("Brain weight is not higher in primates")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
