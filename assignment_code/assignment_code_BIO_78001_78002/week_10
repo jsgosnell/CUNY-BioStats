@@ -7,7 +7,6 @@ require(plyr)
 snail$Treatment_new <- revalue(snail$Treatment, c("1" = "Control", "2" = "Single predator",
                                                   "3" = "Two predators"))
 
-snail[snail$Treatment_new == "Control", "FL"] <- snail[snail$Treatment_new == "Control", "FL"] + 2
 require(lme4)
 snail_mm <- lmer(FL ~ Treatment_new + (1|Container), snail)
 summary(snail_mm)
