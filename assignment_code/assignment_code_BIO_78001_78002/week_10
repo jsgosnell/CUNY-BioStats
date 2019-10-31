@@ -19,6 +19,28 @@ require(multcomp)
 snail_comparison <- glht(snail_mm, linfct = mcp(Treatment_new = "Tukey"))
 summary(snail_comparison)
 
+#graph using Rmisc
+library(Rmisc)
+library(ggplot2)
+graph_output <- summarySE(snail, measurevar = "FL", groupvars = "Treatment_new")
+bar_graph_with_error_bars <- ggplot(graph_output, 
+                                     aes_string(x="Treatment_new", 
+                                                y = "FL")) +
+  geom_col() + 
+  geom_errorbar(aes(ymin = FL - ci, 
+                    ymax = FL + ci))+
+  xlab("Treatment")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
+ylim(c(0, 30))
+
+bar_graph_with_error_bars
+
 #2####
 
 rings <- read.table("http://www.statsci.org/data/general/challenger.txt", 
