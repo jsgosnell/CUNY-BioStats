@@ -11,6 +11,26 @@ require(lme4)
 snail_mm <- lmer(FL ~ Treatment_new + (1|Container), snail)
 summary(snail_mm)
 plot(snail_mm)
+check_mixed_model <- function (model, model_name = NULL) {
+  #collection of things you might check for mixed model
+  par(mfrow = c(2,3))
+  #not sure what this does with mutliple random effects, so stop with 1 for now
+  if(length(names(ranef(model))<2)){
+    qqnorm(ranef(model, drop = T)[[1]], pch = 19, las = 1, cex = 1.4, main= paste(model_name, 
+                                                                                  "\n Random effects Q-Q plot"))
+  }
+  plot(fitted(model),residuals(model), main = paste(model_name, 
+                                                    "\n residuals vs fitted"))
+  qqnorm(residuals(model), main =paste(model_name, 
+                                       "\nresiduals q-q plot"))
+  qqline(residuals(model))
+  hist(residuals(model), main = paste(model_name, 
+                                      "\nresidual histogram"))
+}
+
+check_mixed_model(snail_mm)
+
+
 require(car)
 Anova(snail_mm, type = "III")
 
