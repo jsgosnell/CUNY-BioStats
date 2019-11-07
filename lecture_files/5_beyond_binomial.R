@@ -329,15 +329,16 @@ rownames(travel_table) = c("morning", "noon", "afternoon", "night")
 #now look at it
 travel_table
 chisq.test(travel_table)
-chisq.test(travel_table)$expected #actually ok
+chisq.test(travel_table)$expected #actually not ok (3/12 =25% < 5)
+fisher.test(travel_table, simulate.p.value = T, B = 10000)
 
 require(rcompanion)
 bonf_correct <- pairwiseNominalIndependence(travel_table, method = "bonf")
-bonf_correct[order(bonf_correct$p.adj.Chisq),]
+bonf_correct[order(bonf_correct$p.adj.Fisher),]
 holm_correct <- pairwiseNominalIndependence(travel_table, method = "holm")
-holm_correct[order(holm_correct$p.adj.Chisq),]
+holm_correct[order(holm_correct$p.adj.Fisher),]
 fdr_correct <- pairwiseNominalIndependence(travel_table, method = "fdr")
-fdr_correct[order(fdr_correct$p.adj.Chisq),]
+fdr_correct[order(fdr_correct$p.adj.Fisher),]
 
 
 #how to use get data in for these tests####
