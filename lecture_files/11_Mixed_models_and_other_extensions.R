@@ -14,6 +14,10 @@ team_potential <- team[,colnames(team) %in% c(#site specific
   #outcome
   "PlotCarbon.tonnes")]
 
+#from lecture 10 code
+##. means all other variables
+team_model_full <- lm(PlotCarbon.tonnes ~ ., 
+                      team_potential)
 stepAIC(team_model_full)
 
 #mixed models####
@@ -32,14 +36,16 @@ team_model_full_mm <- lmer(PlotCarbon.tonnes ~
                              (1|Site.Name), team)
 summary(team_model_full_mm)
 
-#now to do top-down test we have to use Chi-squared tests (not F)
-require(car)
+#now to do top-down test we have to use Chi-squared tests (not F); not fully shown here
+library(car)
 Anova(team_model_full_mm, type = "III")
 stepAIC(team_model_full_mm) # won't work with mixed models, so have to do manually
 drop1(team_model_full_mm)
 drop1(team_model_full_mm, test = "Chi")
 
 #dredge will work, but may be slow
+library(MuMIn)
+options(na.action = "na.fail")
 auto <- dredge(team_model_full_mm)
 #write to csv to observe if needed, its sorted by AICc values so top line is bst model
 #still should check assumptions
@@ -48,7 +54,6 @@ team_final_mm <- get.models(auto, subset = delta < 4, REML = T)
 #easy error, just take top
 team_final_mm <- get.models(auto, subset = 1, Re)[[1]]
 #use function check_mixed_model to evaluate mixed model
-
 check_mixed_model <- function (model, model_name = NULL) {
   #collection of things you might check for mixed model
   par(mfrow = c(2,3))
@@ -67,8 +72,11 @@ check_mixed_model <- function (model, model_name = NULL) {
 }
 
 check_mixed_model(team_final_mm)
+#r2 equivalent using r.squaredGLMM
+r.squaredGLMM(team_final_mm) #m is for fixed effects (transferable) and c is for
+#full model with random effects
 
-#generalized linear models
+#generalized linear models####
 #what if the outcome isn't continuous but is either 0/1 (presence/absence) or 
 #a proportion?
 #We use a generalized linear model, aka logistic regression
@@ -107,6 +115,7 @@ otter_fit_mm_a <- update(otter_fit_mm, .~. - Star)
 Anova(otter_fit_mm_a, type = "III") #uses chisq test
 otter_fit_mm_b <- update(otter_fit_mm_a, .~. - Mussels)
 Anova(otter_fit_mm_b, type = "III") #uses chisq test
+r.squaredGLMM(otter_fit_mm_b)
 
 #nls is used to fit specified functions in R####
 whelk <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/whelk.csv")
