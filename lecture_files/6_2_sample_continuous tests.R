@@ -1,7 +1,7 @@
 #graphs and tables from Tests for 2 samples of continuous data lecture
 #
 #secchi data####
-secchi <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/secchi.csv?attredirects=0&d=1")
+secchi <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/secchi.csv")
 #plot
 #easiest to melt
 require(reshape2)
@@ -26,6 +26,21 @@ secchi$difference <- secchi$Initial - secchi$Final
 ggplot(secchi, aes(x= "difference", y = difference)) +
   geom_point(color = "purple", size = 4) +
   ggtitle("Water clarity measured using Secchi depth") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#confidence interval####
+library(Rmisc)
+difference_summary <- summarySE(secchi, measure.vars = "Depth", group.vars = "")
+ggplot(difference_summary, aes(x= "", y = Depth)) +
+  geom_point(color = "purple", size = 4) +
+  geom_error(ymin= Depth - ci, ymax = Depth + ci)+
+  ggtitle("Difference in water clarity over 5 years") +
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
         axis.text.y  = element_text(size=20),
