@@ -1,10 +1,10 @@
 #graphs and tables from Tests for 2 samples of continuous data lecture
 #
 #secchi data####
-secchi <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/secchi.csv?attredirects=0&d=1")
+secchi <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/secchi.csv")
 #plot
 #easiest to melt
-require(reshape2)
+library(reshape2)
 secchi_melted <- melt(secchi)
 names(secchi_melted) <- c("Date", "Depth")
 
@@ -34,6 +34,23 @@ ggplot(secchi, aes(x= "difference", y = difference)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#confidence interval####
+library(Rmisc)
+difference_summary <- summarySE(secchi, measurevar = "difference")
+ggplot(difference_summary, aes(x= .id, y = difference)) +
+  geom_point(color = "purple", size = 4) +
+  geom_errorbar(aes(ymin= difference - ci, ymax = difference + ci))+
+  ggtitle("Water quality has decreased over five years") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=0), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  xlab(NULL)+
+  ylab("Difference in water clarity over 5 years")
+
 #example of paired impacts
 t.test(secchi$Initial, secchi$Final)
 #or 
@@ -45,7 +62,7 @@ t.test(Depth ~ Date, secchi_melted, paired = T) #assumes in proper order!
 
 
 #smoke####
-smoke <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/smoke.csv?attredirects=0&d=1")
+smoke <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/smoke.csv")
 t.test(smoke$Before, smoke$After, paired = T)
 
 #cavity example simulation####
@@ -102,7 +119,6 @@ ggplot(means, aes_string("difference")) +
   geom_vline(xintercept = 56 - 51, size = 1.5, color = "orange")
 
 2 * (1 - pt(2.213, (56+51-2)))
-
 
 
 #unpaired 2-sample test ####
@@ -163,9 +179,36 @@ SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_
 
 #load bootstrapjsgfunction, which requires simpleboot
 
-require(simpleboot)
-bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
+#bootstrapjsg function####
+bootstrapjsg <- function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 {
+  require(boot)
+  require(simpleboot)
+  one.boot <- function (data, FUN, R, student = FALSE, M, weights = NULL, ...) 
+  {
+    func.name <- ifelse(is.character(FUN), FUN, deparse(substitute(FUN)))
+    extra <- list(...)
+    if (func.name == "quantile") {
+      if (is.na(match("probs", names(extra)))) 
+        stop("'probs' argument must be specified")
+      if (length(extra$probs) > 1) 
+        stop("can only bootstrap a single quantile")
+    }
+    func <- match.fun(FUN)
+    boot.func <- function(x, idx) {
+      fval <- func(x[idx], ...)
+      if (student) {
+        rs.x <- x[idx]
+        b <- one.boot(rs.x, FUN, R = M, student = FALSE, 
+                      M = NULL, weights = NULL, ...)
+        fval <- c(fval, var(b$t))
+      }
+      fval
+    }
+    b <- boot(data, statistic = boot.func, R = R, weights = weights)
+    b$student <- student
+    structure(b, class = "simpleboot")
+  }
   if (is.null(data2)){
     a=one.boot(na.omit(data1), fun, r)
     confint=boot.ci(a, conf)
@@ -179,6 +222,7 @@ bootstrapjsg=function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
     output=c(conf, "% Percentile Confidence Interval", confint$percent[1,4:5], "p-value", p)
     return(output)}
 }
+
 
 #back to our aussie athlete data
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
