@@ -80,8 +80,37 @@ fit_gamma <- glm(death~treatment, deaths, family = Gamma)
 par(mfrow=c(2,2))
 plot(fit_gamma)
 library(car)
-Anova(fit_lm, type = "III")
+Anova(fit_gamma, type = "III")
 #significant omnibus so test
 library(multcomp)
-summary(glht(fit_lm, linfct = mcp(treatment = "Tukey")))
-  
+summary(glht(fit_gamma, linfct = mcp(treatment = "Tukey")))
+
+#compare
+AIC(fit_lm, fit_gamma)
+
+summary(fit_gamma)
+
+#translate to impact
+#for high treatment
+1/(.289017 - .143669)
+
+#censored data####
+sheep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sheep.deaths.csv")
+head(sheep)
+str(sheep)
+
+library(survminer)
+
+survival_fit <- survfit(Surv(death, status) ~ group, data = sheep)
+ggsurvplot(survival_fit, data = sheep)
+survival_model <- survreg(Surv(death, status) ~ group, data = sheep)
+summary(survival_model)
+tapply(predict(survival_model,type="response"),sheep$group,mean)
+
+#compare to lm
+survival_model_lm <- lm(death~group, data = sheep)
+summary(survival_model_lm)
+tapply(predict(survival_model_lm,type="response"),sheep$group,mean)
+
+
+
