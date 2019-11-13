@@ -11,12 +11,77 @@ ggplot(summarySE(deaths, measurevar = "death", groupvars = "treatment"),
   geom_col() +
   geom_errorbar(aes(ymin = death - ci, ymax = death + ci))
 
-#wrong order!
+#wrong order! so I go back to beginning and do all again
 deaths$treatment <- factor(deaths$treatment, c("control", "low", "high"))
+summarySE(deaths, measurevar = "death", groupvars = "treatment")
+#graph it####
+ggplot(summarySE(deaths, measurevar = "death", groupvars = "treatment"), 
+       aes ( x= treatment, y = death)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = death - ci, ymax = death + ci))+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-sizes <- factor(sizes, levels = c("small", "medium", "large"))
-
-
-
-#
 #lm approach#####
+fit_lm <- lm(death~treatment, deaths)
+par(mfrow=c(2,2))
+plot(fit_lm)
+library(car)
+Anova(fit_lm, type = "III")
+#significant omnibus so test
+library(multcomp)
+summary(glht(fit_lm, linfct = mcp(treatment = "Tukey")))
+
+#gamma####
+gamma_data <- data.frame(x=rgamma(100000, shape = 3, scale = 2))
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_histogram()+
+  ylab("Frequency") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_density() +  
+  ylab("Proportion") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_density() +     
+  stat_function(fun = dgamma, args = list(shape =3, scale = 2),size = 1, color = "green")+
+  ylab("Proportion") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#glm approach#####
+fit_gamma <- glm(death~treatment, deaths, family = Gamma)
+par(mfrow=c(2,2))
+plot(fit_gamma)
+library(car)
+Anova(fit_lm, type = "III")
+#significant omnibus so test
+library(multcomp)
+summary(glht(fit_lm, linfct = mcp(treatment = "Tukey")))
+  
