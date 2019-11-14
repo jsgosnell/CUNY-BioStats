@@ -1,3 +1,25 @@
+#source chivers script##### then 
+monty(strat="stay")
+monty(strat="switch")
+monty(strat="random")
+
+#bayesian frogs#####
+#uninformed
+triplot(prior = c(1,1), data = c(14,4), where = "topleft")
+#prior assumes left handed
+triplot(prior = c(5,20), data = c(14,4), where = "topleft")
+#prior assumes right handed 
+triplot(prior = c(20,5), data = c(14,4), where = "topleft")
+#less sure right handed
+triplot(prior = c(4,2), data = c(14,4), where = "topleft")
+
+#fertilizer####
+fertilizer <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/fertilizer.csv")
+
+t.test(height ~ fertilizer, fertilizer)
+library(BayesFactor)
+ttestBF(formula = height ~ fertilizer, data = fertilizer)
+
 #ANOVA example####
 #with stan for all species
 library(rstanarm)
