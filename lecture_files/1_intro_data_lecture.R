@@ -454,7 +454,7 @@ ggplot(airquality, aes(x =Date,y =Temp)) +
 #have to aes to make tranformation (not aes_string)
 #put colour in quotes in aes to force legend
 ggplot(airquality, aes(x =Date,y =Temp)) + 
-  geom_point(aes(col =Temperature), size = 3) +
+  geom_point(aes(col ="Temp"), size = 3) +
   geom_line(col="orange") +
   geom_point(aes(y=Wind+50, col = "Wind speed")) +
   scale_y_continuous(sec.axis = sec_axis(~.-50, name = "Wind (mph)")) +

@@ -275,7 +275,7 @@ ggplot(example_clarity
 
 #comparing groups
 #
-library(RMisc)
+library(Rmisc)
 #BAR PLOTS####
 #Now let's use this to get the confidence intervals for each month and plot them
 monthly_wind_data <- summarySE(airquality, measurevar = "Wind", groupvars = "Month")

@@ -132,7 +132,7 @@ example_bad <- data.frame(Group = c(rep("A", 25), rep("B",10)), Temperature =
 example_bad_summary <- summarySE(example_bad, measurevar = "Temperature", groupvars = "Group")
 
 ggplot(example_bad_summary
-       , aes(x=Group, y=mean)) +
+       , aes(x=Group, y=Temperature)) +
   geom_point(aes( colour = Group), size = 5) +
   geom_errorbar(aes(ymin=Temperature-se, ymax=Temperature+se), size=1.5) +
   ylab("Temperature (F)")+ggtitle("Temperature based on past vaccine use")+
@@ -147,11 +147,11 @@ ggplot(example_bad_summary
 
 
 #garter snake example####
-garter <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/garter.csv?attredirects=0&d=1")
+garter <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/garter.csv")
 wilcox.test(Proportion.of.snakes.resistant ~ Locality, garter)
 
 #sign test example####
-insect_speciation <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/insect_speciation.csv?attredirects=0&d=1")
+insect_speciation <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/insect_speciation.csv")
 summary(insect_speciation)
 insect_speciation$difference <- insect_speciation$Polyandrous_species - 
   insect_speciation$Monandrous_species

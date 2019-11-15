@@ -681,9 +681,9 @@ sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Ex
 #look at it
 sleep_by_exposure
 ggplot(sleep_by_exposure
-       , ae(x=Exposure, y=TotalSleep)) +
+       , aes(x=Exposure, y=TotalSleep)) +
   geom_col(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=TotalSleep-ci, ymax=TotalSleep+ci), size=1.5) +
   ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -695,7 +695,7 @@ ggplot(sleep_by_exposure
 
 #or better
 ggplot(sleep_by_exposure
-       , aes(x=Exposure, y=mean)) +
+       , aes(x=Exposure, y=TotalSleep)) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin=TotalSleep-ci, ymax=TotalSleep+ci), size=1.5) +
   ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
