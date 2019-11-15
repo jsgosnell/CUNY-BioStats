@@ -1,11 +1,11 @@
 #figures and tests from ANOVA lecture
 #iris example, from first lecture
 #
-require(ggplot2)
+library(ggplot2)
 
 #point plot####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -17,48 +17,13 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
 
 
 #bar chart with error bars ####
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                      conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
-
+require(Rmisc)
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
                                c("Species"))
 
-ggplot(function_output, aes_string(x="Species", y="mean")) +
-  geom_col(aes_string(fill="Species"), size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+ggplot(function_output, aes(x=Species, y=Sepal.Length)) +
+  geom_col(aes(fill=Species), size = 3) +
+  geom_errorbar(aes(ymin=Sepal.Length-ci, ymax=Sepal.Length+ci), size=1.5) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -69,8 +34,8 @@ ggplot(function_output, aes_string(x="Species", y="mean")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #boxplot####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_boxplot(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_boxplot(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -81,8 +46,8 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #stacked histogram####
-ggplot(iris, aes_string("Sepal.Length")) + 
-  geom_histogram(aes_string(fill="Species"), size=3) +
+ggplot(iris, aes(Sepal.Length)) + 
+  geom_histogram(aes(fill=Species), size=3) +
   xlab("Sepal Length (cm)")+
   ylab("Frequency")+
   ggtitle("Sepal Length of various iris species")+
@@ -95,8 +60,8 @@ ggplot(iris, aes_string("Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #facet####
-ggplot(iris, aes_string("Sepal.Length")) + 
-  geom_histogram(aes_string(fill="Species"), size=3) +
+ggplot(iris, aes(Sepal.Length)) + 
+  geom_histogram(aes(fill=Species), size=3) +
   xlab("Sepal Length (cm)")+
   ylab("Frequency")+
   ggtitle("Sepal Length of various iris species")+
@@ -111,8 +76,8 @@ ggplot(iris, aes_string("Sepal.Length")) +
   facet_wrap(~Species, ncol = 1)
 
 #point plot with means####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -126,8 +91,8 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
 #point plot with means for each group####
 #make extra column for output and rename here
 function_output$Sepal.Length <- function_output$mean
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -136,12 +101,12 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
-  geom_errorbar(aes(ymin=mean, ymax=mean), size=1.5, 
+  geom_errorbar(aes(ymin=Sepal.Length, ymax=Sepal.Length), size=1.5, 
                 data = function_output, color = "black")
 
 #combine these two ####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -150,13 +115,13 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
-  geom_errorbar(aes(ymin=mean, ymax=mean), size=1.5, 
+  geom_errorbar(aes(ymin=Sepal.Length, ymax=Sepal.Length), size=1.5, 
                 data = function_output, color = "black") +
   geom_hline(aes(yintercept=mean(iris$Sepal.Length)), size = 2, color = "orange")
 
 #show null hypothesis
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -165,7 +130,7 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
-  geom_errorbar(aes(ymin=mean, ymax=mean), size=1.5, 
+  geom_errorbar(aes(ymin=Sepal.Length, ymax=Sepal.Length), size=1.5, 
                 data = function_output, color = "black") +
   geom_hline(aes(yintercept=mean(iris$Sepal.Length)), size = 2, color = "orange") +
 geom_errorbar(aes(ymin=mean(iris$Sepal.Length), ymax=mean(iris$Sepal.Length)), size=1.5, color = "purple", linetype = 3) 
@@ -194,7 +159,7 @@ for(i in 1:10000){
 summary(lm(Sepal.Length~Species, iris))$fstatistic[1]
   
   
-ggplot(ratio, aes_string("ratio")) +
+ggplot(ratio, aes(ratio)) +
     geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
     ggtitle("Ratio under null hypothesis") +
     ylab("Probability") +
@@ -209,7 +174,7 @@ ggplot(ratio, aes_string("ratio")) +
     
 #with f####
 #notice i specify degrees of freedom for numerator (df1) and denomitor (df2)
-ggplot(ratio, aes_string("ratio")) +
+ggplot(ratio, aes(ratio)) +
     geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", 
                    breaks = seq(0,15,1)) +
     stat_function(fun = df, args = list(df1 =2, df2 = 147),size = 3, color = "green") +   
@@ -243,16 +208,16 @@ summary(iris_anova_no_intercept)
 #note relationship between model coefficients here as well
 
 #Anova command from car package is needed to give overall group p-value
-require(car)
+library(car)
 Anova(iris_anova, type = "III")
 
 #since our overall anova was significant, we need to carry out multiple comparisons
 #to see what groups are driving the difference
 #multcomp
-require(multcomp)
+library(multcomp)
 
 #where's the almost difference? use Tukey's HSD for all pairs
-require(multcomp)
+library(multcomp)
 compare_cont_tukey <- glht(iris_anova, linfct = mcp(Species = "Tukey"))
 summary(compare_cont_tukey)
 
@@ -295,9 +260,9 @@ function_output
 summary(compare_cont_tukey)
 #all different here, so
 function_output$comparison <- letters[1:3]
-ggplot(function_output, aes_string(x="Species", y="mean")) +
-  geom_point(aes_string(fill="Species"), size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+ggplot(function_output, aes(x=Species, y=Sepal.Length)) +
+  geom_point(aes(fill=Species), size = 3) +
+  geom_errorbar(aes(ymin=Sepal.Length-ci, ymax=Sepal.Length+ci), size=1.5) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -318,9 +283,9 @@ post_hoc_spray_cld_fortify <- fortify(post_hoc_spray_cld)
 names(post_hoc_spray_cld_fortify)[names(post_hoc_spray_cld_fortify) == "lhs"] <- "Species"
 function_output <- merge(function_output, post_hoc_spray_cld_fortify)
 #plot
-ggplot(function_output, aes_string(x="Species", y="mean")) +
-  geom_point(aes_string(fill="Species"), size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+ggplot(function_output, aes(x=Species, y=Sepal.Length)) +
+  geom_point(aes(fill=Species), size = 3) +
+  geom_errorbar(aes(ymin=Sepal.Length-ci, ymax=Sepal.Length+ci), size=1.5) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -330,7 +295,7 @@ ggplot(function_output, aes_string(x="Species", y="mean")) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   #offset from mean by hand
-  geom_text(aes(x = Species, y = mean + .35, label = letters), size = 28)
+  geom_text(aes(x = Species, y = Sepal.Length + .35, label = letters), size = 28)
 
 
 #kruskal.wallis####
@@ -340,7 +305,7 @@ pairwise.wilcox.test(iris$Sepal.Length,
                           p.adjust.method="holm")
 
 #building to bootstrap options####
-require(WRS2)
+library(WRS2)
 #first, just using trimmed means, which help
 t1way(Sepal.Length~Species, iris)
 contrasts <- lincon(Sepal.Length~Species, iris)

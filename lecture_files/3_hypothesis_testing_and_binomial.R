@@ -12,8 +12,8 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
 
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-require(ggplot2)
-ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
+library(ggplot2)
+ggplot(sampling_experiment_df, aes(Right_Handed)) + 
   geom_bar(size=3, width = 1, fill="orange")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
@@ -41,7 +41,7 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
+ggplot(sampling_experiment_df, aes(Right_Handed)) + 
   geom_bar(size=3, width = 1, fill="orange")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
@@ -68,7 +68,7 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
+ggplot(sampling_experiment_df, aes(Right_Handed)) + 
   geom_bar(size=1, width = 1, fill="orange", color="black")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
@@ -94,7 +94,7 @@ hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
      cex.main = 2, cex.axis = 1.5, cex.lab = 2)
 
 sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
+ggplot(sampling_experiment_df, aes(Right_Handed)) + 
   geom_bar(size=1, width = 1, fill="orange", color="black")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
@@ -121,8 +121,8 @@ sampling_experiment_df$group <- "normal"
 sampling_experiment_df[sampling_experiment_df$Right_Handed >=14 | 
                          sampling_experiment_df$Right_Handed <= 4, "group"] <- "extreme"
 
-ggplot(sampling_experiment_df, aes_string("Right_Handed")) + 
-  geom_bar(aes_string(fill="group"), size=3, bins = 20)+
+ggplot(sampling_experiment_df, aes(Right_Handed)) + 
+  geom_bar(aes(fill=group), size=3, bins = 20)+
   xlab("# of right-handed frogs")+
   ylab("Frequency")+
   ggtitle("Number of right-handed frogs under the null distribution, 10,000 samples")+
@@ -149,7 +149,7 @@ plot(0:18, using_distribution)
 #direct it with the type command.  ?plot for more info
 barplot(using_distribution, xlab = "# of Right-handed frogs out of 18", ylab = "Probability of being drawn from population of p = 0.5" )
 
-ggplot(pdf, aes_string(x="Number_righthanded", y="using_distribution")) + 
+ggplot(pdf, aes(x=Number_righthanded, y=using_distribution)) + 
   geom_bar(size=1, width = 1, fill="orange", color="black", stat = "identity")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
@@ -280,7 +280,7 @@ for (i in 1:num_of_samples){
   pvalue$pvalue[i] <- t.test(x,u=0)$p.value
 }
 
-ggplot(pvalue, aes_string(x="pvalue"))+
+ggplot(pvalue, aes(x=pvalue))+
   geom_histogram()+
   ylab("Frequency") +
   xlab("Observed p-value for population that fits null hypothesis")+
@@ -300,13 +300,13 @@ ggplot(pvalue, aes_string(x="pvalue"))+
 binom.test(30, 87, .512)
 
 #binom.confint can give variety of bounds (all will show you all the options)
-require(binom)
+library(binom)
 binom.confint(x=30, n=87, conf.level=.95, method="all")
 
 #compare confidence intervals and tests####
 using_distribution <- dbinom(0:87,87,.5125)
 radiologist <- data.frame (Number = 0:87, Probability = using_distribution)
-require(ggplot2)
+library(ggplot2)
 radiologist$Proportion <- radiologist$Number/87
 radiologist$criteria <- "retain"
 radiologist$criteria[pbinom(radiologist$Number, 87, .512) < .025] <- "reject"
@@ -329,7 +329,7 @@ ggplot(radiologist, aes(x = Proportion, y = Probability)) +
 
 #bayesian analysis####
 #frog analysis
-require(LearnBayes)
+library(LearnBayes)
 #for proportions, we often use beta
 #beta curve peaked at .5####
 ggplot(data = data.frame(x = c(0, 1)), aes(x)) +
@@ -378,7 +378,7 @@ sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/mas
 #so you can see what its doing.
 
 #first, install and call the package
-require(ggplot2)
+library(ggplot2)
 
 #to make a plot, first set a base layer
 #lets start with a scatter plot and focus on relationship between time spent sleeping
@@ -386,15 +386,15 @@ require(ggplot2)
 #calling data from two weeks ago
 sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
 #first, add your layers
-dreaming_sleep_relationship <- ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming"))
+dreaming_sleep_relationship <- ggplot(sleep, aes(x=TotalSleep, y = Dreaming))
 #Now call the ggplot object you created
 dreaming_sleep_relationship
 #Nothing plots except the axes. Now you have to add layers. For example, you can add points
-dreaming_sleep_relationship <- ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) + 
+dreaming_sleep_relationship <- ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) + 
   geom_point()
 dreaming_sleep_relationship
 #Note here I'm saving the object, so to see it I call it. You can also just call directly
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
   geom_point()
 #then you get long calls that are easier (maybe) to manipulate
 #Now you have a basic plot.  You can use other arguments in geom_layer commands 
@@ -402,14 +402,14 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
 
 #geom_ layers without any arguments assume you are using the base layers. You can 
 #change this to add extra info to a plot. For example, let's color these by primate
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Primate"))
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Primate))
 
 #now we've added information on primates. Note this is different from
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
   geom_point(colour="Primate")
 #or
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
   geom_point(colour="blue")
 #you have to put things you want to plot in the aes argument area (stands for aesthetics)
 #, and anything outside of that changes the entire plot. Also note the 2nd method
@@ -420,12 +420,12 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
 #in the plyr package is nice (and we'll use this suite of packages often, same person
 #developed ggplot2, plyr, and reshape)
 #
-require(plyr)
+library(plyr)
 sleep$Taxa <- revalue(sleep$Primate, c(Y = "Primate", N = "Non-primate"))
 #notice what I did above. I made a new column from an existing one using a name 
 #I might want on a legend
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"))
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa))
 #I can also just change the legend title directly or change legend text, but often 
 #workign with the dataframe is easier for me
 
@@ -434,13 +434,13 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
 #needed".  You can also change level orders using the factor or ordered functions 
 #for multiple levels at once
 sleep$Taxa <- relevel(sleep$Taxa, "Primate" )
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"))
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa))
 
 # Now lets change the axis labels,sizes, etc using theme function. Again, I left this
 # verbose so you can change as needed. Also note the size argument in geom_point
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"), size = 4) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa), size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Average hours spent dreaming daily") +
   xlab("Average hours spent sleeping daily") +
@@ -461,8 +461,8 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
         legend.background = element_rect(fill="gray"))
 
 #you can also directly change legend title and colours with the scale_ commands
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"), size = 4) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa), size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Average hours spent dreaming daily") +
   xlab("Average hours spent sleeping daily") +
@@ -489,8 +489,8 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
 #http://sape.inf.usi.ch/quick-reference/ggplot2/colour
 #
 #You can also facet a graph by type, eg
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"), size = 4) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa), size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Average hours spent dreaming daily") +
   xlab("Average hours spent sleeping daily") +
@@ -514,8 +514,8 @@ ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
   facet_wrap(~Taxa, ncol = 1)
 
 #notice doing this and legend may be redundant, so instead
-ggplot(sleep, aes_string(x="TotalSleep", y = "Dreaming")) +
-  geom_point(aes_string(colour="Taxa"), size = 4) +
+ggplot(sleep, aes(x=TotalSleep, y = Dreaming)) +
+  geom_point(aes(colour=Taxa), size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Average hours spent dreaming daily") +
   xlab("Average hours spent sleeping daily") +
@@ -550,12 +550,12 @@ ggsave("Fig1.jpg")
 #help you get started.  A few other points that often come up are noted below.
 
 #For histograms, you only need one axis (frequency is calculated automatically)
-ggplot(sleep, aes_string(x="Dreaming")) +
+ggplot(sleep, aes(x=Dreaming)) +
   geom_histogram()
 #note we can just copy our theme info from above and modify as needed (or ggplot2
 #will largely skip un-needed info).  You can also save and name a theme so you 
 #don't have to do all this everytime.
-ggplot(sleep, aes_string(x="Dreaming")) +
+ggplot(sleep, aes(x=Dreaming)) +
   geom_histogram() + 
   #below here is ylabel, xlabel, and main title
   ylab("Frequency") +
@@ -581,7 +581,7 @@ ggplot(sleep, aes_string(x="Dreaming")) +
 # (or any other function for that matter). For example, let's just do a histogram 
 # of primate sleep.
 
-ggplot(sleep[sleep$Taxa == "Primate",], aes_string(x="Dreaming")) +
+ggplot(sleep[sleep$Taxa == "Primate",], aes(x=Dreaming)) +
   geom_histogram() + 
   #below here is ylabel, xlabel, and main title
   ylab("Frequency") +
@@ -681,7 +681,7 @@ sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Ex
 #look at it
 sleep_by_exposure
 ggplot(sleep_by_exposure
-       , aes_string(x="Exposure", y="TotalSleep")) +
+       , ae(x=Exposure, y=TotalSleep)) +
   geom_col(size = 3) +
   geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
   ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+
@@ -695,7 +695,7 @@ ggplot(sleep_by_exposure
 
 #or better
 ggplot(sleep_by_exposure
-       , aes_string(x="Exposure", y="mean")) +
+       , aes(x=Exposure, y=mean)) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin=TotalSleep-ci, ymax=TotalSleep+ci), size=1.5) +
   ylab("Total sleep (hours per day")+ggtitle("Sleep across different taxa")+

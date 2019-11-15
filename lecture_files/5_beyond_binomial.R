@@ -8,8 +8,8 @@ days_of_week_births <- data.frame(Days = c("Sunday", "Monday", "Tuesday",
                                            "Saturday"), Births = 
                                     c(33,41,63,63,47,56,47))
 
-require(ggplot2)
-ggplot(days_of_week_births, aes_string(x= "Days", y = "Births")) +
+library(ggplot2)
+ggplot(days_of_week_births, aes(x= Days, y = Births)) +
   geom_col(fill = "orange") +
   ggtitle("Births each day of the week for sample in 1999") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -32,9 +32,9 @@ chi_sq_stats$chisq[i] <- chisq.test(simulation)$statistic
 }
 
 #plot
-require(ggplot2)
+library(ggplot2)
 #just histogram, scaled to 1
-ggplot(chi_sq_stats, aes_string(x="chisq")) +
+ggplot(chi_sq_stats, aes(x=chisq)) +
   geom_histogram(aes(y=..count../sum(..count..)), fill = "orange") +
   ylab(paste("Probablity under ", num_of_simulations, " simulations", 
 sep ="")) +
@@ -48,7 +48,7 @@ sep ="")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #with curve
-ggplot(chi_sq_stats, aes_string(x="chisq")) +
+ggplot(chi_sq_stats, aes(x=chisq)) +
   geom_histogram(aes(y=..count../sum(..count..)), fill = "orange") +
   stat_function(fun = dchisq, args = list(df = 6),size = 3, color = "green") + 
   ylab(paste("Probablity under ", num_of_simulations, " simulations", 
@@ -71,7 +71,7 @@ dnorm_one_sd <- function(x){
   return(norm_one_sd)
 }
 
-ggplot(chi_sq_stats, aes_string(x="chisq")) +
+ggplot(chi_sq_stats, aes(x=chisq)) +
   stat_function(fun = dchisq, args = list(df = 6),size = 3, fill = "green", geom = "area") + 
   stat_function(fun = dnorm_one_sd, geom = "area", fill = "orange") +
   ylab(expression(paste("Probablity under  ", chi^{2}, " distribution", sep = " "))) +
@@ -102,7 +102,7 @@ chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3),
 chisq.test(c(530,1332,582),  p = c(585.3,1221.4,637.3)/2444)
 
 #goodfit corrects this
-require(vcd)
+library(vcd)
 fit_binom <- goodfit(c(rep(0,530),rep(1,1332),rep(2,582)), type = "binomial", 
                      par = list(size = 2), method = "ML")
 fit_binom
@@ -112,7 +112,7 @@ summary(fit_binom)
 soccer_goals <- data.frame(Number_of_goals = factor(0:8), Occurences = 
                                     c(37,47,27,13,2,1,0,0,1))
 
-ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
+ggplot(soccer_goals, aes(x= Number_of_goals, y = Occurences)) +
   geom_col(fill = "orange") +
   xlab("Number of goals") +
   ylab("Occurences") +
@@ -139,9 +139,9 @@ soccer_goals$Expected_actual <- soccer_goals$Expected_prob * sum(soccer_goals$Oc
 
 
 #could reshape and add legend, but maybe later
-ggplot(soccer_goals, aes_string(x= "Number_of_goals", y = "Occurences")) +
+ggplot(soccer_goals, aes(x= Number_of_goals, y = Occurences)) +
   geom_col(fill = "orange", color = "orange") + 
-  geom_point(aes_string(y="Expected_actual"), color = "blue", size = 3) +
+  geom_point(aes(y=Expected_actual), color = "blue", size = 3) +
   xlab("Number of goals") +
   ylab("Occurences") +
   ggtitle("Goals scored per game in 2002 World Cup") +
@@ -207,8 +207,8 @@ everest <- data.frame(Survived = c("Y","N","Y", "N"),
                       Number = c(1045, 32, 88, 8))
 #mosaic plot####
 #
-ggplot(everest, aes_string(x= "Survived", y = "Number")) +
-  geom_col(aes_string(fill = "Oxygen")) + 
+ggplot(everest, aes(x= Survived, y = Number)) +
+  geom_col(aes(fill = Oxygen)) + 
   xlab("Survived?") +
   ylab("Occurences") +
   ggtitle("Oxygen use impacts Everest descent outcomes") +
@@ -221,12 +221,12 @@ ggplot(everest, aes_string(x= "Survived", y = "Number")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #make a mosaic
-require(reshape2)
+library(reshape2)
 number_oxygen <- dcast(everest, Survived ~ "total_per_group", value.var = "Number", sum)
 everest <- merge (everest, number_oxygen)
 everest$Proportion <- everest$Number/everest$total_per_group
-ggplot(everest, aes_string(x= "Survived", y = "Proportion")) +
-  geom_col(aes_string(fill = "Oxygen")) + 
+ggplot(everest, aes(x= Survived, y = Proportion)) +
+  geom_col(aes(fill = Oxygen)) + 
   xlab("Survived?") +
   ylab("Proportion") +
   ggtitle("Oxygen use impacts Everest descent outcomes") +
@@ -297,7 +297,7 @@ likelihood_plot +
   
 
 #gtest####
-require(DescTools)
+library(DescTools)
 GTest(x = matrix(c(1045, 88, 32, 8), 2, 2, byrow = T))
 
 #relative risk and odds####
@@ -332,7 +332,7 @@ chisq.test(travel_table)
 chisq.test(travel_table)$expected #actually not ok (3/12 =25% < 5)
 fisher.test(travel_table, simulate.p.value = T, B = 10000)
 
-require(rcompanion)
+library(rcompanion)
 bonf_correct <- pairwiseNominalIndependence(travel_table, method = "bonf")
 bonf_correct[order(bonf_correct$p.adj.Fisher),]
 holm_correct <- pairwiseNominalIndependence(travel_table, method = "holm")
@@ -371,7 +371,7 @@ table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
 
 #matrix reminders####
 #putting data in manually
-#requires matrix command
+#librarys matrix command
 #each row is group, so put in by row, specify number of rows, and put byrow = T
 table(heart[heart$AGE<30, "SEX"], heart[heart$AGE<30, "DIAGNOSIS"])
 #becomes
