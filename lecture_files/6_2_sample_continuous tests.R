@@ -8,8 +8,8 @@ library(reshape2)
 secchi_melted <- melt(secchi)
 names(secchi_melted) <- c("Date", "Depth")
 
-require(ggplot2)
-ggplot(secchi_melted, aes_string(x= "Date", y = "Depth")) +
+library(ggplot2)
+ggplot(secchi_melted, aes(x= Date, y = Depth)) +
   geom_point(color = "purple", size = 4) +
   ggtitle("Water clarity measured using Secchi depth") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -76,7 +76,7 @@ for(i in 1:10000){
   
 }
 
-ggplot(means, aes_string("difference")) +
+ggplot(means, aes(difference)) +
   geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
@@ -89,7 +89,7 @@ ggplot(means, aes_string("difference")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #with line
-ggplot(means, aes_string("difference")) +
+ggplot(means, aes(difference)) +
   geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
@@ -105,7 +105,7 @@ ggplot(means, aes_string("difference")) +
 count(abs(means$difference)>= (43.9 - 39.6))
 
 #with t distribution overly
-ggplot(means, aes_string("difference")) +
+ggplot(means, aes(difference)) +
   geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
   stat_function(fun = dt, args = list(df = (56+51-2)),size = 3, color = "green") +   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
@@ -132,9 +132,9 @@ example_bad <- data.frame(Group = c(rep("A", 25), rep("B",10)), Temperature =
 example_bad_summary <- summarySE(example_bad, measurevar = "Temperature", groupvars = "Group")
 
 ggplot(example_bad_summary
-       , aes_string(x="Group", y="mean")) +
-  geom_point(aes_string( colour = "Group"), size = 5) +
-  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), size=1.5) +
+       , aes(x=Group, y=Temperature)) +
+  geom_point(aes( colour = Group), size = 5) +
+  geom_errorbar(aes(ymin=Temperature-se, ymax=Temperature+se), size=1.5) +
   ylab("Temperature (F)")+ggtitle("Temperature based on past vaccine use")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -147,18 +147,18 @@ ggplot(example_bad_summary
 
 
 #garter snake example####
-garter <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/garter.csv?attredirects=0&d=1")
+garter <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/garter.csv")
 wilcox.test(Proportion.of.snakes.resistant ~ Locality, garter)
 
 #sign test example####
-insect_speciation <- read.csv("https://sites.google.com/site/stephengosnell/teaching-resources/datasets/insect_speciation.csv?attredirects=0&d=1")
+insect_speciation <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/insect_speciation.csv")
 summary(insect_speciation)
 insect_speciation$difference <- insect_speciation$Polyandrous_species - 
   insect_speciation$Monandrous_species
 
 insect_speciation$difference
 
-ggplot(insect_speciation, aes_string("difference")) +
+ggplot(insect_speciation, aes(difference)) +
   geom_histogram() +
   ggtitle("Difference in # of species based on promiscuity") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -170,20 +170,20 @@ ggplot(insect_speciation, aes_string("difference")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
   
 #dependent
-require(BSDA)
+library(BSDA)
 SIGN.test(insect_speciation$Polyandrous_species, insect_speciation$Monandrous_species)
 #same as
 SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_species), md = 0)
 
 #bootstrap####
 
-#load bootstrapjsgfunction, which requires simpleboot
+#load bootstrapjsgfunction, which librarys simpleboot
 
 #bootstrapjsg function####
 bootstrapjsg <- function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 {
-  require(boot)
-  require(simpleboot)
+  library(boot)
+  library(simpleboot)
   one.boot <- function (data, FUN, R, student = FALSE, M, weights = NULL, ...) 
   {
     func.name <- ifelse(is.character(FUN), FUN, deparse(substitute(FUN)))
@@ -227,7 +227,7 @@ bootstrapjsg <- function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 #back to our aussie athlete data
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 
-ggplot(sport, aes_string("Ferr"))+
+ggplot(sport, aes(Ferr))+
   geom_histogram() +
   facet_wrap(~Sex) +
   ggtitle("	Plasma ferritin concentration of Australian athletes") +
@@ -245,14 +245,14 @@ ggplot(sport, aes_string("Ferr"))+
 bootstrapjsg(sport[sport$Sport == "BBall", "Ferr"], sport[sport$Sport == "Row", "Ferr"])
 
 #permutation####
-require(coin)
+library(coin)
 independence_test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
 #compare to t-test
 t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
 #Bayesian analysis####
-require(BayesFactor)
+library(BayesFactor)
 ttestBF(formula = Ferr ~ Sport, data = sport[sport$Sport %in% c("BBall", "Row"),])
 
 #get data for online BF test  http://pcl.missouri.edu/bf-two-sample####
@@ -268,7 +268,7 @@ sport[sport$Sport == "Row", "Ferr"]
 cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
 cholesterol$day <- as.factor(cholesterol$day)
 head(cholesterol)
-require(reshape2)
+library(reshape2)
 #formula gives row ~ columns
 #get daily cholesterol for every patient
 cholesterol_wide <- dcast(data = cholesterol, formula = patient ~ day, 

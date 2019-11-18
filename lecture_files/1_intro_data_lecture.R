@@ -97,8 +97,8 @@ hist(iris$Sepal.Length, breaks=10, main = "Sepal length histogram, 10 breaks",
 #boxplot versicolor####
 #need to use ggplot2 for ease (will get to this later and typically use it)
 library(ggplot2)
-ggplot(iris[iris$Species == "versicolor",], aes_string("Species","Sepal.Length")) + 
-  geom_boxplot(aes_string(colour="Species"), size = 3) +
+ggplot(iris[iris$Species == "versicolor",], aes(Species,Sepal.Length)) + 
+  geom_boxplot(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of Iris versicolor")+
   xlab("") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -119,8 +119,8 @@ library(RMisc)
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
                                c("Species"))
 
-ggplot(function_output, aes_string(x="Species", y="Sepal.Length")) +
-  geom_col(aes_string(fill="Species"), size = 3) +
+ggplot(function_output, aes(x=Species, y=Sepal.Length)) +
+  geom_col(aes(fill=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -131,8 +131,8 @@ ggplot(function_output, aes_string(x="Species", y="Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #scatterplot all species####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -144,8 +144,8 @@ ggplot(iris, aes_string("Species","Sepal.Length")) +
 
 
 #stacked histogram####
-ggplot(iris, aes_string("Sepal.Length")) + 
-  geom_histogram(aes_string(fill="Species"), size=3) +
+ggplot(iris, aes(Sepal.Length)) + 
+  geom_histogram(aes(fill=Species), size=3) +
   xlab("Sepal Length (cm)")+
   ylab("Frequency")+
   ggtitle("Sepal Length of various iris species")+
@@ -158,8 +158,8 @@ ggplot(iris, aes_string("Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #facetted stacked histogram####
-ggplot(iris, aes_string("Sepal.Length")) + 
-  geom_histogram(aes_string(fill="Species"), size=3) +
+ggplot(iris, aes(Sepal.Length)) + 
+  geom_histogram(aes(fill=Species), size=3) +
   xlab("Sepal Length (cm)")+
   ylab("Frequency")+
   ggtitle("Sepal Length of various iris species")+
@@ -174,8 +174,8 @@ ggplot(iris, aes_string("Sepal.Length")) +
   facet_wrap(~Species, ncol = 1)
 
 #boxplot all species####
-ggplot(iris, aes_string("Species","Sepal.Length")) + 
-  geom_boxplot(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(Species,Sepal.Length)) + 
+  geom_boxplot(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -215,8 +215,8 @@ vegSurvey$spp <-   ifelse(vegSurvey$veg_Type =="introduced",vegSurvey$spp+1,vegS
 vegSurvey <- vegSurvey %>%  mutate(sppInv= ifelse(veg_Type =="native",spp,spp*-1))
 
 #grouped bar plot####
-ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity", 
+ggplot(vegSurvey, aes(x=sampling_point, y=spp)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity", 
            position = position_dodge(width=0.5)) +
   ylab("Frequency") + 
   xlab("Sampling point") +
@@ -231,8 +231,8 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #stacked bar plot####
-ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey, aes(x=sampling_point, y=spp)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency")+
   xlab("Sampling point")+
   ggtitle("Invasive and native species based on site")+
@@ -247,8 +247,8 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
 
 
 #facetted stacked####
-ggplot(vegSurvey, aes_string(x="sampling_point", y="spp")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey, aes(x=sampling_point, y=spp)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency")+
   xlab("Sampling point")+
   ggtitle("Invasive and native species based on site")+
@@ -293,7 +293,7 @@ ggplot(vegSurvey, aes(x=sampling_point, y=sppInv, fill=veg_Type))+
 #for mosaic plots, need to use other package (ggmosaic) or add frequency column
 #for your choice variable
 
-require(reshape2)
+library(reshape2)
 
 #get total native/invasive per site
 vegSurvey_veg_per_site <- dcast(vegSurvey, sampling_point+veg_Type~ "total_veg_per_site", sum, 
@@ -304,8 +304,8 @@ vegSurvey_veg_per_site <- merge(vegSurvey_veg_per_site, vegSurvey_per_site)
 vegSurvey_veg_per_site$Proportion <- vegSurvey_veg_per_site$total_veg_per_site/
   vegSurvey_veg_per_site$total_per_site
 
-ggplot(vegSurvey_veg_per_site, aes_string(x="sampling_point", y="Proportion")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey_veg_per_site, aes(x=sampling_point, y=Proportion)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency") + 
   xlab("Sampling point") +
   ggtitle("Invasive and native species based on site")+
@@ -322,8 +322,8 @@ ggplot(vegSurvey_veg_per_site, aes_string(x="sampling_point", y="Proportion")) +
 vegSurvey_veg_per_site$sampling_point <- factor(vegSurvey_per_site$sampling_point)
 #have to make weird empty factor else you get concentric circles
 vegSurvey_veg_per_site$Share <- ""
-ggplot(vegSurvey_veg_per_site, aes_string(x="Share", y="Proportion")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey_veg_per_site, aes(x=Share, y=Proportion)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency") + 
   xlab("Sampling point") +
   ggtitle("Invasive and native species based on site")+
@@ -343,8 +343,8 @@ vegSurvey_veg_per_site_cast <- dcast(vegSurvey_veg_per_site, veg_Type ~ "Proport
 
 vegSurvey_veg_per_site_cast$Site <- ""
 
-ggplot(vegSurvey_veg_per_site_cast, aes_string(x="Site", y="Proportion")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey_veg_per_site_cast, aes(x=Site, y=Proportion)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency") + 
   xlab("") +
   ggtitle("Overall composition of invasive and native species across sites")+
@@ -365,8 +365,8 @@ vegSurvey_per_slope <- dcast(vegSurvey, sampling_point + slope~ "total_per_slope
 vegSurvey <- merge(vegSurvey, vegSurvey_per_slope)
 vegSurvey$Proportion <- vegSurvey$spp/vegSurvey$total_per_slope
 
-ggplot(vegSurvey, aes_string(x="sampling_point", y="Proportion")) +
-  geom_bar(aes_string(fill="veg_Type"), size = 3, stat = "identity") +
+ggplot(vegSurvey, aes(x=sampling_point, y=Proportion)) +
+  geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
   ylab("Frequency") + 
   xlab("Sampling point") +
   ggtitle("Invasive and native species based on slope")+
@@ -383,8 +383,8 @@ ggplot(vegSurvey, aes_string(x="sampling_point", y="Proportion")) +
 #numerical, numerical relationships ####
 #
 #scatter####
-ggplot(iris, aes_string(y ="Petal.Length",x ="Sepal.Length")) + 
-  geom_point(aes_string(colour="Species"), size = 3) +
+ggplot(iris, aes(y =Petal.Length,x =Sepal.Length)) + 
+  geom_point(aes(colour=Species), size = 3) +
   xlab("Sepal Length (cm)") + 
   ylab("Petal Length (cm)") +
   ggtitle("Relationship between sepal and petal lengths in irises")+
@@ -403,7 +403,7 @@ airquality$Date <- as.Date(paste(airquality$Month, airquality$Day, sep="/"),
                            format ="%m/%d" )
 
 #just points####
-ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+ggplot(airquality, aes(x =Date,y =Temp)) + 
   geom_point(size = 3, col = "orange") +
   xlab("Date") + 
   ylab("Temperature (C)") +
@@ -417,7 +417,7 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #points and line####
-ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+ggplot(airquality, aes(x =Date,y =Temp)) + 
   geom_point(size = 3, col = "orange") +
   geom_line() +
   xlab("Date") + 
@@ -435,10 +435,10 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
 #for 1:1 transformation data (anything you can use a function to make on a similar
 #scale)
 #can add easily but not get scale
-ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
+ggplot(airquality, aes(x =Date,y =Temp)) + 
   geom_point(size = 3, col = "orange") +
   geom_line() +
-  geom_point(aes_string(y="Wind")) +
+  geom_point(aes(y=Wind)) +
   xlab("Date") + 
   ylab("Temperature (C)") +
   ggtitle("Temperature over time")+
@@ -453,8 +453,8 @@ ggplot(airquality, aes_string(x ="Date",y ="Temp")) +
 #manually scale data and get secondary axis
 #have to aes to make tranformation (not aes_string)
 #put colour in quotes in aes to force legend
-ggplot(airquality, aes_string(x ="Date",y ="Temp")) + 
-  geom_point(aes(col ="Temperature"), size = 3) +
+ggplot(airquality, aes(x =Date,y =Temp)) + 
+  geom_point(aes(col ="Temp"), size = 3) +
   geom_line(col="orange") +
   geom_point(aes(y=Wind+50, col = "Wind speed")) +
   scale_y_continuous(sec.axis = sec_axis(~.-50, name = "Wind (mph)")) +
@@ -480,8 +480,8 @@ bad_data <- data.frame(source = "outlier", x=bad_fit_x, y=bad_fit_y)
 all_data <- rbind (good_data, bad_data)
 
 #just points####
-ggplot(all_data, aes_string(x ="x",y ="y")) + 
-  geom_point(aes_string(color="source"), size = 3) +
+ggplot(all_data, aes(x =x,y =y)) + 
+  geom_point(aes(color=source), size = 3) +
   xlab("x") + 
   ylab("y") +
   ggtitle("Outliers can impact data")+
@@ -494,8 +494,8 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #curve and scatter####
-ggplot(all_data, aes_string(x ="x",y ="y")) + 
-  geom_point(aes_string(color="source"), size = 3) +
+ggplot(all_data, aes(x =x,y =y)) + 
+  geom_point(aes(color=source), size = 3) +
   geom_smooth(se = F) +
   xlab("x") + 
   ylab("y") +
@@ -509,7 +509,7 @@ ggplot(all_data, aes_string(x ="x",y ="y")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #just curve####
-ggplot(all_data, aes_string(x ="x",y ="y")) + 
+ggplot(all_data, aes(x =x,y =y)) + 
   geom_smooth(se = F) +
   xlab("x") + 
   ylab("y") +
@@ -564,7 +564,7 @@ iris$sample <- 1:nrow(iris)
 
 #just scatter plot
 
-ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+ggplot(iris[iris$Species == "setosa",], aes(sample,Sepal.Length)) + 
   geom_point(size = 3) +
   ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
     theme(axis.title.x = element_text(face="bold", size=28), 
@@ -576,7 +576,7 @@ ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #add mean
-ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+ggplot(iris[iris$Species == "setosa",], aes(sample,Sepal.Length)) + 
   geom_point(size = 3) +
   ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
   geom_hline(yintercept = mean(iris[iris$Species == "setosa", "Sepal.Length"]), 
@@ -598,7 +598,7 @@ segment_data = data.frame(
   yend = mean(iris[iris$Species == "setosa", "Sepal.Length"])
 )
 
-ggplot(iris[iris$Species == "setosa",], aes_string("sample","Sepal.Length")) + 
+ggplot(iris[iris$Species == "setosa",], aes(sample,Sepal.Length)) + 
   geom_point(size = 3) +
   ylab("Sepal Length (cm)")+ggtitle(expression(paste("Sepal Length in ", italic("Iris setosa"))))+
   geom_hline(yintercept = mean(iris[iris$Species == "setosa", "Sepal.Length"]), 
@@ -674,7 +674,7 @@ iris$random <- runif(1:nrow(iris))
 iris$LL <- 0
 iris$LL[iris$random > .7] <- 1
 
-ggplot(iris[iris$Species == "setosa", ], aes_string("LL")) + 
+ggplot(iris[iris$Species == "setosa", ], aes(LL)) + 
   geom_histogram(size=3) +
   xlab("Genotype score")+
   ylab("Frequency")+

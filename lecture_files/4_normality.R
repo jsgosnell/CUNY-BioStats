@@ -1,7 +1,7 @@
 #graphs and tables from normality lecture
 
 
-require(ggplot2)
+library(ggplot2)
 
 dnorm_one_sd <- function(x){
   norm_one_sd <- dnorm(x)
@@ -44,7 +44,7 @@ qqline(x)
 #z-test example####
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 
-require(BSDA)
+library(BSDA)
 z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=7)
 
 qqnorm(sport[sport$Sex == "male", "Ht"])
@@ -154,7 +154,7 @@ set.seed(42)
 population_unif <- data.frame(id = 1:population_size, 
                               height = runif(population_size, 60, 80))
 
-ggplot(population_unif, aes_string("height")) + 
+ggplot(population_unif, aes(height)) + 
   geom_histogram(size=3) +
   xlab("Height (in)")+
   ylab("Frequency")+
@@ -171,7 +171,7 @@ ggplot(population_unif, aes_string("height")) +
 #sample a 100 of these
 
 sample_unif_1 <- population_unif[sample(nrow(population_unif), 100),]
-ggplot(sample_unif_1, aes_string("height")) + 
+ggplot(sample_unif_1, aes(height)) + 
   geom_histogram(size=3) +
   xlab("Height (in)")+
   ylab("Frequency")+
@@ -197,7 +197,7 @@ for (i in 1:number_of_samples){
   
 }
 
-ggplot(sample_outcomes, aes_string("mean")) + 
+ggplot(sample_outcomes, aes(mean)) + 
   geom_histogram(size=3) +
   xlab("Mean height (in)")+
   ylab("Frequency")+
@@ -216,7 +216,7 @@ boot.smpl <- matrix(runif(100,60,80),length(runif(100,60,80)),1000)
 boot.smpl <- apply(boot.smpl,2,sample,r=T)
 boot.md <- data.frame(mean = apply(boot.smpl,2,mean))
 
-ggplot(boot.md, aes_string("mean")) + 
+ggplot(boot.md, aes(mean)) + 
   geom_histogram(size=3) +
   xlab("Mean height (in)")+
   ylab("Frequency")+
@@ -235,7 +235,7 @@ boot.smpl <- matrix(runif(25,60,80),length(runif(25,60,80)),1000)
 boot.smpl <- apply(boot.smpl,2,sample,r=T)
 boot.md <- data.frame(mean = apply(boot.smpl,2,mean))
 
-ggplot(boot.md, aes_string("mean")) + 
+ggplot(boot.md, aes(mean)) + 
   geom_histogram(size=3) +
   xlab("Mean height (in)")+
   ylab("Frequency")+
@@ -252,7 +252,7 @@ ggplot(boot.md, aes_string("mean")) +
 #bootstrapjsg function####
 bootstrapjsg <- function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 {
-  require(boot)
+  library(boot)
   one.boot <- function (data, FUN, R, student = FALSE, M, weights = NULL, ...) 
   {
     func.name <- ifelse(is.character(FUN), FUN, deparse(substitute(FUN)))
