@@ -10,48 +10,13 @@ summary(cholesterol)
 
 
 #bar chart with error bars ####
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                      conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
-
+library(Rmisc)
 function_output <- summarySE(cholesterol, measurevar="cholest", groupvars =
                                c("day"), na.rm = T)
-require(ggplot2)
-ggplot(function_output, aes_string(x="day", y="mean")) +
+library(ggplot2)
+ggplot(function_output, aes(x=day, y=cholest)) +
   geom_col(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=cholest-ci, ymax=cholest+ci), size=1.5) +
   ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -65,10 +30,10 @@ ggplot(function_output, aes_string(x="day", y="mean")) +
 cholest <- lm(cholest ~ day, cholesterol)
 par(mfrow = c(2,2))
 plot(cholest)
-require(car)
+library(car)
 Anova(cholest, type = "III")
 summary(cholest)
-require(multcomp)
+library(multcomp)
 comp_cholest <- glht(cholest, linfct = mcp(day = "Tukey"))
 summary(comp_cholest)
 
@@ -103,7 +68,7 @@ coef(cholest_blocked_all_days)
 # #compare to aov
 # cholest_aov = aov(cholest ~ day + Error(patient), na.omit(cholesterol))
 # summary(cholest_aov)
-# #works ok here as theres no other other factor. Another factor would require the
+# #works ok here as theres no other other factor. Another factor would library the
 # #use of a more complex error designation in aov or lme (what I typically use) 
 # because then you need to create the F ratio by dividing mse of treatment by mse
 # of within subjects
@@ -118,7 +83,7 @@ summary(comp_cholest)
 #what if we care about other factor
 #2-way ANOVA ####
 memory <- read.table("http://www.statsci.org/data/general/eysenck.txt", header = T)
-require(plyr)
+library(plyr)
 memory$Age <- relevel(memory$Age, "Younger")
 
 #graph data with line but no error bar
@@ -126,9 +91,9 @@ memory$Age <- relevel(memory$Age, "Younger")
 function_output <- summarySE(memory, measurevar="Words", groupvars =
                                c("Age", "Process"), na.rm = T)
 
-ggplot(function_output, aes_string(x="Age", y="mean",color="Process", 
-                                   shape = "Process")) +
-  geom_line(aes_string(group="Process", linetype = "Process"), size=2) +
+ggplot(function_output, aes(x=Age, y=Words,color=Process, 
+                                   shape = Process)) +
+  geom_line(aes(group=Process, linetype = Process), size=2) +
     geom_point(size = 5) +
 #  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
   ylab("Words remembered")+ 
@@ -164,7 +129,7 @@ comp_young <- glht(memory_interactions_young, linfct = mcp(Process = "Tukey"))
 summary(comp_young)
 
 #all with lsmeans
-require(lsmeans)
+library(lsmeans)
 lsmeans(memory_interactions, pairwise ~ Process | Age)
 
 #interpret coef (subtract intercept for ease)
@@ -182,11 +147,11 @@ function_output[5,1:2]  <- "Control"
 #change back to factor to change order
 function_output$PredSize <- factor(function_output$PredSize, 
                                    levels = c("Control", "Small", "Large"))
-ggplot(function_output, aes_string(x="PredSize", y="mean",color="PredNumber", 
-                                   shape = "PredNumber")) +
+ggplot(function_output, aes(x=PredSize, y=Mass,color=PredNumber, 
+                                   shape = PredNumber)) +
   geom_point(size = 5) +
-  geom_line(aes_string(group="PredNumber", linetype ="PredNumber"), size=2) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_line(aes(group=PredNumber, linetype =PredNumber), size=2) +
+  geom_errorbar(aes(ymin=Mass-ci, ymax=Mass+ci), size=1.5) +
   ylab("Oyster mass (g)")+ 
   xlab("Conch Size") + 
   scale_color_discrete(name = "Number of Conchs")+
@@ -213,7 +178,7 @@ plot(size_number_lm)
 Anova(size_number_lm, type = "III")
 
 #other options#
-require(WRS2) 
+library(WRS2) 
 #have to get rid of any empty levels!
 oyster_reduced <- oyster[oyster$Predator %!in% c("None"),]
 oyster_reduced$Predator <- factor(oyster_reduced$Predator)
