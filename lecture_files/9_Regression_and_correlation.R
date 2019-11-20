@@ -9,49 +9,13 @@ head(cholesterol)
 summary(cholesterol)
 
 
-#bar chart with error bars ####
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                      conf.interval=.95, .drop=TRUE) {
-  library(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column
-  #  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval:
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
-
+library(Rmisc)
 function_output <- summarySE(cholesterol, measurevar="cholest", groupvars =
                                c("day"), na.rm = T)
-require(ggplot2)
-ggplot(function_output, aes_string(x="day", y="mean")) +
+library(ggplot2)
+ggplot(function_output, aes(x=day, y=cholest)) +
   geom_col(size = 3) +
-  geom_errorbar(aes(ymin=mean-ci, ymax=mean+ci), size=1.5) +
+  geom_errorbar(aes(ymin=cholest-ci, ymax=cholest+ci), size=1.5) +
   ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -74,7 +38,7 @@ summary(comp_cholest_blocked_all_days) #now we see difference
 #returns days to numeric
 cholesterol$day <- as.numeric(as.character(cholesterol$day))
 
-ggplot(cholesterol, aes_string(x="day", y="cholest")) +
+ggplot(cholesterol, aes(x=day, y=cholest)) +
   geom_point(size = 3) +
   ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -89,7 +53,7 @@ ggplot(cholesterol, aes_string(x="day", y="cholest")) +
 cholest_regression <- lm(cholest ~ day, na.omit(cholesterol))
 par(mfrow = c(2,2))
 plot(cholest_regression)
-require(car)
+library(car)
 Anova(cholest_regression, type = "III")
 
 #extension to linear model####
@@ -98,7 +62,7 @@ model.matrix(cholest_regression)[1,]
 coef(cholest_regression)
 
 #plot with lm####
-ggplot(cholesterol, aes_string(x="day", y="cholest")) +
+ggplot(cholesterol, aes(x=day, y=cholest)) +
   geom_point(size = 3) +
   geom_smooth(method = "lm") +
   ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
@@ -111,7 +75,7 @@ ggplot(cholesterol, aes_string(x="day", y="cholest")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #improve ####
-ggplot(cholesterol, aes_string(x="day", y="cholest")) +
+ggplot(cholesterol, aes(x=day, y=cholest)) +
   geom_point(size = 3) +
   geom_smooth(method = "lm") +
   ylab("Cholesterol level") + 
@@ -142,7 +106,7 @@ cor.test(monkey$eggs_per_gram, monkey$Dominance_rank, method = "spearman")
 
 
 #permutation####
-require(coin)
+library(coin)
 independence_test(cholest ~ day, cholesterol)
 
 #leverage and outliers
@@ -166,8 +130,8 @@ cholesterol_merged$day <- as.numeric(as.character(cholesterol_merged$day))
 cholesterol_merged$cholest <- as.numeric(as.character(cholesterol_merged$cholest))
 #plot
 
-ggplot(cholesterol_merged, aes_string(x="day", y="cholest")) +
-  geom_point(aes_string(color = "source"), size = 3) +
+ggplot(cholesterol_merged, aes(x=day, y=cholest)) +
+  geom_point(aes(color = source), size = 3) +
   geom_smooth(method = "lm") +
   ylab("Cholesterol level") + 
   xlab("Days since heart attack") + 
