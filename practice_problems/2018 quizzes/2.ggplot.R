@@ -5,7 +5,7 @@ sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/mas
 sleep$Predation <- as.factor(sleep$Predation)
 
 ggplot(sleep, 
-       aes_string(x="LifeSpan", y = "BrainWt")) +
+       aes(x=LifeSpan, y = BrainWt)) +
   geom_point(size = 4) +
   #below here is ylabel, xlabel, and main title
   xlab("Life span (years)") +
@@ -34,7 +34,7 @@ sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/mas
 sleep$Predation <- as.factor(sleep$Predation)
 
 ggplot(sleep, 
-       aes_string(x="BrainWt", y = "LifeSpan")) +
+       aes(x=BrainWt, y = LifeSpan)) +
   geom_point(size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Life span (years)") +
@@ -59,7 +59,7 @@ ggplot(sleep,
 
 #if you removed outliers
 ggplot(sleep[sleep$BrainWt < 1500,], 
-       aes_string(x="BrainWt", y = "LifeSpan")) +
+       aes(x=BrainWt, y = LifeSpan)) +
   geom_point(size = 4) +
   #below here is ylabel, xlabel, and main title
   ylab("Life span (years)") +

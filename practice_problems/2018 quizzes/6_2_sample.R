@@ -5,7 +5,7 @@ head(cholesterol)
 summary(cholesterol)
 
 require(ggplot2)
-ggplot(cholesterol[cholesterol$day %in% c("2", "14"),], aes_string("cholest")) +
+ggplot(cholesterol[cholesterol$day %in% c("2", "14"),], aes(cholest)) +
   geom_histogram() +
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
@@ -20,7 +20,7 @@ ggplot(cholesterol[cholesterol$day %in% c("2", "14"),], aes_string("cholest")) +
 
 change <- data.frame (change = na.omit(cholesterol[cholesterol$day == "14", "cholest"] - cholesterol[cholesterol$day == "2", "cholest"]))
 
-ggplot(change, aes_string("change")) +
+ggplot(change, aes(change)) +
   geom_histogram() +
   theme(axis.title.x = element_text(face="bold", size=28), 
         axis.title.y = element_text(face="bold", size=28), 
