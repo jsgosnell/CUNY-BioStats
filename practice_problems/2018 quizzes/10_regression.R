@@ -6,7 +6,7 @@ Anova(petal_sepal_length_relationship, type = "III")
 summary(petal_sepal_length_relationship)
 
 require(ggplot2)
-ggplot(iris, aes_string(x="Petal.Length", y="Sepal.Length")) +
+ggplot(iris, aes(x=Petal.Length, y=Sepal.Length)) +
   geom_point(size = 5) +
   ylab("Sepal Length (mm)")+ 
   xlab("Petal Length (mm)") + 
@@ -20,7 +20,7 @@ ggplot(iris, aes_string(x="Petal.Length", y="Sepal.Length")) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
 #add line
-ggplot(iris, aes_string(x="Petal.Length", y="Sepal.Length")) +
+ggplot(iris, aes(x=Petal.Length, y=Sepal.Length)) +
   geom_point(size = 5) +
   ylab("Sepal Length (mm)")+ 
   xlab("Petal Length (mm)") + 
