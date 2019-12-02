@@ -1,9 +1,14 @@
 sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
 summary(sport[sport$Sex=="male", "Sport",])
 sport_subset <- sport[sport$Sex=="male" & sport$Sport %in% c("BBall", "WPolo","T400m"),]
-
+#clean up labels
+library(plyr)
+sport_subset$Sport <- revalue(sport_subset$Sport, c("BBall" = "basketball",
+                                                    "WPolo" = "Water polo",
+                                                    "T400m" = "Track"))
 #fit model
 sport_BMI <- lm(BMI ~ Sport, sport_subset) 
+
 #plot to check assumptions
 par(mfrow = c(2,2))
 plot(sport_BMI) #looks ok
