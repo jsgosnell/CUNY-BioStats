@@ -10,16 +10,11 @@ team_data <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRAlo2kFy
 site_info_most_recent_year <- team_data[is.na(team_data$Latitude) != T, ]
 
 library(rnaturalearth)
-base_map <- countries110[,c("scalerank", "featurecla")]
-class(base_map)
-plot(base_map)
-
-# #or 
-# coasts <- ne_coastline(scale = 110, returnclass = c("sp", "sf"))
-# base_map <- coasts
-# plot(base_map)
+sp::plot(ne_countries(type = 'countries', scale = 'small'))
+sp::plot(ne_coastline())
 
 #see data
+base_map <- ne_countries(type = 'countries', scale = 'small')
 base_map@data
 
 library(ggplot2)
@@ -80,10 +75,9 @@ ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="gro
 
 #other map examples####
 #from https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-2.html
-
 library("maps")
 library("sf")
-library(rnaturalearth)
+library("rgeos")
 world <- ne_countries(scale = "medium", returnclass = "sf")
 states <- st_as_sf(map("state", plot = FALSE, fill = TRUE))
 head(states) #need to make upper case
@@ -112,6 +106,7 @@ ggplot(data = world) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 #see rest of tutorial for nudging, etc
+
 #google earth example#####
 #fig 1, color, text on####
 #see https://github.com/dkahle/ggmap
