@@ -11,7 +11,9 @@ site_info_most_recent_year <- team_data[is.na(team_data$Latitude) != T, ]
 
 library(rnaturalearth)
 sp::plot(ne_countries(type = 'countries', scale = 'small'))
+library(rnaturalearthdata)
 sp::plot(ne_coastline())
+
 
 #see data
 base_map <- ne_countries(type = 'countries', scale = 'small')
