@@ -23,10 +23,8 @@ library(ggplot2)
 base_map_fortified=fortify(base_map)
 names(base_map_fortified)[names(base_map_fortified) == "long"] <- "Longitude"
 names(base_map_fortified)[names(base_map_fortified) == "lat"] <- "Latitude"
-#Creat a base plot
-#coord_fixed keeps scale right (1:1)
-#coord_map uses map projections
-ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
+
+ggplot(data=base_map_fortified,aes(x=Longitude, y=Latitude, group=group)) +
   geom_polygon(colour="black", fill="white") +
   xlab("Longitude")+
   ylab("Latitude") +
@@ -38,8 +36,8 @@ ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="gro
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
-#input collection points
-ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
+#input collection points####
+ggplot(data=base_map_fortified,aes(x=Longitude,y=Latitude, group=group)) +
   geom_polygon(colour="black", fill="white") +
   xlab("Longitude")+
   ylab("Latitude") +
@@ -57,10 +55,11 @@ ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="gro
 #get average richness per site
 
 library(reshape2)
-mean_richness <- dcast(site_info_most_recent_year, Longitude + Latitude ~ "Mean_Richness", value.var = "richness", mean)
+mean_richness <- dcast(site_info_most_recent_year, Longitude + Latitude ~ "Mean_Richness",
+                       value.var = "richness", mean)
 
 #plot
-ggplot(data=base_map_fortified,aes_string(x="Longitude",y="Latitude", group="group")) +
+ggplot(data=base_map_fortified,aes(x=Longitude,y=Latitude, group=group)) +
   geom_polygon(colour="black", fill="white") +
   xlab("Longitude")+
   ylab("Latitude") +
