@@ -88,7 +88,9 @@ CapStr <- function(y) {
   paste(toupper(substring(c, 1,1)), substring(c, 2),
         sep="", collapse=" ")
 }
-states$ID <- CapStr(states$ID)
+for (i in 1:nrow(states)){
+states$ID[i] <- CapStr(states$ID[i])
+}
 states <- cbind(states, st_coordinates(st_centroid(states)))
 states$ID <- toTitleCase(states$ID)
 head(states)
