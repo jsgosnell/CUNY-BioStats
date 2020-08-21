@@ -1,0 +1,37 @@
+---
+title: "Getting Used to R"
+author: "jsg"
+date: "8/21/2020"
+output:
+  html_notebook
+---
+
+Before doing this, review the 1. Welcome and Intro lecture set slides and the  1_intro_data_lecture.R script in the lectures folder of CUNY-BioStats github repository 
+
+##R subtleties and functions
+
+1. Let x be defined by
+```{r}
+ x <- 1:10
+```
+
+Determine what the “:” does!  Then try to guess the output of these commands, and then verify:
+*length(x)
+*max(x)
+*x[x < 5]
+*x^2
+*x[ x < 8 & x > 2]
+
+INSERT AN R CHUNK HERE.  Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.  THEN INPUT THESE COMMANDS.
+
+2.Factors must be respected as such, as they behave differently than expected. To see this, what are the results of these commands:
+*f <- factor(2:4)
+*mean(f)
+*mean(as.numeric(f))	
+*mean(as.numeric(as.character(f)))
+
+The last one is what you likely expected for the second command.
+
+3.  Is -1:2 the same as (-1):2 or -(1:2)?
+
+
