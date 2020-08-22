@@ -1,13 +1,13 @@
 ---
 title: "Getting Used to R, Rstudio, Rmd...."
-author: "jsg"
+author: "NAME"
 date: "8/21/2020"
 output:
-  html_notebook
+  github_document
 ---
 Before doing this, review the 1. Welcome and Intro lecture set slides and
 the  1_intro_data_lecture.R script in the lectures folder of CUNY-BioStats
-github repository
+github repository.
 
 ## Getting your first repository
 At this point I'm assuming you received the invitation to view the assignment
@@ -68,11 +68,16 @@ Now let's start working in R.
 ```{r}
  x <- 1:10
 ```
-Try executing this chunk (in R studio, not the webview) by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
+Try executing this chunk (in R studio, not the webview) by clicking the *Run* 
+button within the chunk or by placing your cursor inside it and pressing 
+*Ctrl+Shift+Enter*.
 
-This will run the code in the Console.  When you save the notebook, an HTML file containing the code and the most recent output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+This will run the code in the Console.  When you save the notebook, an HTML
+file containing the code and the most recent output will be saved alongside it 
+(click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+The preview shows you a rendered HTML copy of the contents of the editor. 
+Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
 
 Determine what the “:” does!  Then try to guess the output of these commands
@@ -84,6 +89,3 @@ Determine what the “:” does!  Then try to guess the output of these commands
 * x[ x < 8 & x > 2]
 
 INSERT AN R CHUNK HERE AND RUN EACH OF THESE COMMANDS?  Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-
-
