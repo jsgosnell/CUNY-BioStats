@@ -736,7 +736,7 @@ ggplot(iris[iris$Species == "setosa", ], aes(LL)) +
 # tutorial.
 
 # Every function (including ones you can make yourself) have to be fed certain inputs.
-# This normally looks somethign like functionname ( part1,part2,part3).  R also
+# This normally looks something like functionname ( part1,part2,part3).  R also
 # recognizes names of the different parts, so you can technically do
 # functionname(part3 = , part2 = , part1 = ).  It will also guess what you mean if you
 # didn't enter something. Sometimes this is bad.  If you forget what a function
@@ -1166,6 +1166,6 @@ airquality[,"Month"]
 #you can also use this to sort data
 airquality[order(airquality$Temp),]
 #order (used here to order rows) puts the dataframe in ascending order of temps.
-#in general, order returns the index (row number) neeed to put the dataset in ascending order,
+#in general, order returns the index (row number) need to put the dataset in ascending order,
 #while sort returns the value itself
 
