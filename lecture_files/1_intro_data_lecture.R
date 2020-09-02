@@ -955,7 +955,6 @@ getwd()
 #to call the file.  It's useful to set the working directory at the beginning 
 #of a script so you know where files R going and coming from.
 
-
 #you can try to call the file you made by specifying the location and/or working 
 #directory 
 
@@ -981,6 +980,10 @@ birds <- data.frame(greenness = greenness, habitat = habitat, date = date)
 # do. remember, to check what function requires, defaults to, or does, type
 
 ?read.csv
+
+#NOTE: AS OF EARLY 2020, R NO LONGER READS IN STRINGS AS FACTORS BY DEFAULT!  SO 
+#TO GET BAR GRAPHS, ETC, YOU MAY HAVE TO MANUALLY CHANGE A COLUMN TO A FACTOR. 
+#YOU CAN DO THIS FOR SINGLE INSTANCE OR CHANGE THE ACTUAL OBJECT
 
 #INITIAL DATA CHECKS####
 # its always good to make sure the data are in correctly. for today we'll be using the built in
