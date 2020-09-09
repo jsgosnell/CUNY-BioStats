@@ -851,46 +851,9 @@ sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) /
 #
 #These ranges need to be added to barcharts (or anything that shows estimates, which
 #barcharts are not really great for) to show uncertainty.  We can do this usign 
-#a user-defined function in R, as ggplot2 doesn't have it built in (maybe because
+#a function from the Rmisc package in R, as ggplot2 doesn't have it built in (maybe because
 #bar charts are a bad idea?).
-#
-#FUNCTIONS####
-#First, a quick note on functions.  You may never need to write one, but they aren't 
-#hard, and you may find one in code you search for online.  In general you can write 
-#a function using the function command, which reads in the arguments, and then
-#shows what to do with them in curly brackets. For example, 
-
-timestwo <- function (x) {
-  x+x
-}
-
-#running above creates a function that you can then use...
-
-timestwo(12)
-timestwo(c(1,2,3,4))
-
-#More complicated issues involve what the function returns and how it handles the
-#arguments. You may see loops(which can also be handy to understand). Examples are given below:
-#
-#FOR LOOPS####
-
-for(x in 1:10){
-  print(x+1)
-}
-#1:10 gives the sequence that the variable cycles through. This could also be a list
-#or something else
-
-#WHILE LOOPS####
-x<-1
-while(x<10){
-  print(x)
-  x<-x+x
-}
-#while loops evaluate a statement instead of going through a list.
-#
-
-#BAR PLOTS####
-#Now let's use this to get the confidence intervals for each exposure level and plot them
+library(Rmisc)
 sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Exposure", na.rm = T)
 #look at it
 sleep_by_exposure
