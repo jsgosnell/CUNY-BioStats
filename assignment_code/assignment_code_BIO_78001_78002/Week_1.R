@@ -40,7 +40,7 @@ summary(sleep_fit)
 abline(sleep_fit)
 
 #9####
-alcids <- read.csv("http://csivc.csi.cuny.edu/Lisa.Manne/files/classes/biol78002/alcids55.csv",header = F)
+alcids <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/alcids55.csv",header = F)
 names(alcids) <- c("year", "a1_abund", "NAO", "a2_abund", "a3_abund", "a4_abund", "a5_abund", "a6_abund")
 head(alcids)
 
