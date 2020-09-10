@@ -619,18 +619,17 @@ t.test(Ferr ~ Sport, sport[sport$Sport %in% c("BBall", "Row"),])
 
 
 #INTRO TO GGPLOT2####
-library(ggplot2)
-library(Rmisc)
 #ggplot2 is a great plotting package that allows a lot of control over your output
 #lets do some examples using the sleep dataset
-sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv")
+#adding stringsasFractors to match old default (R < v 4.0)
+sleep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv",
+                  stringsAsFactors = T)
 #
 #ggplot2 works in layers so you can or subtract as needed. Provided code is verbose here
 #so you can see what its doing.
 
 #first, install and call the package
 library(ggplot2)
-
 #to make a plot, first set a base layer
 #lets start with a scatter plot and focus on relationship between time spent sleeping
 #and time spent dreaming
@@ -890,7 +889,7 @@ sd(sleep[sleep$Exposure == "Least", "TotalSleep"], na.rm = T) /
 #a function from the Rmisc package, as ggplot2 doesn't have it built in (maybe because
 #bar charts are a bad idea?).
 #
-
+library(Rmisc)
 sleep_by_exposure <- summarySE(sleep, measurevar = "TotalSleep", groupvars = "Exposure", na.rm = T)
 #look at it
 sleep_by_exposure
