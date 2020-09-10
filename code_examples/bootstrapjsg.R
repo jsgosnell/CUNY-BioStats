@@ -3,6 +3,7 @@
 bootstrapjsg <- function(data1, data2=NULL, conf=.95, fun=mean, r=10000, null=0)
 {
   library(boot)
+  library(simpleboot)
   one.boot <- function (data, FUN, R, student = FALSE, M, weights = NULL, ...) 
   {
     func.name <- ifelse(is.character(FUN), FUN, deparse(substitute(FUN)))
