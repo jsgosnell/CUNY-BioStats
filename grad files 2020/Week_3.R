@@ -102,7 +102,7 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
 
 
 
-sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T, stringsAsFactors = T)
 
 z.test(sport[sport$Sex == "male", "Ht"], mu = 175.6, sigma.x=7)
 
