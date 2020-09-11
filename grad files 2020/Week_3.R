@@ -320,6 +320,7 @@ ggplot(boot.md, aes(mean)) +
 
 #bootstrapjsg function####
 #source from github
+#make sure you have the boot and simpleboot packages installed
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
 
 #bootstrapping athlete data

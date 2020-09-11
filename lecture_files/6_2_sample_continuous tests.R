@@ -180,6 +180,7 @@ SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_
 #load bootstrapjsgfunction, which librarys simpleboot and boot
 #bootstrapjsg function####
 #source from github
+##make sure you have the boot and simpleboot packages installed
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
 
 
