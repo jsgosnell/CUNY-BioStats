@@ -6,11 +6,11 @@ sigma=c(1,10,100)
 par(mfcol=c(2,3), oma = c(3,2,2,2), ask=F)
 for(j in 1:length(sigma)){
   x=rnorm(1000, 0, sqrt(sigma[j]))
-  hist(x, main=paste("Normal distribution, variance = ",sigma[j], sep = ""), col = "purple")
+  hist(x, main=paste("Normal distribution, \n variance = ",sigma[j], sep = ""), col = "purple")
   qqnorm(x)
   qqline(x)
 }
-mtext("1000 Random points drawn from various normal distributions centered at 0", outer = T, side = 1, 
+mtext("1000 Random points drawn from \n various normal distributions centered at 0", outer = T, side = 1, 
       cex = 2, line = 1)
 
 readline(prompt="Press [enter] to continue")
