@@ -26,7 +26,7 @@ pressing *Ctrl+Alt+I* to answer the questions!
 the continuous distributions (marked with a “*”), observe how a normal probability
 plot (qqplot) can be used to visually test for approximate normality.
 
-* *Normal (u= 0; σ2= 10, 100) 
+* *Normal (u= 0; σ^2^=1, 10, 100) 
 * *Student's t (df = 1, 10, 30, & 100) 
 * *Chi-square (df= 1, 2, 5, 30, 50)
 * Bernoulli (P=0.1, 0.5, & 0.9) 
@@ -34,7 +34,9 @@ plot (qqplot) can be used to visually test for approximate normality.
 N= 2, 5, 25, & 50); (P=0.75; N= 2, 5, 25, & 50); (P=0.95; N= 2, 5, 25, & 50) 
 * Poisson ( u= 2, 5, 10, 30, & 50)
 
-*For this question, its easiest to just source the main file and see what happens*
+For this question, its easiest to just source the main file and see what happens.
+When you source a script, it is run in R without showing any console output
+(but graphs and objects are still produced!).  Try *source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/qqplot_example.R*
 
 ```{r}
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/qqplot_example.R")
@@ -42,7 +44,8 @@ source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_ex
 
 *Notice the spread of DATA of every distribution tend towards normality as sample size increases*
 
-2. Review the central_limit_theorem.R code if you need to convince/remind yourself how common normality of means is for even non-normal data.
+2. Review the central_limit_theorem.R code if you need to convince/remind yourself how common normality of means is for even non-normal data. You can source the code
+using the same approach noted in Question 1.
 
 *Here we are focused on how the means look as sample size increases*
 
