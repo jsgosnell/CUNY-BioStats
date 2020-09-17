@@ -113,7 +113,7 @@ ggplot(iris[iris$Species == "versicolor",], aes(Species,Sepal.Length)) +
 #barchart ####
 #
 #load function from Rmisc
-library(RMisc)
+library(Rmisc)
 
 #now use
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =

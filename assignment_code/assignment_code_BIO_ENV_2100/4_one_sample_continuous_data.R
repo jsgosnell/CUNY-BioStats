@@ -26,7 +26,7 @@ t.test(x=data,mu = 205)
 #c
 wilcox.test(data, mu=205)
 #d
-SIGN.test(a, md=205)
+SIGN.test(data, md=205)
 #e
 ttestBF(data, mu = 205) #anecdotal support for H0
 

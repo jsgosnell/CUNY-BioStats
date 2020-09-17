@@ -430,7 +430,7 @@ ggplot(means, aes(difference)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   geom_vline(xintercept = 43.9 - 39.6, size = 1.5, color = "orange")
 
-count(abs(means$difference)>= (43.9 - 39.6))
+sum(abs(means$difference) >= (43.9 - 39.6))
 
 #with t distribution overly
 ggplot(means, aes(difference)) +
@@ -475,11 +475,11 @@ ggplot(example_bad_summary
 
 
 #garter snake example####
-garter <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/garter.csv")
+garter <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/garter.csv", stringsAsFactors = T)
 wilcox.test(Proportion.of.snakes.resistant ~ Locality, garter)
 
 #sign test example####
-insect_speciation <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/insect_speciation.csv")
+insect_speciation <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/insect_speciation.csv", stringsAsFactors = T)
 summary(insect_speciation)
 insect_speciation$difference <- insect_speciation$Polyandrous_species - 
   insect_speciation$Monandrous_species
@@ -505,7 +505,8 @@ SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_
 
 #bootstrap####
 #back to our aussie athlete data
-sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T, 
+                    stringsAsFactors = T)
 
 ggplot(sport, aes(Ferr))+
   geom_histogram() +
