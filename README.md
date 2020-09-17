@@ -16,3 +16,7 @@ I will slowly change/update files, but only differences are
 *whatever you put in for measurevar column in summary is what you use for the y in ggplot
 calls (so for updating, replacing "mean" with that string)
 
+Fall 2020 Update: Assignment code (and answers) are being moved to .Rmd format; 
+also, default R behavior changed to not upload strings as factors, so you may need to 
+add stringsAsFactors = T to read.csv calls. 
+
