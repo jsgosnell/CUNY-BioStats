@@ -1,0 +1,387 @@
+---
+title: "5. ANOVAs"
+author: "jsg"
+date: "9/22/2020"
+output: github_document
+---
+Before doing this, review the **Week 5** lecture set slides from 
+https://sites.google.com/view/biostats/bio-7800178002/week-5 and
+the  **7_ANOVAs.R** and **8_Blocking_and_interactions.R** script in the lecture files folder of the
+[CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
+
+Remember you should
+* add code chunks by clicking the *Insert Chunk* button on the toolbar or by
+pressing *Ctrl+Alt+I* to answer the questions!
+* **knit** your file to produce a markdown version that you can see!
+* save your work often 
+  * **commit** it via git!
+  **push** updates to github
+  
+## Just for practice. Do this problems using ANOVA, Kruskal-Wallis, and bootstrapping methods.  Make sure you can plot the data and carry out multiple comparison methods as needed. Also be sure to understand the use of coefficients and adjusted R2 values and where to find them. 
+
+1. Use the iris dataset in R to determine if petal length differs among species.  
+
+
+```{r}
+#plot
+library(Rmisc)
+
+function_output <- summarySE(iris, measurevar="Petal.Length", groupvars =
+                               c("Species"))
+library(ggplot2)
+ggplot(function_output, aes(x=Species, y=Petal.Length)) +
+  geom_col(aes(fill=Species), size = 3) +
+  geom_errorbar(aes(ymin=Petal.Length-ci, ymax=Petal.Length+ci), size=1.5) +
+  ylab("Petal Length (cm)")+ggtitle("Petal Length of \n various iris species")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+petal <- lm(Petal.Length ~ Species, iris)
+plot(petal)
+library(car)
+Anova(petal, type = "III")
+#compare to
+summary(petal)
+library(multcomp)
+comp_cholest <- glht(petal, linfct = mcp(Species = "Tukey"))
+summary(comp_cholest)
+
+#kw approach
+petal <- kruskal.test(Petal.Length ~ Species, iris)
+pairwise.wilcox.test(iris$Sepal.Length, 
+                          iris$Species, 
+                          p.adjust.method="holm")
+
+#bootstrap
+library(WRS2)
+t1waybt(Petal.Length~Species, iris)
+bootstrap_post_hoc <- mcppb20(Petal.Length~Species, iris)
+#use p.adjust to correct for FWER
+p.adjust(as.numeric(bootstrap_post_hoc$comp[,6]), "holm")
+```
+
+
+
+## t-tests are special cases of ANOVAs, which are special cases of linear models!
+
+2. Data on plant heights (in cm) for plants grown with a new and old formulation 
+of fertilizer can be found at
+
+https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/fertilizer.csv.
+
+Analyze this data using the t.test function and the lm function to convince yourself the outcome is the same.
+
+```{r}
+fertilizer <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/fertilizer.csv",
+                       stringsAsFactors = T)
+#note use of var.equal!  assumption of ANOVAs
+t.test(height ~ fertilizer, fertilizer, var.equal = T)
+fert_lm <- lm(height ~ fertilizer, fertilizer)
+plot(fert_lm)
+summary(fert_lm)
+require(car)
+Anova(fert_lm, type = "III")
+```
+
+
+## For the following questions, pick the appropriate method for analyzing the question.  Use a plot of the data and/or model analysis to justify your decision.  Make sure you can carry out multiple comparison methods as needed. Also be sure to understand the use of coefficients and adjusted R^2^ values and where to find them.
+
+3. Data on sugar cane yield for multiple fields is available using 
+
+read.table("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/cane.txt", 
+header = T, stringasFactors = T)
+
+More info on the data can be found at 
+http://www.statsci.org/data/oz/cane.html.
+Is there evidence that location (DistrictPosition column) impacts yield 
+(Tonn.Hect column)?  If so, which areas are driving this distance?
+
+```{r}
+cane <- read.table("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/cane.txt", header = T, stringsAsFactors = T)
+summary(cane)
+cane_summary <- summarySE(cane, measurevar="Tonn.Hect", groupvars =
+                               c("DistrictPosition"))
+
+ggplot(cane_summary, aes(x=DistrictPosition, y=Tonn.Hect)) +
+  geom_col(size = 3) +
+  geom_errorbar(aes(ymin=Tonn.Hect-ci, ymax=Tonn.Hect+ci), size=1.5) +
+  ylab("Production (tonnes per hectare)") +
+  xlab("District Position") +
+  ggtitle("Production differs \n among locations") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+impact_district <- lm(Tonn.Hect ~ DistrictPosition, cane)
+summary(impact_district)
+plot(impact_district)#not really normal...lets bootstrap
+require(WRS2)
+t1waybt(Tonn.Hect ~ DistrictPosition, cane)
+p <- mcppb20(Sepal.Length~Species, iris)
+p.adjust(as.numeric(p$comp[,6]), "holm")
+
+require(car)
+Anova(impact_district, type = "III")
+require(multcomp)
+comp_district <- glht(impact_district, linfct = mcp(DistrictPosition = "Tukey"))
+summary(comp_district)
+
+```
+
+
+4. Data on FEV (forced expiratory volume), a measure of lung function, can be 
+found at 
+http://www.statsci.org/data/general/fev.txt
+More information on the dataset is available at 
+http://www.statsci.org/data/general/fev.html.
+Is there evidence that FEV depends on gender? If so, which gender has the higher
+FEV score?  How much variance does gender explain? 
+
+```{r}
+fev <- read.table("http://www.statsci.org/data/general/fev.txt", header = T,
+                  stringsAsFactors = T)
+fev_summary <- summarySE(fev, measurevar="FEV", groupvars =
+                               c("Sex"))
+
+ggplot(fev_summary, aes(x=Sex, y=FEV)) +
+  geom_col(size = 3) +
+  geom_errorbar(aes(ymin=FEV-ci, ymax=FEV+ci), size=1.5) +
+  ylab("FEV (liters)") +
+  xlab("Sex") +
+  ggtitle("FEV differs \n among males and females") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+fev_gender <- lm(FEV ~ Sex, fev)
+plot(fev_gender) #anova is fine
+summary(fev_gender)
+```
+
+
+5. A professor carried out a long-term study to see how various factors impacted
+pulse rate before and after exercise.  Data can be found at 
+http://www.statsci.org/data/oz/ms212.txt
+With more info at 
+http://www.statsci.org/data/oz/ms212.html.
+Is there evidence that frequency of exercise (Exercise column) impacts resting
+pulse rate (Pulse1 column)?
+
+```{r}
+pulse <- read.table("http://www.statsci.org/data/oz/ms212.txt", header = T, 
+                    stringsAsFactors = T)
+pulse$Exercise <- factor(pulse$Exercise)
+library(plyr)
+pulse$Exercise <- revalue(pulse$Exercise, c("1" = "high", 
+                                            "2" = "moderate", 
+                                            "3" = "low"))
+
+exercise_summary <- summarySE(pulse, measurevar="Pulse1", groupvars =
+                               c("Exercise"), na.rm = T)
+
+ggplot(exercise_summary, aes(x=Exercise, y=Pulse1)) +
+  geom_col(size = 3) +
+  geom_errorbar(aes(ymin=Pulse1-ci, ymax=Pulse1+ci), size=1.5) +
+  ylab("Resting pulse (beats per minute)") +
+  xlab("Exercise level")+
+  ggtitle("Resting pulse decreases \n with exercise") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+initial <- lm(Pulse1 ~ Exercise, pulse)
+plot(initial)
+summary(initial)
+Anova(initial, type = "III") 
+```
+
+
+6. Continuing with the pulse dataset, is there evidence frequency of exercise
+impacts change in pulse rate?  Note we should only consider change for students 
+who ran between the first and second pulse measures (Ran column = 1).
+
+```{r}
+pulse$change <- pulse$Pulse2 - pulse$Pulse1
+
+change_summary <- summarySE(pulse[pulse$Ran == 1, ], measurevar="change", groupvars =
+                               c("Exercise"), na.rm = T)
+
+ggplot(change_summary, aes(x=Exercise, y=change)) +
+  geom_col(size = 3) +
+  geom_errorbar(aes(ymin=change-ci, ymax=change+ci), size=1.5) +
+  ylab("Resting pulse \n (beats per minute)") +
+  xlab("Exercise level")+
+  ggtitle("Change in pulse does \n not differ among groups") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+change <- lm(change ~ Exercise, pulse[pulse$Ran == 1, ])
+plot(change)
+Anova(change, type = "III")
+```
+
+
+7. A survey was conducted to see if athletes and non-athletes deal with anger in
+the same way.  Data is @
+
+angry <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/angry_moods.csv", stringsAsFactors = T)
+
+and more information is at 
+
+http://onlinestatbook.com/case_studies/angry_moods.html.
+
+Focus on the following variables:
+
+Sports
+1 = athletes, 2 = non-athletes
+Gender
+1 = males, 2 = females
+Expression (AE)
+index of general anger expression: 
+(Anger-Out) + (Anger-In) - (Control-Out) - (Control-In) + 48
+
+Is there any evidence that gender or athlete status impact how anger is expressed?
+
+```{r}
+angry <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/angry_moods.csv", stringsAsFactors = T)
+str(angry)
+angry$Gender <- as.factor(angry$Gender)
+angry$Gender <- revalue(angry$Gender, c("1" = "athlete", 
+                                        "2" = "non-athlete"))
+angry$Sports <- as.factor(angry$Sports)
+angry$Sports <- revalue(angry$Sports, c("1" = "male",
+                                        "2" = "female"))
+
+anger_summary <- summarySE(angry, measurevar="Anger_Expression", groupvars =
+                               c("Sports", "Gender"), na.rm = T)
+ggplot(anger_summary, aes(x=Gender, y=Anger_Expression, color=Sports, 
+                                   shape = Sports)) +
+  geom_point(size = 3) +
+  geom_line(aes(group=Sports, linetype =Sports), size=2) +
+  geom_errorbar(aes(ymin=Anger_Expression-ci, ymax=Anger_Expression+ci), size=1.5) +
+  ylab("Anger level")+ 
+  xlab("Experience") + 
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  ggtitle("Anger level among groups")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+angry_gender <- lm(Anger_Expression ~ Sports * Gender, angry)
+plot(angry_gender)
+Anova(angry_gender, type = "III")
+
+#remove interaction since not significant
+angry_gender <- lm(Anger_Expression ~ Sports + Gender, angry)
+plot(angry_gender)
+Anova(angry_gender, type = "III") #only differs among those who play sports
+
+```
+
+
+8. Back to the pulse data (#5).  Is there evidence that frequency of exercise
+(Exercise column) and gender impact change in pulse rate for students who ran 
+(Ran column = 1)?
+
+```{r}
+pulse$Gender <- factor(pulse$Gender)
+pulse$Gender <- revalue (pulse$Gender, c("1" = "male", "2" = "female"))
+change_summary <- summarySE(pulse[pulse$Ran == 1, ], measurevar="change", groupvars =
+                               c("Exercise", "Gender"), na.rm = T)
+
+ggplot(change_summary, aes(x=Gender, shape = Exercise, color = Exercise,
+                           y=change)) +
+  geom_point(size = 3) +
+  geom_line(aes(group=Exercise, linetype =Exercise), size=2) +
+  geom_errorbar(aes(ymin=change-ci, ymax=change+ci), size=1.5) +
+  ylab("Resting pulse \n (beats per minute)") +
+  scale_color_discrete(name = "Exercise level")+
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  ggtitle("Change in pulse does \n not differ among groups") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+exercise <- lm(change ~ Gender * Exercise, pulse[pulse$Ran == 1, ])
+summary(exercise)
+Anova(exercise, type = "III")
+
+#rerun without interaction
+exercise <- lm(change ~ Gender + Exercise, pulse[pulse$Ran == 1, ])
+summary(exercise)
+Anova(exercise, type = "III") #no significance
+```
+
+
+9. (Continuing from question 9) I’m curious if the treatment (running vs not) even had an impact, and if so did it depend on gender. How would you test this?  
+
+```{r}
+pulse$Ran <- factor(pulse$Ran)
+pulse$Ran <- revalue(pulse$Ran, c("1" = "Ran", "2" = "Sat"))
+run_summary <- summarySE(pulse, measurevar="change", groupvars =
+                               c("Ran", "Gender"), na.rm = T)
+
+ggplot(run_summary, aes(x=Gender, shape = Ran, color = Ran,
+                           y=change)) +
+  geom_point(size = 3) +
+  geom_line(aes(group=Ran, linetype = Ran), size=2) +
+  geom_errorbar(aes(ymin=change-ci, ymax=change+ci), size=1.5) +
+  ylab("Resting pulse \n (beats per minute)") +
+  xlab("Gender")+
+  ggtitle("Change in pulse  \n  differed among groups") +
+  scale_color_discrete(name = "Ran")+
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+pulse$Ran <- as.factor(pulse$Ran)
+levels(pulse$Ran) <- c("ran", "sat")
+running <- lm(Pulse2 ~ Gender * Ran, pulse)
+Anova(running, type = "III") 
+
+#consider without interaction
+running <- lm(Pulse2 ~ Gender + Ran, pulse)
+Anova(running, type = "III")  #running mattered
+summary(running) #running increased pulse
+```
+
+

@@ -507,7 +507,8 @@ available at
 http://www.statsci.org/data/general/cholestg.txt 
 
 Note to read a .txt file you use,
-read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
+read.table("http://www.statsci.org/data/general/cholestg.txt", header = T, 
+stringsAsFactors = T)
 Check the defaults to understand the argument.  
 More info on the data is @
 http://www.statsci.org/data/general/cholest.html
