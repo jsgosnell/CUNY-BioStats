@@ -82,7 +82,8 @@ summary(comp_cholest)
 
 #what if we care about other factor
 #2-way ANOVA ####
-memory <- read.table("http://www.statsci.org/data/general/eysenck.txt", header = T)
+memory <- read.table("http://www.statsci.org/data/general/eysenck.txt", header = T,
+                     stringsAsFactors = T)
 library(plyr)
 memory$Age <- relevel(memory$Age, "Younger")
 
@@ -137,7 +138,7 @@ coef(update(memory_interactions, .~.-1))
 
 #example of no interaction####
 #modified version of biomass project
-biomass <- read.csv("http://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/biomass_experiment.csv")
+biomass <- read.csv("http://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/biomass_experiment.csv", stringsAsFactors = T)
 function_output <- summarySE(biomass, measurevar="Mass", groupvars =
                                c("PredSize", "PredNumber"), na.rm = T)
 #make NA's control
@@ -180,11 +181,9 @@ Anova(size_number_lm, type = "III")
 #other options#
 library(WRS2) 
 #have to get rid of any empty levels!
-oyster_reduced <- oyster[oyster$Predator %!in% c("None"),]
-oyster_reduced$Predator <- factor(oyster_reduced$Predator)
-oyster_reduced$Exposure <- factor (oyster_reduced$Exposure)
-t2way(Mass ~ Predator * Exposure, data = oyster_reduced)
-mcp2atm(Mass ~ Predator * Exposure, data = oyster_reduced)
+t2way(Mass ~ PredSize + PredNumber, biomass[is.na(biomass$PredNumber) != T, ])
+#example of multcomp option but not needed here
+mcp2atm(Mass ~ PredSize + PredNumber, biomass[is.na(biomass$PredNumber) != T, ])
 
 
 #ADVANCED ASIDE - SKIP

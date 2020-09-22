@@ -17,7 +17,7 @@ ggplot(iris, aes(Species,Sepal.Length)) +
 
 
 #bar chart with error bars ####
-require(Rmisc)
+library(Rmisc)
 function_output <- summarySE(iris, measurevar="Sepal.Length", groupvars =
                                c("Species"))
 
