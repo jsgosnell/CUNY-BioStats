@@ -10,12 +10,13 @@ the  **7_ANOVAs.R** and **8_Blocking_and_interactions.R** script in the lecture 
 [CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
 
 Remember you should
+
 * add code chunks by clicking the *Insert Chunk* button on the toolbar or by
 pressing *Ctrl+Alt+I* to answer the questions!
 * **knit** your file to produce a markdown version that you can see!
 * save your work often 
   * **commit** it via git!
-  **push** updates to github
+  * **push** updates to github
   
 ## Just for practice. Do this problems using ANOVA, Kruskal-Wallis, and bootstrapping methods.  Make sure you can plot the data and carry out multiple comparison methods as needed. Also be sure to understand the use of coefficients and adjusted R2 values and where to find them. 
 

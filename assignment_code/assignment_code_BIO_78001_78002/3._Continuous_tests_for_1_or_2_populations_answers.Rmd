@@ -13,12 +13,13 @@ central_limit_theorem.R script from the
 [code_examples folder](https://github.com/jsgosnell/CUNY-BioStats/tree/master/code_examples).
 
 Remember you should
+
 * add code chunks by clicking the *Insert Chunk* button on the toolbar or by
 pressing *Ctrl+Alt+I* to answer the questions!
 * **knit** your file to produce a markdown version that you can see!
 * save your work often 
   * **commit** it via git!
-  **push** updates to github
+  * **push** updates to github
 
 ## Recognizing and assessing normality 
 
