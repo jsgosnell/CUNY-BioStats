@@ -95,7 +95,7 @@ Anova(fert_lm, type = "III")
 3. Data on sugar cane yield for multiple fields is available using 
 
 read.table("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/cane.txt", 
-header = T, stringasFactors = T)
+header = T, stringsAsFactors = T)
 
 More info on the data can be found at 
 http://www.statsci.org/data/oz/cane.html.
