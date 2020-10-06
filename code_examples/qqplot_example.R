@@ -51,7 +51,7 @@ p=c(.1,.25, .5,.75, .9)
 par(mfcol=c(2,3), oma = c(5,2,2,2), ask=F)
 for (i in 1:length(p)){
   x=dbinom(y,n,p[i])
-  plot(as.factor(y),x, type="h",main = paste("Bernoulli distribution,\n p = ",p[j], sep = ""))
+  plot(as.factor(y),x, type="h",main = paste("Bernoulli distribution,\n p = ",p[i], sep = ""))
 }
 mtext("Random draw from various \n Bernoulli distributions", outer = T, side = 1, 
       cex = 2, line = 4)
