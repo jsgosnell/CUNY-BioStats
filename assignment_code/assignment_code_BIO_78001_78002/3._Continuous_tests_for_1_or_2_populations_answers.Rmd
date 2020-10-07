@@ -205,13 +205,13 @@ are equal for the two groups
 
 ```{r}
 drug_b <- c( 8.8, 8.4, 7.9, 8.7, 9.1, 9.6)
-drug_g <- c(9.9, 9.0, 11,1, 9.6, 8.7, 10.4, 9.5)
+drug_g <- c(9.9, 9.0, 11.1, 9.6, 8.7, 10.4, 9.5)
 t.test(drug_b, drug_g)
 ```
 *Using a un-paired t-test, since the experimental units were not matched and I 
 assumed the means of each group would follow a normal distribution of unknown 
-variance,  I found a test statistics of t~7.62~=0.10.  This corresponds to a 
-p-value of 0.92. This p-value is >.05, so I fail to reject the null hypothesis that 
+variance,  I found a test statistics of t~10.701~=-2.544.  This corresponds to a 
+p-value of 0.02. This p-value is <.05, so I reject the null hypothesis that 
 the mean clotting times are the same for the two drugs.*
 
 * Using rank transform analysis 
@@ -221,8 +221,8 @@ wilcox.test(drug_b, drug_g)
  
 *Using a un-paired rank-based test, which is appropriate when normality assumptions 
 can't be met and I assumed the means of each group would follow a similar distribution, 
-I found a test statistics of W=13.  This corresponds to a 
-p-value of 0.17.  This p-value is >.05, so I fail to reject the null hypothesis that 
+I found a test statistics of W=7.  This corresponds to a 
+p-value of 0.05.  This p-value is >.05, so I fail to reject the null hypothesis that 
 the mean clotting times are the same for the two drugs.*
 
 * Using a permutation test
@@ -237,8 +237,8 @@ independence_test(clotting ~ drug, clotting)
 ```
 *Using a permutation test, which is not fully appropriate here due to small sample 
 sizes (and that also assumes similar distributions for each group), 
-I found a test statistics of Z=0.09.  This corresponds to a 
-p-value of 0.92.  This p-value is >.05, so I fail to reject the null hypothesis that 
+I found a test statistics of Z=-2.0726..  This corresponds to a 
+p-value of 0.038.  This p-value is >.05, so I fail to reject the null hypothesis that 
 the mean clotting times are the same for the two drugs.*
 
 * Using a bootstrap test 
@@ -248,7 +248,7 @@ bootstrapjsg(drug_b, drug_g)
 ```
 *Using a bootstrap test with 10000 samples, which is not fully appropriate here 
 due to small sample sizes, 
-I found a p value of 0.90.  This p-value is >.05, so I fail to reject the null 
+I found a p value of 0.0047.  This p-value is <.05, so I reject the null 
 hypothesis that 
 the mean clotting times are the same for the two drugs.*
 
