@@ -177,10 +177,10 @@ source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_ex
 bootstrapjsg(data1=sport[sport$Sex == "male", "Wt"], null=85.9)
 #to get estimates!
 summary(sport[sport$Sex == "male",])
-hist(sport[sport$Sex == "male", "Ht"])
+hist(sport[sport$Sex == "male", "Wt"])
 ```
 
-*Using a bootstrap approach with 10,000 samples (default in the bootstrapjsg function), I found a p-value of 0.0065; this is <.05, so I reject the null 
+*Using a bootstrap approach with 10,000 samples (default in the bootstrapjsg function), I found a p-value of 0.0069; this is <.05, so I reject the null 
 hypothesis that the 
 mean weight of male athletes at the AIS is equal to 85.9 kg (the average weight of
 an Australian male). Estimates from the da suggest the mean weight of males at 
