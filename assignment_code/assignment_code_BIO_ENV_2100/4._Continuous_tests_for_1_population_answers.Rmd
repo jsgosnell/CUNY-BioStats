@@ -1,0 +1,231 @@
+---
+title: "4. Continuous tests for 1 population"
+author: "jsg"
+date: "9/8/2020"
+output: github_document
+---
+Before doing this, review the **Introduction to normality and one-sample tests for continous data** lecture set slides from 
+https://sites.google.com/view/biostats/bioenv-2100/introduction-to-normality-and-one-sample-tests and
+the  **4_normality.R** script in the lecture_files folder of the
+[CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
+
+You’ll also use the qqplot_example.R and
+central_limit_theorem.R script from the 
+[code_examples folder](https://github.com/jsgosnell/CUNY-BioStats/tree/master/code_examples).
+
+Remember you should
+
+* add code chunks by clicking the *Insert Chunk* button on the toolbar or by
+pressing *Ctrl+Alt+I* to answer the questions!
+* **knit** your file to produce a markdown version that you can see!
+* save your work often 
+  * **commit** it via git!
+  * **push** updates to github
+
+## Recognizing and assessing normality 
+
+1. Using the qqplot_example.R code, examine the following distributions and, for 
+the continuous distributions (marked with a “*”), observe how a normal probability
+plot (qqplot) can be used to visually test for approximate normality.
+
+* *Normal (u= 0; σ^2^= 1, 10, 100) 
+* *Student's t (df = 1, 10, 30, & 100) 
+* *Chi-square (df= 1, 2, 5, 30, 50)
+* Bernoulli (P=0.1, 0.5, & 0.9) 
+* Binomial (P=0.05; N= 2, 5, 25, & 50); (P=0.25; N= 2, 5, 25, & 50); (P=0.50; 
+N= 2, 5, 25, & 50); (P=0.75; N= 2, 5, 25, & 50); (P=0.95; N= 2, 5, 25, & 50) 
+* Poisson ( u= 2, 5, 10, 30, & 50)
+
+For this question, its easiest to just source the main file and see what happens.
+When you source a script, it is run in R without showing any console output
+(but graphs and objects are still produced!).  Try *source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/qqplot_example.R)*
+
+```{r}
+source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/qqplot_example.R")
+```
+
+*Notice the spread of DATA of every distribution tend towards normality as sample size increases*
+
+2. Review the central_limit_theorem.R code if you need to convince/remind 
+yourself how common normality of means is for even non-normal data. You can source the code
+using the same approach noted in Question 1.
+
+*Here we are focused on how the means look as sample size increases*
+
+```{r}
+#make sure you have VGAM library installed
+source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/central_limit_theorem.R")
+```
+
+
+## Just for practice (note some sample sizes may be too small for these to all be good ideas!)
+
+Make sure you are comfortable with null and alternative hypotheses for all examples. 
+You should also feel comfortable graphing the data.
+
+3. Seven observers were shown, for a brief period, a grill with 161 flies impaled 
+and were asked to estimate the number. The results are given by Cochran (1954). 
+Based on five estimates, they were 183.2, 149.0, 154.0, 167.2, 187.2, 158.0, and 143.0. Test the null hypothesis that the mean of the estimates is 161 flies.
+
+* Assuming variance = 275
+
+
+```{r}
+flies <- c(183.2, 149.0, 154.0, 167.2, 187.2, 158.0, 143.0)
+library(BSDA)
+z.test(x=flies, mu = 161, sigma.x=sqrt(275))
+```
+*Using a z-test, I found a test statistics of z~=0.33 .This corresponds to a p-value of 0.73. This p value is >.05, so I fail to reject 
+the null hypothesis that the mean of the estimates is 161 flies.*
+
+*  Estimating the variance from the data
+```{r}
+t.test(x=flies,mu = 161)
+```
+*Using a t-test, which is appropriate when the variance must be estimated
+from the sample and the means of the data may be assumed to follow a normal 
+distribution,  I found a test statistics of t~6~=0.32.  This corresponds to a 
+p-value of 0.76. This p-value is >.05, so I fail to reject 
+the null hypothesis that the mean of the estimates is 161 flies.*
+
+* Using rank transform analysis 
+
+```{r}
+wilcox.test(flies, mu=161)
+```
+*Using a Wilcoxon signed rank test, which is appropriate when normality assumptions 
+can't be met and the distribution of the data appears to be symmetric, I found a test
+statistics of V = 15 .This corresponds to a p-value of 0.94. This p-value is >.05, so I 
+fail to reject the null hypothesis that the mean of the estimates is 161 flies.*
+
+* Using binary transform analysis
+```{r}
+SIGN.test(flies, md=161)
+```
+
+*Using a sign test, which is appropriate when the data is continuous and other 
+assumptions can't be met, I found a test statistics of s = 3 .This corresponds to a p-value of 1. This p-value is >.05, so I fail to reject 
+the null hypothesis that the median (**Note change here**) of the estimates is
+161 flies.*
+
+4. Yields of 10 strawberry plants in a uniformity trial are given by Baker and 
+Baker (1953) as 239, 176, 235, 217, 234, 216, 318, 190, 181, and 225 g. 
+Test the hypothesis that µ = 205
+* Assuming variance = 1500
+```{r}
+strawberries <- c(239, 176, 235, 217, 234, 216, 318, 190, 181, 225)
+z.test(x=strawberries,mu = 205, sigma.x=sqrt(1500))
+```
+*Using a z-test, I found a test statistics of z=1.48.  This corresponds to a 
+p-value of 0.14. This p-value is >.05, so I fail to reject 
+the null hypothesis that the population mean is equal to 205.*
+
+*  Estimating the variance from the data
+
+```{r}
+t.test(x=strawberries,mu = 205)
+```
+*Using a t-test, which is appropriate when the variance must be estimated
+from the sample and the means of the data may be assumed to follow a normal distribution, I found a test statistics of t~9~=1.42.  This corresponds to a 
+p-value of 0.19. This p-value is >.05, so I fail to reject 
+the null hypothesis that the population mean is equal to 205.*
+
+* Using rank transform analysis 
+```{r}
+wilcox.test(strawberries, mu=205)
+```
+
+*Using a Wilcoxon signed rank test, which is appropriate when normality assumptions 
+can't be met and the distribution of the data appears to be symmetric, I found a test statistics of V=40.5.  This corresponds to a 
+p-value of 0.20.  This p-value is >.05, so I fail to reject 
+the null hypothesis that the population mean is equal to 205.*
+
+* Using binary transform analysis
+```{r}
+SIGN.test(strawberries, md=205)
+```
+
+*Using a sign test, which is appropriate when the data is continuous and other 
+assumptions can't be met,  I found a test statistics of s= 7.  This corresponds 
+to a p-value of 0.34. This p-value is >.05,so I fail to reject 
+the null hypothesis that the population median (**Note change here**) is equal to 205.*
+
+4. Evolutionary geneticists predicts the family sex ratio will be 80% female in 
+broods of eagles that successfully fledge >3 young. Nests that fledge 3 or more
+chicks are very rare but a sample of 30 chicks are obtained from such nests and
+they yield 25 females and 5 males. Test the hypotheses that that: 
+* a) the sex ratio is 50% females
+
+```{r}
+#a
+binom.test(25,30, p=.5)
+```
+*A binomial test was used as we are comparing an observed proportion against a 
+set value.  Given a p-value of <.001, I reject the null hypothesis that the 
+proportion of sons is equal to .5.*
+
+* b) the sex ratio is 80% females.
+
+```{r}
+binom.test(25,30, .8)
+```
+*A binomial test was used as we are comparing an observed proportion against a 
+set value.  Given a p-value of <.001, I fail to reject the null hypothesis that the 
+proportion of sons is equal to .8.*
+
+5. Studies of flying snakes have led researchers to posit the mean undulation 
+rate is 1.4 Hz.  You wish to test this hypothesis using the small sample of 
+undulation rates shown below.  Create a small dataset of the paradise tree snake 
+undulation rates and choose and justify a test you can use to assess the data.
+
+Undulation rates (in Hz):  0.9, 1.4, 1.2, 1.2, 1.3, 2.0, 1.4, 1.6
+
+```{r}
+snakes <- c(0.9, 1.4, 1.2, 1.2, 1.3, 2.0, 1.4, 1.6)
+t.test(snakes, mu=1.4)
+```
+*Using a t-test, which is appropriate when the variance must be estimated
+from the sample and the means of the data may be assumed to follow a normal
+distribution,  I found a test statistics of t~7~=-.22.  This corresponds to a 
+p-value of 0.83. This p-value is >.05, so I fail to reject 
+the null hypothesis that the mean undulation rate is 1.4 Hz.*
+
+6.  Using data from Australian athletes (http://www.statsci.org/data/oz/ais.html 
+for details), determine if the average male training at the Australian Institute 
+of Sport differs in weight from the average Australian male (85.9 kg) using
+bootstrapping techniques. Data at 
+```{r}
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T, 
+                    stringsAsFactors = T)
+```
+
+You can source the bootstrapjsg function using
+
+```{r}
+source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
+```
+
+
+*Answer*
+
+```{r}
+sport <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
+source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
+bootstrapjsg(data1=sport[sport$Sex == "male", "Wt"], null=85.9)
+#to get estimates!
+summary(sport[sport$Sex == "male",])
+hist(sport[sport$Sex == "male", "Wt"])
+```
+
+7. Use a Bayesian approach to compare the weight of Australian athletes to 85.9 kg.
+Compare approaches that give the null more and less weight.
+
+```{r}
+library(BayesFactor)
+ttestBF(sport[sport$Sex == "male", "Wt"], mu=85.9)
+ttestBF(sport[sport$Sex == "male", "Wt"], mu=85.9, rscale = "ultrawide")
+```
+*Both answers give a Bayes Factor >1, which is evidence against the null. However, 
+support is fairly weak (2.12-3.8, largely anecdotal), and you can see the 
+"ultrawide" option gives even more 
+weight to the null."*
