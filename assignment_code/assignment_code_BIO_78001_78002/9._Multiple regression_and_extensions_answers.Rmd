@@ -284,7 +284,7 @@ b2 <- gamm(y~s(x0)+s(x1)+s(x2),family=poisson,
 
 Team data is available @ 
 
-https://github.com/jsgosnell/CUNY-BioStats/blob/master/datasets/team_data_no_spaces.csv 
+https://raw.github.com/jsgosnell/CUNY-BioStats/blob/master/datasets/team_data_no_spaces.csv 
 
 ```{r}
 require(mgcv)
