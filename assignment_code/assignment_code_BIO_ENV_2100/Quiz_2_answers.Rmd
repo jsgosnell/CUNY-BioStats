@@ -1,0 +1,62 @@
+---
+title: "Binomial"
+author: "jsg"
+date: "10/21/2020"
+output: github_document
+---
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ZOMBIES!
+
+You wake up one morning and find that zombies have taken over your neighborhood (bummer).
+One idea is to use biocontrol to reduce zombie attacks. A zombie parasite is 
+identified.  Test plots (neighborhoods!) are subjected to one or two releases of 
+the parasite at low, medium, or high densities. Past evidence suggests that the 
+parasite should infect 70% of the zombies, but some citizens are concerned it won't 
+work in New York due to lower temperatures.  In a random sample, 7 of 12 zombies 
+are infected with the parasite.  
+
+* What is the observed rate of infection in the sample?
+```{r}
+7/12
+```
+*The observed rate of infection is .58 (58%).*
+
+* Is there evidence the parasite infects zombies 
+at a different rate in New York?
+** If so, why
+** If not, how do you explain any discrepancy between the observed rate of infection
+and your results?
+
+Make sure your answer includes
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+* confidence interval for your estimate 
+
+```{r}
+binom.test(7,12, .7)
+library(binom)
+binom.confint(7,12,.7)
+```
+*I analyzed the data using a binomial test looking for any deviations from 70% 
+infection rates.  Using this method I found a p-value of .3614, so I fail to reject
+the null hypothesis that the infection rate is 70%.  The alternative hypothesis is
+that the infection rate is not equal to 70%.  Although the rate I observed
+was 58%, the small sample size means this isn't that unlikely to occur by chance if the
+true infection rate is 70%. The small sample size means the 95% confidence interval
+for our estimate of infection rate is .43-.72 (using Agresti-Coul estimates). 
+We need more zombies to truly assess the population for
+any differences in infection rate.*
+
+
+
+
+

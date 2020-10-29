@@ -1,0 +1,61 @@
+---
+title: "Quiz 3"
+author: "jsg"
+date: "10/21/2020"
+output: github_document
+---
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ZOMBIES!
+
+You wake up one morning and find that zombies have taken over your neighborhood (bummer).
+
+Evidence also suggests  that temperature may influence propensity for zombie 
+attacks, with zombies preferring warmer bodies.  Long-term studies suggest that 
+average human temperature is 36.57 C.  
+Unfortunately, measuring temperatures before/after attacks is hard, so data on 
+5 survivors of attacks have been recorded. They were: 36.12, 36.37, 35.7, 36.01, 36.9.  
+
+1. Is there any evidence that temperature influences zombie attacks? 
+
+```{r}
+temp <- c(36.12, 36.37, 35.7, 36.01, 36.9)
+t.test(temp, mu = 36.57, alternative = "greater")
+```
+
+*Although this is a small sample size, we know temperature typically follows a 
+normal distribution.  For this reason, and given that bootstrapping was not an option,
+I used a t-test to test the null hypothesis that the temperature of zombie attack 
+victims is less than or equal to 36.57. I used a sided-test because we wanted to 
+know if zombies prefer warmer bodies.  The alternative hypothesis, therefore, is
+that the temperature of zombie attack victims is greater than 36.57. Using this 
+approach I found t~4~=-1.74, leading to a p-value of .9216. Since this is greater 
+than the alpha level we typically use (.05), I fail reject the null hypothesis.*
+
+2. How would knowing the standard deviation of human temperature is 0.42 change
+your methods and results?
+
+```{r}
+library(BSDA)
+z.test(temp, mu = 36.57, sigma.x = .42, alternative = "greater")
+```
+
+*If I knew the standard deviation of human temperature I could use a z-test 
+instead to test the same hypothesis.  I would still fail to reject the null
+hypothesis, which makes sense.*
+
+
+Make sure your answers include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+* confidence interval for your estimate
+
+

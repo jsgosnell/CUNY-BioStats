@@ -67,7 +67,7 @@ t.test(smoke$Before, smoke$After, paired = T)
 
 #cavity example simulation####
 mean_cavity <-(51 * 39.6 + 56 * 43.9)/(51 + 56)
-variance_cavity <-((51-1)*9.4 + (56-1)*10.7)/((51 + 56)-2)
+variance_cavity <-((51-1)*9.4^2 + (56-1)*10.7^2)/((51 + 56)-2)
 sd_cavity_not_pooled <- sqrt(9.4^2/51 + 10.7^2/56)
 
 #sample
@@ -79,7 +79,7 @@ for(i in 1:10000){
 }
 
 ggplot(means, aes(difference)) +
-  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 9) +
   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -92,7 +92,39 @@ ggplot(means, aes(difference)) +
 
 #with line
 ggplot(means, aes(difference)) +
-  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 9) +
+  ggtitle("Signal under null hypothesis") +
+  ylab("Probability") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
+  geom_vline(xintercept = (43.9 - 39.6), size = 1.5, color = "orange")
+
+sum(abs(means$difference)>= ((43.9 - 39.6)))/10000
+
+
+#instead standardize 
+means$signoise <- means$difference/sd_cavity_not_pooled
+#
+ggplot(means, aes(signoise)) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 9) +
+  ggtitle("Signal under null hypothesis") +
+  ylab("Probability") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#with line
+ggplot(means, aes(signoise)) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 9) +
   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
   theme(axis.title.x = element_text(face="bold", size=28), 
@@ -104,11 +136,9 @@ ggplot(means, aes(difference)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
   geom_vline(xintercept = (43.9 - 39.6)/sd_cavity_not_pooled, size = 1.5, color = "orange")
 
-sum(abs(means$difference)>= ((43.9 - 39.6)/sd_cavity_not_pooled))
-
 #with t distribution overly
-ggplot(means, aes(difference)) +
-  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 15) +
+ggplot(means, aes(signoise)) +
+  geom_histogram(aes(y=..count../sum(..count..)), fill = "orange", bins = 9) +
   stat_function(fun = dt, args = list(df = (56+51-2)),size = 3, color = "green") +   
   ggtitle("Signal under null hypothesis") +
   ylab("Probability") +
