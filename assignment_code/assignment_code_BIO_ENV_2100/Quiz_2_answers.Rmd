@@ -44,7 +44,7 @@ Make sure your answer includes
 ```{r}
 binom.test(7,12, .7)
 library(binom)
-binom.confint(7,12,.7)
+binom.confint(7,12)
 ```
 *I analyzed the data using a binomial test looking for any deviations from 70% 
 infection rates.  Using this method I found a p-value of .3614, so I fail to reject
