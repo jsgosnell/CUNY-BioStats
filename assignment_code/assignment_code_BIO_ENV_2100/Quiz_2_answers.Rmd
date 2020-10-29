@@ -52,7 +52,7 @@ the null hypothesis that the infection rate is 70%.  The alternative hypothesis 
 that the infection rate is not equal to 70%.  Although the rate I observed
 was 58%, the small sample size means this isn't that unlikely to occur by chance if the
 true infection rate is 70%. The small sample size means the 95% confidence interval
-for our estimate of infection rate is .43-.72 (using Agresti-Coul estimates). 
+for our estimate of infection rate is .32-.81 (using Agresti-Coul estimates). 
 We need more zombies to truly assess the population for
 any differences in infection rate.*
 
