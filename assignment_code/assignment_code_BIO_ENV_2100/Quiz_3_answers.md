@@ -38,6 +38,23 @@ t.test(temp, mu = 36.57, alternative = "greater")
     ## mean of x 
     ##     36.22
 
+``` r
+#using non-sided test ok too if justified
+t.test(temp, mu = 36.57)
+```
+
+    ## 
+    ##  One Sample t-test
+    ## 
+    ## data:  temp
+    ## t = -1.7398, df = 4, p-value = 0.1569
+    ## alternative hypothesis: true mean is not equal to 36.57
+    ## 95 percent confidence interval:
+    ##  35.66146 36.77854
+    ## sample estimates:
+    ## mean of x 
+    ##     36.22
+
 *Although this is a small sample size, we know temperature typically
 follows a normal distribution. For this reason, and given that
 bootstrapping was not an option, I used a t-test to test the null
@@ -79,6 +96,23 @@ z.test(temp, mu = 36.57, sigma.x = .42, alternative = "greater")
     ## alternative hypothesis: true mean is greater than 36.57
     ## 95 percent confidence interval:
     ##  35.91105       NA
+    ## sample estimates:
+    ## mean of x 
+    ##     36.22
+
+``` r
+#using non-sided test ok too if justified
+z.test(temp, mu = 36.57, sigma.x = .42)
+```
+
+    ## 
+    ##  One-sample z-Test
+    ## 
+    ## data:  temp
+    ## z = -1.8634, p-value = 0.06241
+    ## alternative hypothesis: true mean is not equal to 36.57
+    ## 95 percent confidence interval:
+    ##  35.85186 36.58814
     ## sample estimates:
     ## mean of x 
     ##     36.22

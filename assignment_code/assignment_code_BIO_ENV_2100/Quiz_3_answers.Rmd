@@ -25,6 +25,9 @@ Unfortunately, measuring temperatures before/after attacks is hard, so data on
 ```{r}
 temp <- c(36.12, 36.37, 35.7, 36.01, 36.9)
 t.test(temp, mu = 36.57, alternative = "greater")
+#using non-sided test ok too if justified
+t.test(temp, mu = 36.57)
+
 ```
 
 *Although this is a small sample size, we know temperature typically follows a 
@@ -42,6 +45,8 @@ your methods and results?
 ```{r}
 library(BSDA)
 z.test(temp, mu = 36.57, sigma.x = .42, alternative = "greater")
+#using non-sided test ok too if justified
+z.test(temp, mu = 36.57, sigma.x = .42)
 ```
 
 *If I knew the standard deviation of human temperature I could use a z-test 
