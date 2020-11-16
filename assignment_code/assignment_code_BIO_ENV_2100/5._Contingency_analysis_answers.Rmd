@@ -125,7 +125,6 @@ chisq.test(travel_table)
 chisq.test(travel_table)$expected
 fisher.test(travel_table)
 library(rcompanion)
-chisq.test(travel_table)
 pairwiseNominalIndependence(travel_table, compare = "row", method = "holm")
 ```
 *I tested the null hypothesis that traveling is independent of time of day (compared
