@@ -123,8 +123,8 @@ library(scales)
 
 #load sites and organize####
 #this is from https://docs.google.com/spreadsheets/d/1MJYr-2Q3-pz-Q21MxYC-nYQHzP9iU-pZ_ySpu1M-oQo/edit?usp=sharing
-sites=read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS2q9XoX5U06r_bZ6T9_B615r-nmxbUyxv7ihv0FAm1DtUOFomd6TIY7GLAGhMLx3Re7DL3m5E7_uJf/pub?gid=1365968743&single=true&output=csv",
-               strip.white = T)
+sites=read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/SurveySiteCoordinates.csv",
+               strip.white = T, stringsAsFactors = T)
 
 #get general coordinate for each location and each site
 #used for sites with boundaries or multiple points, but ok to keep
@@ -166,10 +166,6 @@ ggmap(map)+
            color = "yellow") +
   annotate("text", label="Black Bar Marsh", x=-73.82, y=40.64, size=10, 
            #           color =  hue_pal()(2)[1]),
-           color = "white") +
-  scaleBar(lon = -73.8, lat = 40.5, distanceLon = 5,
-           distanceLat = 5, distanceLegend = 5.5, dist.unit = "km",
-           arrow.length=0, arrow.distance=0, legend.size=5, arrow.North.size=5, 
-           arrow.size=1.25, legend.colour = "white")
+           color = "white") 
 
 #use ggsave("Fig 1, color.jpg", width = 8.11, height = 5.02, units = "in")
