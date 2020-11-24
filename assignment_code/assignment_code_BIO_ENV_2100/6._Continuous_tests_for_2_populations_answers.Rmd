@@ -376,3 +376,11 @@ t.test(cholesterol[cholesterol$day == "2", "cholest"],
        paired = T)
 ```
 
+*I used a paired t-test since each individual was tested twice (experimental 
+unit); this is an example of blocking!  I had to relabel days as a factor because
+otherwise R will do regression (which we haven't covered yet). This is important 
+because if we label something we want to be a factor with numbers R will assume
+its a number!  After running the test I found a test statistic of t~18~=3.28,
+which corresponds to a p-value of .004. Given this I reject the null hypothesis 
+that there is no difference among days in average cholesterol levels. The 
+alternative hypothesis is there is a difference among days.*
