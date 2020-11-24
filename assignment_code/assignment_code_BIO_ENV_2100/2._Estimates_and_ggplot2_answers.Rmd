@@ -204,7 +204,14 @@ ggplot(sleep_by_predation
 
 5. What does a 95% confidence interval mean?
 
+*A 95% confidence interval means the true population parameter value will be in 
+the created interval 95% of the time we create it.*
+
 6. To make sure you understand the ideas of sampling, confidence intervals, and the central limit theorem, review the visualizations produced by UBC @ http://www.zoology.ubc.ca/~whitlock/Kingfisher/CLT.htm.  
+
+*Key outcomes here are understanding that, regardless of the distribution of the 
+data, the distribution of the means of the data (what we typically consider), will
+follow a normal distribution if the sample size is large enough.*
 
 7. For this question you'll need the 
 central_limit_theorem.R script from the 
@@ -233,3 +240,6 @@ When you source a script, it is run in R without showing any console output
 #make sure you have VGAM library installed
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/central_limit_theorem.R")
 ```
+
+*This allows you to visualize what we noted in question 6 and begin to develop a
+sense for what "large sample size" and "odd distribution" really mean.*
