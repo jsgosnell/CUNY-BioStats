@@ -26,12 +26,15 @@ while in conversation in a nightclub, 19 turned their right ear to the speaker
 and 6 turn their left ear to the speaker.  How strong is the evidence for 
 eared-ness given this data (adapted from Analysis of Biological Data)?
 * state a null and alternative hypothesis
-H~o~:  proportion of right-eared people is equal to .5
-H~a~: proportion of right-eared people is note equal to .5
+  + *H~o~:  proportion of right-eared people is equal to .5*
+  + *H~a~: proportion of right-eared people is note equal to .5*
+
 * calculate a test statistic (signal) for this data
 ```{r}
 19/25 #sample proportion
 ```
+*The signal from the data is the proportion of right-eared people  `r 19/25`*
+
 * Make you understand how to construct a null distribution
   + using sampling/simulation (code or written explanation)
 ```{r}
@@ -49,8 +52,12 @@ Number_righteared = c(0:25)
 pdf = data.frame(Number_righteared, using_distribution)
 plot(0:25, using_distribution)
 ```
+
+*Each of these show the expected distribution of signal under the null hypothesis.
+Note this implies multiple samples are taken.  This is theory that underlies NHST
+(null hypothesis significance testing) and definition of p-value (coming up!).*
   
-*Calculate and compare p-values obtained using 
+* Calculate and compare p-values obtained using 
   + simulation (calculation won’t be required on test, but make sure you understand!) (code or written explanation)
 ```{r}
 length(sampling_experiment[sampling_experiment >= 19 | sampling_experiment <= 6])/length(sampling_experiment)
@@ -66,7 +73,10 @@ length(sampling_experiment[sampling_experiment >= 19 | sampling_experiment <= 6]
 binom.test(19,25, p=.5)
 
 ```
-  
+*Note we can calculate a p-value using the simulated distribution, the actual
+distribution (which is exact in this case), and the test (which is usign the 
+actual distribution!).*
+
 * Calculate a 95% confidence interval for the proportion of people who are right-eared
 
 ```{r}
@@ -76,7 +86,9 @@ binom.confint(x=19, n=25, alpha=.05, method="all") #use Agresti-coull
 binom.confint(x=19, n=25, alpha=.05, method="agresti-coull")
 ```
 *Our 95% CI is .562 - .888.  Note it does not include .5!*
+
 * How do your 95% confidence interval and hypothesis test compare?
+
 *The p-value from all methods are <.05, so I reject the null hypothesis that the proportion of right-eared people is equal to .5. The 95% 5% CI is .562 - .888.  Note it does not include .5!*
 
 2.  A professor lets his dog take every multiple-choice test to see how it 
@@ -143,4 +155,6 @@ triplot(prior = c(20,5), data = c(14,4), where = "topleft")
 #less sure right handed
 triplot(prior = c(4,2), data = c(14,4), where = "topleft")
 ```
-
+*This is the "big picture" of Bayesian analysis. We combined our prior beliefs and
+data to update our beliefs (the posterior). We sample/describe the posterior for
+our answer. Everything else is "how do we do that?".*
