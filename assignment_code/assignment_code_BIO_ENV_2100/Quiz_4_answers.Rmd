@@ -1,0 +1,81 @@
+---
+title: "Quiz 4"
+author: "jsg"
+date: "11/16/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Vaccine effectiveness!
+
+A drug company wants to make sure the vaccine they are developing has similar 
+effectiveness for multiple groups.  Out of 10,000 patients, they find the following 
+effectivess among groups (labelled with letters to prevent bias!)
+
+ *Outcome*  | Success | Failure
+  -| ---     | --
+ A |  4600   | 400 
+ B |  2750   | 250
+ C |  800    | 200
+ D |  495    | 505
+ 
+ 
+1. What is the overall effectiveness of the vaccine?
+
+```{r}
+(4600+2750+800+495)/10000
+```
+
+*The overall effectiveness of the vaccine (among all users) could be measured as
+`r (4600+2750+800+495)/10000 * 100`%. However, we could also consider it as 
+`r (4600/5000+2750/3000+800/1000+495/1000)/4 ` given the unequal sample sizes.*
+
+2. Is there any evidence for differences among groups?
+
+```{r}
+effectiveness <-matrix(c(4600, 400, 2750, 250, 800, 200, 495, 505), ncol = 2, byrow = T)
+colnames(effectiveness) <- c("Success", "Failure")
+rownames(effectiveness) <- c("A","B", "C", "D")
+#check it
+effectiveness
+chisq.test(effectiveness)
+library(rcompanion)
+pairwiseNominalIndependence(effectiveness, compare = "row", method = "holm")
+```
+
+*I tested for a difference among groups using a chi^2 test.  This led to a test 
+statistics of chi^2~3~ = 1402.2, which corresponds to a p-value of <.001. I thus 
+reject the null hypothesis of no difference in effectiveness among groups 
+(the alternative is that there is a difference in effectiveness among groups). Given
+this result, I used a post-hoc test to compare groups.  Data (using the
+p.adj.Chisq column) indicate that groups A and B do not differ from each other, but all others do.*
+
+```{r}
+effectiveness_t <-matrix(c(4600, 400, 2750, 250, 800, 200, 495, 505), nrow = 2, byrow = F)
+rownames(effectiveness_t) <- c("Success", "Failure")
+colnames(effectiveness_t) <- c("A","B", "C", "D")
+#check it
+effectiveness_t
+chisq.test(effectiveness_t)
+library(rcompanion)
+pairwiseNominalIndependence(effectiveness_t, compare = "col", method = "holm")
+```
+3. How would you related your findings from question 2 to your answer to question 1? 
+Why does it matter (what you would you recommend or do to follow-up)?
+
+*Even though the overall vaccine was 86% effective, this was heavily influenced
+by data from groups a and b. Further analysis may be needed to consider effects on
+other groups.*
+
+Make sure your answers include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use
+* results from statistical test (including post-hoc tests if needed!)
+* clear explanation of how results relate to your stated hypotheses
+
+
