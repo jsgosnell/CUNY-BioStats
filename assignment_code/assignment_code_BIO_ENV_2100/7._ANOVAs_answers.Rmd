@@ -88,7 +88,7 @@ bootstrapping approaches led to similar conclusions.*
 2. Data on plant heights (in cm) for plants grown with a new and old formulation 
 of fertilizer can be found at
 
-https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/fertilizer.csv.
+https://docs.google.com/spreadsheets/d/e/2PACX-1vSUVowOKlmTic4ekL7LSbwDcqrsDSXv5K_c4Qyfcvz1lLE1_iINmGzy0zMGxY7z5DImlUErK4S2wY7Y/pub?gid=0&single=true&output=csv.
 
 Analyze this data using the t.test function and the lm function to convince yourself the outcome is the same.
 
@@ -177,9 +177,13 @@ districts differ from which others.*
 
 4. Data on FEV (forced expiratory volume), a measure of lung function, can be 
 found at 
+
 http://www.statsci.org/data/general/fev.txt
+
 More information on the dataset is available at 
+
 http://www.statsci.org/data/general/fev.html.
+
 Is there evidence that FEV depends on gender? If so, which gender has the higher
 FEV score?  How much variance does gender explain? 
 
@@ -221,9 +225,13 @@ higher FEV on average.  Graphs also show this relationship.*
 
 5. A professor carried out a long-term study to see how various factors impacted
 pulse rate before and after exercise.  Data can be found at 
+
 http://www.statsci.org/data/oz/ms212.txt
+
 With more info at 
+
 http://www.statsci.org/data/oz/ms212.html.
+
 Is there evidence that frequency of exercise (Exercise column) impacts resting
 pulse rate (Pulse1 column)?
 
