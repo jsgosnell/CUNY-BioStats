@@ -272,9 +272,9 @@ bootstrapjsg(ghosts[ghosts$Present == "Present", "Temperature"], null=56)
     ## intervals
 
     ##                                                                         
-    ##                  "0.95" "% Confidence Interval"      "54.0582147935195" 
+    ##                  "0.95" "% Confidence Interval"      "54.0251149637208" 
     ##                                                                         
-    ##      "57.5166714671125"               "p-value"                "0.8558"
+    ##      "57.5196247838809"               "p-value"                "0.8447"
 
 \*Using the t-test I found a test value t<sub>29</sub>=0.18536, which
 corresponds to a p-value of 0.8542. Bootstrap tests led to similar

@@ -266,12 +266,6 @@ summary(initial)
 Anova(initial, type = "III") 
 ```
 
-*I used a linear model to test if exercise level impacted resting pulse rate.* 
-
-6. Continuing with the pulse dataset, is there evidence frequency of exercise
-impacts change in pulse rate?  Note we should only consider change for students 
-who ran between the first and second pulse measures (Ran column = 1).  
-
 *I used a linear model to test for difference in mean resting pulse rates based 
 on group. 
 This was appropriate as evidenced by the
@@ -282,4 +276,49 @@ Analyses suggest there is no difference in resting pulse rate among groups
 difference does not exist in mean resting pulse rate based on groups. The 
 alternative hypothesis is that a 
 difference does  exist in mean resting pulse rate based on groups.*
+
+6. Continuing with the pulse dataset, is there evidence frequency of exercise
+impacts change in pulse rate?  Note we should only consider change for students 
+who ran between the first and second pulse measures (Ran column = 1). 
+
+```{r}
+pulse$change <- pulse$Pulse2 - pulse$Pulse1
+
+change_summary <- summarySE(pulse[pulse$Ran == 1, ], measurevar="change", groupvars =
+                               c("Exercise"), na.rm = T)
+
+ggplot(change_summary, aes(x=Exercise, y=change)) +
+  geom_col(size = 3) +
+  geom_errorbar(aes(ymin=change-ci, ymax=change+ci), size=1.5) +
+  ylab("Resting pulse \n (beats per minute)") +
+  xlab("Exercise level")+
+  ggtitle("Change in pulse does \n not differ among groups") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+change <- lm(change ~ Exercise, pulse[pulse$Ran == 1, ])
+plot(change)
+Anova(change, type = "III")
+```
+
+*I used a linear model to test for difference in change in pulse rates (before 
+and after running) based 
+on group. 
+This was appropriate as evidenced by the
+residual plots
+(there is no pattern in the residuals and they are normally distributed). 
+Analyses suggest there is no difference in resting pulse rate among groups
+(F~2,43~ = .09, p = .90), so I fail to reject the null hypothesis that a 
+difference does not exist in change in pulse rates (before 
+and after running) based 
+on group.  The 
+alternative hypothesis is that a 
+difference does  exist in change in pulse rates (before 
+and after running) based 
+on group.*
 
