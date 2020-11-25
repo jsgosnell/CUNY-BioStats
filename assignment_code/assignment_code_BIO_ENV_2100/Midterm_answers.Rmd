@@ -39,20 +39,70 @@ it offers evidence supporting the existence of mind-reading (6 pts)?
 Make sure your answers include (if applicable)
 
 * null hypothesis
+
+*(For a sided test) The mind reader can not detect the presence of people, so they will guess 
+correctly 50% or less of the time (what we would expect by chance).* 
+->H~O~: p <= .5
+
+*(For a non-sided test) The mind reader can not detect the presence of people, so they will guess 
+correctly 50% of the time (what we would expect by chance).* ->H~O~: p = .5
+
 * alternative hypothesis
+
+*(For a sided test) The mind reader can detect the presence of people, so they will guess correctly greater than 50% of the time .*->H~A~: p >.5
+
+*(For a non-sided test) The mind reader can  detect the presence of people, so
+the proportion of times they will guess correctly is not equal to 50% 
+(what we would expect by chance).* ->H~A~: p != .5
+
 * explanation for test you will use
+
+*I will use binomial test since its discrete data (counts) that falls into 2 
+groups.*
+
 * results from statistical test
-* clear explanation of how results relate to your stated hypotheses
 
 ```{r}
 binom.test(12,20, alternative="greater", .5)
 ```
+
+*For the sided version, I found a p-value of .2517.*
+
+```{r}
+binom.test(12,20, .5)
+```
+
+*For the non-sided version, I found a p-value of .5034*
+
+
+* clear explanation of how results relate to your stated hypotheses
+
+*In both cases I fail to reject the null hypothesis. The data does not contain
+enough evidence to indicate mind readers can detect the presence of people.*
+
+
 2.  Calculate a confidence interval for the mind-reader data.  Share it and clearly
 explain what it means (3 pts).  
+
+```{r}
+library(binom)
+#non-sided option
+binom.confint(12,20) 
+```
+
+*Using the Agresti-Coull method, we find a 95% confidence interval of .39 - .78. 
+a 95% confidencei interval means 95% of the time we sample the population and 
+create this interval it will contain the true parameter. Note that this interval
+contains .5, meaning the data does not offer much evidence against the parameter 
+under the null hypothesis.*
 
 3. If the mind-reader wanted to redo the experiment, what could
 they do to reduce the width of the confidence interval **ASSUMING** the noted signal
 in the data remains the same. Make sure you explain and justify your answer (3 pts). 
+
+*Given the formula for confidence intervals, the best approach is to have a larger
+sample size.  A larger sample size where the mind reader guessed correctly 60% of 
+the time could lead to "significant" outcome.*
 
 # Ghosts
 ## *Questions 4 - 6*
@@ -66,16 +116,11 @@ temperature.  Data is available using
 ghosts <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/ghosts.csv", stringsAsFactors = T)
 ```
 
-```{r}
-# ghosts <- data.frame (Present = c(rep("Present", 30), rep("Absent", 30)), 
-#                       Temperature = c(rnorm(30, 55, 5), rnorm(30, 58, 4)))
-# write.csv(ghosts, "ghosts.csv", row.names = F)
-```
-
-
-
 3. Provide a graph of the data that clearly displays patterns in the central 
 tendency and variance of the data (many options here!) (5 pts).
+
+*Lots of options here. Some shown below. Key was to include some measure of 
+central tendency and variation OR just plot the data!*
 
 ```{r}
 library(ggplot2)
@@ -110,23 +155,56 @@ As a hint, remember you can subset the data using
 Make sure your answers include (if applicable)
 
 * null hypothesis
+
+*People had issues with my wording here, so I was very open to interpretation.  
+What I was trying to point out is that old  houses tend to be colder in general, 
+so our null hypothesis would be the temperature when ghosts are "detected" is
+no different than 56 degrees. H~O~: mean temperature = 56*
+
 * alternative hypothesis
+
+The temperature when ghosts are "detected" is
+different than 56 degrees. H~A~: mean temperature != 56
+
 * explanation for test you will use
+
+*This is continuous data from one population, so we can use a t.test if we assume
+the data (and thus residusals, as we now know) are normally distributed. We could 
+also bootstrap the data. Other options (sign tests or rank tests) also work but 
+have less power.*
+
 * results from statistical test
-* clear explanation of how results relate to your stated hypotheses
-* confidence interval for your estimate
 
 ```{r}
 t.test(ghosts[ghosts$Present == "Present", "Temperature"], mu=56)
 #or bootstrap
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
-bootstrapjsg(ghosts[ghosts$Present == "Present", "Temperature"], null=53)
+bootstrapjsg(ghosts[ghosts$Present == "Present", "Temperature"], null=56)
 ```
+*Using the t-test I found a test value t~29~=0.18536, which corresponds to a 
+p-value of 0.8542.  Bootstrap tests led to similar p-value (.8494)
+
+* clear explanation of how results relate to your stated hypotheses
+
+*Using either method I reject the null hypothesis. There is not enough evidence
+to indicate the presence of ghosts lowers temperatures.*
+
+* confidence interval for your estimate
+
+*From the t-test, I get a 95% confidence interval of 54.00882-57.66024; the 
+bootstrap interval is 54.06-57.52. Note both include 56.*
+
 
 5.  The investigator is confused. He found an average temerature of 55.8, which is
 less than 56.  He thinks that should confirm the existence of ghosts. Explain any
 issues you see with his rationale in plain English.  Also explain to him what a 
 p-value means as part of your answer (3 pts).
+
+*The small difference he observed between 55.8 and 56 degrees may be explained by
+sampling error.  A p-value indicates hwo likely we were to see the observed signal
+or something more extreme if the null hypothesis were true and multiple samples 
+were collected. 55.8 is within the region of acceptable variation from 56; it 
+does not indicate a devation from the average temperature of 56.*
 
 
 
