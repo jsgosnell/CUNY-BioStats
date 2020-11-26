@@ -380,11 +380,11 @@ Anova(heat_model_new, type = "III")
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-\*There is a significant relationship between gas usage and temperature
+*There is a significant relationship between gas usage and temperature
 for old and new insulation homes. However, the old insulation led to
 using 400 ft<sup>3</sup> more gas per week to heat the house with every
 degree drop in temperature, while the new insulation leads to a increase
-of only 250 ft<sup>3</sup> more gas per week with each degree drop.
+of only 250 ft<sup>3</sup> more gas per week with each degree drop.*
 
 3.  Data on the height, diameter, and volume of cherry trees was
     collected for use in developing an optimal model to predict timber

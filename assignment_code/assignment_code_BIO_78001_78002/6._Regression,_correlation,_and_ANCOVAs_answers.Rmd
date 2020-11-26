@@ -9,8 +9,9 @@ https://sites.google.com/view/biostats/bio-7800178002/week-6 and
 the  **9_Regression_and_correlation.R** and **10_ANCOVA_and_Regression.R
 (up to line 248)** script in the lecture files folder of the
 [CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats). 
-Make sure you are comfortable with null and alternative hypotheses for all
-examples and understand correlation vs regression.
+Make sure you are comfortable with null and alternative hypotheses and appropriate plots
+for all examples. Also make sure you understand the difference between
+correlation and regression.
 
 
 Remember you should
@@ -66,7 +67,11 @@ Anova(exercise, type = "III")
 summary(exercise)
 ```
 *For weight we note the model meets assumptions. We also find no evidence that 
-weight impacts change (F~1,44~ = .4027, p = 0.53). We do not reject our null hypothesis.*  
+weight impacts change (F~1,44~ = .4027, p = 0.53). We fail to reject our null 
+hypothesis that there is no relationship between weight and change in pulse rate.
+ We
+also note that weight only explains 1% of the variation in change in pulse rate 
+(likely due to chance!).*  *  
 
 ```{r}
 #height
@@ -77,7 +82,11 @@ Anova(exercise, type = "III")
 summary(exercise)
 ```
 *For height we note the model meets assumptions. We also find no evidence that 
-weight impacts change (F~1,44~ = 1.15, p = 0.29). We do not reject our null hypothesis.*  
+weight impacts change (F~1,44~ = 1.15, p = 0.29). We fail to reject our null 
+hypothesis that there is no relationship between height and change in pulse rate.
+ We
+also note that age only explains 2.5% of the variation in change in pulse rate 
+(likely due to chance!).*    
 
 2. (from OZDASL repository, http://www.statsci.org/data/general/stature.html; reference for more information)
 
@@ -104,7 +113,7 @@ plot(metacarp_relationship)
 Anova(metacarp_relationship, type = "III")
 summary(metacarp_relationship)
 ```
-*To consider the relationship among these continous variables, we used linear regression. 
+*To consider the relationship among these continuous variables, we used linear regression. 
 Analysis of model assumptions suggest assumptions are met, although the dataset is 
 small.  Analysis suggests there is a significant positive relationship between 
 metacarpal length and stature (F~1,7~ = 19.19, p = 0.003). The R^2^ value indicates
@@ -139,7 +148,7 @@ be fairly normally distibuted and little structure exists in the graph of Residu
 vs. Fitted Values.  Analysis using linear regression suggests a significant (
 F~1,60~ = 10.45, p = 0.002) positive relationship between population size and 
 medal count that explains ~15% of the variation in the response variable.  Rank-
-correlation analysis also indicatded this relationship exists.*
+correlation analysis also indicated this relationship exists.*
 
 
 
@@ -265,8 +274,11 @@ Anova(fev_age, type = "III")
 summary(fev_age)
 ```
 
-*Yes, there is a significant interaction among age and gender on FEV. Analysis suggests
-model assumptions were met. We should explore impacts of age on each gender separately.*
+*We can explore this question using an ANCOVA since the response is continuous and
+the explanatory variables combine a categorical and continuous variable. Analysis of
+residuals indicates the assumptions are met (no pattern, normal distribution). 
+There is a significant interaction among age and gender on FEV (F~1,650~=64.535, 
+p<.001).  We should explore impacts of age on each gender separately.*
 
 ```{r}
 fev_age <- lm(FEV ~ Age, fev[fev$Sex == "Male",])
@@ -353,9 +365,10 @@ plot(heat_model_new)
 summary(heat_model_new)
 Anova(heat_model_new, type = "III")
 ```
-*The old insulation led to using 400 ft^3^ more gas per week to heat the 
+*There is a significant relationship between gas usage and temperature for old 
+and new insulation homes. However, the old insulation led to using 400 ft^3^ more gas per week to heat the 
 house with every degree
 drop in temperature, while the new insulation leads to a increase of only 
-250 ft^3^ more gas per week with each degree drop.  
+250 ft^3^ more gas per week with each degree drop.*  
 
 

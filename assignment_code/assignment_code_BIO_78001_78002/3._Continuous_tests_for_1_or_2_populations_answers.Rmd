@@ -541,7 +541,7 @@ t.test(cholesterol[cholesterol$day == "2", "cholest"],
 
 *The data are paired since the same patient was measured multiple times. For this
 problem I changed day to a factor to consider two groups (we'll return to this in class)
-using a t-test, since the plots suggested a distribution that shoudl approach 
+using a t-test, since the plots suggested a distribution that should approach 
 normality at these sample sizes. I found a test statistic of t~18~ = 3.28 and a 
 p-value of <.01. Since the p-value is < .05, I reject the null hypothesis that 
 average

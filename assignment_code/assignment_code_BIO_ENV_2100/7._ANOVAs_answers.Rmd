@@ -8,7 +8,8 @@ Before doing this, review the **7. ANOVA and multiple comparisons** lecture set 
 https://sites.google.com/view/biostats/bioenv-2100/anova-and-multiple-comparisons and
 the  **7_ANOVAs.R** script in the lecture files folder of the
 [CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
-Make sure you are comfortable with null and alternative hypotheses for all examples.
+Make sure you are comfortable with null and alternative hypotheses and appropriate plots
+for all examples.
 
 
 Remember you should
@@ -75,6 +76,7 @@ p.adjust(as.numeric(bootstrap_post_hoc$comp[,6]), "holm")
 differed among 3 groups.  This was appropriate as evidenced by the residual plots
 (there is no pattern in the residuals and they are normally distributed),
 but other methods are demonstrated as well.
+
 Using an ANOVA, we found F~2,147~= 1180.2, which led to a p-value of <.001.  Given
 this, I reject the null hypothesis there is no difference among mean measurements
 for each species.  

@@ -75,7 +75,7 @@ weight impacts change (F~1,44~ = .4027, p = 0.53). We fail to reject our null
 hypothesis that there is no relationship between weight and change in pulse rate.
  We
 also note that weight only explains 1% of the variation in change in pulse rate 
-(likely due to chance!).*  *  
+(likely due to chance!).*    
 
 ```{r}
 #height
@@ -90,7 +90,7 @@ weight impacts change (F~1,44~ = 1.15, p = 0.29). We fail to reject our null
 hypothesis that there is no relationship between height and change in pulse rate.
  We
 also note that age only explains 2.5% of the variation in change in pulse rate 
-(likely due to chance!).*  * 
+(likely due to chance!).*   
 
 2. (from OZDASL repository, http://www.statsci.org/data/general/stature.html; reference for more information)
 
@@ -117,7 +117,7 @@ plot(metacarp_relationship)
 Anova(metacarp_relationship, type = "III")
 summary(metacarp_relationship)
 ```
-*To consider the relationship among these continous variables, we used linear regression. 
+*To consider the relationship among these continuous variables, we used linear regression. 
 Analysis of model assumptions suggest assumptions are met, although the dataset is 
 small.  Analysis suggests there is a significant positive relationship between 
 metacarpal length and stature (F~1,7~ = 19.19, p = 0.003). The R^2^ value indicates

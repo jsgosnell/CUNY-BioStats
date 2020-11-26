@@ -141,7 +141,7 @@ Anova(heat_model_new, type = "III")
 and new insulation homes. However, the old insulation led to using 400 ft^3^ more gas per week to heat the 
 house with every degree
 drop in temperature, while the new insulation leads to a increase of only 
-250 ft^3^ more gas per week with each degree drop.  
+250 ft^3^ more gas per week with each degree drop.*  
 
 3.  Data on the height, diameter, and volume of cherry trees was collected for
 use in developing an optimal model to predict timber volume.  Data is available @ 
