@@ -1,0 +1,81 @@
+---
+title: "Quiz 8"
+author: "jsg"
+date: "11/18/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Vaccine effectiveness
+
+A recent study of the new coronavirus vaccine produced by Johnson and Johnson 
+led to a surprising result. Lower dosages of the vaccine led to a higher 
+effectiveness. Typically one would assume that higher dosages are better.
+
+Higher dosages, however, may lead to more side effects and also impact availability.  Imagine a study considering dosage level (of a different vaccine) impacts on systolic blood pressure (a potential side effect). Data can be found at
+
+```{r eval=F, include=F}
+set.seed(26)
+dosage <- data.frame(dose_micrograms = c(rep(0,25),rep(25,25), rep(50,25), 
+                                         rep (75, 25), rep (100,25)))
+dosage$systolic <- 110+.35*dosage$dose_micrograms + rnorm(125,0,3)
+write.csv(dosage, "dosage.csv", row.names = F)
+```
+
+```{r}
+dosage <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSEsIPp-49ERvzN2EAC37NrSr9GLsWFTVgIIjBxGwloYoxz5mpUTJ2KCH7kXVxBGLtg9eSLs6YIx32E/pub?gid=993951219&single=true&output=csv", stringsAsFactors = T)
+```
+
+How would you evaluate the results?
+
+Make sure your answers include
+
+* null hypothesis
+
+*There is no relationship between dosage level and systolic blood pressure.* B=0
+
+* alternative hypothesis
+
+*There is a relationship between dosage level and systolic blood pressure.* B!=0
+
+* graph that clearly displays the data and represents these hypotheses
+
+```{r}
+library(ggplot2)
+ggplot(dosage, aes(x=dose_micrograms, y=systolic)) +
+         geom_point()+
+         geom_smooth(method = "lm")+
+         xlab("Vaccine dose (micrograms)")+
+         ylab("Systolic blood pressure")+
+         ggtitle("Systolic blood pressure increases as vaccine dosage increases")
+```
+
+* explanation for test you will use
+
+*I would test for a relationship using regression. The dosage levels were preset, 
+and both the response and explanatory variables are continuous.*
+
+* results from statistical test (including post-hoc tests if needed and indication
+of how much variation the model explains!)
+
+```{r}
+impacts <- lm(systolic~dose_micrograms, dosage)
+plot(impacts)
+library(car)
+Anova(impacts, type = "III")
+summary(impacts)
+```
+
+*I first ensured model assumptions were met. Plots show no patterns in residuals
+and a relatively normal distribution, which means they are. Analysis indicates a
+significant relationship between dose and systolic blood pressure (F~1,123~=2059,
+p<.001), so I reject the null hypothesis. Model analysis indicates dosage level
+explains 94% of the variation in blood pressure (this an example!). There is no
+need for post-hoc tests in regression!*
+
+* clear explanation of how results relate to your stated hypotheses
+
+*noted above.*

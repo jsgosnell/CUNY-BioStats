@@ -1,0 +1,124 @@
+---
+title: "Quiz 9"
+author: "jsg"
+date: "11/18/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Vaccine effectiveness
+
+An earlier study (Quiz 8) focused on a relationship between dosage and systolic blood pressure).  A follow-up wanted to consider if ethnicity impacted this 
+relationship.  Data were collected from 4 different groups (labeled A-D here) on 
+vaccine dosage level and systolic blood pressure. Data can be found at
+
+```{r eval=F, include=F}
+set.seed(26)
+dosage_group <- data.frame(dose_micrograms = c(rep(0,40),rep(25,40), rep(50,40), 
+                                         rep (75, 40), rep (100,40)),
+                     group = rep(c(rep("A", 10), rep("B", 10), 
+                                   rep("C",10), rep("D",10)), 5),
+                     systolic = NA)
+dosage_group[dosage_group$group %in% c("A","B"), "systolic"] =
+  120+.35*dosage_group[dosage_group$group %in% c("A","B"), "dose_micrograms"] +
+  rnorm(100,0,3)
+dosage_group[dosage_group$group %in% c("C"), "systolic"] =
+  110+.35*dosage_group[dosage_group$group %in% c("C"), "dose_micrograms"] + 
+  rnorm(50,0,3)
+dosage_group[dosage_group$group %in% c("D"), "systolic"] = 
+  100+.35*dosage_group[dosage_group$group %in% c("D"), "dose_micrograms"] + 
+  rnorm(50,0,3)
+write.csv(dosage_group, "dosage_group.csv", row.names = F)
+```
+
+```{r}
+dosage_group <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSXfNA4nl1SRK6BDxfJqo7izW254hxP8N4tjK9snXZngfgQFJ3aeKlg5EAAWPfrStv_61e3FKsAOjjx/pub?gid=73925069&single=true&output=csv", stringsAsFactors = T)
+```
+
+How would you evaluate the results?
+
+Make sure your answers include
+
+* null hypothesis
+
+*We have three null hypotheses here*:
+
+* *There is no difference in systolic blood pressure based on dosage*
+
+* *There is no difference in systolic blood pressure based on group*
+
+* *There is no interaction between group and dosage agent on systolic blood 
+pressure* 
+
+* alternative hypothesis
+
+*We have three alternative hypotheses here*:
+
+* *There is a difference in systolic blood pressure based on dosage*
+
+* *There is a difference in systolic blood pressure based on group*
+
+* *There is an interaction between group and dosage agent on systolic blood 
+pressure* 
+
+* graph that clearly displays the data and represents these hypotheses
+
+```{r}
+library(ggplot2)
+ggplot(dosage_group, aes(x=dose_micrograms, y=systolic, shape = group, 
+                         color = group)) +
+         geom_point()+
+         geom_smooth(method="lm")+
+         xlab("Vaccine dose (micrograms)")+
+         ylab("Systolic blood pressure")+
+         ggtitle("Systolic blood pressure increases as vaccine dosage increases,
+                 but impacts differ among groups")
+```
+
+* explanation for test you will use
+
+*I will use an ANCOVA here. The explanatory variables combine a continuous and 
+categorial variable, the outcome is continuous and should follow a normal 
+distribution (so should meet model assumptions).*
+
+
+* results from statistical test (including post-hoc tests if needed and indication
+of how much variation the model explains!)
+
+```{r}
+impacts_group <- lm(systolic~dose_micrograms*group, dosage_group)
+plot(impacts_group)
+library(car)
+Anova(impacts_group, type = "III")
+```
+
+*I first ensured model assumptions were met. Plots show no patterns in residuals
+and a relatively normal distribution, which means they are. Analysis indicates no significant interaction between dose and group on  systolic blood pressure
+(F~3,192~=.87,p = .46), so I fail to reject the null hypothesis that an interaction
+does note exist. Given this, I remove the interaction from the model.*
+
+```{r}
+impacts_group <- lm(systolic~dose_micrograms+group, dosage_group)
+plot(impacts_group)
+Anova(impacts_group, type = "III")
+library(multcomp)
+group_compare <-glht(impacts_group, linfct = mcp(group = "Tukey"))
+summary(group_compare)
+summary(impacts_group)
+```
+*Analysis of the reduced model suggests that both dosage (F~1,195~=3232, p <.01)
+and group (F~3,195~=493, p <.01) have a 
+significant impact on systolic blood pressure, so I reject both related null 
+hypotheses. Since there are more than 2 groups, I used post-hoc tests to determine
+which groups were different. Analysis using Tukey tests shows that groups A and B
+do not differ, but all other possible pairs are significantly different.  Full
+model analysis indicates dosage level and group
+explains 96% of the variation in blood pressure (this an example!).*
+
+* clear explanation of how results relate to your stated hypotheses
+
+*noted above.*
