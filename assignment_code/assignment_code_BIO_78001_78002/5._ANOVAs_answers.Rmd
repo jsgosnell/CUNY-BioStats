@@ -71,9 +71,9 @@ p.adjust(as.numeric(bootstrap_post_hoc$comp[,6]), "holm")
 *Answer: We used an ANOVA (a special case of linear models) to investigate how a numerical response variable 
 differed among 3 groups.  This was appropriate as evidenced by the residual plots
 (there is no pattern in the residuals and they are normally distributed),
-but other methods are demonstrated as well.  
+but other methods are demonstrated as well.*  
 
-Using an ANOVA, we found F~2,147~= 1180.2, which led to a p-value of <.001.  Given
+*Using an ANOVA, we found F~2,147~= 1180.2, which led to a p-value of <.001.  Given
 this, I reject the null hypothesis there is no difference among mean measurements
 for each species.  
 Post-hoc testing indicated all species significantly differed from all others 
