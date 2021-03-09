@@ -323,7 +323,6 @@ plot(TotalSleep ~ BrainWt, data = sleep[sleep$BrainWt <  1000, ])
 abline(sleep_fit)
 ```
 
-
 **EXTRA QUESTIONS** *not required*
 
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/9/94/Puffin_Mrkoww.jpg)
