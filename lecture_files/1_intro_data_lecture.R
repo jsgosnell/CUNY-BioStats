@@ -984,13 +984,17 @@ birds <- data.frame(greenness = greenness, habitat = habitat, date = date)
 #NOTE: AS OF EARLY 2020, R NO LONGER READS IN STRINGS AS FACTORS BY DEFAULT!  SO 
 #TO GET BAR GRAPHS, ETC, YOU MAY HAVE TO MANUALLY CHANGE A COLUMN TO A FACTOR. 
 #YOU CAN DO THIS FOR SINGLE INSTANCE OR CHANGE THE ACTUAL OBJECT
+#
+#EXAMPLE OF DATA ANALYSIS STEPS####
 
-#INITIAL DATA CHECKS####
+#LOAD THE DATA####
 # its always good to make sure the data are in correctly. for today we'll be using the built in
 #airquality dataset
 
 airquality
 # if this is too big, try
+# 
+#CHECK THE DATA####
 
 head(airquality)
 
@@ -1020,7 +1024,7 @@ airquality$Month <- as.factor(airquality$Month)
 #alphabetical).  If you need to turn numbers from factors to numbers,
 #as.numeric(as.character(x)). the easier lesson is to name things rights to begin with
 
-# BASIC PLOTTING####
+# EXPLORATORY DATA ANALYSIS - PLOTTING AND NUMERICAL SUMMARIES####
 # once your classes are set, let's do some basic plotting.  there are multiple 
 # plotting commands in r.  the simplest is plot.  You can plot by specifying x and 
 # y coordinates or by using a the formula setup.  In r, formulas are marked as
@@ -1043,7 +1047,7 @@ plot(Ozone~Temp, airquality, col=airquality$Month)
 
 #We'll be introducing another graphing package, ggplot2, later this semester
 
-#FORMULAS AND TESTS####
+#FORMAL ANALYSIS####
 # Now lets do some basic analyses.  the easiest way to do this is using linear models (a more general description
 # for regression, t-tests, ANOVAs, ANCOVAs.  If you prefer there are commands that specifically do these only
 
