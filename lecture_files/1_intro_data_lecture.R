@@ -306,7 +306,7 @@ vegSurvey_veg_per_site$Proportion <- vegSurvey_veg_per_site$total_veg_per_site/
 
 ggplot(vegSurvey_veg_per_site, aes(x=sampling_point, y=Proportion)) +
   geom_bar(aes(fill=veg_Type), size = 3, stat = "identity") +
-  ylab("Frequency") + 
+  ylab("Percent") + 
   xlab("Sampling point") +
   ggtitle("Invasive and native species based on site")+
   scale_fill_manual(name="Plant type",values = c("#FFA373","#50486D")) +
