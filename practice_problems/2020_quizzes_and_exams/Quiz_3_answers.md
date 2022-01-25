@@ -3,9 +3,9 @@ Quiz 3
 jsg
 10/21/2020
 
------
+------------------------------------------------------------------------
 
-# ZOMBIES\!
+# ZOMBIES!
 
 You wake up one morning and find that zombies have taken over your
 neighborhood (bummer).
@@ -18,8 +18,6 @@ data on 5 survivors of attacks have been recorded. They were: 36.12,
 36.37, 35.7, 36.01, 36.9.
 
 1.  Is there any evidence that temperature influences zombie attacks?
-
-<!-- end list -->
 
 ``` r
 temp <- c(36.12, 36.37, 35.7, 36.01, 36.9)
@@ -69,16 +67,18 @@ fail reject the null hypothesis.*
 2.  How would knowing the standard deviation of human temperature is
     0.42 change your methods and results?
 
-<!-- end list -->
-
 ``` r
 library(BSDA)
 ```
 
-    ## Loading required package: lattice
+    ## Warning: package 'BSDA' was built under R version 4.1.2
 
     ## 
     ## Attaching package: 'BSDA'
+
+    ## The following objects are masked from 'package:carData':
+    ## 
+    ##     Vocab, Wool
 
     ## The following object is masked from 'package:datasets':
     ## 
@@ -123,9 +123,9 @@ the null hypothesis, which makes sense.*
 
 Make sure your answers include
 
-  - null hypothesis
-  - alternative hypothesis
-  - explanation for test you will use
-  - results from statistical test
-  - clear explanation of how results relate to your stated hypotheses
-  - confidence interval for your estimate
+-   null hypothesis
+-   alternative hypothesis
+-   explanation for test you will use
+-   results from statistical test
+-   clear explanation of how results relate to your stated hypotheses
+-   confidence interval for your estimate

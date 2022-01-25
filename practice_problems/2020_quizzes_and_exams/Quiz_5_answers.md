@@ -3,7 +3,7 @@ Quiz 5
 jsg
 11/18/2020
 
-# Biocontrol effectiveness\!
+# Biocontrol effectiveness!
 
 One way to reduce herbivory by invasive species is biocontrol - the
 intentional release or supplementation of species that prey on a pest.
@@ -30,24 +30,22 @@ aphid_density_long <- melt(aphid_density, id.vars = "field", variable.name = "be
 
 Make sure your answers include
 
-  - null hypothesis
+-   null hypothesis
 
 *There is no impact of biocontrol on aphid density, so the mean
 difference between the two samples is 0.*
 
-  - alternative hypothesis
+-   alternative hypothesis
 
 *There is an impact of biocontrol on aphid density, so the mean
 difference between the two samples is not 0.*
 
-  - explanation for test you will use
+-   explanation for test you will use
 
 *I will use a paired t-test since the data consists of continuous
 measures and each unit (field) is measured twice.*
 
-  - results from statistical test (including post-hoc tests if needed\!)
-
-<!-- end list -->
+-   results from statistical test (including post-hoc tests if needed!)
 
 ``` r
 t.test(aphid_density$before, aphid_density$after, paired = T)
@@ -66,7 +64,7 @@ t.test(aphid_density$before, aphid_density$after, paired = T)
     ##                15.58709
 
 *Using a paired t-test, we found t<sub>24</sub>=24.225, p\<.01. Note a
-non-paired test leads to different outcomes\!*
+non-paired test leads to different outcomes!*
 
 ``` r
 t.test(aphid_density$before, aphid_density$after)
@@ -84,7 +82,7 @@ t.test(aphid_density$before, aphid_density$after)
     ## mean of x mean of y 
     ##  163.2800  147.6929
 
-  - clear explanation of how results relate to your stated hypotheses
+-   clear explanation of how results relate to your stated hypotheses
 
 *We can reject the null hypothesis using a paired test. There appears to
 be a decreasee in density based on biocontrol application. * a graph
@@ -121,13 +119,6 @@ ggplot(aphid_density, aes(x=change)) +
 
 ``` r
 library(Rmisc)
-```
-
-    ## Loading required package: lattice
-
-    ## Loading required package: plyr
-
-``` r
 aphid_summary <- summarySE(aphid_density_long, measurevar = "aphid_density",
                            groupvars = "before_after")
 ggplot(aphid_summary, aes(x=before_after, y=aphid_density))+

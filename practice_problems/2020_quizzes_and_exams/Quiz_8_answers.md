@@ -23,19 +23,17 @@ How would you evaluate the results?
 
 Make sure your answers include
 
-  - null hypothesis
+-   null hypothesis
 
 *There is no relationship between dosage level and systolic blood
 pressure.* B=0
 
-  - alternative hypothesis
+-   alternative hypothesis
 
 *There is a relationship between dosage level and systolic blood
-pressure.* B\!=0
+pressure.* B!=0
 
-  - graph that clearly displays the data and represents these hypotheses
-
-<!-- end list -->
+-   graph that clearly displays the data and represents these hypotheses
 
 ``` r
 library(ggplot2)
@@ -51,16 +49,14 @@ ggplot(dosage, aes(x=dose_micrograms, y=systolic)) +
 
 ![](Quiz_8_answers_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-  - explanation for test you will use
+-   explanation for test you will use
 
 *I would test for a relationship using regression. The dosage levels
 were preset, and both the response and explanatory variables are
 continuous.*
 
-  - results from statistical test (including post-hoc tests if needed
-    and indication of how much variation the model explains\!)
-
-<!-- end list -->
+-   results from statistical test (including post-hoc tests if needed
+    and indication of how much variation the model explains!)
 
 ``` r
 impacts <- lm(systolic~dose_micrograms, dosage)
@@ -71,11 +67,6 @@ plot(impacts)
 
 ``` r
 library(car)
-```
-
-    ## Loading required package: carData
-
-``` r
 Anova(impacts, type = "III")
 ```
 
@@ -117,9 +108,9 @@ residuals and a relatively normal distribution, which means they are.
 Analysis indicates a significant relationship between dose and systolic
 blood pressure (F<sub>1,123</sub>=2059, p\<.001), so I reject the null
 hypothesis. Model analysis indicates dosage level explains 94% of the
-variation in blood pressure (this an example\!). There is no need for
-post-hoc tests in regression\!*
+variation in blood pressure (this an example!). There is no need for
+post-hoc tests in regression!*
 
-  - clear explanation of how results relate to your stated hypotheses
+-   clear explanation of how results relate to your stated hypotheses
 
 *noted above.*

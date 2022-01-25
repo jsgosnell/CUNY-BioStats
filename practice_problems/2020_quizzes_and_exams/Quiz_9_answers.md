@@ -19,31 +19,29 @@ How would you evaluate the results?
 
 Make sure your answers include
 
-  - null hypothesis
+-   null hypothesis
 
 *We have three null hypotheses here*:
 
-  - *There is no difference in systolic blood pressure based on dosage*
+-   *There is no difference in systolic blood pressure based on dosage*
 
-  - *There is no difference in systolic blood pressure based on group*
+-   *There is no difference in systolic blood pressure based on group*
 
-  - *There is no interaction between group and dosage agent on systolic
+-   *There is no interaction between group and dosage agent on systolic
     blood pressure*
 
-  - alternative hypothesis
+-   alternative hypothesis
 
 *We have three alternative hypotheses here*:
 
-  - *There is a difference in systolic blood pressure based on dosage*
+-   *There is a difference in systolic blood pressure based on dosage*
 
-  - *There is a difference in systolic blood pressure based on group*
+-   *There is a difference in systolic blood pressure based on group*
 
-  - *There is an interaction between group and dosage agent on systolic
+-   *There is an interaction between group and dosage agent on systolic
     blood pressure*
 
-  - graph that clearly displays the data and represents these hypotheses
-
-<!-- end list -->
+-   graph that clearly displays the data and represents these hypotheses
 
 ``` r
 library(ggplot2)
@@ -61,16 +59,14 @@ ggplot(dosage_group, aes(x=dose_micrograms, y=systolic, shape = group,
 
 ![](Quiz_9_answers_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-  - explanation for test you will use
+-   explanation for test you will use
 
 *I will use an ANCOVA here. The explanatory variables combine a
 continuous and categorial variable, the outcome is continuous and should
 follow a normal distribution (so should meet model assumptions).*
 
-  - results from statistical test (including post-hoc tests if needed
-    and indication of how much variation the model explains\!)
-
-<!-- end list -->
+-   results from statistical test (including post-hoc tests if needed
+    and indication of how much variation the model explains!)
 
 ``` r
 impacts_group <- lm(systolic~dose_micrograms*group, dosage_group)
@@ -81,11 +77,6 @@ plot(impacts_group)
 
 ``` r
 library(car)
-```
-
-    ## Loading required package: carData
-
-``` r
 Anova(impacts_group, type = "III")
 ```
 
@@ -132,24 +123,6 @@ Anova(impacts_group, type = "III")
 
 ``` r
 library(multcomp)
-```
-
-    ## Loading required package: mvtnorm
-
-    ## Loading required package: survival
-
-    ## Loading required package: TH.data
-
-    ## Loading required package: MASS
-
-    ## 
-    ## Attaching package: 'TH.data'
-
-    ## The following object is masked from 'package:MASS':
-    ## 
-    ##     geyser
-
-``` r
 group_compare <-glht(impacts_group, linfct = mcp(group = "Tukey"))
 summary(group_compare)
 ```
@@ -165,11 +138,11 @@ summary(group_compare)
     ## Linear Hypotheses:
     ##            Estimate Std. Error t value Pr(>|t|)    
     ## B - A == 0  -0.1019     0.5990   -0.17    0.998    
-    ## C - A == 0  -9.8162     0.5990  -16.39   <1e-07 ***
-    ## D - A == 0 -19.7187     0.5990  -32.92   <1e-07 ***
-    ## C - B == 0  -9.7142     0.5990  -16.22   <1e-07 ***
-    ## D - B == 0 -19.6167     0.5990  -32.75   <1e-07 ***
-    ## D - C == 0  -9.9025     0.5990  -16.53   <1e-07 ***
+    ## C - A == 0  -9.8162     0.5990  -16.39   <1e-06 ***
+    ## D - A == 0 -19.7187     0.5990  -32.92   <1e-06 ***
+    ## C - B == 0  -9.7142     0.5990  -16.22   <1e-06 ***
+    ## D - B == 0 -19.6167     0.5990  -32.75   <1e-06 ***
+    ## D - C == 0  -9.9025     0.5990  -16.53   <1e-06 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## (Adjusted p values reported -- single-step method)
@@ -208,8 +181,8 @@ post-hoc tests to determine which groups were different. Analysis using
 Tukey tests shows that groups A and B do not differ, but all other
 possible pairs are significantly different. Full model analysis
 indicates dosage level and group explains 96% of the variation in blood
-pressure (this an example\!).*
+pressure (this an example!).*
 
-  - clear explanation of how results relate to your stated hypotheses
+-   clear explanation of how results relate to your stated hypotheses
 
 *noted above.*

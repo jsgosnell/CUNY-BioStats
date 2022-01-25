@@ -3,7 +3,7 @@ Quiz 7
 jsg
 11/20/2020
 
-# Biocontrol effectiveness\!
+# Biocontrol effectiveness!
 
 ![The *parasitic wasp* Trioxys complanatus is a biological control agent
 introduced to combat the spotted alfalfa aphid. . CSIRO, CC BY 3.0
@@ -23,7 +23,7 @@ Fig 2: Two different sized Seven Spotted-Ladybug (*Coccinella
 septempunctata*) eating mealybugs/aphids. Zeynel Cebeci, CC BY-SA 4.0
 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
 
-Building on earlier experiments (Quiz 5 and 6\!), scientists now wonder
+Building on earlier experiments (Quiz 5 and 6!), scientists now wonder
 if the impact of the biocontrol agents depends on the presence of an
 aphid competitor. Scientists measure the number of damaged leaves along
 10 m surveys in fields that have had no biocontrol (control) and those
@@ -37,41 +37,39 @@ damage_competitor <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1v
 
 Make sure your answers include
 
-  - null hypothesis
+-   null hypothesis
 
 *We have three null hypotheses here*:
 
-  - *There is no difference in the average number of damaged leaves
+-   *There is no difference in the average number of damaged leaves
     based on biocontrol agent*
 
-  - *There is no difference in the average number of damaged leaves
+-   *There is no difference in the average number of damaged leaves
     based on competitor presence*
 
-  - *There is no interaction between competitor presence and biocontrol
+-   *There is no interaction between competitor presence and biocontrol
     agent on the the average number of damaged leaves*
 
-  - alternative hypothesis
+-   alternative hypothesis
 
 *We have three alternative hypotheses here:*
 
-  - *There is a difference in the average number of damaged leaves based
+-   *There is a difference in the average number of damaged leaves based
     on biocontrol agent*
 
-  - *There is a difference in the average number of damaged leaves based
+-   *There is a difference in the average number of damaged leaves based
     on competitor presence*
 
-  - *There is an interaction between competitor presence and biocontrol
+-   *There is an interaction between competitor presence and biocontrol
     agent on the the average number of damaged leaves*
 
-  - explanation for test you will use
+-   explanation for test you will use
 
 *We will use a factorial ANOVA to examine the data. The outcome is
 continuous and both explanatory variables are categorical. The design is
 also fully randomized.*
 
-  - results from statistical test (including post-hoc tests if needed\!)
-
-<!-- end list -->
+-   results from statistical test (including post-hoc tests if needed!)
 
 ``` r
 damage_competitor_lm <- lm(leaf_damage~treatment*competitor, damage_competitor)
@@ -82,11 +80,6 @@ plot(damage_competitor_lm)
 
 ``` r
 library(car)
-```
-
-    ## Loading required package: carData
-
-``` r
 Anova(damage_competitor_lm, type = "III")
 ```
 
@@ -141,7 +134,7 @@ damage_competitor_absent_lm <- lm(leaf_damage~treatment,
 plot(damage_competitor_absent_lm)
 ```
 
-![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
 
 ``` r
 Anova(damage_competitor_absent_lm, type = "III")
@@ -159,26 +152,6 @@ Anova(damage_competitor_absent_lm, type = "III")
 
 ``` r
 library(multcomp)
-```
-
-    ## Loading required package: mvtnorm
-
-    ## Loading required package: survival
-
-    ## Loading required package: TH.data
-
-    ## Loading required package: MASS
-
-    ## 
-    ## Attaching package: 'TH.data'
-
-    ## The following object is masked from 'package:MASS':
-    ## 
-    ##     geyser
-
-![](Quiz_7_answers_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
-
-``` r
 damage_compare <-   glht(damage_competitor_absent_lm, linfct = mcp(treatment = "Tukey"))
 summary(damage_compare)
 ```
@@ -208,23 +181,16 @@ hypothesis of no difference among treatments. Since there are more than
 different. A tukey approach indicates all treatments are different when
 the competitor is absent.*
 
-  - clear explanation of how results relate to your stated hypotheses
+-   clear explanation of how results relate to your stated hypotheses
 
 *Noted above.*
 
-  - a graph that clearly displays the data
+-   a graph that clearly displays the data
 
-*One option shown below\!*
+*One option shown below!*
 
 ``` r
 library(Rmisc)
-```
-
-    ## Loading required package: lattice
-
-    ## Loading required package: plyr
-
-``` r
 damage_competitor_summary <- summarySE(damage_competitor, measurevar = "leaf_damage", groupvars = c("treatment", "competitor"))
 library(ggplot2)
 ggplot(damage_competitor_summary, aes(x=treatment, y=leaf_damage, fill = competitor))+

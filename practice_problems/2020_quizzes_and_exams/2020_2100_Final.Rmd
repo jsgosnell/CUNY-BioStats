@@ -1,0 +1,138 @@
+---
+title: "2020 Bio 2100 Final: A brief history of preventative dentistry (37 pts total)"
+author: "jsg"
+date: "12/12/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students.
+
+Good luck!
+
+Have you ever wondered why we use fluoride in toothpaste? The data below is not 
+exact but follows the general story and gives a good view of how science and 
+statistics can work together.  Let's pretend you were a fellow scientist/dentist/doctor
+who was part of the story.
+
+1. Frederick McKay moved to Colorado Springs, Colorado after completing dental 
+school in 1901.  He was surprised to find the locals had extremely stained teeth 
+(to the point they permanently looked like they had recently eaten chocolate candy).
+In general
+8% of people at the time had stained teeth, but in his first month on the job 
+he noted six
+out of 15 patients had stained teeth. 
+
+He thinks this seems like a lot but asks you to help give his feeling a quantitative
+analysis.  How would you evaluate the data? Make sure to include
+
+  - null hypothesis (1 pt)
+  - alternative hypothesis (1 pt)
+  - explanation for test you will use (1 pt)
+  - results from statistical test (including post-hoc tests if needed!) (2 pt)
+  - clear explanation of how results relate to your stated hypotheses (1 pt)
+
+2. McKay spent the next several years trying to determine what was causing the 
+staining (or mottling, as he called it) and was assisted by multiple others.  Dr.
+G.V. Black was a primary collaborator.  Together they investigated a few ideas.  First, 
+they compared tooth staining rates in people who had been in the town for various
+periods of time.  They found 
+
+| *Age moved to town*           | Stains present | Stains absent    |
+| ---------                     | -------        | -------          |
+| born in town                  | 50               | 20              |
+| moved to town as young child (<10)  | 48           | 23              |
+| moved to town as older child (11-20)     | 7           | 81              |
+| moved to town as adult  (20+)      | 3            |  35             |
+
+How would you evaluate the data? Make sure to include
+
+  - null hypothesis (1 pt)
+  - alternative hypothesis (1 pt)
+  - explanation for test you will use (1 pt)
+  - results from statistical test (including post-hoc tests if needed!) (2 pt)
+  - clear explanation of how results relate to your stated hypotheses (1 pt)
+  
+3.  What does your answer to question #2 imply (explain what your results mean!) 
+? You don't have to give the right answer here, but propose a hypothesis
+that may explain these results or clearly explain what the results suggest (2 pts).
+
+4.  During their work the dentists also noticed that stained teeth behaved 
+differently than unstained teeth.  Data they collected on the number of micro-cavities
+per tooth in patients with stained and un-stained teeth is found at
+
+
+```{r}
+cavities <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQsMBSH0ONdoUlkzBFLbzwSEGNaj14ZXePJtr59QY7C3N2AYzKhm4Pdo5bKteqRMzwTZT9c/pub?gid=220386619&single=true&output=csv", stringsAsFactors = T)
+```
+What does the data suggest? Make sure to include
+
+  - null hypothesis (1 pt)
+  - alternative hypothesis (1 pt)
+  - explanation for test you will use (1 pt)
+  - results from statistical test (including post-hoc tests if needed!) (2 pt)
+  - clear explanation of how results relate to your stated hypotheses (1 pt)
+  
+5. Provide a properly-labeled graph of the data from question 4. Make sure it shows 
+both the signal
+and noise in the data (5 pts)!
+
+
+6. An unfortunate incident in Idaho shed more light on the causes of staining. 
+People noticed a slight increase in tooth staining after a town switched to a new
+water source. Consider the average tooth color (0 is score assigned to pure white 
+using color-measuring tools from
+the time, 100 is the score for pure black) of children from families who had 
+children before and 
+after the switch.  Data is available @ 
+
+```{r}
+idaho_cavities <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6vCEkF79IKADjr8nugsbrOnHyk15NJbo7_Q4qWRfJ-OrJ8FoFfkkzFQ25mtVwKVZyWF_kh97SJfO/pub?gid=1969060757&single=true&output=csv", stringsAsFactors = F)
+
+```
+
+What does the data suggest? Make sure to include
+
+  - null hypothesis (1 pt)
+  - alternative hypothesis (1 pt)
+  - explanation for test you will use (1 pt)
+  - results from statistical test (including post-hoc tests if needed!) (2 pt)
+  - clear explanation of how results relate to your stated hypotheses (1 pt)
+
+7.  Analysis of water from other towns where staining was common eventually revealed
+high amounts of fluoride. Scientists then collected data on average tooth decay rates
+and fluoride levels from multiple towns (this part is made up!).  Data is available @
+
+```{r}
+fluoride <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5WyzEIMyj-HGArfu_ZIT5cneHI5RiqmDIW_TaDDKgFTtBgcPXCPA00TLO4ax-xJlknn2bWfBi/pub?gid=1554561003&single=true&output=csv", stringsAsFactors = T)
+```
+
+  - null hypothesis (1 pt)
+  - alternative hypothesis (1 pt)
+  - explanation for test you will use (1 pt)
+  - results from statistical test (including post-hoc tests if needed!) (2 pt)
+  - clear explanation of how results relate to your stated hypotheses (1 pt)
+
+## Epilogue
+
+In the real world, researchers worked to determine how much fluoride was 
+too much in regards to staining (which is a more complicated analysis) before 
+eventually considering its usefulness in low (safe) concentrations.  After 
+large-scale studies showed results, it became a major component of preventative
+dentistry.
+
+
+
+
+

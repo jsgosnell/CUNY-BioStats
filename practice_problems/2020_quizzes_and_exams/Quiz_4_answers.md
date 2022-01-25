@@ -3,23 +3,21 @@ Quiz 4
 jsg
 11/16/2020
 
-# Vaccine effectiveness\!
+# Vaccine effectiveness!
 
 A drug company wants to make sure the vaccine they are developing has
 similar effectiveness for multiple groups. Out of 10,000 patients, they
 find the following effectivess among groups (labelled with letters to
-prevent bias\!)
+prevent bias!)
 
 | *Outcome* | Success | Failure |
-| --------- | ------- | ------- |
+|-----------|---------|---------|
 | A         | 4600    | 400     |
 | B         | 2750    | 250     |
 | C         | 800     | 200     |
 | D         | 495     | 505     |
 
 1.  What is the overall effectiveness of the vaccine?
-
-<!-- end list -->
 
 ``` r
 (4600+2750+800+495)/10000
@@ -32,8 +30,6 @@ measured as 86.45%. However, we could also consider it as 0.7829167
 given the unequal sample sizes.*
 
 2.  Is there any evidence for differences among groups?
-
-<!-- end list -->
 
 ``` r
 effectiveness <-matrix(c(4600, 400, 2750, 250, 800, 200, 495, 505), ncol = 2, byrow = T)
@@ -61,11 +57,6 @@ chisq.test(effectiveness)
 
 ``` r
 library(rcompanion)
-```
-
-    ## Warning: package 'rcompanion' was built under R version 4.0.3
-
-``` r
 pairwiseNominalIndependence(effectiveness, compare = "row", method = "holm")
 ```
 
@@ -131,8 +122,8 @@ to consider effects on other groups.*
 
 Make sure your answers include
 
-  - null hypothesis
-  - alternative hypothesis
-  - explanation for test you will use
-  - results from statistical test (including post-hoc tests if needed\!)
-  - clear explanation of how results relate to your stated hypotheses
+-   null hypothesis
+-   alternative hypothesis
+-   explanation for test you will use
+-   results from statistical test (including post-hoc tests if needed!)
+-   clear explanation of how results relate to your stated hypotheses

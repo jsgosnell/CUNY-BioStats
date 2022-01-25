@@ -3,16 +3,16 @@ Plotting quiz
 jsg
 10/16/2020
 
------
+------------------------------------------------------------------------
 
-# ZOMBIES\!
+# ZOMBIES!
 
 You wake up one morning and find that zombies have taken over your
 neighborhood (bummer). One idea is to use biocontrol to reduce zombie
-attacks. A zombie parasite is identified. Test plots (neighborhoods\!)
+attacks. A zombie parasite is identified. Test plots (neighborhoods!)
 are subjected to one or two releases of the parasite at low, medium, or
-high densities. Use the data (in R chunk below\!) to construct a graph
-(You should use a bar graph with confidence intervals\!) that properly
+high densities. Use the data (in R chunk below!) to construct a graph
+(You should use a bar graph with confidence intervals!) that properly
 summarizes how the number of releases impacts the number of zombie
 attacks.
 
@@ -24,11 +24,6 @@ library(plyr)
 biocontrol$Density <- factor(biocontrol$Density, c("low", "medium", "high"))
 
 library(Rmisc)
-```
-
-    ## Loading required package: lattice
-
-``` r
 biocontrol_summary_no_int <- summarySE(biocontrol, measurevar = "bites", groupvars = c("Releases"))
 
 library(ggplot2)

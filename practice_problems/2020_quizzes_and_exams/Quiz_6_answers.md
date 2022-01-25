@@ -3,7 +3,7 @@ Quiz 6
 jsg
 11/20/2020
 
-# Biocontrol effectiveness\!
+# Biocontrol effectiveness!
 
 ![The *parasitic wasp* Trioxys complanatus is a biological control agent
 introduced to combat the spotted alfalfa aphid. . CSIRO, CC BY 3.0
@@ -23,7 +23,7 @@ Fig 2: Two different sized Seven Spotted-Ladybug (*Coccinella
 septempunctata*) eating mealybugs/aphids. Zeynel Cebeci, CC BY-SA 4.0
 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
 
-Building on earlier experiments (Quiz 5\!), a group of scientists is now
+Building on earlier experiments (Quiz 5!), a group of scientists is now
 considering if the usefulness of 2 different predators in controlling
 herbivory by an invasive aphid. Scientists measure the number of damaged
 leaves along 10 m surveys in fields that have had no biocontrol
@@ -38,45 +38,38 @@ How would you evaluate the data?
 
 Make sure your answers include
 
-  - null hypothesis
+-   null hypothesis
 
 *There is no difference in the average number of damaged leaves based on
-treatment* -\> mean number damaged leaves<sub>control\_plot</sub> = mean
-number of damaged leaves<sub>wasp\_plots</sub> = mean number of damaged
-leaves<sub>ladybug\_plots</sub>
+treatment* -> mean number damaged leaves<sub>control_plot</sub> = mean
+number of damaged leaves<sub>wasp_plots</sub> = mean number of damaged
+leaves<sub>ladybug_plots</sub>
 
-  - alternative hypothesis
+-   alternative hypothesis
 
 *There is a difference in the average number of damaged leaves based on
-treatment* -\> **So at least one of the following equalities does not
-hold\!**
+treatment* -> **So at least one of the following equalities does not
+hold!**
 
 mean number damaged leaves<sub>control</sub> = mean number of damaged
 leaves<sub>wasp</sub> = mean number of damaged leaves<sub>ladybug</sub>
 
-  - explanation for test you will use
+-   explanation for test you will use
 
 *I will use an ANOVA (form of linear model) since the outcome is a
 continuous variable and we are considering differences among groups.*
 
-  - results from statistical test (including post-hoc tests if needed\!)
-
-<!-- end list -->
+-   results from statistical test (including post-hoc tests if needed!)
 
 ``` r
 damage_lm <- lm(leaf_damage~treatment, damage)
 plot(damage_lm)
 ```
 
-![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
+![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
 
 ``` r
 library(car)
-```
-
-    ## Loading required package: carData
-
-``` r
 Anova(damage_lm, type = "III")
 ```
 
@@ -98,6 +91,13 @@ library(multcomp)
 
     ## Loading required package: survival
 
+    ## 
+    ## Attaching package: 'survival'
+
+    ## The following object is masked from 'package:boot':
+    ## 
+    ##     aml
+
     ## Loading required package: TH.data
 
     ## Loading required package: MASS
@@ -108,8 +108,6 @@ library(multcomp)
     ## The following object is masked from 'package:MASS':
     ## 
     ##     geyser
-
-![](Quiz_6_answers_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
 
 ``` r
 damage_compare <-   glht(damage_lm, linfct = mcp(treatment = "Tukey"))
@@ -126,9 +124,9 @@ summary(damage_compare)
     ## 
     ## Linear Hypotheses:
     ##                        Estimate Std. Error t value Pr(>|t|)    
-    ## ladybug - control == 0  -38.040      1.597 -23.824   <1e-09 ***
-    ## wasp - control == 0     -25.920      1.597 -16.234   <1e-09 ***
-    ## wasp - ladybug == 0      12.120      1.597   7.591   <1e-09 ***
+    ## ladybug - control == 0  -38.040      1.597 -23.824  < 1e-10 ***
+    ## wasp - control == 0     -25.920      1.597 -16.234  < 1e-10 ***
+    ## wasp - ladybug == 0      12.120      1.597   7.591 1.31e-10 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## (Adjusted p values reported -- single-step method)
@@ -144,23 +142,14 @@ differed from all others. The graph (below) and estimates showed that
 control plots suffered the most damage, followed by wasp and ladybug
 plots.*
 
-  - clear explanation of how results relate to your stated hypotheses
+-   clear explanation of how results relate to your stated hypotheses
 
 *Noted above.*
 
-  - a graph that clearly displays the data
-
-<!-- end list -->
+-   a graph that clearly displays the data
 
 ``` r
 library(Rmisc)
-```
-
-    ## Loading required package: lattice
-
-    ## Loading required package: plyr
-
-``` r
 damage_summary <- summarySE(damage, measurevar = "leaf_damage", groupvars = "treatment")
 library(ggplot2)
 ggplot(damage_summary, aes(x=treatment, y=leaf_damage))+
