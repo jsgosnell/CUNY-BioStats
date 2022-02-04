@@ -189,6 +189,7 @@ x[x < 1]
 #returns TRUE or FALSE
 
 x <- matrix(c(2, 2, 2, 2), 2, 2)
+y <- matrix(data=c(1, 1, 1, 1), nrow=2, ncol=2) #re-assigned here in case skipped above
 x
 y
 x == y
@@ -309,20 +310,10 @@ head(airquality)
 #try to use commands that take advantage of that to speed up analysis
 str(airquality)
 #shows yous the structure of the dataframe
-
-summary(airquality)
-#gives you basic summary statistics
-
-sapply(airquality, class)
-# a little more complicated. there are a set of commands that let you apply a command across
-# a vector. class is checkign for what type of variable R thinks you have put in (factor,integer,
+#also useful for checking for what type of variable R thinks you have put in (factor,integer,
 # or numeric).  lets assume you need to change a column (a common example is Trial is a
 # factor, not an integer). if you don't fix this R may run the wrong analyses (e.g.,
-# a regression when you want an ANOVA).  
-# 
-# You can call up a column using the dollar sign and change it 
-# to a transformed version of itself
-# NOTE NONE OF THIS IS CHANGING THE FILE YOU READ IN TO R!
+# a regression when you want an ANOVA).
 
 airquality$Month <- as.factor(airquality$Month)
 #similar commands exist (as.integer, as.numeric) for other classes.note how you use
@@ -330,6 +321,15 @@ airquality$Month <- as.factor(airquality$Month)
 #they will go fro 1 up g (total # of levels) based on the order R had them in (often
 #alphabetical).  If you need to turn numbers from factors to numbers,
 #as.numeric(as.character(x)). the easier lesson is to name things rights to begin with
+
+summary(airquality)
+#gives you basic summary statistics
+
+# 
+# You can call up a column using the dollar sign and change it 
+# to a transformed version of itself
+# NOTE NONE OF THIS IS CHANGING THE FILE YOU READ IN TO R!
+
 
 # EXPLORATORY DATA ANALYSIS - PLOTTING AND NUMERICAL SUMMARIES####
 # once your classes are set, let's do some basic plotting.  there are multiple 
@@ -363,7 +363,6 @@ ozone_month_relationship <- lm(Ozone~Month+Temp+Solar.R+Wind, airquality)
 
 #now lets look at what we found
 summary(ozone_month_relationship)
-
 
 #or we can get traditional p values (don't worry if you don't know/remember what 
 #these are).  we need to install a package to do this.
