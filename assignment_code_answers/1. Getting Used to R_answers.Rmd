@@ -1,11 +1,16 @@
 ---
-title: "1. Getting Used to R (and Rstudio, Rmd...and more)_answers"
-author: "NAME"
-date: "DATE"
+title: "1. Getting Used to R (and Rstudio, Rmd...and more)"
+author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
-  github_document
-  
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+
 ---
+
 Before doing this, review the **Welcome** and **Git** lecture set slides from 
 https://sites.google.com/view/biostats/bioenv-2100/welcome and
 the  **1_intro_data_lecture.R** script in the lecture_files folder of the

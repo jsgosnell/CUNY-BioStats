@@ -1,9 +1,15 @@
 ---
 title: "3. Introduction to hypothesis testing via binomial tests"
-author: "jsg"
-date: "9/23/2020"
-output: github_document
+author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
 ---
+
 Before doing this, review the **Introduction To Hypothesis Testing Via Binomial Tests** lecture set slides from 
 https://sites.google.com/view/biostats/bioenv-2100/hypothesis-testing-with-the-binomial-distribution and
 the  **3_hypothesis_testing_and_binomial.R** script in the lecture_files folder of the
