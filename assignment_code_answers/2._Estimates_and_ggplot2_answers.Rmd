@@ -1,6 +1,7 @@
 ---
 title: "2. Estimates and ggplot2"
 author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
   html_document:
     toc: true
@@ -10,7 +11,7 @@ output:
 ---
 
 Before doing this, review the **Estimation and Probability** lecture set slides from 
-https://sites.google.com/view/biostats/bioenv-2100/estimation-and-probablity and
+https://sites.google.com/view/biostats/lessons/estimation-and-probablity and
 the  **2_estimation_lecture.R** script in the lecture_files folder of the
 [CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
 

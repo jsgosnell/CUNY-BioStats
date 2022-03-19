@@ -11,9 +11,10 @@ output:
 ---
 
 Before doing this, review the **Introduction To Hypothesis Testing Via Binomial Tests** lecture set slides from 
-https://sites.google.com/view/biostats/bioenv-2100/hypothesis-testing-with-the-binomial-distribution and
+https://sites.google.com/view/biostats/lessons/hypothesis-testing-with-the-binomial-distribution and
 the  **3_hypothesis_testing_and_binomial.R** script in the lecture_files folder of the
-[CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).
+[CUNY-BioStats github repository](https://github.com/jsgosnell/CUNY-BioStats).  
+You should also complete the swirl tutorial first!
 
 
 Remember you should
