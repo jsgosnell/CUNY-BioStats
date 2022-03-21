@@ -1,7 +1,7 @@
 ---
 title: "Quiz 3 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 21 March, 2022 10:26"
+date: "Last compiled on 21 March, 2022 13:34"
 output:
   html_document:
     toc: true
@@ -47,7 +47,7 @@ Make sure your answers include
 
 
 ```r
-t.test(oxygen_use$Oxygen_saturation_level, mu = .95)
+t.test(oxygen_use$Oxygen_saturation_level, mu = 95)
 ```
 
 ```
@@ -55,8 +55,8 @@ t.test(oxygen_use$Oxygen_saturation_level, mu = .95)
 ## 	One Sample t-test
 ## 
 ## data:  oxygen_use$Oxygen_saturation_level
-## t = 255.46, df = 65, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0.95
+## t = -2.7875, df = 65, p-value = 0.006958
+## alternative hypothesis: true mean is not equal to 95
 ## 95 percent confidence interval:
 ##  93.25752 94.71218
 ## sample estimates:
@@ -110,7 +110,7 @@ SIGN.test(oxygen_use$Oxygen_saturation_level, md = .95)
 
 ```r
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
-bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = .95)
+bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = 95)
 ```
 
 ```
@@ -137,7 +137,7 @@ bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = .95)
 ##                                                                         
 ##                  "0.95" "% Confidence Interval"      "93.2575757575758" 
 ##                                                                         
-##      "94.6818181818182"               "p-value"                     "0"
+##      "94.6818181818182"               "p-value"                "0.0045"
 ```
 
 * clear explanation of how results relate to your stated hypotheses

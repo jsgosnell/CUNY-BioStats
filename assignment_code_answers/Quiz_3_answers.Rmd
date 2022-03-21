@@ -47,13 +47,13 @@ Make sure your answers include
 * results from statistical test
 
 ```{r}
-t.test(oxygen_use$Oxygen_saturation_level, mu = .95)
+t.test(oxygen_use$Oxygen_saturation_level, mu = 95)
 
 library(BSDA)
 SIGN.test(oxygen_use$Oxygen_saturation_level, md = .95)
 
 source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
-bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = .95)
+bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = 95)
 ```
 
 * clear explanation of how results relate to your stated hypotheses

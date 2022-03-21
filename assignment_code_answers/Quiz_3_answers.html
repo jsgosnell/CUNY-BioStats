@@ -1510,7 +1510,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Quiz 3 Spring 2022 answers</h1>
 <h4 class="author">jsg</h4>
-<h4 class="date">Last compiled on 21 March, 2022 10:26</h4>
+<h4 class="date">Last compiled on 21 March, 2022 13:34</h4>
 
 </div>
 
@@ -1537,13 +1537,13 @@ div.tocify {
 </ul></li>
 <li>results from statistical test</li>
 </ul>
-<pre class="r"><code>t.test(oxygen_use$Oxygen_saturation_level, mu = .95)</code></pre>
+<pre class="r"><code>t.test(oxygen_use$Oxygen_saturation_level, mu = 95)</code></pre>
 <pre><code>## 
 ##  One Sample t-test
 ## 
 ## data:  oxygen_use$Oxygen_saturation_level
-## t = 255.46, df = 65, p-value &lt; 2.2e-16
-## alternative hypothesis: true mean is not equal to 0.95
+## t = -2.7875, df = 65, p-value = 0.006958
+## alternative hypothesis: true mean is not equal to 95
 ## 95 percent confidence interval:
 ##  93.25752 94.71218
 ## sample estimates:
@@ -1576,7 +1576,7 @@ div.tocify {
 ## Interpolated CI       0.9500     94     96
 ## Upper Achieved CI     0.9644     94     96</code></pre>
 <pre class="r"><code>source(&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R&quot;)
-bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = .95)</code></pre>
+bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = 95)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;boot&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:lattice&#39;:
@@ -1588,7 +1588,7 @@ bootstrapjsg(data1=oxygen_use$Oxygen_saturation_level, null = .95)</code></pre>
 <pre><code>##                                                                         
 ##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;93.2575757575758&quot; 
 ##                                                                         
-##      &quot;94.6818181818182&quot;               &quot;p-value&quot;                     &quot;0&quot;</code></pre>
+##      &quot;94.6818181818182&quot;               &quot;p-value&quot;                &quot;0.0045&quot;</code></pre>
 <ul>
 <li><p>clear explanation of how results relate to your stated hypotheses</p>
 <ul>
