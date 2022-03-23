@@ -45,7 +45,12 @@ rownames(ward_impacts) <- c("AMU", "CCU","Gen", "Resp")
 colnames(ward_impacts) <- c("oxygen", "no oxygen")
 chisq.test(ward_impacts)
 ```
-Results are significant but assumptions may not be met.
+Results are significant but assumptions may not be met. If you did a Fisher's test
+
+```{r}
+fisher.test(ward_impacts)
+```
+
 
 ```{r}
 chisq.test(ward_impacts)$expected

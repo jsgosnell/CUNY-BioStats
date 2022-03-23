@@ -1,7 +1,7 @@
 ---
 title: "Quiz 4 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 23 March, 2022 10:26"
+date: "Last compiled on 23 March, 2022 12:31"
 output:
   html_document:
     toc: true
@@ -56,7 +56,22 @@ chisq.test(ward_impacts)
 ## data:  ward_impacts
 ## X-squared = 23.962, df = 3, p-value = 2.544e-05
 ```
-Results are significant but assumptions may not be met.
+Results are significant but assumptions may not be met. If you did a Fisher's test
+
+
+```r
+fisher.test(ward_impacts)
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data
+## 
+## data:  ward_impacts
+## p-value = 0.0001246
+## alternative hypothesis: two.sided
+```
+
 
 
 ```r

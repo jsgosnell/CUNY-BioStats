@@ -1510,7 +1510,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Quiz 4 Spring 2022 answers</h1>
 <h4 class="author">jsg</h4>
-<h4 class="date">Last compiled on 23 March, 2022 10:26</h4>
+<h4 class="date">Last compiled on 23 March, 2022 12:31</h4>
 
 </div>
 
@@ -1575,7 +1575,14 @@ chisq.test(ward_impacts)</code></pre>
 ## 
 ## data:  ward_impacts
 ## X-squared = 23.962, df = 3, p-value = 2.544e-05</code></pre>
-<p>Results are significant but assumptions may not be met.</p>
+<p>Results are significant but assumptions may not be met. If you did a Fisher’s test</p>
+<pre class="r"><code>fisher.test(ward_impacts)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  ward_impacts
+## p-value = 0.0001246
+## alternative hypothesis: two.sided</code></pre>
 <pre class="r"><code>chisq.test(ward_impacts)$expected</code></pre>
 <pre><code>## Warning in chisq.test(ward_impacts): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>##         oxygen no oxygen
