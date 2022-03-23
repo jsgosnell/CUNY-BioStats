@@ -29,12 +29,17 @@ Investigate the question. Make sure you include
 I will not remind of this on exam!**)
   * I will use a paired t-test since the same individuals were tested and data is 
   can be considered continuous and independent among samples.  
+  * If you didn't assume paired due to wording, which I understand, then you should have used a regular (non-paired) t-test
 * results from statistical test
 ```{r}
 t.test(covid_respirator$on_respirator_b4_covid, covid_respirator$on_respirator_after_covid, paired = T)
+#or
+t.test(covid_respirator$on_respirator_b4_covid, covid_respirator$on_respirator_after_covid)
 ```
   
 * clear explanation of how results relate to your stated hypotheses
   * t~65~ = 8.287, p<.01,so I reject the null hypothesis.  Estimate suggests 
+  saturation levels were .81% higher during previous use of respirators.
+  * for regular t-test,   t~129.8~ = 1.5573, p<.1218,so I fail to reject the null hypothesis.  Estimate suggests 
   saturation levels were .81% higher during previous use of respirators.
 

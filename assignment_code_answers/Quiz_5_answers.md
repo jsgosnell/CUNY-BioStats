@@ -1,7 +1,7 @@
 ---
 title: "Quiz 5 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 23 March, 2022 10:26"
+date: "Last compiled on 23 March, 2022 10:49"
 output:
   html_document:
     toc: true
@@ -30,6 +30,7 @@ Investigate the question. Make sure you include
 I will not remind of this on exam!**)
   * I will use a paired t-test since the same individuals were tested and data is 
   can be considered continuous and independent among samples.  
+  * If you didn't assume paired due to wording, which I understand, then you should have used a regular (non-paired) t-test
 * results from statistical test
 
 ```r
@@ -49,8 +50,29 @@ t.test(covid_respirator$on_respirator_b4_covid, covid_respirator$on_respirator_a
 ## mean of the differences 
 ##               0.8181818
 ```
+
+```r
+#or
+t.test(covid_respirator$on_respirator_b4_covid, covid_respirator$on_respirator_after_covid)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  covid_respirator$on_respirator_b4_covid and covid_respirator$on_respirator_after_covid
+## t = 1.5573, df = 129.8, p-value = 0.1218
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.221238  1.857602
+## sample estimates:
+## mean of x mean of y 
+##  93.98485  93.16667
+```
   
 * clear explanation of how results relate to your stated hypotheses
   * t~65~ = 8.287, p<.01,so I reject the null hypothesis.  Estimate suggests 
+  saturation levels were .81% higher during previous use of respirators.
+  * for regular t-test,   t~129.8~ = 1.5573, p<.1218,so I fail to reject the null hypothesis.  Estimate suggests 
   saturation levels were .81% higher during previous use of respirators.
 

@@ -177,6 +177,13 @@ ggplot(ghosts, aes (x = Present, y = Temperature)) +
 ``` r
 #with confidence interval
 library(Rmisc)
+```
+
+    ## Loading required package: lattice
+
+    ## Loading required package: plyr
+
+``` r
 ghosts_summary <- summarySE(ghosts, measurevar = "Temperature", groupvars = "Present")
 ggplot(ghosts_summary, aes (x = Present, y = Temperature)) +
   geom_point() +
@@ -245,14 +252,22 @@ source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_ex
 bootstrapjsg(ghosts[ghosts$Present == "Present", "Temperature"], null=56)
 ```
 
-    ## Warning: package 'simpleboot' was built under R version 4.1.2
+    ## 
+    ## Attaching package: 'boot'
+
+    ## The following object is masked from 'package:lattice':
+    ## 
+    ##     melanoma
 
     ## Simple Bootstrap Routines (1.1-7)
 
-    ## Warning in boot.ci(a, conf): bootstrap variances needed for studentized intervals
+    ## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
+    ## intervals
 
-    ##                                                                                                                                                 
-    ##                  "0.95" "% Confidence Interval"      "54.1026186552466"      "57.5320483951952"               "p-value"                "0.8611"
+    ##                                                                         
+    ##                  "0.95" "% Confidence Interval"      "54.0977180783118" 
+    ##                                                                         
+    ##      "57.4744338173198"               "p-value"                "0.8583"
 
 \*Using the t-test I found a test value t<sub>29</sub>=0.18536, which
 corresponds to a p-value of 0.8542. Bootstrap tests led to similar

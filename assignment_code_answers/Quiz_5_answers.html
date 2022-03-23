@@ -1510,7 +1510,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Quiz 5 Spring 2022 answers</h1>
 <h4 class="author">jsg</h4>
-<h4 class="date">Last compiled on 23 March, 2022 10:26</h4>
+<h4 class="date">Last compiled on 23 March, 2022 10:49</h4>
 
 </div>
 
@@ -1534,6 +1534,7 @@ div.tocify {
 <ul>
 <li>I will use a paired t-test since the same individuals were tested and data is can be considered continuous and independent among samples.<br />
 </li>
+<li>If you didn’t assume paired due to wording, which I understand, then you should have used a regular (non-paired) t-test</li>
 </ul></li>
 <li>results from statistical test</li>
 </ul>
@@ -1549,10 +1550,24 @@ div.tocify {
 ## sample estimates:
 ## mean of the differences 
 ##               0.8181818</code></pre>
+<pre class="r"><code>#or
+t.test(covid_respirator$on_respirator_b4_covid, covid_respirator$on_respirator_after_covid)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  covid_respirator$on_respirator_b4_covid and covid_respirator$on_respirator_after_covid
+## t = 1.5573, df = 129.8, p-value = 0.1218
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.221238  1.857602
+## sample estimates:
+## mean of x mean of y 
+##  93.98485  93.16667</code></pre>
 <ul>
 <li>clear explanation of how results relate to your stated hypotheses
 <ul>
 <li>t<sub>65</sub> = 8.287, p&lt;.01,so I reject the null hypothesis. Estimate suggests saturation levels were .81% higher during previous use of respirators.</li>
+<li>for regular t-test, t<sub>129.8</sub> = 1.5573, p&lt;.1218,so I fail to reject the null hypothesis. Estimate suggests saturation levels were .81% higher during previous use of respirators.</li>
 </ul></li>
 </ul>
 
