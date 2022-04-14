@@ -1,5 +1,137 @@
 #lecture on mixed models and other lm extensions
 
+#generalized linear models####
+#what if the outcome isn't continuous but is either 0/1 (presence/absence) or 
+#a proportion?
+#We use a generalized linear model, aka logistic regression
+#use glm command (instead or arcsin transform!)
+#data from Needles et al 2014
+otters <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/needles_january.csv")
+head(otters)
+#star, otters, and mussels are treatments (1 is present)
+#WASU and notWASU are count data
+otter_fit <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, family=binomial)
+Anova(otter_fit, type = "III")
+summary(otter_fit)
+#same basic assumption
+plot(otter_fit)
+#can use drop1, stepAIC, etc
+
+
+deaths <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/deaths.csv")
+str(deaths)
+library(Rmisc)
+summarySE(deaths, measurevar = "death", groupvars = "treatment")
+#graph it####
+library(ggplot2)
+ggplot(summarySE(deaths, measurevar = "death", groupvars = "treatment"), 
+       aes ( x= treatment, y = death)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = death - ci, ymax = death + ci))
+
+#wrong order! so I go back to beginning and do all again
+deaths$treatment <- factor(deaths$treatment, c("control", "low", "high"))
+summarySE(deaths, measurevar = "death", groupvars = "treatment")
+#graph it####
+ggplot(summarySE(deaths, measurevar = "death", groupvars = "treatment"), 
+       aes ( x= treatment, y = death)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = death - ci, ymax = death + ci))+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#lm approach#####
+fit_lm <- lm(death~treatment, deaths)
+par(mfrow=c(2,2))
+plot(fit_lm)
+library(car)
+Anova(fit_lm, type = "III")
+#significant omnibus so test
+library(multcomp)
+summary(glht(fit_lm, linfct = mcp(treatment = "Tukey")))
+
+#gamma####
+gamma_data <- data.frame(x=rgamma(100000, shape = 3, scale = 2))
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_histogram()+
+  ylab("Frequency") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_density() +  
+  ylab("Proportion") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+ggplot(data = gamma_data, aes(x = x)) + 
+  geom_density() +     
+  stat_function(fun = dgamma, args = list(shape =3, scale = 2),size = 1, color = "green")+
+  ylab("Proportion") + xlab("Time until 3 deaths") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+#glm approach#####
+fit_gamma <- glm(death~treatment, deaths, family = Gamma)
+par(mfrow=c(2,2))
+plot(fit_gamma)
+library(car)
+Anova(fit_gamma, type = "III")
+#significant omnibus so test
+library(multcomp)
+summary(glht(fit_gamma, linfct = mcp(treatment = "Tukey")))
+
+#compare
+AIC(fit_lm, fit_gamma)
+
+summary(fit_gamma)
+
+#translate to impact
+#for high treatment
+1/(.289017 - .143669)
+
+#censored data####
+sheep <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sheep.deaths.csv")
+head(sheep)
+str(sheep)
+
+library(survminer)
+
+survival_fit <- survfit(Surv(death, status) ~ group, data = sheep)
+ggsurvplot(survival_fit, data = sheep)
+survival_model <- survreg(Surv(death, status) ~ group, data = sheep)
+summary(survival_model)
+tapply(predict(survival_model,type="response"),sheep$group,mean)
+
+#compare to lm
+survival_model_lm <- lm(death~group, data = sheep)
+summary(survival_model_lm)
+tapply(predict(survival_model_lm,type="response"),sheep$group,mean)
+
+#mixed models
+
 team <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/team_data_no_spaces.csv")
 names(team)
 head(team)
@@ -76,22 +208,6 @@ check_mixed_model(team_final_mm)
 r.squaredGLMM(team_final_mm) #m is for fixed effects (transferable) and c is for
 #full model with random effects
 
-#generalized linear models####
-#what if the outcome isn't continuous but is either 0/1 (presence/absence) or 
-#a proportion?
-#We use a generalized linear model, aka logistic regression
-#use glm command (instead or arcsin transform!)
-#data from Needles et al 2014
-otters <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/needles_january.csv")
-head(otters)
-#star, otters, and mussels are treatments (1 is present)
-#WASU and notWASU are count data
-otter_fit <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, family=binomial)
-Anova(otter_fit, type = "III")
-summary(otter_fit)
-#same basic assumption
-plot(otter_fit)
-#can use drop1, stepAIC, etc
 
 #glmm
 #but this is a mixed-model again! multiple measures per piling
@@ -173,77 +289,6 @@ whelk_plot + geom_smooth(method = "lm", se = FALSE, size = 1.5, color = "orange"
 
 #can compare fits with AIC
 AICc(whelk_gam_spline, whelk_lm, whelk_power)
-
-#trees are useful way of handling data visually and allow first look
-#building the classification tree
-#install if necessary
-#example with famous iris dataset (built-in)
-#good for species classification!
-library(rpart)
-iris_tree_initial <- rpart(Species ~ ., data = iris, method = "class", 
-                           minsplit = 2, minbucket = 1)
-plot(iris_tree_initial)
-text(iris_tree_initial)
-#or for a prettier graph
-require(rattle)
-fancyRpartPlot(iris_tree_initial, main="Iris")
-
-#what if you want fewer splits (less complex model)
-#can use defaults for buckets 
-iris_tree_initial_auto <- rpart(Species ~ ., data = iris)
-fancyRpartPlot(iris_tree_initial_auto, main="Iris")
-
-#or minimize complexity parameter (good for larger models)
-iris_tree_model_2<- prune(iris_tree_initial, 
-                          cp =   iris_tree_initial$cptable[which.min(iris_tree_initial$cptable[,"xerror"]),"CP"])
-#is using this to make decisions
-iris_tree_initial$cptable
-fancyRpartPlot(iris_tree_model_2)
-
-#validation techniques
-#UNDER CONSTRUCTION
-#need 0/1 column for for prediction
-iris$virginica <- iris$Species
-levels(iris$virginica)[levels(iris$virginica) == "virginica"]  <- "1"
-levels(iris$virginica)[levels(iris$virginica) %in% c("setosa", "versicolor")] <- "0"
-iris$virginica <- as.numeric(as.character(iris$virginica))
-
-#compare glm and gam 
-iris_glm <- glm(virginica ~ . - Species, iris, family = binomial)
-summary(iris_glm)
-iris_glm_final <- stepAIC(iris_glm)
-
-iris_gam <- gam(virginica ~ s(Sepal.Length) + s(Sepal.Width) + 
-                  s(Petal.Length) + s(Petal.Width), data = iris)
-summary(iris_gam)
-iris_gam_a <-update(iris_gam, . ~ . - s(Petal.Width))
-summary(iris_gam_a)
-iris_gam_b <-update(iris_gam_a, . ~ . - s(Sepal.Width))
-summary(iris_gam_b)
-
-AICc(iris_gam_b,  iris_glm_final)
-
-#compare visually using AUC
-#calculate AUROC (AUC)
-require(ROCR)
-iris_glm_final_predict<-prediction(fitted.values(iris_glm_final), iris$virginica)
-iris_glm_final_performance<-performance(iris_glm_predict,"tpr","fpr")
-#to see auc
-plot(iris_glm_performance, main = "glm AUC")
-
-#compare to gam
-iris_gam_b_predict<-prediction(fitted.values(iris_gam_b), iris$virginica)
-iris_gam_b_performance<-performance(iris_gam_b_predict,"tpr","fpr")
-#to see auc
-plot(iris_gam_b_performance, main = "gam AUC")
-
-#cross validation
-require(boot)
-#K is the number of groups to put data into. default is "leave-one"out" design
-iris_glm_final_cv<-cv.glm(iris,  iris_glm_final)
-str(iris_glm_final_cv)
-#delta is the prediction error and the adjusted rate - use adjusted to minimize
-#impact of sampling or outliers
 
 
 
