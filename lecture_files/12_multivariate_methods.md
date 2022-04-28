@@ -1,7 +1,7 @@
 ---
 title: "12. Multivariate methods"
 author: "jsg"
-date: "Last compiled on 27 April, 2022 21:39"
+date: "Last compiled on 27 April, 2022 21:41"
 output:
   html_document:
     toc: true
@@ -85,7 +85,7 @@ ggplot(irisshow,aes(x=variable,y=value,fill=Species))+
   geom_boxplot()
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 Since we measured multiple responses, we could do ANOVA's but multiple tests and 
 correlated.  Note variance-covariance matrix
@@ -253,7 +253,7 @@ ord
 plot(ord)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 summary(eigenvals(ord))
@@ -379,13 +379,13 @@ summary(PCA)
 barplot(as.vector(PCA$CA$eig)/sum(PCA$CA$eig)) 
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 screeplot(PCA)# not corrected
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
 
 ```r
 # How much of the variance in our dataset is explained by the first principal component?
@@ -405,19 +405,19 @@ sum((as.vector(PCA$CA$eig)/sum(PCA$CA$eig))[1:2]) # 79%, this is ok.
 plot(PCA)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
 
 ```r
 plot(PCA, display = "sites", type = "points")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-8-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-4.png)<!-- -->
 
 ```r
 plot(PCA, display = "species", type = "text")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-8-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-5.png)<!-- -->
 
 Evaluate outcomes and biplot
 
@@ -453,7 +453,7 @@ biplot(PCA, choices = c(1,2), type = c("text", "points"), xlim = c(-5,10), scale
 ## Warning in title(...): "scale" is not a graphical parameter
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,2), type = c("text", "points"), 
@@ -484,13 +484,13 @@ biplot(PCA, choices = c(1,2), type = c("text", "points"),
 ## Warning in title(...): "scale" is not a graphical parameter
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,3), type = c("text","points")) # biplot of axis 1 vs 3
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
 
 ```r
 # You can extract the species and site scores on the new PC for further analyses:
@@ -507,27 +507,27 @@ biplot(PCApc, choices = c(1,2), xlim = c(-5,10), pc.biplot = T,
        main= "Correlation biplot") # biplot of axis 1 vs 2
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
 
 ```r
 biplot(PCApc, choices = c(1,2), xlim = c(-5,10),
        main= "Distance biplot") # biplot of axis 1 vs 2
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
 
 ```r
 biplot(PCApc, choices = c(1,2), 
        main = "Distance biplot", xlim = c(-5,10),  pc.biplot = T) # biplot of axis 1 vs 2
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-6.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-6.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,3), type = c("text","points")) # biplot of axis 1 vs 3
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-7.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-7.png)<!-- -->
 
 ```r
 data(dune.env)
@@ -543,7 +543,7 @@ ggplot(dune.env.new, aes(x=pc1, y=pc2, shape=Use, color=Use))+
 ## Warning: Using shapes for an ordinal variable is not advised
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-8.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-8.png)<!-- -->
 
 ```r
 impact <- lm(pc1 ~ Use, dune.env.new)
@@ -551,7 +551,7 @@ par(mfrow=c(2,2))
 plot(impact)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-9.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-9.png)<!-- -->
 
 ```r
 par(mfrow=c(1,1))
@@ -607,7 +607,7 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
 ## Warning: Using shapes for an ordinal variable is not advised
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-9-10.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-10.png)<!-- -->
 
 ### RDA
 
@@ -657,7 +657,7 @@ orditorp(rda_dune, display='sp', cex=0.5, scaling=1, col='blue')
 text(rda_dune, display='cn', col='red')
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ### CCA
 
@@ -672,7 +672,7 @@ RsquareAdj(cca_dune, 100)
 ## [1] 0.7106267
 ## 
 ## $adj.r.squared
-## [1] 0.2328768
+## [1] 0.2115699
 ```
 
 You can test related hypotheses using permutations
@@ -688,9 +688,9 @@ anova(rda_dune, permutations=999)
 ## Number of permutations: 999
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
-##          Df Variance      F Pr(>F)   
-## Model    12   63.206 1.7627  0.003 **
-## Residual  7   20.917                 
+##          Df Variance      F Pr(>F)    
+## Model    12   63.206 1.7627  0.001 ***
+## Residual  7   20.917                  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -708,10 +708,10 @@ anova(rda_dune, by='margin', permutations=10)
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df Variance      F Pr(>F)
 ## A1          1   2.3704 0.7933 0.6364
-## Moisture    3  11.9409 1.3320 0.3636
-## Management  2   7.1574 1.1976 0.1818
-## Use         2   4.9785 0.8330 0.6364
-## Manure      3   9.6257 1.0737 0.4545
+## Moisture    3  11.9409 1.3320 0.2727
+## Management  2   7.1574 1.1976 0.3636
+## Use         2   4.9785 0.8330 0.7273
+## Manure      3   9.6257 1.0737 0.2727
 ## Residual    7  20.9175
 ```
 
@@ -726,7 +726,7 @@ anova(cca_dune, permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df ChiSquare      F Pr(>F)  
-## Model    12    1.5032 1.4325  0.031 *
+## Model    12    1.5032 1.4325  0.028 *
 ## Residual  7    0.6121                
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -744,10 +744,10 @@ anova(cca_dune, by='margin', permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df ChiSquare      F Pr(>F)
-## A1          1   0.11070 1.2660  0.225
-## Moisture    3   0.31587 1.2041  0.223
-## Management  2   0.15882 0.9081  0.581
-## Use         2   0.13010 0.7439  0.773
+## A1          1   0.11070 1.2660  0.255
+## Moisture    3   0.31587 1.2041  0.244
+## Management  2   0.15882 0.9081  0.590
+## Use         2   0.13010 0.7439  0.786
 ## Manure      3   0.25490 0.9717  0.513
 ## Residual    7   0.61210
 ```
@@ -769,7 +769,7 @@ anova(rda_dune, rda_dune_use_removed)
 ## Model 2: dune ~ A1 + Moisture + Management + Manure
 ##   ResDf ResChiSquare Df ChiSquare     F Pr(>F)
 ## 1     7       20.918                          
-## 2     9       25.896 -2   -4.9785 0.833  0.653
+## 2     9       25.896 -2   -4.9785 0.833  0.656
 ```
 
 ### NMDS
@@ -783,44 +783,48 @@ nmds_dune <- metaMDS(dune, k =2)
 
 ```
 ## Run 0 stress 0.1192678 
-## Run 1 stress 0.1192678 
-## ... Procrustes: rmse 6.657821e-05  max resid 0.0002034074 
-## ... Similar to previous best
-## Run 2 stress 0.1192678 
-## ... Procrustes: rmse 5.366845e-05  max resid 0.0001641334 
-## ... Similar to previous best
+## Run 1 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 0.020271  max resid 0.06496524 
+## Run 2 stress 0.2680016 
 ## Run 3 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 0.02026748  max resid 0.06494888 
+## ... Procrustes: rmse 1.384182e-05  max resid 4.551319e-05 
+## ... Similar to previous best
 ## Run 4 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 3.002822e-05  max resid 9.933858e-05 
+## ... Procrustes: rmse 1.755843e-05  max resid 5.740481e-05 
 ## ... Similar to previous best
-## Run 5 stress 0.1889641 
+## Run 5 stress 0.1192678 
 ## Run 6 stress 0.1809577 
-## Run 7 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 4.070755e-06  max resid 1.38952e-05 
-## ... Similar to previous best
+## Run 7 stress 0.1192678 
 ## Run 8 stress 0.1183186 
-## ... Procrustes: rmse 2.495626e-05  max resid 7.53857e-05 
+## ... New best solution
+## ... Procrustes: rmse 1.213688e-05  max resid 3.998172e-05 
 ## ... Similar to previous best
-## Run 9 stress 0.1192678 
-## Run 10 stress 0.1809577 
-## Run 11 stress 0.2192919 
-## Run 12 stress 0.1192679 
-## Run 13 stress 0.1183186 
-## ... Procrustes: rmse 5.954921e-06  max resid 1.832198e-05 
+## Run 9 stress 0.1183186 
+## ... Procrustes: rmse 1.77134e-05  max resid 5.467288e-05 
 ## ... Similar to previous best
-## Run 14 stress 0.1192679 
-## Run 15 stress 0.1192679 
-## Run 16 stress 0.1183186 
-## ... Procrustes: rmse 2.83684e-06  max resid 8.583154e-06 
+## Run 10 stress 0.2064894 
+## Run 11 stress 0.1192678 
+## Run 12 stress 0.1192678 
+## Run 13 stress 0.1886532 
+## Run 14 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 7.903777e-06  max resid 2.54517e-05 
 ## ... Similar to previous best
-## Run 17 stress 0.2361935 
-## Run 18 stress 0.1192678 
-## Run 19 stress 0.1192679 
-## Run 20 stress 0.1809577 
+## Run 15 stress 0.1192678 
+## Run 16 stress 0.1192678 
+## Run 17 stress 0.1183186 
+## ... Procrustes: rmse 1.275441e-05  max resid 4.10211e-05 
+## ... Similar to previous best
+## Run 18 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 1.852572e-06  max resid 5.307259e-06 
+## ... Similar to previous best
+## Run 19 stress 0.1183186 
+## ... Procrustes: rmse 5.858525e-06  max resid 1.869395e-05 
+## ... Similar to previous best
+## Run 20 stress 0.1809578 
 ## *** Solution reached
 ```
 
@@ -828,7 +832,7 @@ nmds_dune <- metaMDS(dune, k =2)
 plot(nmds_dune)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ```r
 ordiplot(nmds_dune,type="n") #Ordination plot function especially for congested plots
@@ -836,7 +840,7 @@ orditorp(nmds_dune,display="species",col="red",air=0.01) #The function adds text
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-14-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-14-2.png)<!-- -->
 ## Classification
 
 ## Tree models 
@@ -857,7 +861,7 @@ plot(iris_tree_initial)
 text(iris_tree_initial)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
 #or for a prettier graph
@@ -886,7 +890,7 @@ require(rattle)
 fancyRpartPlot(iris_tree_initial, main="Iris")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
 
 ```r
 #what if you want fewer splits (less complex model)
@@ -895,7 +899,7 @@ iris_tree_initial_auto <- rpart(Species ~ ., data = iris)
 fancyRpartPlot(iris_tree_initial_auto, main="Iris")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-3.png)<!-- -->
 
 ```r
 #or minimize complexity parameter (good for larger models)
@@ -907,17 +911,17 @@ iris_tree_initial$cptable
 
 ```
 ##     CP nsplit rel error xerror       xstd
-## 1 0.50      0      1.00   1.17 0.05073460
-## 2 0.44      1      0.50   0.61 0.06016090
-## 3 0.02      2      0.06   0.08 0.02751969
-## 4 0.01      3      0.04   0.09 0.02908608
+## 1 0.50      0      1.00   1.10 0.05416026
+## 2 0.44      1      0.50   0.57 0.05944746
+## 3 0.02      2      0.06   0.12 0.03322650
+## 4 0.01      3      0.04   0.12 0.03322650
 ```
 
 ```r
 fancyRpartPlot(iris_tree_model_2)
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-4.png)<!-- -->
 
 ```r
 #validation techniques
@@ -1182,7 +1186,7 @@ iris_glm_final_performance<-performance(iris_glm_final_predict,"tpr","fpr")
 plot(iris_glm_final_performance, main = "glm AUC")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-5.png)<!-- -->
 
 ```r
 #compare to gam
@@ -1192,7 +1196,7 @@ iris_gam_b_performance<-performance(iris_gam_b_predict,"tpr","fpr")
 plot(iris_gam_b_performance, main = "gam AUC")
 ```
 
-![](12_more_model_extensions_files/figure-html/unnamed-chunk-15-6.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-6.png)<!-- -->
 
 ```r
 #cross validation
@@ -1536,7 +1540,7 @@ str(iris_glm_final_cv)
 ##  $ call : language cv.glm(data = iris, glmfit = iris_glm_final)
 ##  $ K    : num 150
 ##  $ delta: num [1:2] 0.0259 0.0259
-##  $ seed : int [1:626] 10403 229 1426450720 1121665229 1719276406 297137256 1356340889 847963075 1795691418 767908462 ...
+##  $ seed : int [1:626] 10403 454 -1758523967 1295895342 -230523443 1473829111 -739282706 -1611872860 -1494085944 793908230 ...
 ```
 
 ```r
@@ -1678,8 +1682,8 @@ lavaanPlot(model = keeley_sem1, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-2ee32d805aed2846b3ca" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ee32d805aed2846b3ca">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8d5b7dbc1bf2acea3080" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8d5b7dbc1bf2acea3080">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1688,8 +1692,8 @@ lavaanPlot(model = keeley_sem1, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-cb0c19fee9f2f4dee081" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cb0c19fee9f2f4dee081">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c6752ed33395e9070e67" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c6752ed33395e9070e67">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1747,8 +1751,8 @@ lavaanPlot(model = keeley_sem2, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-0b9ebde59a82d1556219" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0b9ebde59a82d1556219">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.08\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e1f4c55bda8ed42690de" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e1f4c55bda8ed42690de">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.08\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1757,8 +1761,8 @@ lavaanPlot(model = keeley_sem2, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-6c23e6e6456712085f8c" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6c23e6e6456712085f8c">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.44\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c84b2039f9b74699dd78" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c84b2039f9b74699dd78">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.44\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1811,8 +1815,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-d99d231bc87bd560fc4e" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d99d231bc87bd560fc4e">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.07\"] age->cover [label = \"0\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f97063dc0c61ac8d2173" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f97063dc0c61ac8d2173">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.07\"] age->cover [label = \"0\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1821,8 +1825,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-1947f2962d5e0d2e1c2c" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1947f2962d5e0d2e1c2c">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"-0.19\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ee473a53f04c47f9e309" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ee473a53f04c47f9e309">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"-0.19\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1832,8 +1836,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE, stand=TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-ad8031ce98925bac2523" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad8031ce98925bac2523">{"x":{"diagram":" digraph plot { \n graph [ layout = circo ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ef9b2d176ccf531071a7" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef9b2d176ccf531071a7">{"x":{"diagram":" digraph plot { \n graph [ layout = circo ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
