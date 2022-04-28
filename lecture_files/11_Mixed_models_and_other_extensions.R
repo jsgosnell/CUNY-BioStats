@@ -18,6 +18,8 @@ plot(otter_fit)
 #can use drop1, stepAIC, etc
 
 
+#code for gamma distribution####
+#death data from crawley
 deaths <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/deaths.csv")
 str(deaths)
 library(Rmisc)

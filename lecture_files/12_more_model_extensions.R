@@ -112,5 +112,7 @@ survival_model_lm <- lm(death~group, data = sheep)
 summary(survival_model_lm)
 tapply(predict(survival_model_lm,type="response"),sheep$group,mean)
 
+#ordination
+
 
 
