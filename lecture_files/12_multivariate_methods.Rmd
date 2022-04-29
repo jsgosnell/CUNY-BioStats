@@ -86,7 +86,7 @@ checkPackage("vegan")
 data(dune)
 #use "extreme" vegan for this historic approach
 checkPackage("devtools")
-#install_github("jarioksa/natto")
+install_github("jarioksa/natto")
 checkPackage("natto")
 
 dis <- dist(dune, method = "binary") ## Jaccard index
@@ -220,6 +220,24 @@ orditorp(nmds_dune,display="species",col="red",air=0.01) #The function adds text
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
 ## Classification
+
+### discriminant analysis
+
+```{r}
+library(MASS)
+lda_iris <- lda(Species ~ ., iris)
+summary(lda_iris)
+Predictions <- predict(lda_iris,iris)
+table(Predictions$class, iris$Species)
+ldahist(data = Predictions$x[,1], g=iris$Species)
+ldahist(data = Predictions$x[,2], g=iris$Species)
+```
+
+### clustering
+
+```{r}
+
+```
 
 ## Tree models 
 
