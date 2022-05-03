@@ -235,9 +235,24 @@ ldahist(data = Predictions$x[,2], g=iris$Species)
 
 ### clustering
 
-```{r}
+Finding optimal number of groups
 
+```{r}
+#set possible number
+k.max = 19
+wss<- sapply(1:k.max,function(k){kmeans(iris[,1:4],k,nstart = 20,iter.max = 20)$tot.withinss})
 ```
+
+or
+
+* https://uc-r.github.io/kmeans_clustering
+* https://rpubs.com/AnanyaDu/361293#:~:text=Iris%20Dataset%20%2D%20Clustering%20using%20K%20means&text=The%20data%20gives%20the%20measurements,to%20cluster%20them%20into%20groups
+
+```{r}
+library(cluster)    # clustering algorithms
+library(factoextra)
+```
+
 
 ## Tree models 
 
