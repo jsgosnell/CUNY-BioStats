@@ -1,7 +1,7 @@
 ---
 title: "12. Multivariate methods"
 author: "jsg"
-date: "Last compiled on 03 May, 2022 21:15"
+date: "Last compiled on 04 May, 2022 10:17"
 output:
   html_document:
     toc: true
@@ -80,13 +80,6 @@ Plot the different outcomes they measured
 ```r
 library(ggplot2)
 library(reshape)
-```
-
-```
-## Warning: package 'reshape' was built under R version 4.1.3
-```
-
-```r
 irisshow <- melt(iris,id=c("Species"))
 ggplot(irisshow,aes(x=variable,y=value,fill=Species))+
   geom_boxplot()
@@ -192,15 +185,7 @@ checkPackage("vegan")
 ```
 
 ```
-## Warning: package 'vegan' was built under R version 4.1.3
-```
-
-```
 ## Loading required package: permute
-```
-
-```
-## Warning: package 'permute' was built under R version 4.1.3
 ```
 
 ```
@@ -317,7 +302,7 @@ summary(a)
 ## 
 ## Upper quantiles of permutations (null model):
 ##    90%    95%  97.5%    99% 
-## 0.0145 0.0228 0.0297 0.0351 
+## 0.0149 0.0214 0.0290 0.0366 
 ## 
 ## Dissimilarity ranks between and within classes:
 ##            0%    25%    50%     75%    100%    N
@@ -561,7 +546,102 @@ Evaluate outcomes and biplot
 
 ```r
 #using rda
+summary(PCA)
+```
 
+```
+## 
+## Call:
+## rda(X = dune, scale = FALSE) 
+## 
+## Partitioning of variance:
+##               Inertia Proportion
+## Total           84.12          1
+## Unconstrained   84.12          1
+## 
+## Eigenvalues, and their contribution to the variance 
+## 
+## Importance of components:
+##                           PC1     PC2     PC3     PC4    PC5     PC6     PC7
+## Eigenvalue            24.7953 18.1466 7.62913 7.15277 5.6950 4.33331 3.19936
+## Proportion Explained   0.2947  0.2157 0.09069 0.08503 0.0677 0.05151 0.03803
+## Cumulative Proportion  0.2947  0.5105 0.60115 0.68618 0.7539 0.80539 0.84342
+##                           PC8    PC9    PC10    PC11    PC12    PC13     PC14
+## Eigenvalue            2.78186 2.4820 1.85377 1.74712 1.31358 0.99051 0.637794
+## Proportion Explained  0.03307 0.0295 0.02204 0.02077 0.01561 0.01177 0.007582
+## Cumulative Proportion 0.87649 0.9060 0.92803 0.94880 0.96441 0.97619 0.983768
+##                           PC15     PC16     PC17     PC18     PC19
+## Eigenvalue            0.550827 0.350584 0.199556 0.148798 0.115753
+## Proportion Explained  0.006548 0.004167 0.002372 0.001769 0.001376
+## Cumulative Proportion 0.990316 0.994483 0.996855 0.998624 1.000000
+## 
+## Scaling 2 for species and site scores
+## * Species are scaled proportional to eigenvalues
+## * Sites are unscaled: weighted dispersion equal on all dimensions
+## * General scaling constant of scores:  6.322924 
+## 
+## 
+## Species scores
+## 
+##                PC1      PC2       PC3       PC4      PC5       PC6
+## Achimill -0.603786  0.12392  0.008464  0.159574  0.40871  0.127857
+## Agrostol  1.373953 -0.96401  0.166905  0.266466 -0.08765  0.047368
+## Airaprae  0.023415  0.25078 -0.194768 -0.326043  0.05574 -0.079619
+## Alopgeni  0.531234 -1.42784 -0.505241 -0.042885 -0.44293  0.278566
+## Anthodor -0.559138  0.56761 -0.476205  0.015781  0.34408 -0.135783
+## Bellpere -0.333560 -0.18881  0.140638 -0.084177  0.12541  0.134771
+## Bromhord -0.523468 -0.19656  0.164222  0.005671  0.38612  0.257634
+## Chenalbu  0.017494 -0.05462 -0.055349 -0.010582  0.02664  0.016405
+## Cirsarve  0.002398 -0.10237  0.063716 -0.048735 -0.03212 -0.036055
+## Comapalu  0.168933  0.10522  0.063625  0.052352  0.13056  0.108129
+## Eleopalu  1.278257  0.21782  0.469213  0.667986  0.20877  0.189927
+## Elymrepe -0.450692 -0.80310  0.340783 -0.243514  0.25145 -0.691715
+## Empenigr  0.014054  0.10956 -0.099378 -0.161788 -0.02289 -0.001195
+## Hyporadi -0.014612  0.42079 -0.223096 -0.535685 -0.10309 -0.025185
+## Juncarti  0.679423 -0.07604  0.243642  0.310903 -0.08877 -0.248736
+## Juncbufo  0.065583 -0.45959 -0.548944 -0.018900 -0.10571 -0.087168
+## Lolipere -1.455985 -0.39306  1.013109  0.170493 -0.52430  0.114397
+## Planlanc -0.913938  0.55455 -0.244341  0.617631 -0.12494 -0.098047
+## Poaprat  -0.899147 -0.55712  0.542805 -0.042467 -0.27815 -0.026353
+## Poatriv  -0.756003 -1.56056 -0.480385  0.351099  0.36641  0.044066
+## Ranuflam  0.625121  0.06099  0.124760  0.233953  0.13645  0.087328
+## Rumeacet -0.582581  0.06663 -0.574256  0.775879 -0.08772 -0.361433
+## Sagiproc  0.156823 -0.42388 -0.331722 -0.454322 -0.43262  0.037181
+## Salirepe  0.293607  0.45555 -0.023780 -0.196209 -0.20176 -0.097569
+## Scorautu -0.453771  0.39268 -0.212281 -0.382424 -0.27635  0.395164
+## Trifprat -0.417853  0.16572 -0.234524  0.570030 -0.09646 -0.128045
+## Trifrepe -0.581801 -0.02115 -0.167299  0.196535  0.18714  0.928758
+## Vicilath -0.106710  0.11571  0.092827 -0.055592 -0.15433  0.129733
+## Bracruta  0.148626  0.47690 -0.168758  0.509177 -0.96307  0.029481
+## Callcusp  0.538513  0.17963  0.175086  0.238876  0.25531  0.169209
+## 
+## 
+## Site scores (weighted sums of species scores)
+## 
+##         PC1     PC2     PC3     PC4      PC5      PC6
+## 1  -0.85678 -0.1724  2.6079 -1.1296  0.45074 -2.49113
+## 2  -1.64477 -1.2299  0.8867 -0.9859  2.03463  1.81057
+## 3  -0.44010 -2.3827  0.9297 -0.4601 -1.02783 -0.05183
+## 4   0.04795 -2.0463  1.2737 -0.9742 -0.64210 -0.72074
+## 5  -1.62445  0.2900 -1.5927  1.5398  1.86008 -2.21191
+## 6  -1.97427  1.0802 -1.1501  3.3534 -1.52026  0.03127
+## 7  -1.79263  0.3220 -0.2200  1.4714  0.01245 -0.42583
+## 8   0.88980 -1.0905  0.9250  0.5165 -1.08897  0.94777
+## 9   0.00904 -1.6570 -0.4661 -0.2826 -0.10821 -2.16570
+## 10 -1.91463  0.4940  0.7058  0.2676  1.36985  2.62386
+## 11 -1.04110  1.2081  1.4203 -0.9566 -2.71745  1.11200
+## 12  1.01822 -1.4598 -3.2509 -0.3247 -1.75331  1.01550
+## 13  0.69939 -2.1837 -2.2128 -0.4231  1.06502  0.65585
+## 14  1.49047  0.9772  0.5447  0.2733  2.38875  2.47896
+## 15  1.88644  1.1261  0.7271  0.7732  0.22113 -0.31750
+## 16  2.84848 -0.2081  0.7041  2.1012  0.29311 -0.08124
+## 17  0.04666  1.7279 -0.9135 -1.6663  1.80070 -1.55572
+## 18 -0.26936  1.7157  0.1648 -0.5770 -2.10498  0.33880
+## 19  0.28094  2.1901 -1.9865 -3.2341 -0.45760 -0.02389
+## 20  2.34069  1.2991  0.9029  0.7178 -0.07573 -0.96909
+```
+
+```r
 biplot(PCA, choices = c(1,2), type = c("text", "points"), xlim = c(-5,10), scale=0,
        main= "Correlation biplot (scale = 0)") # biplot of axis 1 vs 2
 ```
@@ -696,15 +776,7 @@ library(car)
 ```
 
 ```
-## Warning: package 'car' was built under R version 4.1.3
-```
-
-```
 ## Loading required package: carData
-```
-
-```
-## Warning: package 'carData' was built under R version 4.1.3
 ```
 
 ```r
@@ -849,7 +921,7 @@ RsquareAdj(cca_dune, 100)
 ## [1] 0.7106267
 ## 
 ## $adj.r.squared
-## [1] 0.2284884
+## [1] 0.2074674
 ```
 
 ### Hypothesis testing
@@ -870,7 +942,7 @@ anova(rda_dune, permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df Variance      F Pr(>F)   
-## Model    12   63.206 1.7627  0.005 **
+## Model    12   63.206 1.7627  0.006 **
 ## Residual  7   20.917                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -888,11 +960,11 @@ anova(rda_dune, by='margin', permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df Variance      F Pr(>F)
-## A1          1   2.3704 0.7933  0.624
-## Moisture    3  11.9409 1.3320  0.167
-## Management  2   7.1574 1.1976  0.257
-## Use         2   4.9785 0.8330  0.679
-## Manure      3   9.6257 1.0737  0.349
+## A1          1   2.3704 0.7933  0.604
+## Moisture    3  11.9409 1.3320  0.192
+## Management  2   7.1574 1.1976  0.264
+## Use         2   4.9785 0.8330  0.665
+## Manure      3   9.6257 1.0737  0.367
 ## Residual    7  20.9175
 ```
 
@@ -907,7 +979,7 @@ anova(cca_dune, permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df ChiSquare      F Pr(>F)  
-## Model    12    1.5032 1.4325  0.045 *
+## Model    12    1.5032 1.4325  0.029 *
 ## Residual  7    0.6121                
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -925,11 +997,11 @@ anova(cca_dune, by='margin', permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df ChiSquare      F Pr(>F)
-## A1          1   0.11070 1.2660  0.241
-## Moisture    3   0.31587 1.2041  0.229
-## Management  2   0.15882 0.9081  0.590
-## Use         2   0.13010 0.7439  0.775
-## Manure      3   0.25490 0.9717  0.531
+## A1          1   0.11070 1.2660  0.231
+## Moisture    3   0.31587 1.2041  0.258
+## Management  2   0.15882 0.9081  0.582
+## Use         2   0.13010 0.7439  0.789
+## Manure      3   0.25490 0.9717  0.538
 ## Residual    7   0.61210
 ```
 
@@ -950,7 +1022,7 @@ anova(rda_dune, rda_dune_use_removed)
 ## Model 2: dune ~ A1 + Moisture + Management + Manure
 ##   ResDf ResChiSquare Df ChiSquare     F Pr(>F)
 ## 1     7       20.918                          
-## 2     9       25.896 -2   -4.9785 0.833  0.637
+## 2     9       25.896 -2   -4.9785 0.833  0.687
 ```
 
 ### NMDS
@@ -965,48 +1037,52 @@ nmds_dune <- metaMDS(dune, k =2)
 
 ```
 ## Run 0 stress 0.1192678 
-## Run 1 stress 0.1192678 
-## ... Procrustes: rmse 8.343907e-05  max resid 0.0002554081 
-## ... Similar to previous best
-## Run 2 stress 0.1183186 
+## Run 1 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 0.02027067  max resid 0.06496344 
+## ... Procrustes: rmse 0.02027209  max resid 0.06496917 
+## Run 2 stress 0.1192678 
 ## Run 3 stress 0.1192678 
-## Run 4 stress 0.1192679 
-## Run 5 stress 0.1183186 
-## ... Procrustes: rmse 9.20392e-06  max resid 2.948044e-05 
-## ... Similar to previous best
-## Run 6 stress 0.1183186 
+## Run 4 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 6.539811e-07  max resid 2.140993e-06 
+## ... Procrustes: rmse 1.608183e-05  max resid 4.464357e-05 
 ## ... Similar to previous best
+## Run 5 stress 0.119268 
+## Run 6 stress 0.1192678 
 ## Run 7 stress 0.1183186 
-## ... Procrustes: rmse 2.220225e-05  max resid 6.754969e-05 
+## ... Procrustes: rmse 2.761738e-06  max resid 9.345327e-06 
 ## ... Similar to previous best
-## Run 8 stress 0.1183186 
+## Run 8 stress 0.1192679 
+## Run 9 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 6.368696e-06  max resid 2.203674e-05 
+## ... Procrustes: rmse 4.671305e-06  max resid 1.500738e-05 
 ## ... Similar to previous best
-## Run 9 stress 0.1192678 
 ## Run 10 stress 0.1183186 
-## ... Procrustes: rmse 1.432201e-05  max resid 3.891674e-05 
+## ... Procrustes: rmse 1.471379e-06  max resid 3.146266e-06 
 ## ... Similar to previous best
-## Run 11 stress 0.1808911 
+## Run 11 stress 0.1183186 
+## ... Procrustes: rmse 5.14638e-06  max resid 1.62927e-05 
+## ... Similar to previous best
 ## Run 12 stress 0.1183186 
-## ... Procrustes: rmse 3.363463e-06  max resid 9.580432e-06 
+## ... Procrustes: rmse 2.77359e-06  max resid 6.552377e-06 
 ## ... Similar to previous best
-## Run 13 stress 0.1192678 
-## Run 14 stress 0.1192679 
+## Run 13 stress 0.1183186 
+## ... Procrustes: rmse 2.351142e-06  max resid 7.52724e-06 
+## ... Similar to previous best
+## Run 14 stress 0.1192678 
 ## Run 15 stress 0.1183186 
-## ... Procrustes: rmse 6.155234e-06  max resid 2.122422e-05 
+## ... Procrustes: rmse 1.07769e-06  max resid 2.356939e-06 
 ## ... Similar to previous best
 ## Run 16 stress 0.1192678 
-## Run 17 stress 0.1192678 
-## Run 18 stress 0.1183186 
-## ... Procrustes: rmse 1.5298e-05  max resid 5.207028e-05 
+## Run 17 stress 0.1183186 
+## ... Procrustes: rmse 2.712924e-06  max resid 7.372364e-06 
 ## ... Similar to previous best
-## Run 19 stress 0.1192678 
-## Run 20 stress 0.1192679 
+## Run 18 stress 0.1183186 
+## ... Procrustes: rmse 2.652421e-06  max resid 6.887108e-06 
+## ... Similar to previous best
+## Run 19 stress 0.1183186 
+## ... Procrustes: rmse 3.528528e-06  max resid 1.10214e-05 
+## ... Similar to previous best
+## Run 20 stress 0.1192678 
 ## *** Solution reached
 ```
 
@@ -1142,16 +1218,12 @@ plot(1:k.max,wss, type= "b", xlab = "Number of clusters(k)", ylab = "Within clus
 or
 
 * https://uc-r.github.io/kmeans_clustering
-* https://rpubs.com/AnanyaDu/361293#:~:text=Iris%20Dataset%20%2D%20Clustering%20using%20K%20means&text=The%20data%20gives%20the%20measurements,to%20cluster%20them%20into%20groups
+* https://rpubs.com/AnanyaDu/361293
 
 
 ```r
 library(cluster)    # clustering algorithms
 library(factoextra)
-```
-
-```
-## Warning: package 'factoextra' was built under R version 4.1.3
 ```
 
 ```
@@ -1267,10 +1339,6 @@ require(rattle)
 ```
 
 ```
-## Warning: package 'rattle' was built under R version 4.1.3
-```
-
-```
 ## Loading required package: tibble
 ```
 
@@ -1343,7 +1411,7 @@ require(mgcv)
 ```
 
 ```
-## This is mgcv 1.8-38. For overview type 'help("mgcv-package")'.
+## This is mgcv 1.8-39. For overview type 'help("mgcv-package")'.
 ```
 
 ```r
@@ -1414,9 +1482,7 @@ iris_glm_final <- stepAIC(iris_glm)
 
 ```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-```
 
-```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
@@ -1570,10 +1636,6 @@ require(ROCR)
 
 ```
 ## Loading required package: ROCR
-```
-
-```
-## Warning: package 'ROCR' was built under R version 4.1.3
 ```
 
 ```r
@@ -1955,10 +2017,6 @@ library(lavaan)
 ```
 
 ```
-## Warning: package 'lavaan' was built under R version 4.1.3
-```
-
-```
 ## This is lavaan 0.6-11
 ## lavaan is FREE software! Please report any bugs.
 ```
@@ -2079,13 +2137,6 @@ summary(keeley_sem1, standardize = T, rsq = T)
 ```r
 #plot
 library(lavaanPlot)
-```
-
-```
-## Warning: package 'lavaanPlot' was built under R version 4.1.3
-```
-
-```r
 lavaanPlot(model = keeley_sem1, coefs = TRUE)
 ```
 

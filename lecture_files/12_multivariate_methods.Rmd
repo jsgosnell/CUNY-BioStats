@@ -161,7 +161,7 @@ Evaluate outcomes and biplot
 
 ```{r}
 #using rda
-
+summary(PCA)
 biplot(PCA, choices = c(1,2), type = c("text", "points"), xlim = c(-5,10), scale=0,
        main= "Correlation biplot (scale = 0)") # biplot of axis 1 vs 2
 biplot(PCA, choices = c(1,2), type = c("text", "points"), 
@@ -316,7 +316,7 @@ plot(1:k.max,wss, type= "b", xlab = "Number of clusters(k)", ylab = "Within clus
 or
 
 * https://uc-r.github.io/kmeans_clustering
-* https://rpubs.com/AnanyaDu/361293#:~:text=Iris%20Dataset%20%2D%20Clustering%20using%20K%20means&text=The%20data%20gives%20the%20measurements,to%20cluster%20them%20into%20groups
+* https://rpubs.com/AnanyaDu/361293
 
 ```{r}
 library(cluster)    # clustering algorithms
