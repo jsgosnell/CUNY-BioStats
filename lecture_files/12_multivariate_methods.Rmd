@@ -302,6 +302,10 @@ Finding optimal number of groups
 
 * https://rpubs.com/AnanyaDu/361293
 
+#### elbow method
+
+* https://rpubs.com/AnanyaDu/361293
+
 ```{r}
 #set possible number
 k.max = 19
@@ -320,6 +324,27 @@ library(factoextra)
 fviz_nbclust(dune, kmeans, method = "wss")
 ```
 
+#### silhouette method
+
+```{r}
+fviz_nbclust(dune, kmeans, method = "silhouette")
+```
+
+#### gap stat
+
+```{r}
+gap_stat <- clusGap(dune, FUN = kmeans, nstart = 25,
+                    K.max = 10, B = 50)
+fviz_gap_stat(gap_stat)
+```
+
+#### fit final model
+
+```{r}
+final <- kmeans(dune, 4, nstart = 25)
+print(final)
+fviz_cluster(final, data = dune)
+```
 
 ## Tree models 
 
