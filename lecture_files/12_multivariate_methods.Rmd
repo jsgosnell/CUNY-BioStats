@@ -77,12 +77,46 @@ Follow up can mean doing several one way ANOVAs
 summary.aov(m) 
 ```
 
+### PERMANOVA
+
+* https://f-santos.gitlab.io/2020-05-07-npmanova.html
+* https://archetypalecology.wordpress.com/2018/02/21/permutational-multivariate-analysis-of-variance-permanova-in-r-preliminary/
+
+if normality assumpions are not met, you can use a permuation-based PERMANOVA. Note
+it requires to make diffferent objects for response and explanatory variables, as
+vegan package often separates these.
+
+```{r}
+checkPackage("vegan")
+outcomes <- iris[, c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")]
+p <- adonis2(outcomes~iris$Species)
+p
+```
+
+You can carry out pairwise comparison using
+
+```{r}
+checkPackage('devtools')
+install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
+checkPackage("pairwiseAdonis")
+pairwise.adonis(outcomes, iris$Species, sim.method = "euclidean",
+                p.adjust.m = "bonferroni")
+```
+
+### ANOSIM
+
+* https://danstich.github.io/stich/classes/BIOL217/11_multivariate.html 
+
+```{r}
+a <- anosim(vegdist(outcomes), grouping = iris$Species)
+summary(a)
+```
+
 ## Ordination
 
 ### Polar/Bray-Curtis
 
 ```{r}
-checkPackage("vegan")
 data(dune)
 #use "extreme" vegan for this historic approach
 checkPackage("devtools")
@@ -176,6 +210,9 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
 
 ### RDA
 
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
+
+
 ```{r}
 rda_dune <- rda(dune~., data=dune.env)
 rda_dune
@@ -187,16 +224,24 @@ text(rda_dune, display='cn', col='red')
 
 ### CCA
 
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
+
+
 ```{r}
 cca_dune = cca(dune ~ ., data=dune.env)
+cca_dune
 RsquareAdj(cca_dune, 100)
 ```
+
+### Hypothesis testing
+
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
 
 You can test related hypotheses using permutations
 
 ```{r}
 anova(rda_dune, permutations=999)
-anova(rda_dune, by='margin', permutations=10)
+anova(rda_dune, by='margin', permutations=999)
 anova(cca_dune, permutations = 999)
 anova(cca_dune, by='margin', permutations = 999)
 ```
@@ -211,17 +256,35 @@ anova(rda_dune, rda_dune_use_removed)
 ### NMDS
 
 * https://peat-clark.github.io/BIO381/veganTutorial.html
+* https://danstich.github.io/stich/classes/BIOL217/11_multivariate.html
 
 ```{r}
 nmds_dune <- metaMDS(dune, k =2)
+nmds_dune
+stressplot(nmds_dune)
 plot(nmds_dune)
 ordiplot(nmds_dune,type="n") #Ordination plot function especially for congested plots
 orditorp(nmds_dune,display="species",col="red",air=0.01) #The function adds text or points to ordination plots
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
+
+if we had a treatment applied to varous plots, we can consider impact on grouping
+graphically.
+
+* https://jonlefcheck.net/2012/10/24/nmds-tutorial-in-r/
+
+```{r}
+ordiplot(nmds_dune,type="n")
+ordihull(nmds_dune,groups=dune.env$Use,draw="polygon",col="grey90",label=T)
+orditorp(nmds_dune,display="species",col="red",air=0.01)
+orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
+```
+
 ## Classification
 
 ### discriminant analysis
+
+* https://www.r-bloggers.com/2018/03/discriminant-analysis-statistics-all-the-way/
 
 ```{r}
 library(MASS)
@@ -237,10 +300,13 @@ ldahist(data = Predictions$x[,2], g=iris$Species)
 
 Finding optimal number of groups
 
+* https://rpubs.com/AnanyaDu/361293
+
 ```{r}
 #set possible number
 k.max = 19
 wss<- sapply(1:k.max,function(k){kmeans(iris[,1:4],k,nstart = 20,iter.max = 20)$tot.withinss})
+plot(1:k.max,wss, type= "b", xlab = "Number of clusters(k)", ylab = "Within cluster sum of squares")
 ```
 
 or
@@ -251,6 +317,7 @@ or
 ```{r}
 library(cluster)    # clustering algorithms
 library(factoextra)
+fviz_nbclust(dune, kmeans, method = "wss")
 ```
 
 

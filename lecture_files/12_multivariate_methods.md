@@ -1,7 +1,7 @@
 ---
 title: "12. Multivariate methods"
 author: "jsg"
-date: "Last compiled on 02 May, 2022 20:10"
+date: "Last compiled on 03 May, 2022 20:46"
 output:
   html_document:
     toc: true
@@ -80,6 +80,13 @@ Plot the different outcomes they measured
 ```r
 library(ggplot2)
 library(reshape)
+```
+
+```
+## Warning: package 'reshape' was built under R version 4.1.3
+```
+
+```r
 irisshow <- melt(iris,id=c("Species"))
 ggplot(irisshow,aes(x=variable,y=value,fill=Species))+
   geom_boxplot()
@@ -170,9 +177,14 @@ summary.aov(m)
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-## Ordination
+### PERMANOVA
 
-### Polar/Bray-Curtis
+* https://f-santos.gitlab.io/2020-05-07-npmanova.html
+* https://archetypalecology.wordpress.com/2018/02/21/permutational-multivariate-analysis-of-variance-permanova-in-r-preliminary/
+
+if normality assumpions are not met, you can use a permuation-based PERMANOVA. Note
+it requires to make diffferent objects for response and explanatory variables, as
+vegan package often separates these.
 
 
 ```r
@@ -180,7 +192,15 @@ checkPackage("vegan")
 ```
 
 ```
+## Warning: package 'vegan' was built under R version 4.1.3
+```
+
+```
 ## Loading required package: permute
+```
+
+```
+## Warning: package 'permute' was built under R version 4.1.3
 ```
 
 ```
@@ -192,9 +212,31 @@ checkPackage("vegan")
 ```
 
 ```r
-data(dune)
-#use "extreme" vegan for this historic approach
-checkPackage("devtools")
+outcomes <- iris[, c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")]
+p <- adonis2(outcomes~iris$Species)
+p
+```
+
+```
+## Permutation test for adonis under reduced model
+## Terms added sequentially (first to last)
+## Permutation: free
+## Number of permutations: 999
+## 
+## adonis2(formula = outcomes ~ iris$Species)
+##               Df SumOfSqs      R2      F Pr(>F)    
+## iris$Species   2  2.31730 0.87876 532.74  0.001 ***
+## Residual     147  0.31971 0.12124                  
+## Total        149  2.63701 1.00000                  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+You can carry out pairwise comparison using
+
+
+```r
+checkPackage('devtools')
 ```
 
 ```
@@ -213,6 +255,87 @@ checkPackage("devtools")
 ```
 
 ```r
+install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
+```
+
+```
+## WARNING: Rtools is required to build R packages, but is not currently installed.
+## 
+## Please download and install Rtools 4.0 from https://cran.r-project.org/bin/windows/Rtools/.
+```
+
+```
+## Skipping install of 'pairwiseAdonis' from a github remote, the SHA1 (ece560d2) has not changed since last install.
+##   Use `force = TRUE` to force installation
+```
+
+```r
+checkPackage("pairwiseAdonis")
+```
+
+```
+## Loading required package: cluster
+```
+
+```r
+pairwise.adonis(outcomes, iris$Species, sim.method = "euclidean",
+                p.adjust.m = "bonferroni")
+```
+
+```
+##                     pairs Df SumsOfSqs  F.Model        R2 p.value p.adjusted
+## 1    setosa vs versicolor  1  257.3267 551.0039 0.8489994   0.001      0.003
+## 2     setosa vs virginica  1  565.1335 943.7992 0.9059320   0.001      0.003
+## 3 versicolor vs virginica  1   65.6496  86.7697 0.4696100   0.001      0.003
+##   sig
+## 1   *
+## 2   *
+## 3   *
+```
+
+### ANOSIM
+
+* https://danstich.github.io/stich/classes/BIOL217/11_multivariate.html 
+
+
+```r
+a <- anosim(vegdist(outcomes), grouping = iris$Species)
+summary(a)
+```
+
+```
+## 
+## Call:
+## anosim(x = vegdist(outcomes), grouping = iris$Species) 
+## Dissimilarity: bray 
+## 
+## ANOSIM statistic R: 0.8576 
+##       Significance: 0.001 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Upper quantiles of permutations (null model):
+##    90%    95%  97.5%    99% 
+## 0.0141 0.0196 0.0292 0.0419 
+## 
+## Dissimilarity ranks between and within classes:
+##            0%    25%    50%     75%    100%    N
+## Between    24 5443.5 7425.0 9300.25 11175.0 7500
+## setosa      3  939.5 1971.0 3355.00  6085.0 1225
+## versicolor  9 1044.0 2219.5 3748.00  6066.5 1225
+## virginica   1 1028.5 2226.0 3661.00  6567.5 1225
+```
+
+## Ordination
+
+### Polar/Bray-Curtis
+
+
+```r
+data(dune)
+#use "extreme" vegan for this historic approach
+checkPackage("devtools")
 install_github("jarioksa/natto")
 ```
 
@@ -267,7 +390,7 @@ ord
 plot(ord)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 summary(eigenvals(ord))
@@ -393,13 +516,13 @@ summary(PCA)
 barplot(as.vector(PCA$CA$eig)/sum(PCA$CA$eig)) 
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 screeplot(PCA)# not corrected
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-11-2.png)<!-- -->
 
 ```r
 # How much of the variance in our dataset is explained by the first principal component?
@@ -419,19 +542,19 @@ sum((as.vector(PCA$CA$eig)/sum(PCA$CA$eig))[1:2]) # 79%, this is ok.
 plot(PCA)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-11-3.png)<!-- -->
 
 ```r
 plot(PCA, display = "sites", type = "points")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-11-4.png)<!-- -->
 
 ```r
 plot(PCA, display = "species", type = "text")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-8-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-11-5.png)<!-- -->
 
 Evaluate outcomes and biplot
 
@@ -467,7 +590,7 @@ biplot(PCA, choices = c(1,2), type = c("text", "points"), xlim = c(-5,10), scale
 ## Warning in title(...): "scale" is not a graphical parameter
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,2), type = c("text", "points"), 
@@ -498,13 +621,13 @@ biplot(PCA, choices = c(1,2), type = c("text", "points"),
 ## Warning in title(...): "scale" is not a graphical parameter
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-2.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,3), type = c("text","points")) # biplot of axis 1 vs 3
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-3.png)<!-- -->
 
 ```r
 # You can extract the species and site scores on the new PC for further analyses:
@@ -521,27 +644,27 @@ biplot(PCApc, choices = c(1,2), xlim = c(-5,10), pc.biplot = T,
        main= "Correlation biplot") # biplot of axis 1 vs 2
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-4.png)<!-- -->
 
 ```r
 biplot(PCApc, choices = c(1,2), xlim = c(-5,10),
        main= "Distance biplot") # biplot of axis 1 vs 2
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-5.png)<!-- -->
 
 ```r
 biplot(PCApc, choices = c(1,2), 
        main = "Distance biplot", xlim = c(-5,10),  pc.biplot = T) # biplot of axis 1 vs 2
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-6.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-6.png)<!-- -->
 
 ```r
 biplot(PCA, choices = c(1,3), type = c("text","points")) # biplot of axis 1 vs 3
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-7.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-7.png)<!-- -->
 
 ```r
 data(dune.env)
@@ -557,7 +680,7 @@ ggplot(dune.env.new, aes(x=pc1, y=pc2, shape=Use, color=Use))+
 ## Warning: Using shapes for an ordinal variable is not advised
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-8.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-8.png)<!-- -->
 
 ```r
 impact <- lm(pc1 ~ Use, dune.env.new)
@@ -565,7 +688,7 @@ par(mfrow=c(2,2))
 plot(impact)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-9.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-9.png)<!-- -->
 
 ```r
 par(mfrow=c(1,1))
@@ -573,7 +696,15 @@ library(car)
 ```
 
 ```
+## Warning: package 'car' was built under R version 4.1.3
+```
+
+```
 ## Loading required package: carData
+```
+
+```
+## Warning: package 'carData' was built under R version 4.1.3
 ```
 
 ```r
@@ -621,9 +752,12 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
 ## Warning: Using shapes for an ordinal variable is not advised
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-9-10.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-10.png)<!-- -->
 
 ### RDA
+
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
+
 
 
 ```r
@@ -671,13 +805,42 @@ orditorp(rda_dune, display='sp', cex=0.5, scaling=1, col='blue')
 text(rda_dune, display='cn', col='red')
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ### CCA
+
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
+
 
 
 ```r
 cca_dune = cca(dune ~ ., data=dune.env)
+cca_dune
+```
+
+```
+## Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure,
+## data = dune.env)
+## 
+##               Inertia Proportion Rank
+## Total          2.1153     1.0000     
+## Constrained    1.5032     0.7106   12
+## Unconstrained  0.6121     0.2894    7
+## Inertia is scaled Chi-square 
+## Some constraints or conditions were aliased because they were redundant
+## 
+## Eigenvalues for constrained axes:
+##   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
+## 0.4671 0.3410 0.1761 0.1532 0.0953 0.0703 0.0589 0.0499 0.0318 0.0260 0.0228 
+##  CCA12 
+## 0.0108 
+## 
+## Eigenvalues for unconstrained axes:
+##     CA1     CA2     CA3     CA4     CA5     CA6     CA7 
+## 0.27237 0.10876 0.08975 0.06305 0.03489 0.02529 0.01798
+```
+
+```r
 RsquareAdj(cca_dune, 100)
 ```
 
@@ -686,8 +849,12 @@ RsquareAdj(cca_dune, 100)
 ## [1] 0.7106267
 ## 
 ## $adj.r.squared
-## [1] 0.2080854
+## [1] 0.2264844
 ```
+
+### Hypothesis testing
+
+* https://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
 
 You can test related hypotheses using permutations
 
@@ -703,29 +870,29 @@ anova(rda_dune, permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df Variance      F Pr(>F)   
-## Model    12   63.206 1.7627  0.004 **
+## Model    12   63.206 1.7627  0.005 **
 ## Residual  7   20.917                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
-anova(rda_dune, by='margin', permutations=10)
+anova(rda_dune, by='margin', permutations=999)
 ```
 
 ```
 ## Permutation test for rda under reduced model
 ## Marginal effects of terms
 ## Permutation: free
-## Number of permutations: 10
+## Number of permutations: 999
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df Variance      F Pr(>F)
-## A1          1   2.3704 0.7933 0.5455
-## Moisture    3  11.9409 1.3320 0.4545
-## Management  2   7.1574 1.1976 0.3636
-## Use         2   4.9785 0.8330 0.6364
-## Manure      3   9.6257 1.0737 0.5455
+## A1          1   2.3704 0.7933  0.593
+## Moisture    3  11.9409 1.3320  0.169
+## Management  2   7.1574 1.1976  0.267
+## Use         2   4.9785 0.8330  0.635
+## Manure      3   9.6257 1.0737  0.369
 ## Residual    7  20.9175
 ```
 
@@ -740,7 +907,7 @@ anova(cca_dune, permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df ChiSquare      F Pr(>F)  
-## Model    12    1.5032 1.4325  0.043 *
+## Model    12    1.5032 1.4325  0.037 *
 ## Residual  7    0.6121                
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -758,11 +925,11 @@ anova(cca_dune, by='margin', permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df ChiSquare      F Pr(>F)
-## A1          1   0.11070 1.2660  0.238
-## Moisture    3   0.31587 1.2041  0.247
-## Management  2   0.15882 0.9081  0.564
-## Use         2   0.13010 0.7439  0.784
-## Manure      3   0.25490 0.9717  0.508
+## A1          1   0.11070 1.2660  0.225
+## Moisture    3   0.31587 1.2041  0.225
+## Management  2   0.15882 0.9081  0.580
+## Use         2   0.13010 0.7439  0.801
+## Manure      3   0.25490 0.9717  0.535
 ## Residual    7   0.61210
 ```
 
@@ -783,12 +950,13 @@ anova(rda_dune, rda_dune_use_removed)
 ## Model 2: dune ~ A1 + Moisture + Management + Manure
 ##   ResDf ResChiSquare Df ChiSquare     F Pr(>F)
 ## 1     7       20.918                          
-## 2     9       25.896 -2   -4.9785 0.833  0.689
+## 2     9       25.896 -2   -4.9785 0.833  0.667
 ```
 
 ### NMDS
 
 * https://peat-clark.github.io/BIO381/veganTutorial.html
+* https://danstich.github.io/stich/classes/BIOL217/11_multivariate.html
 
 
 ```r
@@ -797,55 +965,76 @@ nmds_dune <- metaMDS(dune, k =2)
 
 ```
 ## Run 0 stress 0.1192678 
-## Run 1 stress 0.2711007 
-## Run 2 stress 0.1808912 
+## Run 1 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 0.02026941  max resid 0.06495819 
+## Run 2 stress 0.1192678 
 ## Run 3 stress 0.1192678 
-## ... New best solution
-## ... Procrustes: rmse 2.122364e-05  max resid 6.499411e-05 
-## ... Similar to previous best
-## Run 4 stress 0.1192679 
-## ... Procrustes: rmse 9.122066e-05  max resid 0.0002785493 
-## ... Similar to previous best
-## Run 5 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 0.02028635  max resid 0.06505547 
+## Run 4 stress 0.180958 
+## Run 5 stress 0.1192678 
 ## Run 6 stress 0.1192678 
-## Run 7 stress 0.1192678 
-## Run 8 stress 0.1183186 
+## Run 7 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 6.653441e-05  max resid 0.0002050051 
+## ... Procrustes: rmse 1.047801e-05  max resid 3.32424e-05 
 ## ... Similar to previous best
-## Run 9 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 1.742432e-05  max resid 5.868322e-05 
-## ... Similar to previous best
-## Run 10 stress 0.2062788 
+## Run 8 stress 0.1192678 
+## Run 9 stress 0.1809578 
+## Run 10 stress 0.1192678 
 ## Run 11 stress 0.1192678 
 ## Run 12 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 2.518845e-06  max resid 8.655264e-06 
+## ... Procrustes: rmse 2.947554e-06  max resid 9.38971e-06 
 ## ... Similar to previous best
-## Run 13 stress 0.1192679 
-## Run 14 stress 0.188964 
-## Run 15 stress 0.1192678 
-## Run 16 stress 0.1192678 
-## Run 17 stress 0.1183186 
-## ... Procrustes: rmse 3.840256e-06  max resid 1.200833e-05 
+## Run 13 stress 0.1808911 
+## Run 14 stress 0.1192678 
+## Run 15 stress 0.1183186 
+## ... Procrustes: rmse 4.097028e-06  max resid 1.352321e-05 
 ## ... Similar to previous best
-## Run 18 stress 0.1192679 
-## Run 19 stress 0.1808911 
-## Run 20 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 1.339336e-06  max resid 4.272041e-06 
+## Run 16 stress 0.1183186 
+## ... Procrustes: rmse 2.80558e-06  max resid 9.446886e-06 
 ## ... Similar to previous best
+## Run 17 stress 0.1192678 
+## Run 18 stress 0.1192678 
+## Run 19 stress 0.1183186 
+## ... Procrustes: rmse 7.975489e-06  max resid 2.526874e-05 
+## ... Similar to previous best
+## Run 20 stress 0.1886532 
 ## *** Solution reached
 ```
+
+```r
+nmds_dune
+```
+
+```
+## 
+## Call:
+## metaMDS(comm = dune, k = 2) 
+## 
+## global Multidimensional Scaling using monoMDS
+## 
+## Data:     dune 
+## Distance: bray 
+## 
+## Dimensions: 2 
+## Stress:     0.1183186 
+## Stress type 1, weak ties
+## Two convergent solutions found after 20 tries
+## Scaling: centring, PC rotation, halfchange scaling 
+## Species: expanded scores based on 'dune'
+```
+
+```r
+stressplot(nmds_dune)
+```
+
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 plot(nmds_dune)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
 
 ```r
 ordiplot(nmds_dune,type="n") #Ordination plot function especially for congested plots
@@ -853,10 +1042,28 @@ orditorp(nmds_dune,display="species",col="red",air=0.01) #The function adds text
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-14-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-3.png)<!-- -->
+
+if we had a treatment applied to varous plots, we can consider impact on grouping
+graphically.
+
+* https://jonlefcheck.net/2012/10/24/nmds-tutorial-in-r/
+
+
+```r
+ordiplot(nmds_dune,type="n")
+ordihull(nmds_dune,groups=dune.env$Use,draw="polygon",col="grey90",label=T)
+orditorp(nmds_dune,display="species",col="red",air=0.01)
+orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
+```
+
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+
 ## Classification
 
 ### discriminant analysis
+
+* https://www.r-bloggers.com/2018/03/discriminant-analysis-statistics-all-the-way/
 
 
 ```r
@@ -896,24 +1103,29 @@ table(Predictions$class, iris$Species)
 ldahist(data = Predictions$x[,1], g=iris$Species)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ```r
 ldahist(data = Predictions$x[,2], g=iris$Species)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-19-2.png)<!-- -->
 
 ### clustering
 
 Finding optimal number of groups
+
+* https://rpubs.com/AnanyaDu/361293
 
 
 ```r
 #set possible number
 k.max = 19
 wss<- sapply(1:k.max,function(k){kmeans(iris[,1:4],k,nstart = 20,iter.max = 20)$tot.withinss})
+plot(1:k.max,wss, type= "b", xlab = "Number of clusters(k)", ylab = "Within cluster sum of squares")
 ```
+
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 or
 
@@ -927,8 +1139,18 @@ library(factoextra)
 ```
 
 ```
+## Warning: package 'factoextra' was built under R version 4.1.3
+```
+
+```
 ## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
 ```
+
+```r
+fviz_nbclust(dune, kmeans, method = "wss")
+```
+
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 
 ## Tree models 
@@ -949,7 +1171,7 @@ plot(iris_tree_initial)
 text(iris_tree_initial)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
 #or for a prettier graph
@@ -958,6 +1180,10 @@ require(rattle)
 
 ```
 ## Loading required package: rattle
+```
+
+```
+## Warning: package 'rattle' was built under R version 4.1.3
 ```
 
 ```
@@ -978,7 +1204,7 @@ require(rattle)
 fancyRpartPlot(iris_tree_initial, main="Iris")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-2.png)<!-- -->
 
 ```r
 #what if you want fewer splits (less complex model)
@@ -987,7 +1213,7 @@ iris_tree_initial_auto <- rpart(Species ~ ., data = iris)
 fancyRpartPlot(iris_tree_initial_auto, main="Iris")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-3.png)<!-- -->
 
 ```r
 #or minimize complexity parameter (good for larger models)
@@ -999,9 +1225,9 @@ iris_tree_initial$cptable
 
 ```
 ##     CP nsplit rel error xerror       xstd
-## 1 0.50      0      1.00   1.14 0.05230679
-## 2 0.44      1      0.50   0.68 0.06096994
-## 3 0.02      2      0.06   0.09 0.02908608
+## 1 0.50      0      1.00   1.20 0.04898979
+## 2 0.44      1      0.50   0.76 0.06123180
+## 3 0.02      2      0.06   0.07 0.02583280
 ## 4 0.01      3      0.04   0.08 0.02751969
 ```
 
@@ -1009,7 +1235,7 @@ iris_tree_initial$cptable
 fancyRpartPlot(iris_tree_model_2)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-4.png)<!-- -->
 
 ```r
 #validation techniques
@@ -1033,7 +1259,7 @@ require(mgcv)
 ```
 
 ```
-## This is mgcv 1.8-39. For overview type 'help("mgcv-package")'.
+## This is mgcv 1.8-38. For overview type 'help("mgcv-package")'.
 ```
 
 ```r
@@ -1104,7 +1330,9 @@ iris_glm_final <- stepAIC(iris_glm)
 
 ```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+```
 
+```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
@@ -1260,6 +1488,10 @@ require(ROCR)
 ## Loading required package: ROCR
 ```
 
+```
+## Warning: package 'ROCR' was built under R version 4.1.3
+```
+
 ```r
 iris_glm_final_predict<-prediction(fitted.values(iris_glm_final), iris$virginica)
 iris_glm_final_performance<-performance(iris_glm_final_predict,"tpr","fpr")
@@ -1267,7 +1499,7 @@ iris_glm_final_performance<-performance(iris_glm_final_predict,"tpr","fpr")
 plot(iris_glm_final_performance, main = "glm AUC")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-5.png)<!-- -->
 
 ```r
 #compare to gam
@@ -1277,7 +1509,7 @@ iris_gam_b_performance<-performance(iris_gam_b_predict,"tpr","fpr")
 plot(iris_gam_b_performance, main = "gam AUC")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-6.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-6.png)<!-- -->
 
 ```r
 #cross validation
@@ -1621,7 +1853,7 @@ str(iris_glm_final_cv)
 ##  $ call : language cv.glm(data = iris, glmfit = iris_glm_final)
 ##  $ K    : num 150
 ##  $ delta: num [1:2] 0.0259 0.0259
-##  $ seed : int [1:626] 10403 272 1801931089 -485982613 430049997 1499422046 919377437 -2003904140 -1517043372 482481353 ...
+##  $ seed : int [1:626] 10403 433 515190382 2133433928 917665867 1283494313 1101294840 1366013990 -351622847 676521683 ...
 ```
 
 ```r
@@ -1636,6 +1868,10 @@ Needs to be updated.
 
 ```r
 library(lavaan)
+```
+
+```
+## Warning: package 'lavaan' was built under R version 4.1.3
 ```
 
 ```
@@ -1759,12 +1995,19 @@ summary(keeley_sem1, standardize = T, rsq = T)
 ```r
 #plot
 library(lavaanPlot)
+```
+
+```
+## Warning: package 'lavaanPlot' was built under R version 4.1.3
+```
+
+```r
 lavaanPlot(model = keeley_sem1, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-464210917614597f0ed9" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-464210917614597f0ed9">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bd767209723a30863ca5" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd767209723a30863ca5">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1773,8 +2016,8 @@ lavaanPlot(model = keeley_sem1, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-1b92d940b7ca35ee3d59" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1b92d940b7ca35ee3d59">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6b23741672a15783b59c" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b23741672a15783b59c">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1832,8 +2075,8 @@ lavaanPlot(model = keeley_sem2, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-1afcf30dea468ec37f44" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1afcf30dea468ec37f44">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.08\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b9d6facaf5e0f5b7b2b1" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b9d6facaf5e0f5b7b2b1">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.08\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1842,8 +2085,8 @@ lavaanPlot(model = keeley_sem2, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-f0d117cbd90609682286" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f0d117cbd90609682286">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.44\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fa2f8220dda1413fa7b9" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa2f8220dda1413fa7b9">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.44\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1896,8 +2139,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE)
 ```
 
 ```{=html}
-<div id="htmlwidget-9f72a555db4b97ac3d52" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9f72a555db4b97ac3d52">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.07\"] age->cover [label = \"0\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-134d98ecc6a7bce25e95" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-134d98ecc6a7bce25e95">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.07\"] age->cover [label = \"0\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1906,8 +2149,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-d3402f1e3b4cf2c70d34" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3402f1e3b4cf2c70d34">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"-0.19\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cf7a55dcb7a06bbff1b4" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cf7a55dcb7a06bbff1b4">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"-0.19\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -1917,8 +2160,8 @@ lavaanPlot(model = keeley_sem3, coefs = TRUE, stand=TRUE,
 ```
 
 ```{=html}
-<div id="htmlwidget-1d6e8a0346f39c5a851e" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1d6e8a0346f39c5a851e">{"x":{"diagram":" digraph plot { \n graph [ layout = circo ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9e2dc7173b9d96e4df10" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9e2dc7173b9d96e4df10">{"x":{"diagram":" digraph plot { \n graph [ layout = circo ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
