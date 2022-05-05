@@ -1,7 +1,7 @@
 ---
 title: "12. Multivariate methods"
 author: "jsg"
-date: "Last compiled on 04 May, 2022 10:17"
+date: "Last compiled on 05 May, 2022 08:39"
 output:
   html_document:
     toc: true
@@ -80,6 +80,13 @@ Plot the different outcomes they measured
 ```r
 library(ggplot2)
 library(reshape)
+```
+
+```
+## Warning: package 'reshape' was built under R version 4.1.3
+```
+
+```r
 irisshow <- melt(iris,id=c("Species"))
 ggplot(irisshow,aes(x=variable,y=value,fill=Species))+
   geom_boxplot()
@@ -185,7 +192,15 @@ checkPackage("vegan")
 ```
 
 ```
+## Warning: package 'vegan' was built under R version 4.1.3
+```
+
+```
 ## Loading required package: permute
+```
+
+```
+## Warning: package 'permute' was built under R version 4.1.3
 ```
 
 ```
@@ -302,7 +317,7 @@ summary(a)
 ## 
 ## Upper quantiles of permutations (null model):
 ##    90%    95%  97.5%    99% 
-## 0.0149 0.0214 0.0290 0.0366 
+## 0.0150 0.0224 0.0290 0.0383 
 ## 
 ## Dissimilarity ranks between and within classes:
 ##            0%    25%    50%     75%    100%    N
@@ -331,7 +346,7 @@ install_github("jarioksa/natto")
 ```
 
 ```
-## Skipping install of 'natto' from a github remote, the SHA1 (66cde229) has not changed since last install.
+## Skipping install of 'natto' from a github remote, the SHA1 (5ed7c605) has not changed since last install.
 ##   Use `force = TRUE` to force installation
 ```
 
@@ -776,7 +791,15 @@ library(car)
 ```
 
 ```
+## Warning: package 'car' was built under R version 4.1.3
+```
+
+```
 ## Loading required package: carData
+```
+
+```
+## Warning: package 'carData' was built under R version 4.1.3
 ```
 
 ```r
@@ -825,6 +848,111 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
 ```
 
 ![](12_multivariate_methods_files/figure-html/unnamed-chunk-12-10.png)<!-- -->
+### CCA
+
+
+```r
+cca_dune <- cca(dune)
+summary(cca_dune)
+```
+
+```
+## 
+## Call:
+## cca(X = dune) 
+## 
+## Partitioning of scaled Chi-square:
+##               Inertia Proportion
+## Total           2.115          1
+## Unconstrained   2.115          1
+## 
+## Eigenvalues, and their contribution to the scaled Chi-square 
+## 
+## Importance of components:
+##                          CA1    CA2    CA3     CA4     CA5     CA6     CA7
+## Eigenvalue            0.5360 0.4001 0.2598 0.17598 0.14476 0.10791 0.09247
+## Proportion Explained  0.2534 0.1892 0.1228 0.08319 0.06844 0.05102 0.04372
+## Cumulative Proportion 0.2534 0.4426 0.5654 0.64858 0.71702 0.76804 0.81175
+##                           CA8     CA9    CA10    CA11    CA12    CA13     CA14
+## Eigenvalue            0.08091 0.07332 0.05630 0.04826 0.04125 0.03523 0.020529
+## Proportion Explained  0.03825 0.03466 0.02661 0.02282 0.01950 0.01665 0.009705
+## Cumulative Proportion 0.85000 0.88467 0.91128 0.93410 0.95360 0.97025 0.979955
+##                           CA15     CA16     CA17     CA18     CA19
+## Eigenvalue            0.014911 0.009074 0.007938 0.007002 0.003477
+## Proportion Explained  0.007049 0.004290 0.003753 0.003310 0.001644
+## Cumulative Proportion 0.987004 0.991293 0.995046 0.998356 1.000000
+## 
+## Scaling 2 for species and site scores
+## * Species are scaled proportional to eigenvalues
+## * Sites are unscaled: weighted dispersion equal on all dimensions
+## 
+## 
+## Species scores
+## 
+##               CA1      CA2      CA3       CA4       CA5      CA6
+## Achimill -0.90859  0.08461 -0.58636 -0.008919 -0.660183 -0.18877
+## Agrostol  0.93378 -0.20651  0.28165  0.024293 -0.139326 -0.02256
+## Airaprae -1.00434  3.06749  1.33773  0.194305 -1.081813 -0.53699
+## Alopgeni  0.40088 -0.61839  0.85013  0.346740  0.016509  0.10169
+## Anthodor -0.96676  1.08361 -0.17188  0.459788 -0.607533 -0.30425
+## Bellpere -0.50018 -0.35503 -0.15239 -0.704153 -0.058546  0.07308
+## Bromhord -0.65762 -0.40634 -0.30685 -0.496751 -0.561358  0.07004
+## Chenalbu  0.42445 -0.84402  1.59029  1.248755 -0.207480  0.87566
+## Cirsarve -0.05647 -0.76398  0.91793 -1.175919 -0.384024 -0.13985
+## Comapalu  1.91690  0.52150 -1.18215 -0.021738 -1.359988  1.31207
+## Eleopalu  1.76383  0.34562 -0.57336 -0.002976 -0.332396 -0.14688
+## Elymrepe -0.37074 -0.74148  0.26238 -0.566308 -0.270122 -0.72624
+## Empenigr -0.69027  3.26420  1.95716 -0.176936 -0.073518 -0.16083
+## Hyporadi -0.85408  2.52821  1.13951 -0.175115 -0.311874  0.11177
+## Juncarti  1.27580  0.09963 -0.09320  0.005536  0.289410 -0.78247
+## Juncbufo  0.08157 -0.68074  1.00545  1.078390  0.268360  0.24168
+## Lolipere -0.50272 -0.35955 -0.21821 -0.474727  0.101494 -0.01594
+## Planlanc -0.84058  0.24886 -0.78066  0.371149  0.271377  0.11989
+## Poaprat  -0.38919 -0.32999 -0.02015 -0.358371  0.079296 -0.05165
+## Poatriv  -0.18185 -0.53997  0.23388  0.178834 -0.155342 -0.07584
+## Ranuflam  1.55886  0.30700 -0.29765  0.046974 -0.008747 -0.14744
+## Rumeacet -0.65289 -0.25525 -0.59728  1.160164  0.255849 -0.32730
+## Sagiproc  0.00364  0.01719  1.11570  0.066981  0.186654  0.32463
+## Salirepe  0.61035  1.54868  0.04970 -0.607136  1.429729 -0.55183
+## Scorautu -0.19566  0.38884  0.03975 -0.130392  0.141232  0.23717
+## Trifprat -0.88116 -0.09792 -1.18172  1.282429  0.325706 -0.33388
+## Trifrepe -0.07666 -0.02032 -0.20594  0.026462 -0.186748  0.53957
+## Vicilath -0.61893  0.37140 -0.46057 -1.000375  1.162652  1.44971
+## Bracruta  0.18222  0.26477 -0.16606  0.064009  0.576334  0.07741
+## Callcusp  1.95199  0.56743 -0.85948 -0.098969 -0.556737  0.23282
+## 
+## 
+## Site scores (weighted averages of species scores)
+## 
+##         CA1        CA2      CA3      CA4      CA5      CA6
+## 1  -0.81167 -1.0826714 -0.14479 -2.10665 -0.39287 -1.83462
+## 2  -0.63268 -0.6958357 -0.09708 -1.18695 -0.97686  0.06575
+## 3  -0.10148 -0.9128732  0.68815 -0.68137 -0.08709 -0.28678
+## 4  -0.05647 -0.7639784  0.91793 -1.17592 -0.38402 -0.13985
+## 5  -0.95293 -0.1846015 -0.95609  0.86853 -0.34552 -0.98333
+## 6  -0.85633 -0.0005408 -1.39735  1.59909  0.65494 -0.19386
+## 7  -0.87149 -0.2547040 -0.86830  0.90468  0.17385 -0.03446
+## 8   0.76268 -0.2968459  0.35648 -0.10772  0.17507 -0.36444
+## 9   0.09693 -0.7864314  0.86492  0.40090  0.28704 -1.02783
+## 10 -0.87885 -0.0353136 -0.82987 -0.68053 -0.75438  0.81070
+## 11 -0.64223  0.4440332 -0.17371 -1.09684  1.37462  2.00626
+## 12  0.28557 -0.6656161  1.64423  1.71496  0.65381  1.17376
+## 13  0.42445 -0.8440195  1.59029  1.24876 -0.20748  0.87566
+## 14  1.91996  0.5351062 -1.39863 -0.08575 -2.21317  2.43044
+## 15  1.91384  0.5079036 -0.96567  0.04227 -0.50681  0.19370
+## 16  2.00229  0.1090627 -0.33414  0.33760 -0.50097 -0.76159
+## 17 -1.47545  2.7724102  0.40859  0.75117 -2.59425 -1.10122
+## 18 -0.31241  0.6328355 -0.66501 -1.12728  2.65575  0.97565
+## 19 -0.69027  3.2642026  1.95716 -0.17694 -0.07352 -0.16083
+## 20  1.94438  1.0688809 -0.66595 -0.55317  1.59606 -1.70292
+```
+
+```r
+plot(cca_dune, type= "t")
+```
+
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+
 
 ### RDA
 
@@ -877,7 +1005,7 @@ orditorp(rda_dune, display='sp', cex=0.5, scaling=1, col='blue')
 text(rda_dune, display='cn', col='red')
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ### CCA
 
@@ -921,7 +1049,7 @@ RsquareAdj(cca_dune, 100)
 ## [1] 0.7106267
 ## 
 ## $adj.r.squared
-## [1] 0.2074674
+## [1] 0.2181853
 ```
 
 ### Hypothesis testing
@@ -942,7 +1070,7 @@ anova(rda_dune, permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df Variance      F Pr(>F)   
-## Model    12   63.206 1.7627  0.006 **
+## Model    12   63.206 1.7627  0.004 **
 ## Residual  7   20.917                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -960,11 +1088,11 @@ anova(rda_dune, by='margin', permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df Variance      F Pr(>F)
-## A1          1   2.3704 0.7933  0.604
-## Moisture    3  11.9409 1.3320  0.192
-## Management  2   7.1574 1.1976  0.264
-## Use         2   4.9785 0.8330  0.665
-## Manure      3   9.6257 1.0737  0.367
+## A1          1   2.3704 0.7933  0.651
+## Moisture    3  11.9409 1.3320  0.171
+## Management  2   7.1574 1.1976  0.247
+## Use         2   4.9785 0.8330  0.666
+## Manure      3   9.6257 1.0737  0.404
 ## Residual    7  20.9175
 ```
 
@@ -979,7 +1107,7 @@ anova(cca_dune, permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df ChiSquare      F Pr(>F)  
-## Model    12    1.5032 1.4325  0.029 *
+## Model    12    1.5032 1.4325  0.036 *
 ## Residual  7    0.6121                
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -997,11 +1125,11 @@ anova(cca_dune, by='margin', permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df ChiSquare      F Pr(>F)
-## A1          1   0.11070 1.2660  0.231
-## Moisture    3   0.31587 1.2041  0.258
-## Management  2   0.15882 0.9081  0.582
-## Use         2   0.13010 0.7439  0.789
-## Manure      3   0.25490 0.9717  0.538
+## A1          1   0.11070 1.2660  0.228
+## Moisture    3   0.31587 1.2041  0.224
+## Management  2   0.15882 0.9081  0.551
+## Use         2   0.13010 0.7439  0.781
+## Manure      3   0.25490 0.9717  0.495
 ## Residual    7   0.61210
 ```
 
@@ -1022,7 +1150,7 @@ anova(rda_dune, rda_dune_use_removed)
 ## Model 2: dune ~ A1 + Moisture + Management + Manure
 ##   ResDf ResChiSquare Df ChiSquare     F Pr(>F)
 ## 1     7       20.918                          
-## 2     9       25.896 -2   -4.9785 0.833  0.687
+## 2     9       25.896 -2   -4.9785 0.833   0.67
 ```
 
 ### NMDS
@@ -1039,50 +1167,41 @@ nmds_dune <- metaMDS(dune, k =2)
 ## Run 0 stress 0.1192678 
 ## Run 1 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 0.02027209  max resid 0.06496917 
-## Run 2 stress 0.1192678 
-## Run 3 stress 0.1192678 
-## Run 4 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 1.608183e-05  max resid 4.464357e-05 
+## ... Procrustes: rmse 0.02027004  max resid 0.06496045 
+## Run 2 stress 0.1183186 
+## ... Procrustes: rmse 7.700499e-06  max resid 2.356094e-05 
 ## ... Similar to previous best
-## Run 5 stress 0.119268 
-## Run 6 stress 0.1192678 
+## Run 3 stress 0.1980521 
+## Run 4 stress 0.1192678 
+## Run 5 stress 0.2686996 
+## Run 6 stress 0.1183186 
+## ... Procrustes: rmse 1.515903e-05  max resid 4.916921e-05 
+## ... Similar to previous best
 ## Run 7 stress 0.1183186 
-## ... Procrustes: rmse 2.761738e-06  max resid 9.345327e-06 
+## ... Procrustes: rmse 4.717969e-06  max resid 1.446565e-05 
 ## ... Similar to previous best
-## Run 8 stress 0.1192679 
-## Run 9 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 4.671305e-06  max resid 1.500738e-05 
+## Run 8 stress 0.1183186 
+## ... Procrustes: rmse 1.833078e-05  max resid 6.063604e-05 
 ## ... Similar to previous best
-## Run 10 stress 0.1183186 
-## ... Procrustes: rmse 1.471379e-06  max resid 3.146266e-06 
+## Run 9 stress 0.1192678 
+## Run 10 stress 0.1192678 
+## Run 11 stress 0.1192678 
+## Run 12 stress 0.1192679 
+## Run 13 stress 0.1192678 
+## Run 14 stress 0.1183186 
+## ... Procrustes: rmse 1.193526e-05  max resid 3.657887e-05 
 ## ... Similar to previous best
-## Run 11 stress 0.1183186 
-## ... Procrustes: rmse 5.14638e-06  max resid 1.62927e-05 
-## ... Similar to previous best
-## Run 12 stress 0.1183186 
-## ... Procrustes: rmse 2.77359e-06  max resid 6.552377e-06 
-## ... Similar to previous best
-## Run 13 stress 0.1183186 
-## ... Procrustes: rmse 2.351142e-06  max resid 7.52724e-06 
-## ... Similar to previous best
-## Run 14 stress 0.1192678 
 ## Run 15 stress 0.1183186 
-## ... Procrustes: rmse 1.07769e-06  max resid 2.356939e-06 
+## ... Procrustes: rmse 1.973409e-05  max resid 6.107149e-05 
 ## ... Similar to previous best
-## Run 16 stress 0.1192678 
-## Run 17 stress 0.1183186 
-## ... Procrustes: rmse 2.712924e-06  max resid 7.372364e-06 
-## ... Similar to previous best
+## Run 16 stress 0.1939202 
+## Run 17 stress 0.1192678 
 ## Run 18 stress 0.1183186 
-## ... Procrustes: rmse 2.652421e-06  max resid 6.887108e-06 
+## ... New best solution
+## ... Procrustes: rmse 1.212908e-06  max resid 2.245823e-06 
 ## ... Similar to previous best
-## Run 19 stress 0.1183186 
-## ... Procrustes: rmse 3.528528e-06  max resid 1.10214e-05 
-## ... Similar to previous best
-## Run 20 stress 0.1192678 
+## Run 19 stress 0.2253072 
+## Run 20 stress 0.119268 
 ## *** Solution reached
 ```
 
@@ -1112,13 +1231,13 @@ nmds_dune
 stressplot(nmds_dune)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 ```r
 plot(nmds_dune)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-2.png)<!-- -->
 
 ```r
 ordiplot(nmds_dune,type="n") #Ordination plot function especially for congested plots
@@ -1126,7 +1245,7 @@ orditorp(nmds_dune,display="species",col="red",air=0.01) #The function adds text
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-17-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-3.png)<!-- -->
 
 if we had a treatment applied to varous plots, we can consider impact on grouping
 graphically.
@@ -1141,7 +1260,7 @@ orditorp(nmds_dune,display="species",col="red",air=0.01)
 orditorp(nmds_dune,display="sites",cex=1.25,air=0.01)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ## Classification
 
@@ -1187,13 +1306,13 @@ table(Predictions$class, iris$Species)
 ldahist(data = Predictions$x[,1], g=iris$Species)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 ```r
 ldahist(data = Predictions$x[,2], g=iris$Species)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-19-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-20-2.png)<!-- -->
 
 ### clustering
 
@@ -1213,7 +1332,7 @@ wss<- sapply(1:k.max,function(k){kmeans(iris[,1:4],k,nstart = 20,iter.max = 20)$
 plot(1:k.max,wss, type= "b", xlab = "Number of clusters(k)", ylab = "Within cluster sum of squares")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 or
 
@@ -1227,6 +1346,10 @@ library(factoextra)
 ```
 
 ```
+## Warning: package 'factoextra' was built under R version 4.1.3
+```
+
+```
 ## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
 ```
 
@@ -1234,7 +1357,7 @@ library(factoextra)
 fviz_nbclust(dune, kmeans, method = "wss")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 #### silhouette method
 
@@ -1243,7 +1366,7 @@ fviz_nbclust(dune, kmeans, method = "wss")
 fviz_nbclust(dune, kmeans, method = "silhouette")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 #### gap stat
 
@@ -1254,7 +1377,7 @@ gap_stat <- clusGap(dune, FUN = kmeans, nstart = 25,
 fviz_gap_stat(gap_stat)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 #### fit final model
 
@@ -1307,7 +1430,7 @@ print(final)
 fviz_cluster(final, data = dune)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ## Tree models 
 
@@ -1327,7 +1450,7 @@ plot(iris_tree_initial)
 text(iris_tree_initial)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 ```r
 #or for a prettier graph
@@ -1336,6 +1459,10 @@ require(rattle)
 
 ```
 ## Loading required package: rattle
+```
+
+```
+## Warning: package 'rattle' was built under R version 4.1.3
 ```
 
 ```
@@ -1356,7 +1483,7 @@ require(rattle)
 fancyRpartPlot(iris_tree_initial, main="Iris")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-2.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-2.png)<!-- -->
 
 ```r
 #what if you want fewer splits (less complex model)
@@ -1365,7 +1492,7 @@ iris_tree_initial_auto <- rpart(Species ~ ., data = iris)
 fancyRpartPlot(iris_tree_initial_auto, main="Iris")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-3.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-3.png)<!-- -->
 
 ```r
 #or minimize complexity parameter (good for larger models)
@@ -1387,7 +1514,7 @@ iris_tree_initial$cptable
 fancyRpartPlot(iris_tree_model_2)
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-4.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-4.png)<!-- -->
 
 ```r
 #validation techniques
@@ -1411,7 +1538,7 @@ require(mgcv)
 ```
 
 ```
-## This is mgcv 1.8-39. For overview type 'help("mgcv-package")'.
+## This is mgcv 1.8-38. For overview type 'help("mgcv-package")'.
 ```
 
 ```r
@@ -1482,7 +1609,9 @@ iris_glm_final <- stepAIC(iris_glm)
 
 ```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+```
 
+```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
@@ -1638,6 +1767,10 @@ require(ROCR)
 ## Loading required package: ROCR
 ```
 
+```
+## Warning: package 'ROCR' was built under R version 4.1.3
+```
+
 ```r
 iris_glm_final_predict<-prediction(fitted.values(iris_glm_final), iris$virginica)
 iris_glm_final_performance<-performance(iris_glm_final_predict,"tpr","fpr")
@@ -1645,7 +1778,7 @@ iris_glm_final_performance<-performance(iris_glm_final_predict,"tpr","fpr")
 plot(iris_glm_final_performance, main = "glm AUC")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-5.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-5.png)<!-- -->
 
 ```r
 #compare to gam
@@ -1655,7 +1788,7 @@ iris_gam_b_performance<-performance(iris_gam_b_predict,"tpr","fpr")
 plot(iris_gam_b_performance, main = "gam AUC")
 ```
 
-![](12_multivariate_methods_files/figure-html/unnamed-chunk-25-6.png)<!-- -->
+![](12_multivariate_methods_files/figure-html/unnamed-chunk-26-6.png)<!-- -->
 
 ```r
 #cross validation
@@ -2017,6 +2150,10 @@ library(lavaan)
 ```
 
 ```
+## Warning: package 'lavaan' was built under R version 4.1.3
+```
+
+```
 ## This is lavaan 0.6-11
 ## lavaan is FREE software! Please report any bugs.
 ```
@@ -2137,6 +2274,13 @@ summary(keeley_sem1, standardize = T, rsq = T)
 ```r
 #plot
 library(lavaanPlot)
+```
+
+```
+## Warning: package 'lavaanPlot' was built under R version 4.1.3
+```
+
+```r
 lavaanPlot(model = keeley_sem1, coefs = TRUE)
 ```
 
