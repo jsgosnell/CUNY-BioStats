@@ -1,0 +1,84 @@
+---
+title: "Quiz 6 Spring 2022 answers"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+## Making the data (not in student version)
+
+From:  
+* https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-people-onedose-pop-5yr
+* https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf
+
+
+```{r}
+regions <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSHjDv2eSCOtuux9E6JIoEx2F4cOyU6jX6mXUr_FQDtTjpQxroh-IP_3D1z_qcSDr-9lQRQG_CRMZXY/pub?gid=0&single=true&output=csv",
+                    stringsAsFactors = T)
+rates <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT6WmtWdZSUo--2i2nMCWUIMx6BjdJJHKH42oJBzdIZFlAxLH1XztcMI8na-4QKU8ySMHf2-41JwR1y/pub?gid=418071752&single=true&output=csv",
+                   stringsAsFactors =T)
+```
+merge
+
+```{r}
+names(rates)[names(rates) == "State.Territory.Federal.Entity"] = "State"
+covid_regions <- merge(rates, regions, all.x = F, all.y = T)
+covid_regions <- covid_regions[,c("State", "Doses.Delivered.per.100K", "Region", "Division")]
+write.csv(covid_regions, "covid_regions.csv", row.names = F)
+```
+
+## Quiz version
+
+COVID-19 vaccines are a key part of the country's response to the pandemic, but 
+they only work if people take them. The CDC keeps detailed records of dosages, 
+which I combined with the US Census Bureau's data on regions. Data from:  
+* https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-people-onedose-pop-5yr
+* https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf
+
+Use the data (combined version provided below) to determine if vaccination rates 
+differ by region.
+
+```{r}
+vaccine <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQsI2fpJSpI4pEgvUba3xfafpubrdWj3BaoCigWr4K0eUOGdwWgPygu2-Y6kwqZ-Abi92t4xFDsjbIY/pub?gid=200028780&single=true&output=csv",
+                             stringsAsFactors = T)
+```
+Investigate the question. Make sure you include
+
+* null hypothesis
+  * H~0~: there is no difference among regions in vaccination rates
+* alternative hypothesis
+  * H~A~: there is a difference among regions in vaccination rates
+* explanation for test you will use 
+  * I will use an ANOVA as we are considering continuous data from differnet groups.
+  I will also check assumptions
+* results from statistical test
+```{r}
+vaccine_lm <- lm(Doses.Delivered.per.100K~Region, vaccine)
+par(mfrow=c(2,2))
+plot(vaccine_lm)
+summary(vaccine_lm)
+library(car)
+Anova(vaccine_lm, type="III")
+```
+I noted a significant difference among regions, so I carried out post-hoc 
+tests.
+
+```{r}
+library(multcomp)
+region_compare <-   glht(vaccine_lm, linfct = mcp(Region = "Tukey"))
+summary(region_compare)
+```
+
+* clear explanation of how results relate to your stated hypotheses
+  * There is a difference among regions (F~3,46~=10.059, p <.01).  Posthoc tests
+  using the Tukey method to control for FWER indicated the following areas differ
+  at the $a = 0.05$ level:
+    * NE- MW
+    * S - NE
+    * W- NE
+
