@@ -1,7 +1,7 @@
 ---
 title: "Quiz 6 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 06 May, 2022 08:55"
+date: "Last compiled on 06 May, 2022 16:16"
 output:
   html_document:
     toc: true
@@ -127,6 +127,7 @@ Anova(vaccine_lm, type="III")
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+Graphs show assumptions appear to be met.  
 I noted a significant difference among regions, so I carried out post-hoc 
 tests.
 
@@ -179,11 +180,11 @@ summary(region_compare)
 ## Linear Hypotheses:
 ##                          Estimate Std. Error t value Pr(>|t|)    
 ## Northeast - Midwest == 0    45906       8983   5.110  < 1e-04 ***
-## South - Midwest == 0         8774       7420   1.182 0.638962    
-## West - Midwest == 0          5256       7879   0.667 0.908233    
+## South - Midwest == 0         8774       7420   1.182 0.638972    
+## West - Midwest == 0          5256       7879   0.667 0.908224    
 ## South - Northeast == 0     -37132       8438  -4.400 0.000340 ***
-## West - Northeast == 0      -40650       8844  -4.596 0.000166 ***
-## West - South == 0           -3518       7251  -0.485 0.961705    
+## West - Northeast == 0      -40650       8844  -4.596 0.000156 ***
+## West - South == 0           -3518       7251  -0.485 0.961706    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## (Adjusted p values reported -- single-step method)

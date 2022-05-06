@@ -65,6 +65,7 @@ summary(vaccine_lm)
 library(car)
 Anova(vaccine_lm, type="III")
 ```
+Graphs show assumptions appear to be met.  
 I noted a significant difference among regions, so I carried out post-hoc 
 tests.
 

@@ -246,7 +246,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Quiz 6 Spring 2022 answers</h1>
 <h4 class="author">jsg</h4>
-<h4 class="date">Last compiled on 06 May, 2022 08:55</h4>
+<h4 class="date">Last compiled on 06 May, 2022 16:16</h4>
 
 </div>
 
@@ -327,7 +327,8 @@ plot(vaccine_lm)</code></pre>
 ## Residuals   1.7818e+10 46                       
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>I noted a significant difference among regions, so I carried out post-hoc tests.</p>
+<p>Graphs show assumptions appear to be met.<br />
+I noted a significant difference among regions, so I carried out post-hoc tests.</p>
 <pre class="r"><code>library(multcomp)</code></pre>
 <pre><code>## Loading required package: mvtnorm</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
@@ -351,11 +352,11 @@ summary(region_compare)</code></pre>
 ## Linear Hypotheses:
 ##                          Estimate Std. Error t value Pr(&gt;|t|)    
 ## Northeast - Midwest == 0    45906       8983   5.110  &lt; 1e-04 ***
-## South - Midwest == 0         8774       7420   1.182 0.638962    
-## West - Midwest == 0          5256       7879   0.667 0.908233    
+## South - Midwest == 0         8774       7420   1.182 0.638972    
+## West - Midwest == 0          5256       7879   0.667 0.908224    
 ## South - Northeast == 0     -37132       8438  -4.400 0.000340 ***
-## West - Northeast == 0      -40650       8844  -4.596 0.000166 ***
-## West - South == 0           -3518       7251  -0.485 0.961705    
+## West - Northeast == 0      -40650       8844  -4.596 0.000156 ***
+## West - South == 0           -3518       7251  -0.485 0.961706    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
