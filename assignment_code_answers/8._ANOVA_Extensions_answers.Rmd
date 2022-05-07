@@ -54,11 +54,11 @@ angry <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSaawG37o1ZUE
 str(angry)
 angry$Gender <- as.factor(angry$Gender)
 library(plyr)
-angry$Gender <- revalue(angry$Gender, c("1" = "athlete", 
-                                        "2" = "non-athlete"))
-angry$Sports <- as.factor(angry$Sports)
-angry$Sports <- revalue(angry$Sports, c("1" = "male",
+angry$Gender <- revalue(angry$Gender, c("1" = "male", 
                                         "2" = "female"))
+angry$Sports <- as.factor(angry$Sports)
+angry$Sports <- revalue(angry$Sports, c("1" = "athlete",
+                                        "2" = "non-athlete"))
 library(Rmisc)
 anger_summary <- summarySE(angry, measurevar="Anger_Expression", groupvars =
                                c("Sports", "Gender"), na.rm = T)
@@ -69,7 +69,7 @@ ggplot(anger_summary, aes(x=Gender, y=Anger_Expression, color=Sports,
   geom_line(aes(group=Sports, linetype =Sports), size=2) +
   geom_errorbar(aes(ymin=Anger_Expression-ci, ymax=Anger_Expression+ci), size=1.5) +
   ylab("Anger level")+ 
-  xlab("Experience") + 
+  xlab("Gender") + 
   scale_shape_discrete(guide=FALSE)+
   scale_linetype_discrete(guide=FALSE)+
   ggtitle("Anger level among groups")+

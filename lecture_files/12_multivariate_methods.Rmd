@@ -207,6 +207,14 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
   geom_errorbar(aes(ymin=pc1-ci, ymax=pc1+ci, colour=Use), size = 1,
                 width = 0)
 ```
+### CCA
+
+```{r}
+cca_dune <- cca(dune)
+summary(cca_dune)
+plot(cca_dune, type= "t")
+```
+
 
 ### RDA
 
