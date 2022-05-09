@@ -27,6 +27,34 @@ illness <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRlcjpU0XHf
                     stringsAsFactors = T)
 ```
 
+We will test the multiple outcomes using a MANOVA. This tests the null hypothesis
+that there is no difference in the vector of mean parameters for the groups. 
+
+```{r}
+m <- manova(cbind(fever,pressure,aches)~treatment, illness)
+summary(m)
+```
+The MANOVA shows a significant difference (Pillai's trace = .55466, p <.001), so
+we reject the  null hypothesis.  To follow this up we consider ANOVAs for each 
+trait to determine which ones differ among groups
+
+```{r}
+summary.aov(m)
+```
+
+These indicate that only fever differs among groups. Finally, a post-hoc test is used
+to determine which levels differ for fever. Here I will rebuild model using lm for
+illustration.
+
+```{r}
+fever <- lm(fever~treatment, illness)
+library(car)
+Anova(fever, type = "III")
+library(multcomp)
+comp_fever <- glht(fever, linfct = mcp(treatment = "Tukey"))
+summary(comp_fever)
+```
+
 2. Darlingtonia californica is a partly carnivorous pitcher plant that grows in 
 fens and along seeps and
 streams in the mountains of Oregon and California. Its pitchers are tubular l
