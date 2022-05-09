@@ -1,5 +1,5 @@
 ---
-title: "12. Multivariate methods"
+title: "13. Multivariate methods"
 author: "jsg"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
