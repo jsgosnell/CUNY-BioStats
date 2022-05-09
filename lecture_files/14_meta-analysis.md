@@ -1,10 +1,13 @@
 ---
-title: "Meta-analysis steps"
+title: "Meta-analysis, mega-fun"
+subtitle: "Meta-analysis steps"
 author: "jsg"
-date: "Last compiled on 05 May, 2022 09:06"
+date: "Last compiled on 09 May, 2022 09:38"
 output: 
   slidy_presentation:
         keep_md: true
+        theme: journal       
+
 ---
 
 

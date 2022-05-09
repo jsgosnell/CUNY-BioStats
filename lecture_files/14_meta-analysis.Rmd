@@ -1,10 +1,13 @@
 ---
-title: "Meta-analysis steps"
+title: "Meta-analysis, mega-fun"
+subtitle: "Meta-analysis steps"
 author: "jsg"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output: 
   slidy_presentation:
         keep_md: true
+        theme: journal       
+
 ---
 
 ```{r setup, include=FALSE}
