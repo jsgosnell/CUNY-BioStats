@@ -1,0 +1,89 @@
+---
+title: "13. Multivariate methods answers"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+```
+
+
+1. A pharmaceutical company has a drug that may help an illness that causes 
+fever (temperature in degrees Celsius), blood pressures, and “aches” (scored on an
+index).  Data is collected for several patients. To determine if the drug actually 
+helps, test for differences in multivariate means for the fever, 
+pressure and aches column,
+against the grouping variable treatment.
+
+```{r}
+illness <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRlcjpU0XHfXF1WId1C5ZYX0YdY53KI9Nv91_tNCMj4z4iTjr-XMW1L_Ln8j3ahk5GUPZy4kGzSlA96/pub?gid=1322236994&single=true&output=csv",
+                    stringsAsFactors = T)
+```
+
+2. Darlingtonia californica is a partly carnivorous pitcher plant that grows in 
+fens and along seeps and
+streams in the mountains of Oregon and California. Its pitchers are tubular l
+eaves with a round hood and
+a mouth at the base of the hood (see figure below). A "fishtail" appendage 
+hangs from the mouth.
+Wasps and other prey are attracted to nectar secreted by extrafloral nectaries 
+along the hood, mouth,
+and fishtail. Plants absorb nutrients excreted by a food web of bacteria, 
+protozoa, mites, and fly larvae
+that break down the prey. 
+
+Measurements of 87 plants from four sites were made by Ellison and Farnsworth 
+(2005, The cost of
+carnivory for Darlingtonia californica (Sarraceniaceae): evidence from 
+relationships among leaf traits.
+Am. J. Botany 92: 1085-1093). Their measurements are available using
+
+
+```{r}
+pitcher <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQZf2mS4NmfBUUsn7lY2RTpuVjuWvRYN4MdLNt2XdS4WepolrxvWCKBI5diKBMWPLhdbEGwP-hfWOnz/pub?gid=1427497144&single=true&output=csv",
+                    stringsAsFactors = T)
+```
+
+I obtained them from the web page
+(http://harvardforest.fas.harvard.edu/personnel/web/aellison/publications/primer/primer.html)
+of A. M. Ellison for the book by Gotelli and Ellison (2004, A primer of ecological 
+statistics. Sinauer,
+Sunderland, Mass.). To simplify, outliers have been removed. Most plant traits 
+in the file are illustrated in the image below, and trait labels are fairly 
+self-explanatory. Keel width measures the span of the
+pitcher tube. "Wing" traits refer to the lengths of the fishtail appendage.
+
+<center>
+
+
+![Photograph of a *Darlingtonia californica* pitcher with morphological 
+measurements indicated (lower diameter at ground level not shown). Note the 
+translucent hood and the pronounced fishtail appendage attached to the proximal 
+side of the mouth](https://bsapubs.onlinelibrary.wiley.com/cms/asset/1258a675-69f2-4bca-80de-d76ed9c43c47/ajb21085-fig-0001-m.jpg){width=30%}
+
+</center>
+
+* Use a MANOVA to consider differences in plant traits (do not follow-up with 
+almost 20 ANOVA's! Just consider why PCA might be useful with large datasets!
+* Use principal component analysis to investigate variation among
+individual plants in their dimensions. Along the way, make sure you
+  * construct screeplots
+  * determine how many principal components to retain (and why)
+  * Use biplots and/or loadings to see if you can understand/interpret the 
+  first few principal components
+  
+3. The data for this exercise are rodent species abundance from 28 sites
+in California (Bolger et al. 1997, Response of rodents to habitat fragmentation 
+in coastal Southern
+California, Ecological Applications 7: 552–563). The file (in contingency table 
+format) is on Blackboard
+(rodent.csv). This data comes from the (website)[http://www.zoology.unimelb.edu.au/qkstats/data.htm) of Quinn and Keough (2002, Experimental
+Design and Data Analysis for Biologists, Cambridge Univ. Press, Cambridge, UK).
+
