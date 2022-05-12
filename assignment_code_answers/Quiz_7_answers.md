@@ -1,7 +1,7 @@
 ---
 title: "Quiz 7 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 12 May, 2022 08:20"
+date: "Last compiled on 12 May, 2022 09:10"
 output:
   html_document:
     toc: true
