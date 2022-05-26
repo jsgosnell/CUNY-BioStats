@@ -1,7 +1,7 @@
 ---
 title: "midterm"
 author: "jsg answers"
-date: "Last compiled on 17 May, 2022 10:29"
+date: "Last compiled on 26 May, 2022 09:00"
 output:
   html_document:
     toc: true
@@ -215,7 +215,7 @@ ggplot(covid, aes(x=Adults_vaccinated_per_1000)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
   * Using boxplots.  Another example (not something you've seen...)
 
@@ -235,7 +235,7 @@ ggplot(covid, aes(y=Adults_vaccinated_per_1000)) +
 ## Warning: Removed 41 rows containing non-finite values (stat_boxplot).
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
   * using confidence intervals
 
@@ -269,7 +269,7 @@ ggplot(proportion_summary, aes( y=Adults_vaccinated_per_1000))+
         axis.ticks.x=element_blank())
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 * using bar charts
 
@@ -283,7 +283,7 @@ ggplot(covid, aes(y=Adults_vaccinated_per_1000,
   theme(axis.text.x=element_text(angle = -90))
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 or
 
@@ -295,7 +295,7 @@ ggplot(covid, aes(x=Adults_vaccinated_per_1000,
   ggtitle("States differ in proportion of adults vaccinated against COVID")
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 
 or with code from lecture
@@ -311,7 +311,7 @@ barplot(covid$Adults_vaccinated_per_1000,
      cex.main=title_size, cex.sub=label_size, col = "blue", main = "States differ in proportion of adults vaccinated against COVID")
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
 ```r
@@ -321,7 +321,7 @@ plot(covid$State, covid$Adults_vaccinated_per_1000, type="l",
        xlab = "State")     
 ```
 
-![](2022_spring_midterm_answers_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](2022_spring_2100_midterm_answers_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 # #6
 

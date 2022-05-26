@@ -1,7 +1,7 @@
 ---
 title: "2022 Spring Midterm (30 points total)"
 author: "jsg"
-date: "Last compiled on 17 May, 2022 10:29"
+date: "Last compiled on 26 May, 2022 09:00"
 output:
   html_document:
     toc: true
