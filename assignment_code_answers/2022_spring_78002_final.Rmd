@@ -1,0 +1,121 @@
+---
+title: "2022 Spring 78002 final"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students.
+
+The exam is due by 12 PM on Monday, 5/16/2022.
+
+As often happens, your excellent statistical advice (provided via the 78001 exam) 
+has led to more calls for help (or just being given the data to anlayze). 
+The below questions build on the earlier exam.
+
+# Fear effects
+
+Following your advice, your colleague asked you to help analye the data. 
+As a reminder:
+
+Prey (tadpoles) were housed in tanks (20 per tank).  Prey in each tank were 
+exposed to one of two treatments. Predator treatment tanks also housed a 
+dragonfly naiad (a major predator of tadpoles)  in a small cylinder with mesh 
+(so water was shared but the predator could not consume the tadpoles).  No 
+predator treatment tanks housed an empty cylinder. The colleague measured the 
+**length of each tadpole** and the **number of dead tadpoles** in each tank.   
+
+##1.
+
+Your colleagues tadpole length data is found below.  Help them analyze the data.
+
+```{r}
+fear <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSybsT7VO2rv24Rhi_WD5MBB3ww5RKXnqM2BveSP848vnldhPeFigBWPjxcY_WpvB1f1cd1PKQe1v3v/pub?gid=1960907558&single=true&output=csv",
+                 stringsAsFactors = T)
+```
+
+Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+##2. 
+
+Create a properly-labelled plot of the data. There are many options here, but
+make sure you show trends and patterns that match your analysis.
+
+##3. 
+
+Your colleague provided you the data on tadpole mortality too.  
+
+```{r}
+fear_mortality <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQHLgiC6o2ezJPbEEcaU4Cb7Mz7F1-NMc8t5gMyEIMbLiPSDzslclIgRD51GefIBEl9gH7Fpylfbws5/pub?gid=2111555168&single=true&output=csv", stringsAsFactors = T)
+```
+Help them analyze the data. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+##4. 
+
+You are also given data from the followup study where length and width were 
+analyzed in response to fear. The setup was the same (4 tanks for each treatment,
+20 tadpoles per tank), but this time they recorded length and width of each 
+tadpole. However, **they realized at the end of their work they were dealing with
+a cryptic species!**, meaning half the tadpoles belong to species A and half to 
+species B. They are not sure if this matters.
+
+Data is shared below.  Help them analyze it.
+
+```{r}
+fear_lw <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSataGluosvnurZ4qOn_UTyHod85nbPTC-V9g5FkMZjKO6CEeRCn6CTAClrMf3Suxo_3kM8k-N2AQVD/pub?gid=1237391888&single=true&output=csv",
+                    stringsAsFactors = T)
+```
+
+# Recruits
+
+##5. 
+
+The data on recruits is found below. As a reminder: 
+
+The paper focused on predicting the number of new deer (fawns, density per km^2) produced at a 
+nature reserve each season.  Potential covariates include adult abundance the 
+previous season (density per km^2), rain the previous year (inches), and 
+winter harshness (
+ranked 1-5, least to most severe) were monitored over 8 years. 
+
+
+```{r}
+recruits <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT4tICnyqUNSfWo4P3cMQ2DWxqe602IzdodBu5xoPKq43x5-u6vGpSDB_eXTvjFbHKQWwHHK9tkiJdL/pub?gid=1345393421&single=true&output=csv",
+                     stringsAsFactors = T)
+```
+
+Analyze the data. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+
