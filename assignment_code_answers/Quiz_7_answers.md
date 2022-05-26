@@ -1,7 +1,7 @@
 ---
 title: "Quiz 7 Spring 2022 answers"
 author: "jsg"
-date: "Last compiled on 12 May, 2022 09:10"
+date: "Last compiled on 16 May, 2022 10:42"
 output:
   html_document:
     toc: true
@@ -266,7 +266,7 @@ p <.001) with adults having larger tails.  However, tail length does not
 differ by stage for morphotype 3 (F~1,58~=0.916,
 p =.161)).
 * clear explanation of how results relate to your stated hypotheses
-Findings indicate we should reject the null hyothesis of no interactiong among stage and morphotype on tail length.  The impact of stage differs by morphotype.
+  * Findings indicate we should reject the null hyothesis of no interactiong among stage and morphotype on tail length.  The impact of stage differs by morphotype.
 * a properly-labelled plot of the data. There are many options here, but
 make sure you show trends and patterns that match your analysis.
 
