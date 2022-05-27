@@ -1,0 +1,29 @@
+---
+title: "Quiz 7 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+
+Three morphotypes of salamanders were tested to see if they had similar tail lengths.  The authors collected tail length (in mm) in the three morphotypes. They also noted the stage (juvenile vs adult) of each individual. Data is available @
+
+```{r}
+sallies <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSJHbPnebpKq58mE4kQWF9mQ_0ak2sTyaUbEvtmgoSkb31DprOmAS9clOoNNHD_3tHITOXKdhMbWfBf/pub?gid=1050993814&single=true&output=csv", stringsAsFactors = T)
+```
+
+Analyze the data correctly to consider how stage and morphotype impact tail 
+length.  Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+* a properly-labelled plot of the data. There are many options here, but
+make sure you show trends and patterns that match your analysis.

@@ -1,0 +1,113 @@
+---
+title: "2022 Spring 78002 Midterm"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students.
+
+The exam is due by 12 PM on Monday, 4/4/2022.  
+
+As often happens, your excellent statistical advice (provided via the 78001 exam) 
+has led to more calls for help. The below questions build on the earlier exam.
+
+# Parthenogenesis
+
+1. The colleague working on parthenogenesis got a grant to get a  larger sample
+(you probably noted having only one success made estimating proportions hard!).  
+The second sample led to a sample of 500 snakes! While inspecting the samples, 
+your colleague realized the sample actually contained 2 cryptic species (species
+that look very similar and  may be confused).  From the sample, she obtained 225
+specimens of species A, of which 15 were born via parthenogenesis.  Of the 275 
+specimens of species B she collected, she found 32 individuals born via 
+parthenogenesis.
+
+Help her analyze the new data to investigate if parthenogenesis rates differ 
+between the 2 species.  Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+# Fear
+
+2. The data on mice heart rates is available via
+
+```{r}
+fear <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRE3OEf3EaR0uKgrqB6rZ8DxqpiNa5Z__MoAvN1iabF6Yp2fcLQbXFAXVfilAwY9TTYno786SstYCVp/pub?gid=1908952046&single=true&output=csv", stringsAsFactors = T)
+```
+
+
+Analyze it using an appropriate option to consider differences in heart rates.  
+Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+
+# Salamanders
+
+The data on salamander heart beats is available via 
+
+```{r}
+sallies <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSJHbPnebpKq58mE4kQWF9mQ_0ak2sTyaUbEvtmgoSkb31DprOmAS9clOoNNHD_3tHITOXKdhMbWfBf/pub?gid=1050993814&single=true&output=csv", stringsAsFactors = T)
+```
+
+3. Analyze the data correctly to consider how stage and morphotype impact heart 
+rate (hopefully following the instructions you gave the 
+authors!). Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+4. Create a properly-labelled plot of the data. There are many options here, but
+make sure you show trends and patterns that match your analysis.
+
+
+5. The data on temperature impacts on heart rate (the follow-up study) 
+is available @ 
+
+
+```{r}
+temperature <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRhcbtbwuBje-9I7abkP2EXWuddGVo5VH1N2CgNtR8NMj-sjS-9KXjrJuZY9an9Gt4c-JbdCwwP9S0B/pub?gid=1230482827&single=true&output=csv", stringsAsFactors = T)
+```
+
+
+Analyze the data correctly (hopefully following the instructions you gave the 
+authors!). Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+
+6. Create a properly-labelled plot of the data. There are many options here, but
+make sure you show trends and patterns that match your analysis.
+
+
+

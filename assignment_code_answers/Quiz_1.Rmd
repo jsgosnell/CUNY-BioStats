@@ -1,0 +1,30 @@
+---
+title: "Quiz 1 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Medical applications of oxygen
+
+A study was done to determine if oxygen was being appropriately supplied to patients
+in a medical unit (Barrett et al 2020). They surveyed 636 patients in multiple wards and
+found 66 were using oxygen.  Oxygen saturation levels were measured for each patient
+using oxygen.  Create a properly-labeled plot that  shows saturation levels using ggplot2.
+
+Data can be loaded using 
+
+```{r}
+oxygen_use <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSC8ft2LReouozG9fDK0Pa-QXESZ82qzADTCCBr_LoQeVRlRDLS4KOhMNYjGnGZFTrq5hkuYcOk6cKm/pub?gid=1295231330&single=true&output=csv",
+                       stringsAsFactors = T)
+```

@@ -1,0 +1,29 @@
+---
+title: "Quiz 5 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+COVID-19 caused respiratory issues for many individuals.The same scientists from
+quizzes 1-4 wanted to know if respirators worked as well for patients ill with 
+COVID-19 as they did during earlier illnesses.  Data on oxygen saturation levels
+is available using
+
+```{r}
+covid_respirator <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS5y8NL2ZR_tp_YUJoAUlPmRe3CZ8v94wyraannmeNZWpYNOgil_kvzJVntOve8jBPxskM17-t35NB8/pub?gid=1295231330&single=true&output=csv",
+                             stringsAsFactors = T)
+```
+Investigate the question. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use (**Note: make sure you do post-hoc tests if needed!
+I will not remind of this on exam!**)
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
