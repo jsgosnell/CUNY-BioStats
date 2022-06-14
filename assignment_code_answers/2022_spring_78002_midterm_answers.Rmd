@@ -1,5 +1,5 @@
 ---
-title: "2022 Spring 78002 Midterm"
+title: "2022 Spring 78002 Midterm answers"
 author: "jsg"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
@@ -28,7 +28,9 @@ has led to more calls for help. The below questions build on the earlier exam.
 
 # Parthenogenesis
 
-1. The colleague working on parthenogenesis got a grant to get a  larger sample
+##1. 
+
+The colleague working on parthenogenesis got a grant to get a  larger sample
 (you probably noted having only one success made estimating proportions hard!).  
 The second sample led to a sample of 500 snakes! While inspecting the samples, 
 your colleague realized the sample actually contained 2 cryptic species (species
@@ -43,12 +45,37 @@ between the 2 species.  Make sure you include
 * null hypothesis
 * alternative hypothesis
 * explanation for test you will use 
+
+```{r}
+parthenogenesis <- matrix(c(15, 225-15, 32, 275-32), ncol = 2, byrow = T)
+chisq.test(parthenogenesis)
+#note same as
+parthenogenesis <- matrix(c(15, 225-15, 32, 275-32), ncol = 2, byrow = F)
+chisq.test(parthenogenesis)
+```
+
+
 * results from statistical test
 * clear explanation of how results relate to your stated hypotheses
 
 # Fear
 
-2. The data on mice heart rates is available via
+Create data, make sure it works, then save for future use and no longer run this.
+
+```{r, eval=F}
+library(ggplot2)
+library(EnvStats)
+# Rigth skewed
+a <- rlnormTruncAlt(50, 85, 3, 60, 100)
+b <- rlnormTruncAlt(50, 110, 3.2, 80, 130)
+fear <- data.frame(treatment = c(rep("control", 50), rep("owl", 50)),
+                   heart_rate = c(a,b))
+fear <- write.csv(fear, "fear.csv", row.names = F)
+```
+
+##2. 
+
+The data on mice heart rates is available via
 
 ```{r}
 fear <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRE3OEf3EaR0uKgrqB6rZ8DxqpiNa5Z__MoAvN1iabF6Yp2fcLQbXFAXVfilAwY9TTYno786SstYCVp/pub?gid=1908952046&single=true&output=csv", stringsAsFactors = T)
@@ -62,10 +89,33 @@ Make sure you include
 * alternative hypothesis
 * explanation for test you will use 
 * results from statistical test
+
+Options for analyzing include t-test, bootstrapping, permutation. Sign isn't possible (not paired), and Wilcox makes less sense as not same shape.
+
+```{r}
+t.test(heart_rate~treatment,fear)
+source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R")
+bootstrapjsg(fear[fear$treatment == "control", "heart_rate"], fear[fear$treatment == "owl", "heart_rate"])
+library(coin)
+independence_test(heart_rate~treatment,fear)
+```
+
+
 * clear explanation of how results relate to your stated hypotheses
 
 
 # Salamanders
+
+## Data creation
+
+```{r, eval = F}
+sallies <- data.frame(morphotype = c(rep(1,60), rep(2,60), rep(3,60)),
+                      stage = rep(c(rep("juvenile", 30), rep("adult", 30)),3),
+                      tail_length  = c(rnorm(30, 25,2), rnorm(30, 28,2),
+                                       rnorm(30,25.2,2.1),rnorm(30,28.1,2.1),
+                                       rnorm(30, 28,2.2), rnorm(30,28.2,2.1)))
+write.csv(sallies, "sallies.csv", row.names = F)
+```
 
 The data on salamander heart beats is available via 
 
@@ -73,21 +123,99 @@ The data on salamander heart beats is available via
 sallies <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSJHbPnebpKq58mE4kQWF9mQ_0ak2sTyaUbEvtmgoSkb31DprOmAS9clOoNNHD_3tHITOXKdhMbWfBf/pub?gid=1050993814&single=true&output=csv", stringsAsFactors = T)
 ```
 
-3. Analyze the data correctly to consider how stage and morphotype impact heart 
+##3. 
+
+Analyze the data correctly to consider how stage and morphotype impact heart 
 rate (hopefully following the instructions you gave the 
 authors!). Make sure you include
 
 * null hypothesis
 * alternative hypothesis
 * explanation for test you will use 
+
+```{r}
+sallies_lm_morphotype <- lm(tail_length~morphotype, sallies)
+plot(sallies_lm_morphotype)
+summary(sallies_lm_morphotype)
+library(car)
+Anova(sallies_lm_morphotype, type = "III")
+sallies_lm_stage <- lm(tail_length~stage, sallies)
+plot(sallies_lm_stage)
+summary(sallies_lm_stage)
+Anova(sallies_lm_stage, type = "III")
+sallies$morphotype <- as.factor(sallies$morphotype)
+sallies$stage <- relevel(sallies$stage, "juvenile")
+sallies_lm_int <- lm(tail_length~stage*morphotype, sallies)
+plot(sallies_lm_int)
+summary(sallies_lm_int)
+Anova(sallies_lm_int, type = "III")
+```
+
+break up
+
 * results from statistical test
 * clear explanation of how results relate to your stated hypotheses
 
-4. Create a properly-labelled plot of the data. There are many options here, but
+##4.
+
+Create a properly-labelled plot of the data. There are many options here, but
 make sure you show trends and patterns that match your analysis.
 
+```{r}
+library(Rmisc)
+sallies_summary <- summarySE(sallies, measurevar="tail_length", groupvars =
+                               c("morphotype", "stage"), na.rm = T)
+ggplot(sallies_summary, aes(x=morphotype, y=tail_length, color=stage, 
+                                   shape = stage)) +
+  geom_point(size = 3) +
+  geom_line(aes(group=stage, linetype =stage), size=2) +
+  geom_errorbar(aes(ymin=tail_length-ci, ymax=tail_length+ci), size=1.5) +
+  ylab("Tail Length")+ 
+  xlab("Morphotype") + 
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  ggtitle("Tail length across stages of various morphotypes")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+ggplot(sallies_summary, aes(x=stage, y=tail_length, color=morphotype, 
+                                   shape = morphotype)) +
+  geom_point(size = 3) +
+  geom_line(aes(group=morphotype, linetype =morphotype), size=2) +
+  geom_errorbar(aes(ymin=tail_length-ci, ymax=tail_length+ci), size=1.5) +
+  ylab("Tail Length")+ 
+  xlab("stage") + 
+  scale_shape_discrete(guide=FALSE)+
+  scale_linetype_discrete(guide=FALSE)+
+  ggtitle("Tail length across stages of various morphotypes")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+#or prettier
+```
 
-5. The data on temperature impacts on heart rate (the follow-up study) 
+
+##5.
+
+## Data creation
+
+```{r, eval=F}
+temp <- runif(82,15,27)
+heart_rate <- temp*1.5+rnorm(82,0,2)
+temperature <- data.frame(temp, heart_rate)
+write.csv(temperature, "temperature.csv", row.names = F)
+```
+
+
+The data on temperature impacts on heart rate (the follow-up study) 
 is available @ 
 
 
@@ -103,11 +231,31 @@ authors!). Make sure you include
 * alternative hypothesis
 * explanation for test you will use 
 * results from statistical test
+
+```{r}
+relationship <- lm(heart_rate ~ temp, temperature)
+plot(relationship)
+summary(relationship)
+```
 * clear explanation of how results relate to your stated hypotheses
 
 
-6. Create a properly-labelled plot of the data. There are many options here, but
+##6. 
+
+Create a properly-labelled plot of the data. There are many options here, but
 make sure you show trends and patterns that match your analysis.
 
-
+```{r}
+ggplot(relationship, aes(x=temp, y=heart_rate)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm") +
+  ylab("Heart rate (bpm)")+ggtitle("Heart rate increases with temperature")+
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+```
 

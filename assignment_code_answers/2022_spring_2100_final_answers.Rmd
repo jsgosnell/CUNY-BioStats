@@ -82,11 +82,14 @@ covid_rates_over_year <- read.csv("https://docs.google.com/spreadsheets/d/e/2PAC
 Investigate the question. Make sure you include (6 pts)
 
 * null hypothesis
-  * *H~0~: Treatment did not impact tadpole length*
+  * *H~0~: Regions do not differ in rates of changes in vaccination*
 * alternative hypothesis
+  * *H~A~: Regions do not differ in rates of changes in vaccination*
 * explanation for test you will use 
+  * I will use an ANOVA (form of linear model) since we have a continous outcome
+  variable and a categorical predictor with more than 2 levels (else it would be
+  a t-test)
 * results from statistical test
-* clear explanation of how results relate to your stated hypotheses
 
 ```{r}
 vaccine_lm <- lm(change~Region, covid_rates_over_year)
@@ -105,8 +108,19 @@ library(multcomp)
 region_compare <-   glht(vaccine_lm, linfct = mcp(Region = "Tukey"))
 summary(region_compare)
 ```
+* clear explanation of how results relate to your stated hypotheses
+  * Test assumptions appear to be met (no patterns in residuals, which are also
+  normally distributed and homogeneous). ANOVA results indicate significant differences
+  among regions (F~3,47~=10.843, p<.001), so I reject my null hypothesis. 
+  Given these results, I used a Tukey post
+  hoc test to control FWER while also seeing how each region compares to others. 
+  Results indicate significant differences between the NE-MW, S-NE,  and W-NE 
+  (so the NE differs from all other regions!).
 
-2.  There has been concern that the COVID pandemic may differentially influence 
+
+### 2.  
+
+There has been concern that the COVID pandemic may differentially influence 
 male and female fetuses and thus alter the regional sex ratios
 of newborn children (Abdoli 2020).  When comparing biological males and females at 
 birth, males have historically represented approximately 50% of births. A hospital 
@@ -116,14 +130,19 @@ the COVID pandemic).  Use this data to investigate if sex ratios have changed.
 Make sure you include (6 pts)
 
 * null hypothesis
+  * *H~0~: the sex ratio in 2021 is 50/50 (the historical average)*
 * alternative hypothesis
+  * *H~A~: the sex ratio in 2021 is not 50/50 (the historical average)*
 * explanation for test you will use 
+  * *I will use a binomial test since we have 2 outcomes (male/female) and a 
+  historical proportion to compare to.
 * results from statistical test
-* clear explanation of how results relate to your stated hypotheses
-
 ```{r}
 binom.test(55,100)
 ```
+* clear explanation of how results relate to your stated hypotheses
+  * *Results indicate a p-value of .3682, so I fail to reject the null hypothesis.
+  There is not evidence that COVID led to a change in sex ratios at birth.*
 
 ## To a happier place - Penguins!
 
@@ -132,10 +151,17 @@ morphological traits. Using the provided data, consider the impact of species(Sp
 and body mass (Body_mass_g)
 on flipper length (Flipper_length_mm). (6 pts)
 
+
 ```{r}
 penguin <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQEyo_2bjGK6yEj5gj3SKP_VsqDxsqer4PRqTqqV_FRw9m0OM3u7SgbaT9OF4whgEb1Nx0z2QNU8ovd/pub?gid=836786692&single=true&output=csv", stringsAsFactors = T)
 ```
 
+Make sure you include (6 pts)
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
 ```{r}
 penguin_lm_int <- lm(Flipper_length_mm~Body_mass_g*Species, penguin)
 plot(penguin_lm_int)
@@ -166,6 +192,11 @@ summary(Adelie)
 Anova(Adelie, type = "III")
 ```
 
+* clear explanation of how results relate to your stated hypotheses
+
+
+
+
 
 4. Create a properly-labelled plot of the data. There are many options here, but
 make sure you show trends and patterns that match your analysis. (5 pts)
@@ -194,6 +225,9 @@ ggplot(penguin, aes(x=Body_mass_g, y=Flipper_length_mm, color= Species,
 
 5. Based on your plot and results (answers to questions 3 and 4), clearly explain 
 what your results mean.(4 pts)
+
+*The significant interaction means species differ in the relationship between
+body mass and flipper length. However, all are positive and significant.*
 
 6. Upon reviewing the data, the researchers are concerned that the male-female
 ratio may be different on various islands. Some of their initial analysis is 
