@@ -1,0 +1,72 @@
+---
+title: "Quiz 4 Spring 2022 answers"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Medical applications of oxygen
+
+A study was done to determine if oxygen was being appropriately supplied to patients
+in a medical unit (Barrett et al 2020). They surveyed 636 patients in mutiple wards and
+found 66 were using oxygen.  Is there evidence that the ward the patient is located 
+in impacts the probability they will receive oxygen?
+
+ *Ward*| Patients prescribed oxygen | Patients not prescribed oxygen
+  :-:|  :-:  |  :-:
+ Acute Medical Unit (AMU) |  8   | 81 
+ Coronary Care Unit (CCU) |  2   | 14
+ Medical (General) |  32  | 348
+ Medical (Respiratory) |  24  | 67
+ 
+ Make sure your answers include
+
+* null hypothesis
+  * H~O~: Proportion of patients receiving oxygen is independent of ward.
+* alternative hypothesis
+  * H~A~: Proportion of patients receiving oxygen is not independent of ward.
+* explanation for test you will use (**Note: make sure you do post-hoc tests if needed!
+I will not remind of this on exam!**)
+  * I will use $\chi^2$ test since we are determining if proportions differ among 2+ 
+  groups (contingency analysis)
+* results from statistical test
+```{r}
+ward_impacts <-matrix(c(8, 81, 2, 14, 32, 348, 24, 67), nrow = 4, byrow = T)
+rownames(ward_impacts) <- c("AMU", "CCU","Gen", "Resp")
+colnames(ward_impacts) <- c("oxygen", "no oxygen")
+chisq.test(ward_impacts)
+```
+Results are significant but assumptions may not be met. If you did a Fisher's test
+
+```{r}
+fisher.test(ward_impacts)
+```
+
+
+```{r}
+chisq.test(ward_impacts)$expected
+```
+Appears to be ok (only `r 1/8` less than 5, which is < 20%, and none less than 1)
+
+* clear explanation of how results relate to your stated hypotheses
+
+$\chi^2$ = 23.9, p <. 001, so I reject the null hypothesis. Oxygen use does appear to differ 
+by ward. Given this result, I also carried out post-hoc test using the Holm's (
+sequential Bonferroni) method to control family-wise error rate.
+
+```{r}
+library(rcompanion)
+pairwiseNominalIndependence(ward_impacts, compare = "row", method = "holm")
+```
+Results indicate the only significant difference is between AMU and General 
+respiratory wards and between General and Respiratory medical wards.
+

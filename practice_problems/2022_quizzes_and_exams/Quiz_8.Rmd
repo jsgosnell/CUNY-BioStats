@@ -1,0 +1,29 @@
+---
+title: "Quiz 8 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+
+The salamander scientists continued their work.  In another study, the authors
+determined the impact of temperature on heart rate. Data is available @
+
+```{r}
+temperature <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRhcbtbwuBje-9I7abkP2EXWuddGVo5VH1N2CgNtR8NMj-sjS-9KXjrJuZY9an9Gt4c-JbdCwwP9S0B/pub?gid=1230482827&single=true&output=csv", stringsAsFactors = T)
+```
+
+How would you analyze the data? Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+* a properly-labelled plot of the data. There are many options here, but
+make sure you show trends and patterns that match your analysis.

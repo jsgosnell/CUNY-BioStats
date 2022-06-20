@@ -1,0 +1,38 @@
+---
+title: "Quiz 4 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Medical applications of oxygen
+
+A study was done to determine if oxygen was being appropriately supplied to patients
+in a medical unit (Barrett et al 2020). They surveyed 636 patients in mutiple wards and
+found 66 were using oxygen.  Is there evidence that the ward the patient is located 
+in impacts the probability they will receive oxygen?
+
+ *Ward*| Patients prescribed oxygen | Patients not prescribed oxygen
+  :-:|  :-:  |  :-:
+ Acute Medical Unit (AMU) |  8   | 81 
+ Coronary Care Unit (CCU) |  2   | 14
+ Medical (General) |  32  | 348
+ Medical (Respiratory) |  24  | 67
+ 
+ Make sure your answers include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use (**Note: make sure you do post-hoc tests if needed!
+I will not remind of this on exam!**)
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses

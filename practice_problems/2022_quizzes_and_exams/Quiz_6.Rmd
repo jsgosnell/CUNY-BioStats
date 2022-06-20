@@ -1,0 +1,32 @@
+---
+title: "Quiz 6 Spring 2022"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
+
+COVID-19 vaccines are a key part of the country's response to the pandemic, but 
+they only work if people take them. The CDC keeps detailed records of dosages, 
+which I combined with the US Census Bureau's data on regions. Data from:  
+* https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-people-onedose-pop-5yr
+* https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf
+
+Use the data (combined version provided below) to determine if vaccination rates 
+differ by region.
+
+```{r}
+vaccine <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQsI2fpJSpI4pEgvUba3xfafpubrdWj3BaoCigWr4K0eUOGdwWgPygu2-Y6kwqZ-Abi92t4xFDsjbIY/pub?gid=200028780&single=true&output=csv",
+                             stringsAsFactors = T)
+```
+Investigate the question. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
