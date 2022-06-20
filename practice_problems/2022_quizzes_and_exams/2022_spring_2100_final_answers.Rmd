@@ -1,5 +1,5 @@
 ---
-title: "2022 Spring Final answers (33 points total)"
+title: "2022 Spring 2100 Final answers (33 points total)"
 author: "jsg"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
