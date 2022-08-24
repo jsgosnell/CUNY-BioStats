@@ -1,0 +1,75 @@
+---
+title: "2. Intro to Rmd files and literate programming"
+author: "stephen's example"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+
+---
+
+Rmd files differ from R files in that they combine regular text with code chunks.
+This is a code chunk
+
+```{r}
+print("this is a chunk")
+```
+
+Code chunks combine code with output. When combined with regular text/prose, 
+this makes it easier to produce a range of documents.  You set the output in 
+the YAML header (the stuff between the 3 dashes you see at top of this document).
+
+After you write the file, you **Knit** it to turn the Rmd file into the selected 
+output.  Try it now.  Note the first time you do this in a project you may be
+prompted to install a number of packages!  If you are using a webservice you may
+also need to allow pop-ups in your browser. Don't be surprised if a new window 
+pops up (it should). 
+
+![The knit button turns your .rmd file into other products](https://lh3.googleusercontent.com/pw/ACtC-3dlSoGJDHtdGqEBr8L2X-yqZ-08Z95RHUMvaxHqF9EOFcBnqtamYMAWOr75mohUSL_KvWtBTt-u4KrdoHgceHc-sZiViw6l9ZqEQToLIsy6AwvQIQMrJgLbtXfV6gNLDgQvgT3N7aq9pk9-x5ugpegjYA=w378-h109-no)
+
+
+The **Knit** button saves the .Rmd file and renders a new version whose output 
+depends on what you selected in the header. Here we have html_document,
+so if everything works a preview of a webpage like document should appear. The file
+also produces a github friendly .md file. **This means you should only edit the 
+Rmd file (leave the md and output files alone! They are automatically produced
+any changes you make there will be overwritten by your next knit)**.  
+
+When you **Knit** a file, it runs in a totally new R instance. this means anything
+you only added in your instance (like working in the console) won't be available.
+In other words, its the best way to see what a "new" user gets when they use your
+code.
+
+however, you don't have to knit the file every time. if you just want to see output,
+note you can press the green button next to an R chunk.
+
+![The green arrows just runs the chunk in the console and shows the output](https://lh3.googleusercontent.com/pw/AM-JKLUYgHbhk7YzhXdAZwV-fvLFlnOc4IcCMwt6U21qsHP7sXcjQ5xDL86NewZo2THSGAveP0Y1cL2PP4yysUTLn4N6iXoO6B1h_8RtAlqmNONY2W5V_j_4hqtQ8d3GhroTNJewT3oEqSVA-Vjh4IkDRqE-pw=w784-h73-no?authuser=0)
+
+
+```{r}
+print("this is a chunk")
+```
+
+Now we'll start changing the file to show you how rmarkdown works.
+First, amend the file by replacing the **NAME** and **DATE** spots in the header
+(top of the
+file between the --- markers) with your name and the real date.  Then **Knit** the
+file again. You should see your name in the new preview. 
+
+Rstudio has a **Markdown Quick Reference** guide (look under the help tab), but 
+some general notes. 
+
+* Pound/Hashtag signs denote headers
+* you can surround something double asterisks for bold or single asterisks for italics
+* lists are denoted by numbers or asterisks at beginning of line (followed by space!)
+  * and can be indented for sublevels
+* R code can be done inline, but is generally placed in stand-alone chunks
+  * these will, by default, show the code and output
+* lots of other options exist!
+
+The main idea is Rmd files allow you to combine code, text, graphs, etc into 
+multiple outputs that you can share (including with coding illiterate colleagues
+who just want output).
