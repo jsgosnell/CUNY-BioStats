@@ -1,22 +1,32 @@
-CUNY-BioStats: Code used to teach stats at Baruch College and the CUNY Graduate Center
+---
+title: "README"
+author: "jsg"
+date: "Last compiled on 24 August, 2022 15:17"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+---
 
-lecture_files contains code to reproduce examples and plots from slides used in class (available @ https://sites.google.com/view/biostats/home)
+CUNY-BioStats: Code used to teach stats at Baruch College and the CUNY Graduate Center.
+Assignments are located in the [Starter_code repository](https://github.com/jsgosnell/Starter_code),
+which students typically access via github classroom assignments.
 
-code_examples contains short examples of specific pieces of code (e.g., multcomp)
+## Structure
 
-datasets are links to datasets I have used in class in the past
+* lecture_files contains code to reproduce examples and plots from slides used in class (available @ https://sites.google.com/view/biostats/home)
+* code_examples contains short examples of specific pieces of code (e.g., multcomp)
+* datasets are links to datasets I have used in class in the past
+* old_files is archived material (standalone code intros, previous course code)
+* stats_assignment_answers has practice problems, including work from past years
 
-old_files is archived material (standalone code intros, previous course code)
-
-stats_assignment_answers has practice problems, including work from past years
-
-Note: Fall 2019 I switched to using summarySE function from Rmisc package instead
+## Major updates 
+  * Note: Fall 2019 I switched to using summarySE function from Rmisc package instead
 of function I had written with same name. Package version provides examples and help files. 
-I will slowly change/update files, but only differences are
-*whatever you put in for measurevar column in summary is what you use for the y in ggplot
+I will slowly change/update files, but only differences are whatever you put in for measurevar column in summary is what you use for the y in ggplot
 calls (so for updating, replacing "mean" with that string)
-
-Fall 2020 Update: Assignment code (and answers) are being moved to .Rmd format; 
+* Fall 2020 Update: Assignment code (and answers) are being moved to .Rmd format; 
 also, default R behavior changed to not upload strings as factors, so you may need to 
 add stringsAsFactors = T to read.csv calls. 
-
