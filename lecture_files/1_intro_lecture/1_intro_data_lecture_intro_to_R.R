@@ -1,6 +1,8 @@
 ##INTRODUCTION TO R####
+##JSG, 7/2/22
+
 #this is a broad introduction to how R works and what it can do
-#we'll return to individual topics in later classes (both theory and practice)
+#we'll return to individual topics in later sessions (both theory and practice)
 
 #Things to know about R (General information):####
 
@@ -27,6 +29,9 @@
 # to read.". His guide is @ 
 # http://adv-r.had.co.nz/Style.html
 # and I recommend using it
+
+# We'll only use scripts this once. I'll introduce you to Rmd files soon, which
+# are a much better way of combining text (prose) and code in literate programming.
 
 # R is an object-based language.  All that means is you can define objects (x=2,
 # or a list, or a matrix) and then use x for your calculations.  Sometimes it
@@ -243,10 +248,14 @@ file
 
 #which is then read by the read.csv function
 
-my_dataset <- read.csv(file)
+my_dataset <- read.csv(file, stringsAsFactors = T)
+
+# Since ~2020 you need to as StringsAsFactors = T to read in characters as factors
+# (what we typically want)
 
 #you can also read in data from a website holding a csv (we'll do this often in class)
-australia_athlete_data <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T)
+australia_athlete_data <- read.table("http://www.statsci.org/data/oz/ais.txt", header = T,
+                                     stringsAsFactors = T)
 
 # and thats it.  however, this is not a great way to grab data (or automate code).
 #you can also put your path in directly, e.g., 
@@ -481,4 +490,5 @@ airquality[order(airquality$Temp),]
 #order (used here to order rows) puts the dataframe in ascending order of temps.
 #in general, order returns the index (row number) need to put the dataset in ascending order,
 #while sort returns the value itself
+
 
