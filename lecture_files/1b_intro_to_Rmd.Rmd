@@ -1,7 +1,7 @@
 ---
-title: "2. Intro to Rmd files and literate programming"
+title: "1b. Intro to Rmd files and literate programming"
 author: "stephen's example"
-date: "Last compiled on 24 August, 2022 15:03"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
   html_document:
     toc: true
@@ -14,13 +14,8 @@ output:
 Rmd files differ from R files in that they combine regular text with code chunks.
 This is a code chunk
 
-
-```r
+```{r}
 print("this is a chunk")
-```
-
-```
-## [1] "this is a chunk"
 ```
 
 Code chunks combine code with output. When combined with regular text/prose, 
@@ -54,13 +49,8 @@ note you can press the green button next to an R chunk.
 ![The green arrows just runs the chunk in the console and shows the output](https://lh3.googleusercontent.com/pw/AM-JKLUYgHbhk7YzhXdAZwV-fvLFlnOc4IcCMwt6U21qsHP7sXcjQ5xDL86NewZo2THSGAveP0Y1cL2PP4yysUTLn4N6iXoO6B1h_8RtAlqmNONY2W5V_j_4hqtQ8d3GhroTNJewT3oEqSVA-Vjh4IkDRqE-pw=w784-h73-no?authuser=0)
 
 
-
-```r
+```{r}
 print("this is a chunk")
-```
-
-```
-## [1] "this is a chunk"
 ```
 
 Now we'll start changing the file to show you how rmarkdown works.
