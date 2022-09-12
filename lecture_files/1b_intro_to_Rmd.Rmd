@@ -1,6 +1,6 @@
 ---
 title: "1b. Intro to Rmd files and literate programming"
-author: "stephen's example"
+author: "stephen's example "
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
   html_document:
