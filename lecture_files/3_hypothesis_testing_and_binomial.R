@@ -1,20 +1,15 @@
 #graphs and tables from Hypothesis testing and the binomial lecture
 #this is the binomial distribution (one sample does not effect the others, collection of bernoulli trials))
 
-#get one sample####
-#
-par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(1, 18, .5)
-hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 20", 
-     ylab = "Probability of being drawn \n from population of p = 0.5", 
-     cex.main = 2, cex.axis = 1.5, cex.lab = 2)
+#get 10000 samples
+sampling_experiment = rbinom(10000, 18, .5)
 
+# plot 1####
+#ggplot2 had issue with subset dataframe for bar, thus remade frame...
 
-sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
 library(ggplot2)
-ggplot(sampling_experiment_df, aes(Right_Handed)) + 
-  geom_bar(size=3, width = 1, fill="orange")+
+ggplot(data.frame(Right_Handed = sampling_experiment_df[1,]), aes(Right_Handed)) + 
+  geom_bar(size=3, width = 1, fill="orange", color= "black")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
   ylab("Frequency")+
@@ -29,20 +24,10 @@ ggplot(sampling_experiment_df, aes(Right_Handed)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   guides(fill = F)
 
+# plot 2 ####
 
-
-#get two samples####
-
-par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(2, 18, .5)
-hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 18", 
-     ylab = "Probability of being drawn \n from population of p = 0.5", 
-     cex.main = 2, cex.axis = 1.5, cex.lab = 2)
-
-sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-ggplot(sampling_experiment_df, aes(Right_Handed)) + 
-  geom_bar(size=3, width = 1, fill="orange")+
+ggplot(data.frame(Right_Handed = sampling_experiment_df[1:2,]), aes(Right_Handed)) + 
+  geom_bar(size=3, width = 1, fill="orange", color= "black")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
   ylab("Frequency")+
@@ -59,17 +44,10 @@ ggplot(sampling_experiment_df, aes(Right_Handed)) +
 
 
 
-#get three samples####
-par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(3, 18, .5)
-hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 18", 
-     ylab = "Probability of being drawn \n from population of p = 0.5", 
-     cex.main = 2, cex.axis = 1.5, cex.lab = 2)
+# plot 3 ####
 
-sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
-ggplot(sampling_experiment_df, aes(Right_Handed)) + 
-  geom_bar(size=1, width = 1, fill="orange", color="black")+
+ggplot(data.frame(Right_Handed = sampling_experiment_df[1:3,]), aes(Right_Handed)) + 
+  geom_bar(size=3, width = 1, fill="orange",color= "black")+
   xlim(0,20) +
   xlab("# of right-handed frogs")+
   ylab("Frequency")+
@@ -84,16 +62,8 @@ ggplot(sampling_experiment_df, aes(Right_Handed)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=32))+
   guides(fill = F)
 
+# plot all ####
 
-#get 10,000  samples####
-par(mar=c(8,8,8,8))
-sampling_experiment = rbinom(10000, 18, .5)
-hist(sampling_experiment, breaks = 0:20, probability = T, col = "orange",
-     xlab = "# of Right-handed frogs out of 20", 
-     ylab = "Probability of being drawn \n from population of p = 0.5", 
-     cex.main = 2, cex.axis = 1.5, cex.lab = 2)
-
-sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
 ggplot(sampling_experiment_df, aes(Right_Handed)) + 
   geom_bar(size=1, width = 1, fill="orange", color="black")+
   xlim(0,20) +
