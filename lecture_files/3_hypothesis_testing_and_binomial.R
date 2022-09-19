@@ -3,6 +3,7 @@
 
 #get 10000 samples
 sampling_experiment = rbinom(10000, 18, .5)
+sampling_experiment_df <- data.frame("Right_Handed" = sampling_experiment)
 
 # plot 1####
 #ggplot2 had issue with subset dataframe for bar, thus remade frame...
