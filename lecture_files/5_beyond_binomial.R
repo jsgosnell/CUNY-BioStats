@@ -20,6 +20,28 @@ ggplot(days_of_week_births, aes(x= Days, y = Births)) +
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
 
+#put in correct order!
+
+days_of_week_births$Days <- factor(days_of_week_births$Days, levels = c("Sunday", 
+                                                                        "Monday",
+                                                                        "Tuesday", 
+                                                                        "Wednesday",
+                                                                        "Thursday",
+                                                                        "Friday", 
+                                                                        "Saturday"))
+
+
+ggplot(days_of_week_births, aes(x= Days, y = Births)) +
+  geom_col(fill = "orange") +
+  ggtitle("Births each day of the week for sample in 1999") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
 #generate chi_sq stats by simulation
 #from https://stats.stackexchange.com/questions/14158/how-to-generate-random-categorical-data
 n <- 350
