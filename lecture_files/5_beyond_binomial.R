@@ -244,9 +244,9 @@ ggplot(everest, aes(x= Survived, y = Number)) +
 
 #make a mosaic
 library(reshape2)
-number_oxygen <- dcast(everest, Survived ~ "total_per_group", value.var = "Number", sum)
+number_oxygen <- dcast(everest, Survived ~ "total_that_survived_or_not", value.var = "Number", sum)
 everest <- merge (everest, number_oxygen)
-everest$Proportion <- everest$Number/everest$total_per_group
+everest$Proportion <- everest$Number/everest$total_that_survived_or_not
 ggplot(everest, aes(x= Survived, y = Proportion)) +
   geom_col(aes(fill = Oxygen)) + 
   xlab("Survived?") +
@@ -259,6 +259,26 @@ ggplot(everest, aes(x= Survived, y = Proportion)) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
+#added 2022 to give another perspective
+number_oxygen2 <- dcast(everest, Oxygen ~ "total_using_oxygen_or_not", value.var = "Number", sum)
+everest <- merge (everest, number_oxygen2)
+everest$Proportion2 <- everest$Number/everest$total_using_oxygen_or_not
+ggplot(everest, aes(x= Oxygen, y = Proportion2)) +
+  geom_col(aes(fill = Survived)) + 
+  xlab("Oxygen") +
+  ylab("Proportion") +
+  ggtitle("Oxygen use impacts Everest descent outcomes") +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+
 
 #each row is group
 #does survival dependon oxygen use?
