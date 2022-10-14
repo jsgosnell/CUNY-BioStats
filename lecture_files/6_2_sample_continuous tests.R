@@ -189,7 +189,6 @@ summary(insect_speciation)
 insect_speciation$difference <- insect_speciation$Polyandrous_species - 
   insect_speciation$Monandrous_species
 
-insect_speciation$difference
 
 ggplot(insect_speciation, aes(difference)) +
   geom_histogram() +
@@ -207,6 +206,16 @@ library(BSDA)
 SIGN.test(insect_speciation$Polyandrous_species, insect_speciation$Monandrous_species)
 #same as
 SIGN.test((insect_speciation$Polyandrous_species - insect_speciation$Monandrous_species), md = 0)
+
+#paper used log ratio
+
+insect_speciation$ratio <- insect_speciation$Polyandrous_species/insect_speciation$Monandrous_species
+insect_speciation$log_ratio <- log(insect_speciation$Polyandrous_species/insect_speciation$Monandrous_species)
+
+mean(insect_speciation$ratio) #mean
+exp(mean(log(insect_speciation$ratio)))# geometric mean 
+mean(insect_speciation$log_ratio)
+SIGN.test(insect_speciation$log_ratio)
 
 #bootstrap####
 
