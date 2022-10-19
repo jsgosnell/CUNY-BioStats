@@ -200,6 +200,12 @@ ggplot(insect_speciation, aes(difference)) +
         legend.text =element_text(size=20),
         legend.title = element_text(size=20, face="bold"),
         plot.title = element_text(hjust = 0.5, face="bold", size=32))
+
+# Munstermann et al 2021 example ####
+
+munster <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/data_from_Munstermann%20et%20al%202021.csv")
+str(munster)
+wilcox.test(sum~NTVUENCR, munster)
   
 #dependent
 library(BSDA)
