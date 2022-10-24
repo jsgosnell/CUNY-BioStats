@@ -90,7 +90,7 @@ ggplot(iris, aes(Species,Sepal.Length)) +
 
 #point plot with means for each group####
 #make extra column for output and rename here
-function_output$Sepal.Length <- function_output$mean
+function_output$Sepal.Length
 ggplot(iris, aes(Species,Sepal.Length)) + 
   geom_point(aes(colour=Species), size = 3) +
   ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
@@ -119,24 +119,7 @@ ggplot(iris, aes(Species,Sepal.Length)) +
                 data = function_output, color = "black") +
   geom_hline(aes(yintercept=mean(iris$Sepal.Length)), size = 2, color = "orange")
 
-#show null hypothesis
-ggplot(iris, aes(Species,Sepal.Length)) + 
-  geom_point(aes(colour=Species), size = 3) +
-  ylab("Sepal Length (cm)")+ggtitle("Sepal Length of various iris species")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32)) +
-  geom_errorbar(aes(ymin=Sepal.Length, ymax=Sepal.Length), size=1.5, 
-                data = function_output, color = "black") +
-  geom_hline(aes(yintercept=mean(iris$Sepal.Length)), size = 2, color = "orange") +
-geom_errorbar(aes(ymin=mean(iris$Sepal.Length), ymax=mean(iris$Sepal.Length)), size=1.5, color = "purple", linetype = 3) 
-
-
-
+#
 #p value via simulation ####
 #get overall variance and mean estimate
 variance_estimate <- sum((function_output$N -1) * (function_output$sd)^2)/(sum(function_output$N)-length(function_output$N))
@@ -235,10 +218,10 @@ summary(compare_virginica_only, test=adjusted("fdr"))
 #are versicolor and virginica different from setosa
 contr <- rbind("setosa - virginica - setosa" = c(-1,.5,.5))
 summary(glht(iris_anova, linfct = mcp(Species = contr)))
-summary(iris_anova) # this appears to be right
+summary(iris_anova) # this appears to be right in how differences match means
 
 #orthogonal
-contr <- rbind("setosa - virginica - setosa" = c(-1,.5,.5),
+contr <- rbind("versicolor - virginica - setosa" = c(-1,.5,.5),
                "virginica - setosa" = c(0,-1,1))
 summary(glht(iris_anova, linfct = mcp(Species = contr)))
 summary(iris_anova) # this appears to be right
@@ -321,6 +304,27 @@ t1waybt(Sepal.Length~Species, iris)
 bootstrap_post_hoc <- mcppb20(Sepal.Length~Species, iris)
 #use p.adjust to correct for FWER
 p.adjust(as.numeric(bootstrap_post_hoc$comp[,6]), "holm")
+
+#mcfarland example#### 
+
+waterchem <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/McFarland_PLOSOne_2020_WaterChem.csv",
+                      stringsAsFactors = T)
+str(waterchem)
+
+fit_waterchem <- lm(Total.Organic.Carbon~WaterSource, waterchem)
+library(ggplot2)
+library(ggfortify)
+autoplot(fit_waterchem)
+summary(waterchem)
+Anova(fit_waterchem, type = "III")
+library(multcomp)
+
+
+
+
+
+
+
 
 
 
