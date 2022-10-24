@@ -1,5 +1,27 @@
 #from lecture on interactions and blocking
 
+#### mcfarland example ####
+#doesn't match paper!
+
+
+length <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/McFarland_PLOSOne_2020_IndLength.csv",
+                   stringsAsFactors = )
+#make it wide
+library(reshape2)
+length_long <- melt(length, id.vars = "Age..days.", value.name = "length", 
+                    variable.name = "cohort")
+str(length_long)
+length_long$Age..days. <- factor(length_long$Age..days.)
+
+fed_fit <- lm(length~Age..days.*cohort, 
+              length_long[length_long$cohort == 
+                            levels(length_long$cohort)[grep("Fed", 
+                                                     levels(length_long$cohort))],])
+summary(fed_fit)
+library(car)
+Anova(fed_fit, type="III")
+
+
 #what if we care about other factor
 #2-way ANOVA ####
 memory <- read.table("http://www.statsci.org/data/general/eysenck.txt", header = T,
