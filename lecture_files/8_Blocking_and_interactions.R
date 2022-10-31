@@ -21,6 +21,46 @@ summary(fed_fit)
 library(car)
 Anova(fed_fit, type="III")
 
+#cholesteroal example####
+
+cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
+cholesterol$day <- as.factor(cholesterol$day)
+head(cholesterol)
+
+summary(cholesterol)
+
+ggplot(cholesterol[cholesterol$day %in% c("2", "14"),], aes_string("cholest")) +
+  geom_histogram() +
+  theme(axis.title.x = element_text(face="bold", size=28), 
+        axis.title.y = element_text(face="bold", size=28), 
+        axis.text.y  = element_text(size=20),
+        axis.text.x  = element_text(size=20), 
+        legend.text =element_text(size=20),
+        legend.title = element_text(size=20, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
+  facet_wrap(~day)
+
+t.test(cholesterol[cholesterol$day == "2", "cholest"], 
+       cholesterol[cholesterol$day == "14", "cholest"],
+       paired = T)
+
+cholest_lm <- lm(cholest~day+patient, 
+               cholesterol[cholesterol$day %in% c("2","14"),])
+summary(cholest_lm)
+library(car)
+Anova(cholest_lm, type="III")
+
+metabolic <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/metabolic_rates.csv", stringsAsFactors = T)
+t.test(metabolic$before, metabolic$after, paired = T)
+
+library(reshape2)
+metabolic_long <- melt(metabolic, id.vars =c("size"),
+                       variable.name = "time",
+                       value.name = "rate")
+t.test(rate~time, metabolic_long, paired=T, var.equal=F)
+
+summary(lm(rate~time+factor(size), metabolic_long))
+Anova(lm(rate~time+factor(size), metabolic_long), type="III")
 
 #what if we care about other factor
 #2-way ANOVA ####

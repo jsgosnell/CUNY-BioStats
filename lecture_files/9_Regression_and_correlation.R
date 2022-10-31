@@ -16,39 +16,18 @@ ggplot(iris, aes(x=Petal.Length, y=Sepal.Length)) +
   xlab("Petal length (cm)") +
   ylab("Sepal length (cm)")
 
-
+iris_regression <- lm(Sepal.Length ~ Petal.Length, iris)
 par(mfrow = c(2,2))
 plot(iris_regression)
 library(car)
 Anova(iris_regression, type = "III")
+summary(iris_regression)
+
 
 #extension to linear model####
 #heres the top row
 model.matrix(iris_regression)[1,]
 coef(iris_regression)
-
-#plot with lm####
-ggplot(iris, aes(x=Petal.Length, y=Sepal.Length)) +
-  geom_point(size = 3) +
-  geom_smooth(method="lm")+
-  ylab("Sepal Length")+ggtitle("Sepal length increases with petal length")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  xlab("Petal length (cm)") +
-  ylab("Sepal length (cm)")
-
-####lm
-iris_regression <- lm(Sepal.Length ~ Petal.Length, iris)
-par(mfrow = c(2,2))
-plot(iris_regression)
-
-summary(iris_regression)
-
 
 #correlation####
 cor.test(~ Sepal.Length + Petal.Length, data = iris)
