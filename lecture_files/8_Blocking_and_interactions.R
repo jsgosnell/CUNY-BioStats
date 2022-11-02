@@ -1,9 +1,9 @@
 #from lecture on interactions and blocking
 
-# paired t test is example of blocking
+# paired t test is example of blocking ####
 
 Input = ("
- Bird    Feather   Length
+ Bird    Feather   Color_index
  A       Typical   -0.255
  B       Typical   -0.213
  C       Typical   -0.19
@@ -43,9 +43,31 @@ feather <-  read.table(textConnection(Input),header=TRUE)
 ### Note: data must be ordered so that the first observation of Group 1
 ###   is the same subject as the first observation of Group 2 
 
-t.test(Length ~ Feather, data=feather, paired=TRUE)
-summary(lm(Length ~ Feather + Bird, data=feather))
-Anova(lm(Length ~ Feather + Bird, data=feather), type= "III")
+t.test(Color_index ~ Feather, data=feather, paired=TRUE)
+summary(lm(Color_index ~ Feather + Bird, data=feather))
+Anova(lm(Color_index ~ Feather + Bird, data=feather), type= "III")
+
+# more than 2? ####
+
+feather <-  read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/wiebe_2002_example.csv
+", stringsAsFactors = T)
+str(feather)
+set.seed(25)
+special <- data.frame(Bird = LETTERS[1:16], Feather = "Special", 
+                      Color_index= feather[feather$Feather == "Typical", "Color_index"] +
+                        .3 +runif(16,1,1)*.01)
+feather <- merge(feather, special, all = T)
+
+
+Anova(lm(Color_index ~ Feather + Bird, data=feather), type= "III")
+
+library(multcomp)
+compare <- glht(lm(Color_index ~ Feather + Bird, data=feather), linfct = mcp("Feather" = "Tukey"))
+summary(compare)
+
+#note comparison doesn't work
+Anova(lm(Color_index ~ Feather * Bird, data=feather), type= "III")
+
 
 
 

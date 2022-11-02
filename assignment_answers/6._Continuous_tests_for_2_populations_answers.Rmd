@@ -419,7 +419,7 @@ Test the hypothesis that odd and typical feathers did not differ using
 ```{r}
 feather <-  read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/wiebe_2002_example.csv
 ", stringsAsFactors = T)
-t.test(Length ~ Feather, data=feather, paired=TRUE)
+t.test(Color_index ~ Feather, data=feather, paired=TRUE)
 ```
 *I used a paired t-test because feathers were measured on the same bird.  
 I also assumed the difference in means was normally
@@ -430,7 +430,7 @@ typical feathers.*
 
 * a rank test
 ```{r}
-wilcox.test(Length ~ Feather, data=feather, paired=TRUE)
+wilcox.test(Color_index ~ Feather, data=feather, paired=TRUE)
 ```
 *I used a paired rank-based test because feathers were measured on the same bird.
 I did not assume the difference in means was normally
@@ -442,8 +442,8 @@ typical feathers.*
 * a binary test
 ```{r}
 library(BSDA)
-SIGN.test(feather[feather$Feather == "Odd", "Length"], 
-          feather[feather$Feather == "Typical", "Length"])
+SIGN.test(feather[feather$Feather == "Odd", "Color_index"], 
+          feather[feather$Feather == "Typical", "Color_index"])
 ```
 
 *I used a sign test (always paired!) because feathers were measured on the same bird.
@@ -455,8 +455,8 @@ typical feathers.*
 
 * bootstrapping
 ```{r}
-bootstrapjsg(feather[feather$Feather == "Odd", "Length"]- 
-          feather[feather$Feather == "Typical", "Length"])
+bootstrapjsg(feather[feather$Feather == "Odd", "Color_index"]- 
+          feather[feather$Feather == "Typical", "Color_index"])
 ```
 *Since feathers were measured on the same bird.
 I used a bootstrap (10,000 samples) focused on the difference in color.  This 
@@ -466,7 +466,9 @@ typical feathers.*
 
 #### 4
 
-4. Endurance of the above animals was also measured. Data is available at
+4. Endurance of animals was tested in an experiment before and after a drug was 
+administered.  
+Data is available at
 
 https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/endurance.csv
 

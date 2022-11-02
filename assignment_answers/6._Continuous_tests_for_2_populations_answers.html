@@ -1510,7 +1510,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">6. Continuous tests 2 populations</h1>
 <h4 class="author">jsg</h4>
-<h4 class="date">Last compiled on 02 November, 2022 14:25</h4>
+<h4 class="date">Last compiled on 02 November, 2022 14:36</h4>
 
 </div>
 
@@ -1805,17 +1805,17 @@ bootstrapjsg(cholesterol_wide$day_2, cholesterol_wide$day_14)</code></pre>
 <pre><code>##                                                                       
 ##                             &quot;0.95&quot; &quot;% Percentile Confidence Interval&quot; 
 ##                                                                       
-##                 &quot;6.72584632519488&quot;                 &quot;58.2065786403463&quot; 
+##                 &quot;6.51889113095469&quot;                 &quot;57.9348664254087&quot; 
 ##                                                                       
-##                          &quot;p-value&quot;                           &quot;0.0135&quot;</code></pre>
+##                          &quot;p-value&quot;                           &quot;0.0119&quot;</code></pre>
 <pre class="r"><code>cholesterol_difference &lt;- na.omit(cholesterol_wide$day_2 - cholesterol_wide$day_14)
 bootstrapjsg(cholesterol_difference)</code></pre>
 <pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
 ## intervals</code></pre>
 <pre><code>##                                                                         
-##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;16.0026358772574&quot; 
+##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;16.3157894736842&quot; 
 ##                                                                         
-##      &quot;60.3131535964269&quot;               &quot;p-value&quot;                 &quot;7e-04&quot;</code></pre>
+##      &quot;60.4210526315789&quot;               &quot;p-value&quot;                 &quot;5e-04&quot;</code></pre>
 <p>Note again how pairing helps!</p>
 </div>
 <div id="permutation" class="section level4">
@@ -2047,9 +2047,9 @@ bootstrapjsg(drug_b, drug_g)</code></pre>
 <pre><code>##                                                                       
 ##                             &quot;0.95&quot; &quot;% Percentile Confidence Interval&quot; 
 ##                                                                       
-##                &quot;-1.70946418849061&quot;               &quot;-0.299999999999999&quot; 
+##                &quot;-1.72136895039537&quot;               &quot;-0.307202478176057&quot; 
 ##                                                                       
-##                          &quot;p-value&quot;                            &quot;0.005&quot;</code></pre>
+##                          &quot;p-value&quot;                           &quot;0.0059&quot;</code></pre>
 <p><em>Using a bootstrap test with 10000 samples, which is not fully
 appropriate here due to small sample sizes, I found a p value of 0.0047.
 This p-value is &lt;.05, so I reject the null hypothesis that the mean
@@ -2134,9 +2134,9 @@ bootstrapjsg(fertilizer[fertilizer$fertilizer ==&quot;old&quot;, &quot;height&qu
 <pre><code>##                                                                       
 ##                             &quot;0.95&quot; &quot;% Percentile Confidence Interval&quot; 
 ##                                                                       
-##                &quot;-7.46993739791514&quot;                           &quot;-1.825&quot; 
+##                          &quot;-7.4475&quot;                &quot;-1.80275040833944&quot; 
 ##                                                                       
-##                          &quot;p-value&quot;                            &quot;9e-04&quot;</code></pre>
+##                          &quot;p-value&quot;                            &quot;0.001&quot;</code></pre>
 <pre class="r"><code>#is same as using the wide data
 bootstrapjsg(fertilizer_wide$new, fertilizer_wide$old)</code></pre>
 <pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
@@ -2144,7 +2144,7 @@ bootstrapjsg(fertilizer_wide$new, fertilizer_wide$old)</code></pre>
 <pre><code>##                                                                       
 ##                             &quot;0.95&quot; &quot;% Percentile Confidence Interval&quot; 
 ##                                                                       
-##                 &quot;1.77006260208487&quot;                 &quot;7.42993739791514&quot; 
+##                           &quot;1.7475&quot;                 &quot;7.41993739791514&quot; 
 ##                                                                       
 ##                          &quot;p-value&quot;                            &quot;8e-04&quot;</code></pre>
 <p><em>Using a bootstrap test with 10000 samples, I found a p value of
@@ -2172,11 +2172,11 @@ using</p>
 </ul>
 <pre class="r"><code>feather &lt;-  read.csv(&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/wiebe_2002_example.csv
 &quot;, stringsAsFactors = T)
-t.test(Length ~ Feather, data=feather, paired=TRUE)</code></pre>
+t.test(Color_index ~ Feather, data=feather, paired=TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
-## data:  Length by Feather
+## data:  Color_index by Feather
 ## t = -4.0647, df = 15, p-value = 0.001017
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
@@ -2194,11 +2194,11 @@ the same between odd and typical feathers.</em></p>
 <ul>
 <li>a rank test</li>
 </ul>
-<pre class="r"><code>wilcox.test(Length ~ Feather, data=feather, paired=TRUE)</code></pre>
+<pre class="r"><code>wilcox.test(Color_index ~ Feather, data=feather, paired=TRUE)</code></pre>
 <pre><code>## 
 ##  Wilcoxon signed rank exact test
 ## 
-## data:  Length by Feather
+## data:  Color_index by Feather
 ## V = 10, p-value = 0.001312
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p><em>I used a paired rank-based test because feathers were measured on
@@ -2211,12 +2211,12 @@ feather color is the same between odd and typical feathers.</em></p>
 <li>a binary test</li>
 </ul>
 <pre class="r"><code>library(BSDA)
-SIGN.test(feather[feather$Feather == &quot;Odd&quot;, &quot;Length&quot;], 
-          feather[feather$Feather == &quot;Typical&quot;, &quot;Length&quot;])</code></pre>
+SIGN.test(feather[feather$Feather == &quot;Odd&quot;, &quot;Color_index&quot;], 
+          feather[feather$Feather == &quot;Typical&quot;, &quot;Color_index&quot;])</code></pre>
 <pre><code>## 
 ##  Dependent-samples Sign-Test
 ## 
-## data:  feather[feather$Feather == &quot;Odd&quot;, &quot;Length&quot;] and feather[feather$Feather == &quot;Typical&quot;, &quot;Length&quot;]
+## data:  feather[feather$Feather == &quot;Odd&quot;, &quot;Color_index&quot;] and feather[feather$Feather == &quot;Typical&quot;, &quot;Color_index&quot;]
 ## S = 3, p-value = 0.02127
 ## alternative hypothesis: true median difference is not equal to 0
 ## 95 percent confidence interval:
@@ -2241,14 +2241,14 @@ typical feathers.</em></p>
 <ul>
 <li>bootstrapping</li>
 </ul>
-<pre class="r"><code>bootstrapjsg(feather[feather$Feather == &quot;Odd&quot;, &quot;Length&quot;]- 
-          feather[feather$Feather == &quot;Typical&quot;, &quot;Length&quot;])</code></pre>
+<pre class="r"><code>bootstrapjsg(feather[feather$Feather == &quot;Odd&quot;, &quot;Color_index&quot;]- 
+          feather[feather$Feather == &quot;Typical&quot;, &quot;Color_index&quot;])</code></pre>
 <pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
 ## intervals</code></pre>
 <pre><code>##                                                                         
-##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;    &quot;-0.203871869895757&quot; 
+##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;    &quot;-0.202185934947878&quot; 
 ##                                                                         
-##              &quot;-0.07475&quot;               &quot;p-value&quot;                     &quot;0&quot;</code></pre>
+##            &quot;-0.0758125&quot;               &quot;p-value&quot;                     &quot;0&quot;</code></pre>
 <p><em>Since feathers were measured on the same bird. I used a bootstrap
 (10,000 samples) focused on the difference in color. This resulted in a
 p-value of &lt;.001. Since the p-value is &lt;.05, I reject the null
@@ -2258,8 +2258,9 @@ feathers.</em></p>
 <div id="section-3" class="section level4">
 <h4>4</h4>
 <ol start="4" style="list-style-type: decimal">
-<li>Endurance of the above animals was also measured. Data is available
-at</li>
+<li>Endurance of animals was tested in an experiment before and after a
+drug was administered.<br />
+Data is available at</li>
 </ol>
 <p><a href="https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/endurance.csv" class="uri">https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/endurance.csv</a></p>
 <p>Test the hypothesis that the drug has no effect on using * a
@@ -2359,9 +2360,9 @@ metabolic rate.</em></p>
 <pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
 ## intervals</code></pre>
 <pre><code>##                                                                         
-##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;     &quot;-3.88888888888889&quot; 
+##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;                    &quot;-4&quot; 
 ##                                                                         
-##      &quot;12.8888888888889&quot;               &quot;p-value&quot;                &quot;0.2353&quot;</code></pre>
+##      &quot;12.6666666666667&quot;               &quot;p-value&quot;                &quot;0.2435&quot;</code></pre>
 <p><em>Since the same animals were measured before and after the drug
 was administered, I used a bootstrap (10,000 samples) focused on the
 difference in rates. This resulted in a p-value of 0.23. Since the
@@ -2534,9 +2535,9 @@ bootstrapjsg(poplar$difference)</code></pre>
 <pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
 ## intervals</code></pre>
 <pre><code>##                                                                         
-##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;1.16942339103034&quot; 
+##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;1.26173108333804&quot; 
 ##                                                                         
-##      &quot;9.13076923076923&quot;               &quot;p-value&quot;                &quot;0.0161&quot;</code></pre>
+##      &quot;9.13076923076923&quot;               &quot;p-value&quot;                &quot;0.0154&quot;</code></pre>
 <p><em>I plotted the paired data to consider its distribution. Given its
 shape and a lack of knowledge regarding metal concentration
 distribution, I used a rank-based test for paired data. This led to a
