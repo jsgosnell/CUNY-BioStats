@@ -1,66 +1,53 @@
 #from lecture on interactions and blocking
 
-#### mcfarland example ####
-#doesn't match paper!
+# paired t test is example of blocking
+
+Input = ("
+ Bird    Feather   Length
+ A       Typical   -0.255
+ B       Typical   -0.213
+ C       Typical   -0.19
+ D       Typical   -0.185
+ E       Typical   -0.045
+ F       Typical   -0.025
+ G       Typical   -0.015
+ H       Typical    0.003
+ I       Typical    0.015
+ J       Typical    0.02
+ K       Typical    0.023
+ L       Typical    0.04
+ M       Typical    0.04
+ N       Typical    0.05
+ O       Typical    0.055
+ P       Typical    0.058
+ A       Odd       -0.324
+ B       Odd       -0.185
+ C       Odd       -0.299
+ D       Odd       -0.144
+ E       Odd       -0.027
+ F       Odd       -0.039
+ G       Odd       -0.264
+ H       Odd       -0.077
+ I       Odd       -0.017
+ J       Odd       -0.169
+ K       Odd       -0.096
+ L       Odd       -0.33
+ M       Odd       -0.346
+ N       Odd       -0.191
+ O       Odd       -0.128
+ P       Odd       -0.182
+")
+
+feather <-  read.table(textConnection(Input),header=TRUE)
+
+### Note: data must be ordered so that the first observation of Group 1
+###   is the same subject as the first observation of Group 2 
+
+t.test(Length ~ Feather, data=feather, paired=TRUE)
+summary(lm(Length ~ Feather + Bird, data=feather))
+Anova(lm(Length ~ Feather + Bird, data=feather), type= "III")
 
 
-length <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/McFarland_PLOSOne_2020_IndLength.csv",
-                   stringsAsFactors = )
-#make it wide
-library(reshape2)
-length_long <- melt(length, id.vars = "Age..days.", value.name = "length", 
-                    variable.name = "cohort")
-str(length_long)
-length_long$Age..days. <- factor(length_long$Age..days.)
-
-fed_fit <- lm(length~Age..days.*cohort, 
-              length_long[length_long$cohort == 
-                            levels(length_long$cohort)[grep("Fed", 
-                                                     levels(length_long$cohort))],])
-summary(fed_fit)
-library(car)
-Anova(fed_fit, type="III")
-
-#cholesteroal example####
-
-cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
-cholesterol$day <- as.factor(cholesterol$day)
-head(cholesterol)
-
-summary(cholesterol)
-
-ggplot(cholesterol[cholesterol$day %in% c("2", "14"),], aes_string("cholest")) +
-  geom_histogram() +
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))+
-  facet_wrap(~day)
-
-t.test(cholesterol[cholesterol$day == "2", "cholest"], 
-       cholesterol[cholesterol$day == "14", "cholest"],
-       paired = T)
-
-cholest_lm <- lm(cholest~day+patient, 
-               cholesterol[cholesterol$day %in% c("2","14"),])
-summary(cholest_lm)
-library(car)
-Anova(cholest_lm, type="III")
-
-metabolic <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/metabolic_rates.csv", stringsAsFactors = T)
-t.test(metabolic$before, metabolic$after, paired = T)
-
-library(reshape2)
-metabolic_long <- melt(metabolic, id.vars =c("size"),
-                       variable.name = "time",
-                       value.name = "rate")
-t.test(rate~time, metabolic_long, paired=T, var.equal=F)
-
-summary(lm(rate~time+factor(size), metabolic_long))
-Anova(lm(rate~time+factor(size), metabolic_long), type="III")
 
 #what if we care about other factor
 #2-way ANOVA ####
