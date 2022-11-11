@@ -45,19 +45,18 @@ feather <-  read.table(textConnection(Input),header=TRUE)
 
 t.test(Color_index ~ Feather, data=feather, paired=TRUE)
 summary(lm(Color_index ~ Feather + Bird, data=feather))
+library(car)
 Anova(lm(Color_index ~ Feather + Bird, data=feather), type= "III")
 
 # more than 2? ####
 
-feather <-  read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/wiebe_2002_example.csv
-", stringsAsFactors = T)
+feather <-  read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/wiebe_2002_example.csv", stringsAsFactors = T)
 str(feather)
 set.seed(25)
 special <- data.frame(Bird = LETTERS[1:16], Feather = "Special", 
                       Color_index= feather[feather$Feather == "Typical", "Color_index"] +
                         .3 +runif(16,1,1)*.01)
 feather <- merge(feather, special, all = T)
-
 
 Anova(lm(Color_index ~ Feather + Bird, data=feather), type= "III")
 
@@ -80,9 +79,11 @@ memory$Age <- relevel(memory$Age, "Younger")
 
 #graph data with line but no error bar
 #add extra call to groupvars in summarySE
+library(Rmisc)
+
 function_output <- summarySE(memory, measurevar="Words", groupvars =
                                c("Age", "Process"), na.rm = T)
-
+library(ggplot2)
 ggplot(function_output, aes(x=Age, y=Words,color=Process, 
                                    shape = Process)) +
   geom_line(aes(group=Process, linetype = Process), size=2) +
