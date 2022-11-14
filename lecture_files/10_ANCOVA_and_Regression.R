@@ -1,60 +1,19 @@
 #from lecture on ancova and multiple regression
 
-#cholesterol example####
+#garlick example####
 
-cholesterol <- read.table("http://www.statsci.org/data/general/cholestg.txt", header = T)
-cholesterol$patient <- as.factor(cholesterol$patient)
-head(cholesterol)
-summary(cholesterol)
+garlick <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/Garlick_et_al_data.csv",
+                    stringsAsFactors = T)
+str(garlick)
 
-library(ggplot2)
-ggplot(cholesterol, aes(x=day, y=cholest)) +
-  geom_point(size = 3) +
-  ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-#as regression####
-cholest_regression <- lm(cholest ~ day, na.omit(cholesterol))
-par(mfrow = c(2,2))
-plot(cholest_regression)
+garlick_lm <- lm(root_focal_q1 ~ shoot_focal + soil_environment*neighbor, garlick)
 library(car)
-Anova(cholest_regression, type = "III")
+Anova(garlick_lm, type = "III")
 
-#as ANOVA####
-cholesterol$day <- as.factor(cholesterol$day)
-cholest_blocked_all_days <- lm(cholest ~ day + patient, na.omit(cholesterol))
-Anova(cholest_blocked_all_days, type = "III")
+coef(garlick_lm)
+head(model.matrix(garlick_lm))
 
-#as multiple regression####
-cholesterol$day <- as.numeric(as.character(cholesterol$day))
-cholest_multiple <- lm(cholest ~ day + patient, na.omit(cholesterol))
-plot(cholest_multiple)
-Anova(cholest_multiple, type = "III")
-summary(cholest_multiple)
 
-#graph####
-
-ggplot(cholesterol, aes(x=day, y=cholest, color = patient)) +
-  geom_point(size = 3) +
-  geom_smooth(method = "lm", se = F) +
-  ylab("Cholesterol level")+ggtitle("Cholesterol level following a heart attack")+
-  theme(axis.title.x = element_text(face="bold", size=28), 
-        axis.title.y = element_text(face="bold", size=28), 
-        axis.text.y  = element_text(size=20),
-        axis.text.x  = element_text(size=20), 
-        legend.text =element_text(size=20),
-        legend.title = element_text(size=20, face="bold"),
-        plot.title = element_text(hjust = 0.5, face="bold", size=32))
-
-#linear model####
-model.matrix(cholest_multiple)[1,]
-coef(cholest_multiple)
 
 #ancova with interactions example - simulated
 iris_example_species <-data.frame(
