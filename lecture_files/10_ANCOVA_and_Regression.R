@@ -15,7 +15,7 @@ head(model.matrix(garlick_lm))
 
 
 
-#ancova with interactions example - simulated
+#ancova with interactions example - simulated ####
 iris_example_species <-data.frame(
   Species = c(rep("x",25), rep("y", 25), rep("z", 25)),
   Sepal_Length = runif(75,2,4 ),
