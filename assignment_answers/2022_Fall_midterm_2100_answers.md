@@ -2,7 +2,7 @@
 title: "2022 Fall Midterm (30 points total)"
 subtitle:  "Happy Halloween"
 author: "jsg answers"
-date: "Last compiled on 17 November, 2022 10:18"
+date: "Last compiled on 18 November, 2022 10:24"
 output:
   html_document:
     toc: true
