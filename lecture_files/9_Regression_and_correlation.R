@@ -42,7 +42,7 @@ cor.test(monkey$eggs_per_gram, monkey$Dominance_rank, method = "spearman")
 
 #permutation####
 library(coin)
-independence_test(cholest ~ day, cholesterol)
+independence_test(Sepal.Length ~ Petal.Length, iris)
 
 #leverage and outliers
 iris_new <- iris
