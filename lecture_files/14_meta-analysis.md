@@ -1,13 +1,12 @@
 ---
 title: "Meta-analysis, mega-fun"
-subtitle: "Meta-analysis steps"
 author: "jsg"
-date: "Last compiled on 09 May, 2022 09:38"
-output: 
+date: "Last compiled on 28 November, 2022 08:35"
+output:
   slidy_presentation:
-        keep_md: true
-        theme: journal       
-
+    keep_md: yes
+    theme: journal
+subtitle: "Meta-analysis steps"
 ---
 
 
@@ -176,7 +175,7 @@ is useful for extracting graph data
     + Cohen's d or Hedge's g
   
 $$
-Hedge's g = SMD = \frac{\bar{X}_1 -\bar{X}_2}{SD^*_{pooled}}
+\text{Hedge's g = SMD = }\frac{\bar{X}_1 -\bar{X}_2}{SD^*_{pooled}}
 $$ 
       * Cohen's d does not weight based on sample size in each group, but both assume
   homogeneity of variances 
