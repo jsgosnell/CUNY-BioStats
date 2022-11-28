@@ -11,12 +11,19 @@ head(otters)
 #star, otters, and mussels are treatments (1 is present)
 #WASU and notWASU are count data
 otter_fit <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, family=binomial)
+library(car)
 Anova(otter_fit, type = "III")
 summary(otter_fit)
 #same basic assumption
 plot(otter_fit)
 #can use drop1, stepAIC, etc
 
+
+#using quasi approach to estimate extra parameters
+otter_fit_quasi <- glm(cbind(WASU, notWASU)~ Star + Otters + Mussels, otters, 
+                 family=quasibinomial)
+summary(otter_fit_quasi)
+Anova(otter_fit_quasi, type = "III")
 
 #code for gamma distribution####
 #death data from crawley
