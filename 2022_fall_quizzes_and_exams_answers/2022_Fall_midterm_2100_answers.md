@@ -2,7 +2,7 @@
 title: "2022 Fall Midterm (30 points total)"
 subtitle:  "Happy Halloween"
 author: "jsg answers"
-date: "Last compiled on 18 November, 2022 10:24"
+date: "Last compiled on 05 December, 2022 07:00"
 output:
   html_document:
     toc: true
@@ -110,6 +110,13 @@ as the new strain spreads.  What would you tell them? (2 pts)
 
 ```r
 library(binom)
+```
+
+```
+## Warning: package 'binom' was built under R version 4.2.2
+```
+
+```r
 binom.confint(17,111)
 ```
 
