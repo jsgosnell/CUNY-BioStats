@@ -2,7 +2,7 @@
 title: "2022 Fall 78001-2 Midterm (30 points total)"
 subtitle:  "Happy (late) Halloween"
 author: "jsg answers"
-date: "Last compiled on 07 December, 2022 14:49"
+date: "Last compiled on 08 December, 2022 14:43"
 output:
   html_document:
     toc: true
@@ -110,6 +110,13 @@ binom.test(17,110, p=.1, alternative = "greater")
 
 ```r
 library(binom)
+```
+
+```
+## Warning: package 'binom' was built under R version 4.2.2
+```
+
+```r
 binom.confint(17,110)
 ```
 
@@ -168,9 +175,11 @@ Use this data
 to investigate the impact of the drug. Make sure you include
 
 * null hypothesis (1 pt)
-  * *H~0~: the proportion of people transforming is the same with and without the drug*
+  * *H~0~: the proportion of people transforming is the same regardless of drug 
+  dosage*
 * alternative hypothesis (1 pt)
-  * *H~A~: the proportion of people transforming is the same with and without the drug*
+  * *H~A~: the proportion of people transforming is not the same regardless of 
+  drug dosage*
 * explanation for test you will use (1 pt)
   * I will use a goodness of fit test/contingency analysis. Data are count-based.
   I will check assumptions once model is created.
@@ -195,6 +204,13 @@ chisq.test(outcomes)
 
 ```r
 library(rcompanion)
+```
+
+```
+## Warning: package 'rcompanion' was built under R version 4.2.2
+```
+
+```r
 pairwiseNominalIndependence(outcomes, compare = "row", method = "holm")
 ```
 
@@ -233,14 +249,49 @@ height <- data.frame(Gender = c(rep("M", 150), rep("F", 150)),
 write.csv(height, "vaccine_height.csv", row.names = F)
 ```
 
+Analyze the data from the follow-up vaccine study. As a reminder,
+In later correspondence, the company scientist note they also tracked adverse 
+reactions including changes in height in a follow-up study because people are 
+concerned werewolf vaccines can do strange things.  The dataset includes information
+on participant gender (M, F); treatment (Control (no vaccine), single or double 
+dose; and change in height in mm. Data can be downloaded using.
+
 
 ```r
 height <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/vaccine_height.csv", stringsAsFactors = T)
 ```
 
+Use this data
+to investigate the impact of the drug on changes in height. Make sure you include
+
+* null hypothesis (1 pt)
+  * does does not impact change in height following vaccination
+  * gender does not impact change in height following vaccination
+  * gender and dose do not interact to impact change in height following vaccination
+* alternative hypothesis (1 pt)
+  * does does impact change in height following vaccination
+  * gender does impact change in height following vaccination
+  * gender and dose do interact to impact change in height following vaccination
+* explanation for test you will use (1 pt)
+
+I will use a factorial ANOVA to consider these hypotheses. The outcome is numeric 
+and the explanatory variables (2) are categorial. The design is crossed so I can
+also consider interactions
+
+* results from statistical test (1 pt)
 
 ```r
 height_lm <- lm(change ~ Gender*Treatment, height)
+plot(height_lm)
+```
+
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-6-2.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-6-3.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-6-4.png)<!-- -->
+
+I first check assumptions. Even though there is some evidence of variance increasing 
+with mean, I think a linear model is ok.
+
+
+```r
 library(car)
 ```
 
@@ -265,7 +316,119 @@ Anova(height_lm, type="III")
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+  * *the outcomes suggest significant interaction between gender and dosage (F~2,294~=173,
+  p<0.001), so I compared each gender separately.
+  
 
+```r
+height_lm_m <- lm(change ~ Treatment, height[height$Gender == "M",])
+plot(height_lm_m)
+```
+
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-8-1.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-8-2.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-8-3.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-8-4.png)<!-- -->
+
+```r
+Anova(height_lm_m, type = "III")
+```
+
+```
+## Anova Table (Type III tests)
+## 
+## Response: change
+##              Sum Sq  Df F value Pr(>F)
+## (Intercept) 0.00035   1  0.0382 0.8453
+## Treatment   0.00126   2  0.0689 0.9334
+## Residuals   1.34302 147
+```
+  
+There is no evidence (p=.9334) for impact of drug on male height. Assumptions again
+appear to be valid.
+
+
+```r
+height_lm_f <- lm(change ~ Treatment, height[height$Gender == "F",])
+plot(height_lm_f)
+```
+
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-9-1.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-9-2.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-9-3.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+
+```r
+Anova(height_lm_f, type = "III")
+```
+
+```
+## Anova Table (Type III tests)
+## 
+## Response: change
+##              Sum Sq  Df F value    Pr(>F)    
+## (Intercept) 209.411   1  592.48 < 2.2e-16 ***
+## Treatment   125.485   2  177.52 < 2.2e-16 ***
+## Residuals    51.957 147                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+There is strong evidence for impact of dosage on female height (p<.001), so I 
+conducted post-hoc tests using sequential Bonferroni methods to control the FWER.
+
+
+```r
+library(multcomp)
+```
+
+```
+## Loading required package: mvtnorm
+```
+
+```
+## Loading required package: survival
+```
+
+```
+## Loading required package: TH.data
+```
+
+```
+## Loading required package: MASS
+```
+
+```
+## 
+## Attaching package: 'TH.data'
+```
+
+```
+## The following object is masked from 'package:MASS':
+## 
+##     geyser
+```
+
+```r
+summary(glht(height_lm_f, linfct = mcp(Treatment = "Tukey")))
+```
+
+```
+## 
+## 	 Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Tukey Contrasts
+## 
+## 
+## Fit: lm(formula = change ~ Treatment, data = height[height$Gender == 
+##     "F", ])
+## 
+## Linear Hypotheses:
+##                       Estimate Std. Error t value Pr(>|t|)    
+## double - control == 0  1.98119    0.11890  16.662   <1e-04 ***
+## single - control == 0  0.08466    0.11890   0.712    0.757    
+## single - double == 0  -1.89653    0.11890 -15.950   <1e-04 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+```
+
+Results indicates the double dosage differs from both other groups (p<.05).
 
 # #5
 
@@ -279,24 +442,6 @@ moonlight$heart_rate <- rnorm(60, 75,5)
 write.csv(moonlight, "moonlight.csv", row.names = F)
 ```
 
-
-```r
-t.test(moonlight$heart_rate, moonlight$lunar_intensity, paired = T)
-```
-
-```
-## 
-## 	Paired t-test
-## 
-## data:  moonlight$heart_rate and moonlight$lunar_intensity
-## t = 118.6, df = 59, p-value < 2.2e-16
-## alternative hypothesis: true mean difference is not equal to 0
-## 95 percent confidence interval:
-##  72.09851 74.57318
-## sample estimates:
-## mean difference 
-##        73.33584
-```
 5. 60 participants were randomly selected from the nation wide (United States)
 transformation registry.  Each individual was outfitted with heart rate and lux
 (light intensity) monitors to study relationship between maximum observed heart
@@ -325,6 +470,12 @@ Analyze the data. Make sure to include
 
 ```r
 moonlight_lm <- lm(heart_rate~lunar_intensity, moonlight)
+plot(moonlight_lm)
+```
+
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-13-1.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-13-2.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-13-3.png)<!-- -->![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-13-4.png)<!-- -->
+
+```r
 summary(moonlight_lm)
 ```
 
@@ -350,6 +501,9 @@ summary(moonlight_lm)
 ```
 * clear explanation of how results relate to your stated hypotheses (2 pt)
 
+  * Assumptions appear to be met. Lunar intensity is not related to heart rate
+  (p=.942).
+
 # #6
 
 6. Graph the data used in question 5 in an appropriate way (5 pts)
@@ -369,7 +523,7 @@ ggplot(moonlight,aes(lunar_intensity,heart_rate))+
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 
 ```r
@@ -386,7 +540,7 @@ ggplot(height, aes(Treatment,change)) +
   geom_hline(aes(yintercept = mean(change)), size = 1, color = "red")
 ```
 
-![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 
 ```r
@@ -403,7 +557,7 @@ ggplot(height, aes(Treatment,change)) +
         plot.title = element_text(hjust = 0.5, face="bold", size=22))
 ```
 
-![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 
 
@@ -421,7 +575,7 @@ ggplot(height, aes(Treatment,change)) +
   geom_hline(aes(yintercept = mean(change)), size = 1, color = "red")
 ```
 
-![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](2022_Fall_midterm_78002_answers_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 
 

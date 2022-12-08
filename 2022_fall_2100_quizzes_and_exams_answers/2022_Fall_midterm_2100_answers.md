@@ -2,7 +2,7 @@
 title: "2022 Fall Midterm (30 points total)"
 subtitle:  "Happy Halloween"
 author: "jsg answers"
-date: "Last compiled on 05 December, 2022 07:00"
+date: "Last compiled on 08 December, 2022 14:24"
 output:
   html_document:
     toc: true
@@ -405,7 +405,7 @@ to investigate the impact of the drug. Make sure you include
 * null hypothesis (1 pt)
   * *H~0~: the proportion of people transforming is the same with and without the drug*
 * alternative hypothesis (1 pt)
-  * *H~A~: the proportion of people transforming is the same with and without the drug*
+  * *H~A~: the proportion of people transforming is not the same with and without the drug*
 * explanation for test you will use (1 pt)
   * I will use a goodness of fit test/contingency analysis. Data are count-based.
   I will check assumptions once model is created.

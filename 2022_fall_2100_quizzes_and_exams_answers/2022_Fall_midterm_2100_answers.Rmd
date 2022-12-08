@@ -227,7 +227,7 @@ to investigate the impact of the drug. Make sure you include
 * null hypothesis (1 pt)
   * *H~0~: the proportion of people transforming is the same with and without the drug*
 * alternative hypothesis (1 pt)
-  * *H~A~: the proportion of people transforming is the same with and without the drug*
+  * *H~A~: the proportion of people transforming is not the same with and without the drug*
 * explanation for test you will use (1 pt)
   * I will use a goodness of fit test/contingency analysis. Data are count-based.
   I will check assumptions once model is created.

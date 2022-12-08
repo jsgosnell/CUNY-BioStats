@@ -105,9 +105,11 @@ Use this data
 to investigate the impact of the drug. Make sure you include
 
 * null hypothesis (1 pt)
-  * *H~0~: the proportion of people transforming is the same with and without the drug*
+  * *H~0~: the proportion of people transforming is the same regardless of drug 
+  dosage*
 * alternative hypothesis (1 pt)
-  * *H~A~: the proportion of people transforming is the same with and without the drug*
+  * *H~A~: the proportion of people transforming is not the same regardless of 
+  drug dosage*
 * explanation for test you will use (1 pt)
   * I will use a goodness of fit test/contingency analysis. Data are count-based.
   I will check assumptions once model is created.
@@ -135,7 +137,7 @@ dose groups (p=.035).  Notably, vaccinated groups were more likely to transform.
 
 Make the data
 
-```{r}
+```{r, eval = F}
 set.seed(13)
 height <- data.frame(Gender = c(rep("M", 150), rep("F", 150)), 
                      Treatment = rep(c(rep("control", 50), rep("single", 50), 
@@ -147,31 +149,87 @@ height <- data.frame(Gender = c(rep("M", 150), rep("F", 150)),
 write.csv(height, "vaccine_height.csv", row.names = F)
 ```
 
+Analyze the data from the follow-up vaccine study. As a reminder,
+In later correspondence, the company scientist note they also tracked adverse 
+reactions including changes in height in a follow-up study because people are 
+concerned werewolf vaccines can do strange things.  The dataset includes information
+on participant gender (M, F); treatment (Control (no vaccine), single or double 
+dose; and change in height in mm. Data can be downloaded using.
+
 ```{r}
 height <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/vaccine_height.csv", stringsAsFactors = T)
 ```
 
+Use this data
+to investigate the impact of the drug on changes in height. Make sure you include
+
+* null hypothesis (1 pt)
+  * does does not impact change in height following vaccination
+  * gender does not impact change in height following vaccination
+  * gender and dose do not interact to impact change in height following vaccination
+* alternative hypothesis (1 pt)
+  * does does impact change in height following vaccination
+  * gender does impact change in height following vaccination
+  * gender and dose do interact to impact change in height following vaccination
+* explanation for test you will use (1 pt)
+
+I will use a factorial ANOVA to consider these hypotheses. The outcome is numeric 
+and the explanatory variables (2) are categorial. The design is crossed so I can
+also consider interactions
+
+* results from statistical test (1 pt)
 ```{r}
 height_lm <- lm(change ~ Gender*Treatment, height)
+plot(height_lm)
+```
+
+I first check assumptions. Even though there is some evidence of variance increasing 
+with mean, I think a linear model is ok.
+
+```{r}
 library(car)
 Anova(height_lm, type="III")
 ```
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+  * *the outcomes suggest significant interaction between gender and dosage (F~2,294~=173,
+  p<0.001), so I compared each gender separately.
+  
+```{r}
+height_lm_m <- lm(change ~ Treatment, height[height$Gender == "M",])
+plot(height_lm_m)
+Anova(height_lm_m, type = "III")
+```
+  
+There is no evidence (p=.9334) for impact of drug on male height. Assumptions again
+appear to be valid.
 
+```{r}
+height_lm_f <- lm(change ~ Treatment, height[height$Gender == "F",])
+plot(height_lm_f)
+Anova(height_lm_f, type = "III")
+```
+
+There is strong evidence for impact of dosage on female height (p<.001), so I 
+conducted post-hoc tests using sequential Bonferroni methods to control the FWER.
+
+```{r}
+library(multcomp)
+summary(glht(height_lm_f, linfct = mcp(Treatment = "Tukey")))
+```
+
+Results indicates the double dosage differs from both other groups (p<.05).
 
 # #5
 
 Make the data
 
-```{r}
+```{r,eval = F}
 set.seed(25)
 moonlight <- data.frame(lunar_intensity = runif(60, 0, 1))
 moonlight$heart_rate <- rnorm(60, 75,5)
 write.csv(moonlight, "moonlight.csv", row.names = F)
 ```
 
-```{r}
-t.test(moonlight$heart_rate, moonlight$lunar_intensity, paired = T)
-```
 5. 60 participants were randomly selected from the nation wide (United States)
 transformation registry.  Each individual was outfitted with heart rate and lux
 (light intensity) monitors to study relationship between maximum observed heart
@@ -198,9 +256,13 @@ Analyze the data. Make sure to include
 
 ```{r}
 moonlight_lm <- lm(heart_rate~lunar_intensity, moonlight)
+plot(moonlight_lm)
 summary(moonlight_lm)
 ```
 * clear explanation of how results relate to your stated hypotheses (2 pt)
+
+  * Assumptions appear to be met. Lunar intensity is not related to heart rate
+  (p=.942).
 
 # #6
 
