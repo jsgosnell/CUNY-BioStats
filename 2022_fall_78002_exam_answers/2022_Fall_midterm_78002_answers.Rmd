@@ -1,0 +1,263 @@
+---
+title: "2022 Fall 78001-2 Midterm (30 points total)"
+subtitle:  "Happy (late) Halloween"
+author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students. 
+
+Good luck!
+
+# Werewolf (Halloween Redux!) 
+
+![](https://2.bp.blogspot.com/-huSpt_sT7HI/WAmTUUV9GAI/AAAAAAAAZgQ/hWJ8TZx5MGAPuK5MFuRFEWdrAdMib4uqwCEw/s320/IMG_2931.JPG)
+
+Many cultures have stories of people transforming into animals. Lycanthropy, or 
+people becoming (or thinking they become) wolves is a common example that connects 
+to the mythos around werewolves.
+
+Imagine werewolves are actually real and are caused by a virus that quickly spreads 
+in communities. However, not everyone who has the virus transforms into werewolves
+for a number of reasons.  While society has ways to deal with the virus (and werewolves),
+the virus that causes people to transform is continuously evolving and thus must
+be studied (does all this sound familiar?). A recent strain of concern has been noted.  
+
+# #1
+
+1. Following up on the 78001 exam, conduct the analysis you recommended for the 
+sleep tracker study.  As a reminder, 
+a study is done to determine if the new strain leads to more people becoming 
+werewolves. Historically,
+10% of people in the focal town transformed during full moons. Last month, a study 
+using sleep trackers found 17 out of 110 subjects infected with the new strain
+became werewolves.  Is there 
+evidence that transformations are becoming more common with this strain?  Make 
+sure you include
+
+* null hypothesis (1 pt)
+  * *H~0~: # of people transforming is no different with new strain/is equal to 10%*
+* alternative hypothesis (1 pt)
+  * *H~A~: # of people transforming is  different with new strain/is not equal to 10%*
+* explanation for test you will use (1 pt)
+  * *I will use a binomial test to compare the calculated transformation rate to a 
+  a given value.*
+* results from statistical test (1 pt)
+
+```{r}
+binom.test(17,110, p=.1)
+
+#or 
+
+binom.test(17,110, p=.1, alternative = "greater")
+
+```
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+  * *I found a p-value of .03 (<.05), so I reject the null hypothesis. The 
+  number of people transforming has changed. **BONUS/not required** It appears to 
+  be increasing.*
+
+# #2
+
+2. Develop confidence intervals to match this data and explain what they mean. (2 pts) 
+
+```{r}
+library(binom)
+binom.confint(17,110)
+#or
+binom.confint(17,110, conf.level = .9)
+
+```
+
+*The 95% confidence interval is 10.6 - 22.0% using the Agresti-Coull method (1 pts). A 
+95% confidence interval means if we sampled the population many times and 
+constructed confidence intervals for each sample, 95% of the time the interval 
+would contain the true population parameter. (1 pts)*
+
+# #3
+
+3.  Analyze the data from the class question on vaccine impacts. As a reminder,
+as one attempt at controlling the outbreak, a company has developed a drug
+that it claims reduces the chances of people transforming.  150 participants, all
+of who transformed during the last full moon, are selected to take part in clinical 
+trials.  A third (the control group) receive a  placebo, a third receive a single 
+dose of the new drug, and a third receive 2 doses.  During the next full moon, 33 out of 50 individuals in the control
+group transform into wolves.  43 out of 50 in the single dose group transform, and 
+45 out of 50 in the 2-dose group transform. (6 pts) 
+
+Use this data
+to investigate the impact of the drug. Make sure you include
+
+* null hypothesis (1 pt)
+  * *H~0~: the proportion of people transforming is the same with and without the drug*
+* alternative hypothesis (1 pt)
+  * *H~A~: the proportion of people transforming is the same with and without the drug*
+* explanation for test you will use (1 pt)
+  * I will use a goodness of fit test/contingency analysis. Data are count-based.
+  I will check assumptions once model is created.
+* results from statistical test (1 pt)
+
+```{r}
+outcomes <- matrix(c(33, 50-33, 43, 50 - 43, 45, 50-45), nrow = 3, byrow = T)
+colnames(outcomes) <- c("change", "not change")
+rownames(outcomes)<- c("control", "single", "double")
+
+chisq.test(outcomes)
+
+library(rcompanion)
+pairwiseNominalIndependence(outcomes, compare = "row", method = "holm")
+```
+
+Data were analyzed using a /chi^2 test given we are comparing proportions among 
+groups.  A low p-value (p<.001) indicated a difference existed among the groups. 
+I followed this up with pair-wise comparisons where I controlled for FWER using the
+sequential Bonferroni method.  Results indicated a significant difference 
+existed among between the control and double dose group (p = .008) and control and single
+dose groups (p=.035).  Notably, vaccinated groups were more likely to transform.
+
+# #4
+
+Make the data
+
+```{r}
+set.seed(13)
+height <- data.frame(Gender = c(rep("M", 150), rep("F", 150)), 
+                     Treatment = rep(c(rep("control", 50), rep("single", 50), 
+                                   rep("double", 50)),2),
+                     change = rnorm(300, 0, .1)+ # no impact
+                       c(rep(0,150), rnorm(150,2,.5))+ # impact on F 
+                       c(rep(0,250),rnorm(50, 2, .5))) #impact of double dose larger
+
+write.csv(height, "vaccine_height.csv", row.names = F)
+```
+
+```{r}
+height <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/vaccine_height.csv", stringsAsFactors = T)
+```
+
+```{r}
+height_lm <- lm(change ~ Gender*Treatment, height)
+library(car)
+Anova(height_lm, type="III")
+```
+
+
+# #5
+
+Make the data
+
+```{r}
+set.seed(25)
+moonlight <- data.frame(lunar_intensity = runif(60, 0, 1))
+moonlight$heart_rate <- rnorm(60, 75,5)
+write.csv(moonlight, "moonlight.csv", row.names = F)
+```
+
+```{r}
+t.test(moonlight$heart_rate, moonlight$lunar_intensity, paired = T)
+```
+5. 60 participants were randomly selected from the nation wide (United States)
+transformation registry.  Each individual was outfitted with heart rate and lux
+(light intensity) monitors to study relationship between maximum observed heart
+rate and light intensity .  Data is available @ 
+
+```{r}
+moonlight <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/moonlight.csv", stringsAsFactors = T)
+```
+
+
+Analyze the data. Make sure to include
+
+* null hypothesis (1 pt)
+  * *H~0~: there is no relationship between lunar light intensity and heart 
+  rate*
+* alternative hypothesis (1 pt)
+  * *H~A~: # there is a relationship between lunar light intensity and heart 
+  rate*
+* explanation for test you will use (1 pt)
+  * *I will use linear regression. I'm assuming light intensity might drive heart
+  rate, and both variables are continuous.  Correlation/association is another 
+  option.*
+* results from statistical test (1 pt)
+
+```{r}
+moonlight_lm <- lm(heart_rate~lunar_intensity, moonlight)
+summary(moonlight_lm)
+```
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+
+# #6
+
+6. Graph the data used in question 5 in an appropriate way (5 pts)
+
+```{r}
+library(ggplot2)
+ggplot(moonlight,aes(lunar_intensity,heart_rate))+
+  geom_point()+
+  geom_smooth(color="blue",size=1, method = "lm")+
+  xlab("maximum lunar intensity (lux)")+
+  ylab("maximum heart rate (bpm)")+
+  ggtitle("maximum heart rate is independent of maximum light intensity")
+```
+
+```{r}
+ggplot(height, aes(Treatment,change)) + 
+  geom_point(aes(colour=Treatment), size = 2) +
+  ylab("Change in height (mm)")+ggtitle("Change in height for different treatments")+
+  theme(axis.title.x = element_text(face="bold", size=20), 
+        axis.title.y = element_text(face="bold", size=20), 
+        axis.text.y  = element_text(size=14),
+        axis.text.x  = element_text(size=14), 
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=18, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=22))+
+  geom_hline(aes(yintercept = mean(change)), size = 1, color = "red")
+```
+
+```{r}
+library(ggplot2)
+ggplot(height, aes(Treatment,change)) + 
+  geom_boxplot(aes(colour=Treatment), size = 2) +
+  ylab("Change in height (mm)")+ggtitle("Change in height for different treatments")+
+  theme(axis.title.x = element_text(face="bold", size=20), 
+        axis.title.y = element_text(face="bold", size=20), 
+        axis.text.y  = element_text(size=14),
+        axis.text.x  = element_text(size=14), 
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=18, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=22))
+```
+
+
+```{r}
+ggplot(height, aes(Treatment,change)) + 
+  geom_point(aes(colour=Gender), size = 2) +
+  ylab("Change in height (mm)")+ggtitle("Change in height for different treatments")+
+  theme(axis.title.x = element_text(face="bold", size=20), 
+        axis.title.y = element_text(face="bold", size=20), 
+        axis.text.y  = element_text(size=14),
+        axis.text.x  = element_text(size=14), 
+        legend.text = element_text(size=16),
+        legend.title = element_text(size=18, face="bold"),
+        plot.title = element_text(hjust = 0.5, face="bold", size=22))+
+  geom_hline(aes(yintercept = mean(change)), size = 1, color = "red")
+```
+
+
+
