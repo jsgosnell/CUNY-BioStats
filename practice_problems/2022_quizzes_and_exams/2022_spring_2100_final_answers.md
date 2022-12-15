@@ -1,7 +1,7 @@
 ---
 title: "2022 Spring 2100 Final answers (33 points total)"
 author: "jsg"
-date: "Last compiled on 20 June, 2022 10:22"
+date: "Last compiled on 15 December, 2022 08:49"
 output:
   html_document:
     toc: true
@@ -189,7 +189,7 @@ Investigate the question. Make sure you include (6 pts)
 * null hypothesis
   * *H~0~: Regions do not differ in rates of changes in vaccination*
 * alternative hypothesis
-  * *H~A~: Regions do not differ in rates of changes in vaccination*
+  * *H~A~: Regions do differ in rates of changes in vaccination*
 * explanation for test you will use 
   * I will use an ANOVA (form of linear model) since we have a continous outcome
   variable and a categorical predictor with more than 2 levels (else it would be
@@ -305,12 +305,12 @@ summary(region_compare)
 ## 
 ## Linear Hypotheses:
 ##                          Estimate Std. Error t value Pr(>|t|)    
-## Northeast - Midwest == 0   -40778       8060  -5.059   <0.001 ***
-## South - Midwest == 0        -1935       6892  -0.281    0.992    
-## West - Midwest == 0         -8290       7318  -1.133    0.670    
-## South - Northeast == 0      38843       7535   5.155   <0.001 ***
-## West - Northeast == 0       32488       7926   4.099   <0.001 ***
-## West - South == 0           -6355       6735  -0.944    0.781    
+## Northeast - Midwest == 0   -40778       8060  -5.059  < 1e-04 ***
+## South - Midwest == 0        -1935       6892  -0.281 0.992126    
+## West - Midwest == 0         -8290       7318  -1.133 0.670008    
+## South - Northeast == 0      38843       7535   5.155  < 1e-04 ***
+## West - Northeast == 0       32488       7926   4.099 0.000922 ***
+## West - South == 0           -6355       6735  -0.944 0.780587    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## (Adjusted p values reported -- single-step method)

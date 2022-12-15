@@ -84,7 +84,7 @@ Investigate the question. Make sure you include (6 pts)
 * null hypothesis
   * *H~0~: Regions do not differ in rates of changes in vaccination*
 * alternative hypothesis
-  * *H~A~: Regions do not differ in rates of changes in vaccination*
+  * *H~A~: Regions do differ in rates of changes in vaccination*
 * explanation for test you will use 
   * I will use an ANOVA (form of linear model) since we have a continous outcome
   variable and a categorical predictor with more than 2 levels (else it would be
