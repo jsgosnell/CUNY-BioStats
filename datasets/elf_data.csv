@@ -1,0 +1,501 @@
+hours_tv_day,number_of_siblings,state,urban,school_year,school_grade,gender,goody_score
+7.882010479,0,Connecticut,urban,K,f,boy,77.07553698
+1.079363215,0,Rhode Island,rural,1,d,boy,88.80602516
+4.872105169,2,Virginia,rural,4,a,girl,72.80517424
+2.092997296,1,North Dakota,urban,1,f,boy,82.9821431
+1.293896773,6,Montana,urban,4,d,girl,67.49688187
+1.327873256,2,Wyoming,rural,5,b,boy,75.96701407
+0.504751844,1,Texas,urban,K,f,girl,83.46158928
+3.289413291,0,Oklahoma,urban,K,c,boy,87.50311943
+0.312311467,1,California,rural,4,f,girl,85.44080512
+0.955941962,5,Delaware,urban,5,c,girl,64.74044494
+2.23006501,1,Iowa,urban,3,f,boy,86.20431425
+0.961040706,2,Virginia,urban,2,a,girl,74.65206859
+2.485669619,4,Alaska,rural,5,d,boy,57.73484241
+0.235930208,4,Minnesota,urban,6,b,girl,73.50469699
+1.613637076,2,New Jersey,urban,1,c,boy,75.57629392
+1.459474952,6,Delaware,rural,K,a,girl,54.82758121
+13.04389151,2,Mississippi,urban,4,b,girl,55.03504271
+0.556209106,0,Maine,urban,3,f,boy,92.48238084
+6.718858823,2,New Mexico,urban,6,b,boy,63.22425293
+0.263480578,6,Oregon,rural,4,b,girl,47.45469561
+0.193692977,1,South Carolina,urban,2,c,boy,83.75604741
+0.409057403,2,Georgia,urban,6,f,boy,73.35354359
+1.079088577,2,Nevada,urban,2,f,boy,78.05698516
+0.017068425,2,New Jersey,urban,5,a,girl,84.09712827
+0.577850398,0,Mississippi,urban,K,c,boy,93.03552296
+0.606948926,2,South Dakota,rural,5,d,boy,80.21502192
+0.652532772,2,New York,urban,6,a,girl,81.76300412
+1.940413171,3,Utah,urban,5,c,boy,69.95432587
+2.397704376,3,New Hampshire,urban,K,d,boy,70.21436146
+0.564106293,2,Wisconsin,urban,4,c,boy,82.86746031
+0.689175796,1,Minnesota,urban,1,c,boy,85.01322428
+3.783900623,2,Virginia,urban,1,b,girl,69.22048815
+1.017801372,1,Mississippi,rural,6,d,girl,81.52623178
+0.05382058,3,South Dakota,rural,2,c,girl,76.27159618
+0.016136709,0,New Mexico,urban,4,d,girl,93.86614586
+6.401351836,6,Alaska,urban,6,b,girl,43.58267869
+0.802621528,1,Idaho,urban,1,f,boy,85.06666369
+0.611816588,1,Michigan,urban,5,a,boy,88.18723524
+3.061307378,0,South Dakota,rural,K,c,girl,87.43905869
+1.528803839,2,Kentucky,urban,3,c,girl,82.92261082
+3.528614022,2,Michigan,urban,K,b,girl,71.89809493
+3.498563789,2,Oklahoma,urban,3,c,girl,74.2882525
+0.804173876,0,Oklahoma,urban,K,b,boy,92.03355405
+4.258149527,4,Virginia,urban,1,a,girl,59.61078012
+2.227845201,2,Florida,rural,3,a,girl,75.18097638
+0.148599859,1,South Dakota,urban,1,d,boy,83.84593537
+6.396991262,4,West Virginia,urban,3,b,boy,55.8630688
+0.405687749,4,Nebraska,rural,K,a,girl,70.82310216
+2.690179404,2,Illinois,urban,3,a,boy,74.6350501
+2.291016637,2,Utah,urban,3,d,boy,75.83529989
+1.899676831,2,Idaho,urban,5,d,boy,74.43408271
+0.613219561,1,Texas,rural,K,b,girl,84.31400231
+0.923289964,3,New York,urban,3,f,girl,65.41243639
+0.483782065,2,New Mexico,urban,1,c,girl,82.03495756
+1.596935962,1,Montana,rural,4,f,girl,81.72133838
+4.667304586,0,Kansas,urban,K,d,girl,82.60731545
+0.637315587,2,West Virginia,urban,5,d,girl,79.64451855
+2.953836889,3,Idaho,rural,6,d,boy,62.09508069
+0.612099404,2,West Virginia,urban,2,b,girl,84.88457807
+0.00426777,1,Alaska,urban,1,a,boy,89.24539577
+0.812631108,3,South Dakota,rural,2,a,boy,73.08683322
+0.398663326,2,Maine,rural,4,c,boy,79.66719096
+4.005059724,1,Missouri,rural,4,f,boy,77.70986863
+0.253278751,6,Missouri,urban,3,f,boy,56.52624899
+1.351794404,0,North Dakota,urban,K,d,girl,87.9893403
+0.511787653,3,Illinois,urban,2,b,girl,70.90591838
+0.768026191,3,Connecticut,urban,3,d,boy,74.94831723
+0.269984372,2,Georgia,urban,6,a,boy,77.25988715
+0.587399713,2,Oklahoma,urban,3,d,boy,81.81650642
+0.015137148,6,Connecticut,rural,5,a,girl,62.95626205
+1.931455459,4,Connecticut,urban,2,d,girl,62.30203175
+0.18642491,4,Florida,urban,1,b,girl,65.72998762
+2.604966079,1,Kansas,urban,5,c,boy,77.78956062
+0.04843141,4,Arizona,urban,5,f,girl,67.80827605
+0.202379985,1,Oregon,rural,3,c,girl,86.66886784
+0.049814626,1,Louisiana,urban,5,a,girl,87.38921288
+1.17671682,1,Alabama,urban,5,c,girl,84.29465413
+0.336498886,5,Nebraska,urban,5,d,girl,56.88118621
+0.926291165,2,North Dakota,urban,2,b,girl,74.51757613
+0.170982674,2,South Carolina,rural,5,f,boy,79.01018756
+1.824919726,6,Louisiana,urban,6,a,boy,52.18031969
+0.846658311,2,New Jersey,urban,K,d,boy,78.27885026
+4.91180359,0,Wisconsin,rural,K,b,boy,80.19677242
+3.087191461,2,Wyoming,urban,5,f,boy,73.7724227
+3.094431165,4,Washington,urban,4,a,girl,66.15784224
+0.668772587,2,Massachusetts,urban,K,d,girl,76.55527642
+2.300401239,1,Idaho,urban,K,d,girl,83.04039998
+3.133894374,3,Montana,urban,2,b,girl,66.74198544
+2.897875024,3,Wisconsin,urban,K,f,boy,64.87187309
+1.908255847,0,Maine,urban,6,a,boy,87.15147713
+0.810500488,1,Kentucky,urban,4,a,boy,82.87226854
+2.162175509,2,Maryland,rural,5,a,girl,70.86275091
+6.882393391,5,Arizona,urban,K,d,girl,52.70580096
+2.969678379,1,New Jersey,rural,1,a,girl,77.39749271
+2.13418671,0,Florida,rural,3,d,girl,85.22289121
+1.41500868,3,Colorado,urban,3,d,girl,69.76571012
+1.12474621,5,Oklahoma,urban,2,f,boy,60.21818625
+1.69698624,1,Ohio,urban,4,f,boy,85.50453033
+1.143576133,2,Wisconsin,urban,2,b,girl,80.9998947
+1.05975265,3,Pennsylvania,urban,2,d,girl,68.78581281
+1.841103358,0,Texas,urban,6,b,boy,92.29525872
+6.802979066,2,Texas,rural,5,d,boy,61.02005334
+3.147493217,1,Mississippi,urban,3,b,boy,80.89278328
+0.967859442,1,Wyoming,rural,6,d,girl,77.25560422
+1.699148239,1,Wyoming,rural,5,d,girl,84.65346409
+3.483649091,4,Massachusetts,urban,3,b,boy,56.10469111
+1.493279539,1,Texas,rural,1,b,boy,81.96465813
+1.919383355,4,New Jersey,rural,2,c,girl,64.62775892
+4.346674826,1,Michigan,rural,K,d,girl,74.54903532
+0.901859447,0,Montana,urban,1,a,girl,92.56629102
+1.592851277,1,Maryland,urban,3,f,girl,85.07808334
+0.07839791,4,Louisiana,urban,3,d,boy,64.58586402
+0.868445181,2,Tennessee,urban,2,a,boy,78.85293604
+1.683938259,1,New York,urban,1,a,boy,83.34131918
+0.647763623,4,Washington,urban,3,a,boy,60.82839056
+0.904569288,5,Colorado,urban,3,d,girl,64.3007667
+2.200464362,1,Maine,urban,6,f,girl,80.92972576
+1.097880848,1,Wisconsin,rural,6,a,girl,82.58872645
+2.568926814,4,Oregon,rural,2,a,girl,65.00796119
+0.747919184,6,Maine,rural,1,f,boy,52.69223232
+5.309727425,2,Oklahoma,rural,K,b,girl,72.15566723
+0.202344198,0,Connecticut,urban,5,c,boy,95.12772959
+0.229720787,2,Iowa,urban,K,a,boy,82.12149582
+0.230580225,6,Georgia,rural,6,c,girl,46.49826871
+1.532250809,1,Rhode Island,urban,5,d,boy,78.71692046
+1.508883505,1,New Hampshire,urban,5,b,boy,86.4371723
+0.415785116,3,Washington,urban,3,d,boy,73.78121738
+1.334346561,4,Alabama,rural,6,b,girl,64.62734128
+0.191194745,5,Nebraska,rural,6,d,girl,61.21720919
+2.037653483,1,South Dakota,rural,2,f,girl,79.46602454
+0.42983027,3,Arizona,rural,2,a,girl,70.26732101
+0.036877749,1,Nebraska,urban,6,a,girl,91.40418763
+2.237386569,3,New Hampshire,rural,3,a,girl,69.95455645
+16.06589719,4,Pennsylvania,rural,6,b,boy,38.18336058
+1.915025492,2,Illinois,urban,1,f,girl,68.92463362
+2.790967756,0,North Dakota,rural,1,b,boy,83.64169854
+0.896200525,2,South Dakota,urban,3,f,boy,78.07777049
+4.083505094,3,Minnesota,urban,5,c,boy,68.49315324
+1.849524945,0,South Carolina,urban,1,f,boy,90.34635836
+1.270997646,2,Maine,rural,4,c,boy,76.6154819
+1.397939687,4,Ohio,urban,4,a,boy,72.86699404
+1.568462681,4,Washington,urban,K,a,boy,66.74447784
+0.178958305,0,Vermont,urban,K,c,girl,89.44461996
+0.59331328,0,Michigan,rural,K,f,girl,88.30272726
+0.788767596,2,Indiana,urban,5,b,girl,81.24633807
+4.119597485,3,Indiana,urban,K,a,girl,65.00563774
+2.886045623,3,Pennsylvania,rural,3,f,girl,67.51712846
+1.581412999,0,Tennessee,urban,4,b,boy,91.50705456
+0.126838947,1,Vermont,rural,4,c,girl,86.19671452
+0.937493438,0,Nebraska,urban,2,f,girl,94.88969574
+0.129460005,2,Idaho,urban,2,d,girl,81.23425846
+1.279737444,6,Maryland,urban,1,f,girl,57.97795709
+4.026175774,1,Iowa,rural,2,c,girl,76.71303498
+0.753761925,2,Hawaii,rural,2,c,girl,80.45707248
+2.178269771,3,South Carolina,urban,4,d,girl,70.48520253
+5.97748481,4,Idaho,rural,K,f,boy,60.47947068
+1.163775676,5,South Carolina,urban,2,a,boy,51.58082389
+0.94687215,2,Tennessee,urban,4,d,girl,78.39949082
+6.529892012,2,Connecticut,rural,1,c,boy,64.37034013
+1.800533828,6,Oregon,urban,4,a,girl,54.33877892
+2.635123137,3,New Mexico,rural,4,c,boy,68.87261548
+3.874601728,0,Delaware,rural,4,b,girl,82.38668419
+1.955751239,1,Illinois,urban,5,a,boy,81.78454139
+0.046599852,1,Kentucky,urban,6,a,boy,89.42062076
+0.98262858,1,Rhode Island,urban,3,b,girl,83.97956414
+3.460406433,3,Kentucky,urban,K,c,boy,71.82295624
+0.797442032,2,Mississippi,urban,K,c,boy,78.05479301
+1.244355017,2,Idaho,rural,5,a,girl,71.43081354
+2.599648289,6,New Mexico,urban,1,c,boy,56.54477229
+2.354406531,5,New Jersey,urban,5,a,girl,49.91384908
+0.98524142,1,Massachusetts,urban,5,f,girl,85.27229241
+1.292505548,0,Utah,urban,K,c,girl,90.81217619
+4.81794254,3,Massachusetts,urban,5,c,girl,68.77820169
+0.53653991,1,Rhode Island,urban,5,c,girl,84.27876959
+1.045128958,2,South Dakota,urban,3,b,girl,75.01536651
+1.404626662,1,Vermont,urban,K,b,girl,86.17007199
+2.193203837,0,Illinois,urban,4,b,girl,89.95528263
+2.44684769,1,Kansas,urban,5,d,boy,78.50624351
+4.232738681,3,Kansas,urban,K,c,boy,64.51409684
+0.103891893,0,South Dakota,urban,K,b,girl,90.22728501
+1.826476692,1,Indiana,rural,2,c,boy,81.58119449
+0.198112239,0,Minnesota,urban,3,f,girl,93.4610916
+2.835660239,2,Oregon,urban,6,b,girl,75.59243531
+5.630153423,2,Idaho,rural,2,f,boy,64.55719196
+1.143988136,2,North Dakota,urban,1,a,girl,78.56827781
+3.134012469,5,Maine,urban,K,c,girl,53.17004429
+2.787432615,4,Indiana,rural,2,f,girl,67.13913339
+3.022412588,1,North Carolina,urban,4,d,boy,83.20670183
+0.905610033,3,Indiana,urban,K,a,girl,68.12972261
+0.263229383,1,North Dakota,urban,4,c,girl,88.21673343
+3.140264059,1,Oklahoma,urban,6,c,boy,82.58328111
+0.167462853,0,Michigan,urban,5,b,girl,94.1085599
+3.516869004,4,Connecticut,urban,4,a,boy,69.42452171
+1.115430386,0,Florida,rural,2,d,boy,87.60110578
+3.008206069,2,Louisiana,urban,4,b,girl,81.89754709
+0.405277741,4,Maryland,urban,K,f,boy,69.00827266
+1.527845965,4,Alabama,urban,4,a,boy,70.10362404
+0.593159383,2,Hawaii,rural,5,b,boy,76.88713622
+3.290591356,2,Ohio,urban,1,d,boy,72.40840099
+8.964968994,1,North Carolina,urban,4,f,girl,70.93883243
+4.994185704,1,Montana,urban,5,b,boy,79.80850025
+0.661322506,0,Maryland,urban,2,d,girl,88.98758796
+2.543685339,2,Texas,urban,K,c,girl,68.40365861
+1.860551341,1,Oregon,urban,1,f,boy,82.75359322
+3.089785752,2,Idaho,rural,5,b,boy,74.88110732
+0.702577996,2,Alaska,urban,1,f,boy,79.01592789
+4.640383044,2,California,rural,K,a,girl,65.82765125
+3.252068685,2,Delaware,urban,5,f,boy,71.35719765
+0.977037053,2,New Mexico,urban,2,f,boy,75.91957354
+0.865200903,3,Ohio,rural,2,d,girl,66.25580787
+0.619356166,3,Illinois,rural,3,d,boy,77.9809688
+0.084392773,4,New Mexico,rural,K,a,girl,72.62594652
+0.635557442,1,Missouri,rural,2,b,girl,82.98632376
+1.480635824,1,Kansas,rural,3,a,boy,81.38866793
+8.319012061,2,Alaska,urban,5,d,boy,64.42643397
+3.328976484,2,Pennsylvania,urban,2,f,boy,76.04517762
+1.806750187,0,Mississippi,rural,K,c,girl,88.59937515
+1.052028065,2,West Virginia,rural,5,d,girl,70.76666944
+1.64138885,1,South Dakota,urban,4,f,boy,80.92911963
+0.416415048,1,Oklahoma,urban,5,b,girl,88.75664942
+0.012387168,2,Delaware,urban,2,c,boy,80.15100754
+1.221725206,0,Florida,urban,6,a,girl,86.98377985
+0.716451148,1,Minnesota,urban,4,d,boy,86.88983006
+0.518674824,3,Vermont,urban,4,f,girl,76.62762859
+1.430724324,4,Connecticut,urban,1,d,boy,70.96841248
+0.874333428,1,Nevada,urban,5,f,boy,87.02932158
+0.739513884,4,Louisiana,urban,5,f,boy,73.4108118
+3.164119504,5,Missouri,urban,1,c,girl,52.02482655
+0.051302746,1,Arkansas,urban,6,c,boy,84.0131185
+2.660750874,1,Delaware,rural,6,c,girl,78.7029877
+4.424362837,0,New Hampshire,rural,5,d,girl,87.00031623
+2.174221044,3,North Dakota,urban,6,b,boy,72.88840292
+4.532911183,0,Maryland,rural,K,c,girl,87.09728159
+5.032926103,3,Washington,urban,2,d,boy,71.50011724
+0.323380489,0,Wyoming,urban,2,a,boy,94.18104837
+2.20419827,2,Arkansas,urban,4,d,boy,74.2078706
+0.112402787,2,Texas,urban,K,a,girl,82.3636737
+2.183051092,1,Montana,urban,K,c,girl,82.69357847
+0.979049078,3,Massachusetts,urban,4,b,boy,72.62626522
+2.920751117,1,New Mexico,rural,3,b,girl,82.12850828
+0.14835143,5,New Mexico,urban,2,b,boy,66.28064941
+2.371495844,2,Washington,urban,6,a,boy,73.54892144
+2.52419036,1,New Hampshire,urban,3,f,girl,80.09207588
+0.175652595,1,Idaho,urban,6,c,boy,89.51782652
+1.158754438,1,South Dakota,rural,6,d,boy,83.48520908
+0.123977586,6,Louisiana,urban,1,c,girl,53.10100293
+0.411828518,0,Pennsylvania,urban,5,c,girl,89.85073004
+0.265679845,0,Nevada,urban,2,a,boy,91.6987851
+3.588682613,4,New Mexico,urban,K,d,boy,65.69324332
+0.450737367,3,New Mexico,urban,5,c,boy,69.3915018
+0.047175802,2,Tennessee,urban,6,c,girl,82.26910619
+0.859078905,0,Oregon,urban,4,b,girl,94.93404948
+1.516490705,3,Iowa,urban,3,b,girl,67.89302236
+2.065240531,2,Georgia,urban,4,c,boy,72.65727177
+3.101392176,2,Oklahoma,rural,5,c,girl,71.69760043
+0.254838235,0,Minnesota,urban,1,c,boy,90.0071196
+0.088350415,2,New York,urban,K,d,girl,79.90767656
+0.75360886,1,New Mexico,urban,5,f,boy,89.19530168
+0.722578209,4,Pennsylvania,urban,6,d,boy,71.16866448
+0.655366868,2,Massachusetts,urban,6,b,boy,79.10454212
+1.924198454,0,Louisiana,urban,1,a,boy,87.21573058
+0.051204792,2,Kentucky,urban,6,c,girl,80.66287431
+9.437820544,0,Mississippi,urban,2,f,girl,74.81475181
+5.204136789,1,Mississippi,urban,1,f,boy,74.90707285
+0.453870082,4,Maine,urban,5,b,boy,75.08871078
+0.857993306,2,Colorado,rural,5,c,boy,75.46938023
+3.518199962,4,New York,urban,3,d,boy,53.72497453
+0.008206128,0,Alabama,urban,K,f,boy,92.34367876
+2.460160796,6,Wyoming,urban,4,f,girl,51.64290132
+0.046859949,1,Ohio,urban,5,a,girl,87.68853109
+0.273616754,1,Florida,rural,3,d,girl,84.73344336
+0.399367348,1,Pennsylvania,rural,5,d,boy,84.4373333
+0.780637959,1,Nebraska,urban,2,f,girl,85.5319584
+4.22281961,3,Maine,urban,1,b,boy,67.21186454
+0.668575451,0,Arkansas,rural,5,a,girl,91.19738619
+1.85013843,1,Oregon,rural,2,b,girl,80.07451017
+1.323248653,4,New York,rural,2,f,boy,68.37781116
+3.720883084,2,Nebraska,urban,K,c,boy,74.51309316
+5.481385219,1,Alabama,rural,5,c,girl,74.92044358
+1.26454495,1,Nebraska,rural,6,a,boy,81.18562256
+1.542109885,0,Maryland,urban,4,c,girl,90.01688032
+0.758970883,0,Mississippi,urban,1,c,girl,90.41611663
+1.510693543,4,Arizona,urban,2,a,boy,67.27767192
+1.674808888,1,West Virginia,urban,1,b,boy,77.78556997
+2.804850204,2,Illinois,urban,1,d,boy,74.35148001
+1.09986729,2,Indiana,urban,3,f,girl,74.68862406
+0.171643416,4,Idaho,urban,5,a,boy,75.41215905
+0.148490803,2,New Mexico,urban,1,d,girl,79.89277146
+1.07438379,1,Minnesota,urban,4,c,girl,84.01398507
+0.901093042,2,Vermont,urban,3,f,girl,80.22341829
+3.391079307,3,West Virginia,urban,2,d,girl,66.24889285
+0.350883982,3,Florida,urban,1,b,girl,73.11046107
+4.412528798,5,West Virginia,urban,5,f,girl,54.41494419
+2.456463418,3,Indiana,urban,1,d,boy,67.12247981
+5.296636037,1,Pennsylvania,urban,K,f,boy,75.22683298
+0.105088668,2,Connecticut,urban,5,b,girl,80.96357506
+0.440754062,2,Wisconsin,rural,3,a,girl,73.30184139
+1.006174416,3,Illinois,urban,K,f,boy,69.18264988
+2.648217244,2,Tennessee,urban,K,b,boy,72.62366371
+6.195720494,0,Alaska,rural,6,b,girl,80.43905228
+2.959383041,1,Wyoming,urban,4,d,girl,78.12814246
+1.943833834,0,Illinois,urban,4,a,boy,87.78106442
+1.207316004,1,Arizona,rural,1,d,girl,79.4118937
+5.806215733,3,North Carolina,urban,1,c,girl,60.01659577
+5.606224104,4,New Hampshire,urban,4,a,girl,52.0271174
+2.570405179,1,Hawaii,urban,4,b,girl,85.36935405
+0.630854393,3,Missouri,urban,4,a,boy,70.82804848
+0.30947717,3,Michigan,rural,1,b,girl,76.3777601
+0.19012857,4,Texas,urban,4,d,girl,75.23210281
+3.90612581,2,Kentucky,rural,1,f,girl,73.44194036
+1.48384137,0,Pennsylvania,urban,3,d,boy,90.19415416
+0.816442496,3,West Virginia,urban,3,f,girl,68.35119312
+3.598920325,4,Oregon,urban,K,a,boy,57.75781381
+2.291263217,2,Mississippi,urban,K,c,boy,79.00996266
+9.457490669,2,Maine,urban,1,a,girl,60.67310349
+6.502871782,1,Nebraska,urban,5,f,boy,74.11671607
+0.518178015,2,Pennsylvania,urban,1,b,boy,76.81736911
+3.471835645,3,Nebraska,rural,4,a,girl,71.38482923
+3.437390437,1,Tennessee,rural,3,c,boy,80.18504392
+1.350409436,1,Wyoming,rural,2,b,girl,77.13364916
+0.464297399,3,Michigan,rural,2,f,girl,71.75358183
+7.138029338,2,Missouri,urban,6,a,girl,67.69532769
+0.86681619,3,Georgia,rural,1,d,girl,63.99011831
+0.868645977,0,Kansas,rural,K,b,girl,88.51191839
+0.231170116,6,Wyoming,urban,6,a,girl,60.33745077
+2.766448007,1,Vermont,urban,K,b,boy,79.41806712
+0.303024797,2,Mississippi,rural,K,b,boy,82.0965563
+1.96268518,1,Michigan,urban,1,c,girl,85.4323864
+4.588683534,2,Colorado,urban,3,a,girl,71.40530855
+1.12682119,1,Minnesota,urban,3,b,girl,88.45722791
+1.83980233,1,Nebraska,urban,2,c,boy,84.04670077
+0.087593006,1,California,urban,K,d,boy,83.59875681
+0.969104853,3,Maryland,rural,K,c,boy,64.42276166
+1.311201153,2,Hawaii,rural,K,f,girl,73.75284586
+8.825225408,6,Texas,urban,6,c,boy,40.98394361
+2.287940912,0,Delaware,rural,K,d,girl,87.88623301
+3.845140941,1,West Virginia,rural,K,c,girl,75.03326128
+0.514911536,1,Idaho,urban,5,c,girl,85.6318666
+2.881758061,2,Idaho,urban,5,c,boy,72.66405544
+0.080076196,6,Wisconsin,urban,3,c,girl,48.95852381
+0.047559527,3,Michigan,rural,4,a,girl,67.59146193
+2.77449777,0,Pennsylvania,urban,5,f,girl,86.91463706
+0.5604868,0,Mississippi,urban,1,c,girl,91.86145556
+2.000648289,1,Tennessee,rural,1,d,boy,82.43788463
+1.23877944,2,Nebraska,rural,5,f,boy,73.15191009
+2.099062407,0,Ohio,urban,1,d,girl,90.2887718
+6.231820542,1,Pennsylvania,rural,3,b,boy,69.5496293
+0.088790749,1,New Mexico,urban,6,f,girl,86.11458569
+2.425799399,3,North Dakota,urban,6,d,boy,72.99892228
+2.296836609,2,Texas,rural,1,d,boy,73.91050437
+3.126632337,0,Maine,urban,1,d,boy,86.6732054
+5.370710575,0,Washington,urban,1,b,boy,80.84281313
+5.6738743,1,New Hampshire,urban,5,b,girl,76.19251182
+1.553666886,0,West Virginia,urban,5,c,girl,89.35182241
+2.016145455,1,New Hampshire,urban,4,c,girl,82.21252858
+2.981393788,4,Arizona,urban,2,f,girl,73.33317347
+0.029814379,3,West Virginia,urban,2,a,girl,76.57072342
+0.183937128,1,New Hampshire,rural,4,f,girl,83.01064497
+2.537541352,4,Wyoming,urban,4,a,boy,58.83931636
+1.820385883,2,Oklahoma,rural,6,a,boy,79.78910822
+0.291872828,3,Alabama,rural,6,b,boy,78.69559131
+2.177751552,1,Idaho,rural,6,d,girl,80.65008347
+0.611707862,1,Nevada,rural,3,d,girl,78.88613991
+0.772011886,0,South Carolina,urban,3,c,girl,92.05151928
+0.688439629,2,Arkansas,urban,2,c,boy,71.37810187
+1.592452018,1,Oregon,urban,2,b,girl,87.32714672
+1.719193131,3,Minnesota,urban,5,d,girl,72.89529858
+0.218176921,1,Utah,urban,3,f,girl,88.72336986
+0.361651531,3,Maine,urban,3,d,girl,72.12170914
+3.568590768,1,Alabama,urban,4,d,girl,76.02287565
+1.905514475,1,Oregon,rural,3,f,boy,83.85013266
+0.831310563,2,Washington,urban,6,c,boy,78.05114839
+0.423061438,0,New Jersey,urban,6,f,boy,91.64186089
+0.612252582,2,Massachusetts,rural,4,f,boy,73.81934522
+0.197704001,1,Maine,rural,6,a,boy,82.53559053
+0.526062979,2,Washington,rural,4,c,boy,69.8868852
+5.725512428,6,Utah,urban,3,a,girl,42.43726609
+1.52140377,0,Maryland,urban,5,d,boy,86.54377435
+0.071004453,6,Utah,urban,4,f,boy,59.00787086
+0.533911298,4,Maine,rural,4,a,girl,72.89011648
+0.584126425,2,Massachusetts,urban,4,f,girl,80.65351561
+7.48273778,3,South Dakota,rural,2,b,girl,60.97117887
+0.416988169,0,North Dakota,urban,3,b,boy,96.58038056
+1.661826352,6,Nebraska,urban,1,f,boy,44.14682529
+2.376822865,0,North Dakota,urban,4,f,girl,87.32712538
+0.898196788,1,Delaware,rural,2,d,girl,81.7636032
+2.1021271,1,Nevada,urban,2,d,boy,84.74392877
+2.144883236,2,Montana,rural,2,c,boy,76.3740892
+2.537978438,4,Indiana,rural,3,a,girl,67.48712366
+0.011812098,4,Kentucky,urban,1,d,girl,73.9412557
+0.767685463,5,Kansas,urban,6,d,boy,47.67039363
+5.206580888,2,Michigan,urban,2,c,boy,70.4500943
+1.412917291,1,Arkansas,urban,4,a,boy,84.21497613
+0.247594738,1,New Hampshire,rural,6,f,girl,82.43586743
+2.566563328,3,Virginia,urban,3,f,boy,80.77825686
+3.580980969,2,Indiana,urban,1,b,girl,76.9543141
+4.469476816,2,Georgia,urban,4,f,girl,74.92341818
+0.84567328,4,New Hampshire,urban,6,f,girl,67.56118774
+2.258672589,1,Oklahoma,urban,6,c,girl,82.37250533
+1.229018914,0,Virginia,rural,3,f,girl,86.11974313
+0.918356364,2,Massachusetts,urban,3,d,girl,82.8990072
+0.295151134,0,Tennessee,urban,3,c,boy,92.1503899
+0.285086108,0,Alaska,urban,2,b,girl,93.58481197
+4.313872625,1,Alaska,urban,3,c,girl,78.45978999
+3.315766727,2,Alabama,urban,K,d,girl,74.71535551
+0.973401822,1,New Mexico,rural,K,c,girl,81.50220375
+0.734607478,2,Kentucky,urban,3,b,girl,74.89044283
+0.297800903,3,Kentucky,rural,6,c,girl,75.74409794
+2.957677907,2,Wyoming,rural,6,f,boy,69.17045143
+2.826224379,3,Delaware,urban,K,f,boy,68.24020826
+4.274272187,2,Montana,urban,5,a,boy,73.60133774
+0.531390655,4,Illinois,urban,1,a,boy,61.79416472
+3.181499145,1,Delaware,urban,3,c,girl,83.10931856
+4.115212149,1,Florida,urban,5,b,girl,76.24491082
+0.90984414,1,New Jersey,urban,1,d,boy,79.35827704
+1.001607212,0,Indiana,rural,K,f,boy,91.72573434
+0.438777949,1,Hawaii,urban,5,a,boy,84.74530837
+2.233901708,1,Texas,rural,6,b,boy,87.3672806
+1.76162499,1,Oregon,urban,4,c,girl,83.26466387
+2.949341258,0,Massachusetts,urban,6,f,girl,85.16086011
+1.715193025,0,Massachusetts,urban,3,d,boy,89.13177986
+2.820858096,1,Illinois,urban,1,f,boy,84.93363186
+1.478863445,6,Connecticut,urban,5,a,girl,60.26803143
+0.55385501,3,Washington,rural,3,d,boy,73.4062159
+0.387024033,1,Kentucky,rural,4,b,boy,81.9905941
+0.873924297,0,South Carolina,urban,K,b,boy,93.52103722
+1.380682102,1,Illinois,urban,3,c,girl,82.46875621
+0.648520295,6,Maine,rural,2,f,girl,47.29822651
+3.593118281,3,Iowa,urban,2,a,boy,66.23636261
+1.090424518,1,Colorado,urban,K,d,girl,87.54491765
+0.887313494,1,North Carolina,urban,2,b,boy,84.54374375
+0.40663442,0,Hawaii,urban,1,b,girl,90.19461757
+3.442973888,3,Arkansas,urban,5,f,boy,65.95181944
+2.060751587,1,Texas,urban,K,d,girl,79.65237487
+1.054700186,1,Oklahoma,urban,1,f,girl,82.68923156
+0.03605635,0,Tennessee,rural,1,f,girl,91.00906157
+0.105890508,2,Minnesota,rural,K,f,girl,75.61730787
+4.464656324,1,Mississippi,urban,5,b,boy,77.2103316
+0.843640349,4,California,rural,5,f,girl,67.9072094
+1.326432834,1,Arizona,urban,4,a,boy,84.63590994
+1.307615069,1,Louisiana,urban,6,c,girl,84.61930496
+2.707364149,2,South Carolina,rural,1,a,boy,75.66818401
+0.355206141,0,Michigan,rural,3,f,boy,91.26668098
+1.866323301,1,Illinois,rural,5,b,girl,80.46137437
+0.03618469,6,Colorado,rural,1,b,boy,57.25621486
+0.382039088,4,Ohio,urban,5,a,boy,74.05016588
+2.330930679,0,Hawaii,urban,4,a,girl,89.72487485
+0.90003551,1,Idaho,urban,2,a,girl,83.71885296
+1.946267859,1,Tennessee,urban,2,f,girl,86.67789035
+1.658779688,0,Colorado,urban,K,a,girl,84.00548081
+0.230363396,1,Utah,urban,5,f,girl,86.24171608
+0.076738874,3,New Hampshire,urban,2,b,girl,74.30568115
+4.040974885,3,Maine,urban,1,a,girl,70.21216676
+1.808450584,1,Hawaii,rural,6,d,girl,80.34054811
+0.667224522,1,North Carolina,rural,K,f,boy,85.19232205
+2.552422828,0,Idaho,urban,6,c,girl,89.0389997
+0.200550319,1,Kentucky,urban,3,a,girl,84.68351724
+3.896875959,3,Connecticut,rural,3,f,boy,64.23346659
+0.856160761,2,Oklahoma,rural,K,d,boy,72.1872963
+5.289466275,3,Nebraska,urban,5,d,boy,64.90939116
+13.12262437,2,Indiana,urban,K,d,girl,55.20485224
+0.995835239,1,Wyoming,rural,5,a,boy,83.29518589
+4.072337527,5,Virginia,rural,4,a,girl,48.56337495
+1.911188108,6,Vermont,urban,K,b,boy,53.85403576
+1.362325079,1,Idaho,urban,5,c,boy,83.71994834
+0.210803255,2,North Carolina,urban,4,c,boy,85.15353572
+0.573097478,2,Minnesota,urban,4,c,boy,77.49780297
+4.506364677,2,Mississippi,urban,2,b,girl,72.1706656
+0.02587018,5,Tennessee,urban,K,b,boy,70.20201727
+0.121358552,1,Virginia,urban,1,a,boy,87.8877894
+5.629917809,2,Connecticut,urban,6,c,boy,70.0600982
+1.548555916,4,Virginia,rural,K,c,girl,79.30891541
+0.011080809,2,New Jersey,urban,K,d,boy,81.50154141
+1.468594818,5,Idaho,urban,3,a,boy,60.66369753
+1.887337369,0,Georgia,rural,3,a,boy,80.33414444
+3.266179507,2,Ohio,urban,K,b,girl,77.35716883
+0.085056744,1,North Dakota,rural,5,a,girl,80.60650732
+4.101159368,1,Oregon,rural,1,c,boy,77.906976
+0.110718755,2,New York,urban,5,d,girl,78.78691761
+2.099917902,2,New York,urban,3,b,girl,73.71924268
+1.039139643,6,Mississippi,rural,4,f,boy,46.41820314
+2.276258131,1,Virginia,urban,6,b,girl,86.32049461
+1.084726083,3,Idaho,urban,3,f,girl,75.3570588
+1.73512285,1,Rhode Island,urban,4,a,boy,85.29298277
+1.605633356,1,Utah,urban,6,c,girl,81.61356927
+2.189408938,0,Utah,urban,1,f,boy,89.90088735
+2.114622237,1,Alabama,urban,K,b,boy,81.41575895
+3.16370021,0,Utah,rural,5,b,boy,82.92029623
+0.461516389,0,Missouri,rural,1,a,girl,91.76433129
+2.422510509,3,Alaska,urban,3,d,boy,69.6157647
+0.515940234,2,Texas,urban,K,c,girl,84.90616795
+0.018453247,0,Montana,rural,1,f,girl,89.96207973
+0.069355238,1,West Virginia,rural,2,f,girl,83.62899663
+1.775246388,4,Vermont,rural,6,f,boy,63.27564635
+1.034325802,2,Rhode Island,urban,2,f,boy,79.57718566
+0.7045037,1,California,rural,2,c,boy,90.81742657
+0.881171821,3,New Jersey,urban,5,a,boy,77.96025439
+4.795059964,1,Missouri,urban,3,a,girl,81.74174176
+5.134041033,1,Ohio,urban,1,c,girl,77.5566229
+1.235080382,1,Wisconsin,urban,5,c,girl,84.98939626
