@@ -1,0 +1,135 @@
+---
+title: "2022 Fall Midterm (27 points total)"
+subtitle:  "Happy Halloween"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students.  Infractions will also result in me 
+being unable to obtain a letter of recommendation from the department for 
+professional school applications.
+
+**I highly recommend reading entire exam and doing what you can without R before
+jumping into the code**. You can earn a C or higher without opening R, just answer
+questions and make assumptions (that you state!) as needed.  **Good luck!**
+
+# Scenario Overview: Werewolves!
+
+![Example from *The Nightmare Before Christmas*](https://2.bp.blogspot.com/-huSpt_sT7HI/WAmTUUV9GAI/AAAAAAAAZgQ/hWJ8TZx5MGAPuK5MFuRFEWdrAdMib4uqwCEw/s320/IMG_2931.JPG)
+
+Many cultures have stories of people transforming into animals. Lycanthropy, or 
+people becoming (or thinking they become) wolves is a common example that connects 
+to the mythos around werewolves.
+
+Imagine werewolves are actually real and are caused by a virus that quickly spreads 
+in communities. However, not everyone who has the virus transforms into werewolves
+for a number of reasons.  While society has ways to deal with the virus (and werewolves),
+the virus that causes people to transform is continuously evolving and thus must
+be studied (does all this sound familiar?). A recent strain of concern has been noted.  
+
+# #1
+
+1. A study is done to determine if the new strain leads to more people becoming 
+werewolves. Historically,
+10% of people in the focal town transformed during full moons. Last month, a study 
+using sleep trackers found 17 out of 111 subjects infected with the new strain
+became werewolves.  Is there 
+evidence that transformations are becoming more common with this strain? 
+
+Make sure you include (6 pts)
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+
+# #2
+
+2. A local agency wants to know what percentage of people they might predict will transform 
+during the next full moon
+as the new strain spreads.  What would you tell them? (2 pts).  
+
+
+# #3
+
+
+3. There is also concern that the new strain of lycanthropic virus is leading
+to not just more werewolves, but also to larger werewolves. In the past, people 
+were the same weight in their
+human and wolf forms.  Recent data on peoples weight in human and wolf form was collected 
+at a secure facility.  
+
+Data is available using (wide format)
+
+```{r}
+size_wide <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEgn69EFpp6-FLOCuMjBHQg2de2eufsk1tot5_pet4PBWw7LONCpzHRgV9F7o4_qR8lxAjhfltCjK/pub?gid=1132258987&single=true&output=csv", 
+                      stringsAsFactors = T)
+```
+
+or (long format)
+
+```{r}
+size_long <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTuKbRFnuaRITxnQXmeTBzlBVtJYcRYH50MFrvhXnud8PevFo2E-eTeqvqqZvrSNp0iV-R96YZub0Du/pub?gid=528744338&single=true&output=csv",
+                      stringsAsFactors = T)
+```
+
+
+What does it suggest?  (6 pts)
+
+Investigate the question. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+# #4
+
+4. Graph the data used in question 3 in an appropriate way that lets you visually
+compare the groups (several options here!) (5 pts)
+
+# #5
+
+5.  As one attempt at controlling the outbreak, a company has developed a drug
+that it claims reduces the chances of people transforming.  100 participants, all
+of who transformed during the last full moon, are selected to take part in clinical 
+trials.  Half (the control group) receive a  placebo, and the other half receive
+the new drug. During the next full moon, 38 out of 50 individuals in the control
+group transform into wolves.  43 out of 50 in the drug group transform. (6 pts) 
+
+Use this data
+to investigate the impact of the drug. Make sure you include
+
+* null hypothesis
+* alternative hypothesis
+* explanation for test you will use 
+* results from statistical test
+* clear explanation of how results relate to your stated hypotheses
+
+# #6
+
+6. Given your answer to #5, what is your recommendation regarding the drug? In 
+your answer, make sure to include the p-value and explain what it means.  (2 pts)
+
+
+
+

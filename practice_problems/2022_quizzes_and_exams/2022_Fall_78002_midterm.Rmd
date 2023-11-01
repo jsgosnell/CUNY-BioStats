@@ -1,0 +1,136 @@
+---
+title: "2022 Fall 78001 Midterm (31 points total)"
+subtitle:  "Happy (late) Halloween"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code repositories 
+(mine and those you produced in class). However, you may not get external help (
+from other students, directed internet searches, etc.).  Please update the statement
+below to acknowledge these instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I 
+understand any academic issues will result in a D or F on the exam or in the class
+and be reported to the Dean of Students. 
+
+Good luck!
+
+# Werewolf (Halloween Redux!) 
+
+![](https://2.bp.blogspot.com/-huSpt_sT7HI/WAmTUUV9GAI/AAAAAAAAZgQ/hWJ8TZx5MGAPuK5MFuRFEWdrAdMib4uqwCEw/s320/IMG_2931.JPG)
+
+Many cultures have stories of people transforming into animals. Lycanthropy, or 
+people becoming (or thinking they become) wolves is a common example that connects 
+to the mythos around werewolves.
+
+Imagine werewolves are actually real and are caused by a virus that quickly spreads 
+in communities. However, not everyone who has the virus transforms into werewolves
+for a number of reasons.  While society has ways to deal with the virus (and werewolves),
+the virus that causes people to transform is continuously evolving and thus must
+be studied (does all this sound familiar?). A recent strain of concern has been noted.  
+
+Many of these questions follow from the [78001 exam](https://docs.google.com/document/d/154CLTdYMcluSzlovlcPg-9Z-_Zt6xjDsUJqICBdqAao/edit?usp=sharing){target = "_blank"}.
+
+# #1
+
+1. Following up on the 78001 exam, conduct the analysis you recommended for the 
+sleep tracker study.  As a reminder, 
+a study is done to determine if the new strain leads to more people becoming 
+werewolves. Historically,
+10% of people in the focal town transformed during full moons. Last month, a study 
+using sleep trackers found 17 out of 110 subjects infected with the new strain
+became werewolves.  Is there 
+evidence that transformations are becoming more common with this strain?  Make 
+sure you include
+
+* null hypothesis (1 pt)
+* alternative hypothesis (1 pt)
+* explanation for test you will use (1 pt)
+* results from statistical test (1 pt)
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+
+# #2
+
+2. Develop confidence intervals to match this data and explain what they mean. (2 pts) 
+
+
+# #3
+
+3.  Analyze the data from the class question on vaccine impacts. As a reminder,
+as one attempt at controlling the outbreak, a company has developed a drug
+that it claims reduces the chances of people transforming.  150 participants, all
+of who transformed during the last full moon, are selected to take part in clinical 
+trials.  A third (the control group) receive a  placebo, a third receive a single 
+dose of the new drug, and a third receive 2 doses.  During the next full moon, 33 out of 50 individuals in the control
+group transform into wolves.  43 out of 50 in the single dose group transform, and 
+45 out of 50 in the 2-dose group transform. (6 pts) 
+
+Use this data
+to investigate the impact of the drug. Make sure you include
+
+* null hypothesis (1 pt)
+* alternative hypothesis (1 pt)
+* explanation for test you will use (1 pt)
+* results from statistical test (1 pt)
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+
+# #4
+
+4. Analyze the data from the follow-up vaccine study. As a reminder,
+In later correspondence, the company scientist note they also tracked adverse 
+reactions including changes in height in a follow-up study because people are 
+concerned werewolf vaccines can do strange things.  The dataset includes information
+on participant gender (M, F); treatment (Control (no vaccine), single or double 
+dose; and change in height in mm. Data can be downloaded using.
+
+```{r}
+height <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/vaccine_height.csv", stringsAsFactors = T)
+```
+
+Use this data
+to investigate the impact of the drug on changes in height. Make sure you include
+
+* null hypothesis (1 pt)
+* alternative hypothesis (1 pt)
+* explanation for test you will use (1 pt)
+* results from statistical test (1 pt)
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+
+# #5
+
+5. (From question 7 in class) 60 participants were randomly selected from 
+the nation wide (United States)
+transformation registry.  Each individual was outfitted with heart rate and lux
+(light intensity) monitors to study relationship between average heart rate five
+minutes around maximum lunar light intensity. Data is available @ 
+
+```{r}
+moonlight <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/moonlight.csv", stringsAsFactors = T)
+```
+
+
+Analyze the data. Make sure to include
+
+* null hypothesis (1 pt)
+* alternative hypothesis (1 pt)
+* explanation for test you will use (1 pt)
+* results from statistical test (1 pt)
+* clear explanation of how results relate to your stated hypotheses (2 pt)
+
+# #6
+
+6. Graph the data used in question 5 in an appropriate way (5 pts)
+
+
+
+
