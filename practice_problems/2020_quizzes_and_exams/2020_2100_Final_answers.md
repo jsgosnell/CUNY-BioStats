@@ -34,11 +34,11 @@ He thinks this seems like a lot but asks you to help give his feeling a
 quantitative analysis. How would you evaluate the data? Make sure to
 include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
 
 ``` r
 binom.test(6,15,.08)
@@ -88,11 +88,11 @@ binom.test(6,15)
 
 How would you evaluate the data? Make sure to include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
 
 ``` r
 stain_group <-matrix(c(50,20,48,23,7,81,3,35), ncol = 2, byrow = T)
@@ -133,7 +133,7 @@ pairwiseNominalIndependence(stain_group, compare = "row", method = "holm")
     ## 5    child : adult 1.00e-09     3.00e-09 2.25e-10    6.75e-10 8.80e-09    2.64e-08
     ## 6 teenager : adult 1.00e+00     1.00e+00 9.91e-01    1.00e+00 1.00e+00    1.00e+00
 
-3.  What does your answer to question #2 imply?
+3.  What does your answer to question \#2 imply?
 
 4.  During their work the dentists also noticed that stained teeth
     behaved differently than unstained teeth. Data they collected on
@@ -152,11 +152,11 @@ cavities <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQ
 
 What does the data suggest? Make sure to include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
 
 ``` r
 t.test(number_of_cavities_per_tooth~stained, cavities)
@@ -234,11 +234,11 @@ idaho_cavities <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6
 
 What does the data suggest? Make sure to include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
 
 ``` r
 t.test(idaho_cavities$before, idaho_cavities$after, paired = T)
@@ -249,12 +249,12 @@ t.test(idaho_cavities$before, idaho_cavities$after, paired = T)
     ## 
     ## data:  idaho_cavities$before and idaho_cavities$after
     ## t = -2.1959, df = 24, p-value = 0.03801
-    ## alternative hypothesis: true difference in means is not equal to 0
+    ## alternative hypothesis: true mean difference is not equal to 0
     ## 95 percent confidence interval:
     ##  -2.74090556 -0.08490742
     ## sample estimates:
-    ## mean of the differences 
-    ##               -1.412906
+    ## mean difference 
+    ##       -1.412906
 
 ``` r
 t.test(idaho_cavities$before, idaho_cavities$after)
@@ -290,11 +290,11 @@ fluoride <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5Wyz
 
 What does the data suggest? Make sure to include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
 
 ``` r
 fluoride_lm <- lm(tooth_decay_rates ~ fluoride_ppm, fluoride)
@@ -320,7 +320,7 @@ summary(fluoride_lm)
     ## Multiple R-squared:  0.9803, Adjusted R-squared:  0.9799 
     ## F-statistic:  2386 on 1 and 48 DF,  p-value: < 2.2e-16
 
-#Epilogue
+\#Epilogue
 
 In the real world, researchers worked to determine how much fluoride was
 too much in regards to staining (which is a more complicated analysis)

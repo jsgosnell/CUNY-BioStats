@@ -587,14 +587,15 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
@@ -604,14 +605,20 @@ body {
 <p>jsg 10/21/2020</p>
 <hr />
 <h1 id="zombies">ZOMBIES!</h1>
-<p>You wake up one morning and find that zombies have taken over your neighborhood (bummer).</p>
-<p>Evidence also suggests that temperature may influence propensity for zombie attacks, with zombies preferring warmer bodies. Long-term studies suggest that average human temperature is 36.57 C.<br />
-Unfortunately, measuring temperatures before/after attacks is hard, so data on 5 survivors of attacks have been recorded. They were: 36.12, 36.37, 35.7, 36.01, 36.9.</p>
+<p>You wake up one morning and find that zombies have taken over your
+neighborhood (bummer).</p>
+<p>Evidence also suggests that temperature may influence propensity for
+zombie attacks, with zombies preferring warmer bodies. Long-term studies
+suggest that average human temperature is 36.57 C.<br />
+Unfortunately, measuring temperatures before/after attacks is hard, so
+data on 5 survivors of attacks have been recorded. They were: 36.12,
+36.37, 35.7, 36.01, 36.9.</p>
 <ol style="list-style-type: decimal">
-<li>Is there any evidence that temperature influences zombie attacks?</li>
+<li>Is there any evidence that temperature influences zombie
+attacks?</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">36.12</span>, <span class="fl">36.37</span>, <span class="fl">35.7</span>, <span class="fl">36.01</span>, <span class="fl">36.9</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">36.12</span>, <span class="fl">36.37</span>, <span class="fl">35.7</span>, <span class="fl">36.01</span>, <span class="fl">36.9</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">t.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -623,8 +630,8 @@ Unfortunately, measuring temperatures before/after attacks is hard, so data on 5
 ## sample estimates:
 ## mean of x 
 ##     36.22</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#using non-sided test ok too if justified</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#using non-sided test ok too if justified</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">t.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -636,24 +643,22 @@ Unfortunately, measuring temperatures before/after attacks is hard, so data on 5
 ## sample estimates:
 ## mean of x 
 ##     36.22</code></pre>
-<p><em>Although this is a small sample size, we know temperature typically follows a normal distribution. For this reason, and given that bootstrapping was not an option, I used a t-test to test the null hypothesis that the temperature of zombie attack victims is less than or equal to 36.57. I used a sided-test because we wanted to know if zombies prefer warmer bodies. The alternative hypothesis, therefore, is that the temperature of zombie attack victims is greater than 36.57. Using this approach I found t<sub>4</sub>=-1.74, leading to a p-value of .9216. Since this is greater than the alpha level we typically use (.05), I fail reject the null hypothesis.</em></p>
+<p><em>Although this is a small sample size, we know temperature
+typically follows a normal distribution. For this reason, and given that
+bootstrapping was not an option, I used a t-test to test the null
+hypothesis that the temperature of zombie attack victims is less than or
+equal to 36.57. I used a sided-test because we wanted to know if zombies
+prefer warmer bodies. The alternative hypothesis, therefore, is that the
+temperature of zombie attack victims is greater than 36.57. Using this
+approach I found t<sub>4</sub>=-1.74, leading to a p-value of .9216.
+Since this is greater than the alpha level we typically use (.05), I
+fail reject the null hypothesis.</em></p>
 <ol start="2" style="list-style-type: decimal">
-<li>How would knowing the standard deviation of human temperature is 0.42 change your methods and results?</li>
+<li>How would knowing the standard deviation of human temperature is
+0.42 change your methods and results?</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BSDA)</span></code></pre></div>
-<pre><code>## Warning: package &#39;BSDA&#39; was built under R version 4.1.2
-
-## 
-## Attaching package: &#39;BSDA&#39;
-
-## The following objects are masked from &#39;package:carData&#39;:
-## 
-##     Vocab, Wool
-
-## The following object is masked from &#39;package:datasets&#39;:
-## 
-##     Orange</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">z.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">sigma.x =</span> .<span class="dv">42</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(BSDA)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">z.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">sigma.x =</span> .<span class="dv">42</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One-sample z-Test
 ## 
@@ -665,8 +670,8 @@ Unfortunately, measuring temperatures before/after attacks is hard, so data on 5
 ## sample estimates:
 ## mean of x 
 ##     36.22</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#using non-sided test ok too if justified</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">z.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">sigma.x =</span> .<span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#using non-sided test ok too if justified</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">z.test</span>(temp, <span class="at">mu =</span> <span class="fl">36.57</span>, <span class="at">sigma.x =</span> .<span class="dv">42</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One-sample z-Test
 ## 
@@ -678,14 +683,17 @@ Unfortunately, measuring temperatures before/after attacks is hard, so data on 5
 ## sample estimates:
 ## mean of x 
 ##     36.22</code></pre>
-<p><em>If I knew the standard deviation of human temperature I could use a z-test instead to test the same hypothesis. I would still fail to reject the null hypothesis, which makes sense.</em></p>
+<p><em>If I knew the standard deviation of human temperature I could use
+a z-test instead to test the same hypothesis. I would still fail to
+reject the null hypothesis, which makes sense.</em></p>
 <p>Make sure your answers include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
 <li>results from statistical test</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 <li>confidence interval for your estimate</li>
 </ul>
 

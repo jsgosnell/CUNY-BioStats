@@ -587,38 +587,60 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
 <body>
 
-<h1 id="2020-bio-2100-final-a-brief-history-of-preventative-dentistry-26-pts-total">2020 Bio 2100 Final: A brief history of preventative dentistry (26 pts total)</h1>
+<h1 id="id_2020-bio-2100-final-a-brief-history-of-preventative-dentistry-26-pts-total">2020
+Bio 2100 Final: A brief history of preventative dentistry (26 pts
+total)</h1>
 <p>jsg 12/12/2020</p>
-<h1 id="instructions-read-this-first">Instructions! Read this first.</h1>
-<p>The exam is open note, open course website, open class-related code repositories (mine and those you produced in class). However, you may not get external help ( from other students, directed internet searches, etc.). Please update the statement below to acknowledge these instructions (and that you can use git).</p>
-<p>I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I understand any academic issues will result in a D or F on the exam or in the class and be reported to the Dean of Students.</p>
+<h1 id="instructions-read-this-first">Instructions! Read this
+first.</h1>
+<p>The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).</p>
+<p>I, INSERT YOUR NAME HERE, promise to not seek external help on the
+exam. I understand any academic issues will result in a D or F on the
+exam or in the class and be reported to the Dean of Students.</p>
 <p>Good luck!</p>
-<p>Have you ever wondered why we use fluoride in toothpaste? The data below is not exact but follows the general story and gives a good view of how science and statistics work together. Let’s pretend you were a fellow scientist/dentist/doctor who was part of the story.</p>
+<p>Have you ever wondered why we use fluoride in toothpaste? The data
+below is not exact but follows the general story and gives a good view
+of how science and statistics work together. Let’s pretend you were a
+fellow scientist/dentist/doctor who was part of the story.</p>
 <ol style="list-style-type: decimal">
-<li>Frederick McKay moved to Colorado Springs, Colorado after completing dental school in 1901. He was surprised to find the locals had extremely stained teeth (to the point they permanently looked like they had recently eaten chocolate candy). In general 8% of people at the time had stained teeth, but in his first month on the job he noted six out of 15 patients had stained teeth.</li>
+<li>Frederick McKay moved to Colorado Springs, Colorado after completing
+dental school in 1901. He was surprised to find the locals had extremely
+stained teeth (to the point they permanently looked like they had
+recently eaten chocolate candy). In general 8% of people at the time had
+stained teeth, but in his first month on the job he noted six out of 15
+patients had stained teeth.</li>
 </ol>
-<p>He thinks this seems like a lot but asks you to help give his feeling a quantitative analysis. How would you evaluate the data? Make sure to include</p>
+<p>He thinks this seems like a lot but asks you to help give his feeling
+a quantitative analysis. How would you evaluate the data? Make sure to
+include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">6</span>,<span class="dv">15</span>,.<span class="dv">08</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">6</span>,<span class="dv">15</span>,.<span class="dv">08</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
@@ -630,7 +652,7 @@ body {
 ## sample estimates:
 ## probability of success 
 ##                    0.4</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">6</span>,<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">6</span>,<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
@@ -643,7 +665,12 @@ body {
 ## probability of success 
 ##                    0.4</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>McKay spent the next several years trying to determine what was causign the staining (or mottling, as he called it) and was assisted by multiple others. Dr. G.V. Black was a primary collaborator. Together they investigated a few ideas. First, they compared tooth staining rates in people who had been in the town vs those who had moved their at multiple points. They found</li>
+<li>McKay spent the next several years trying to determine what was
+causign the staining (or mottling, as he called it) and was assisted by
+multiple others. Dr. G.V. Black was a primary collaborator. Together
+they investigated a few ideas. First, they compared tooth staining rates
+in people who had been in the town vs those who had moved their at
+multiple points. They found</li>
 </ol>
 <table>
 <thead>
@@ -681,27 +708,29 @@ body {
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stain_group <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">20</span>,<span class="dv">48</span>,<span class="dv">23</span>,<span class="dv">7</span>,<span class="dv">81</span>,<span class="dv">3</span>,<span class="dv">35</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(stain_group) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;stain&quot;</span>, <span class="st">&quot;no stain&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(stain_group) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;born&quot;</span>,<span class="st">&quot;child&quot;</span>,<span class="st">&quot;teenager&quot;</span>,<span class="st">&quot;adult&quot;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check it</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>stain_group</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>stain_group <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">20</span>,<span class="dv">48</span>,<span class="dv">23</span>,<span class="dv">7</span>,<span class="dv">81</span>,<span class="dv">3</span>,<span class="dv">35</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">colnames</span>(stain_group) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;stain&quot;</span>, <span class="st">&quot;no stain&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">rownames</span>(stain_group) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;born&quot;</span>,<span class="st">&quot;child&quot;</span>,<span class="st">&quot;teenager&quot;</span>,<span class="st">&quot;adult&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#check it</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>stain_group</span></code></pre></div>
 <pre><code>##          stain no stain
 ## born        50       20
 ## child       48       23
 ## teenager     7       81
 ## adult        3       35</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(stain_group)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">chisq.test</span>(stain_group)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  stain_group
 ## X-squared = 104.92, df = 3, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(stain_group, <span class="at">compare =</span> <span class="st">&quot;row&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(stain_group, <span class="at">compare =</span> <span class="st">&quot;row&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in chisq.test(Dataz, ...): Chi-squared approximation may be incorrect
 
 ##         Comparison p.Fisher p.adj.Fisher  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
@@ -713,22 +742,26 @@ body {
 ## 6 teenager : adult 1.00e+00     1.00e+00 9.91e-01    1.00e+00 1.00e+00    1.00e+00</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>What does your answer to question #2 imply?</p></li>
-<li><p>During their work the dentists also noticed that stained teeth behaved differently than unstained teeth. Data they collected on cavities is found at</p></li>
+<li><p>During their work the dentists also noticed that stained teeth
+behaved differently than unstained teeth. Data they collected on
+cavities is found at</p></li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">stained =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;yes&quot;</span>, <span class="dv">25</span>),<span class="fu">rep</span>(<span class="st">&quot;no&quot;</span>, <span class="dv">50</span>)), </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">number_of_cavities_per_tooth =</span> <span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">25</span>), <span class="dv">2</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>)))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(cavities, <span class="st">&quot;cavities.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQsMBSH0ONdoUlkzBFLbzwSEGNaj14ZXePJtr59QY7C3N2AYzKhm4Pdo5bKteqRMzwTZT9c/pub?gid=220386619&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">stained =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;yes&quot;</span>, <span class="dv">25</span>),<span class="fu">rep</span>(<span class="st">&quot;no&quot;</span>, <span class="dv">50</span>)), </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                       <span class="at">number_of_cavities_per_tooth =</span> <span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">25</span>), <span class="dv">2</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>)))</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">write.csv</span>(cavities, <span class="st">&quot;cavities.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQsMBSH0ONdoUlkzBFLbzwSEGNaj14ZXePJtr59QY7C3N2AYzKhm4Pdo5bKteqRMzwTZT9c/pub?gid=220386619&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
 <p>What does the data suggest? Make sure to include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(number_of_cavities_per_tooth<span class="sc">~</span>stained, cavities)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">t.test</span>(number_of_cavities_per_tooth<span class="sc">~</span>stained, cavities)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -740,9 +773,9 @@ body {
 ## sample estimates:
 ##  mean in group no mean in group yes 
 ##          2.573971          0.579740</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cavities_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(number_of_cavities_per_tooth<span class="sc">~</span>stained, cavities)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(cavities_lm, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>cavities_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(number_of_cavities_per_tooth<span class="sc">~</span>stained, cavities)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">Anova</span>(cavities_lm, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
 <pre><code>## Anova Table (Type III tests)
 ## 
 ## Response: number_of_cavities_per_tooth
@@ -753,50 +786,58 @@ body {
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Provide a properly-labelled graph of the data from question 4. Make sure it shows both the signal and noise in the data!</li>
+<li>Provide a properly-labelled graph of the data from question 4. Make
+sure it shows both the signal and noise in the data!</li>
 </ol>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cavities_summary <span class="ot">&lt;-</span> <span class="fu">summarySE</span>(cavities, </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">measurevar =</span> <span class="st">&quot;number_of_cavities_per_tooth&quot;</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">groupvars =</span> <span class="st">&quot;stained&quot;</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cavities_summary, <span class="fu">aes</span>(<span class="at">x=</span>stained, <span class="at">y=</span>number_of_cavities_per_tooth))<span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> number_of_cavities_per_tooth <span class="sc">-</span> ci, </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> number_of_cavities_per_tooth <span class="sc">+</span> ci))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>cavities_summary <span class="ot">&lt;-</span> <span class="fu">summarySE</span>(cavities, </span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>                              <span class="at">measurevar =</span> <span class="st">&quot;number_of_cavities_per_tooth&quot;</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>                              <span class="at">groupvars =</span> <span class="st">&quot;stained&quot;</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="fu">ggplot</span>(cavities_summary, <span class="fu">aes</span>(<span class="at">x=</span>stained, <span class="at">y=</span>number_of_cavities_per_tooth))<span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> number_of_cavities_per_tooth <span class="sc">-</span> ci, </span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>                    <span class="at">ymax =</span> number_of_cavities_per_tooth <span class="sc">+</span> ci))</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cavities, <span class="fu">aes</span>(<span class="at">x=</span>stained, <span class="at">y=</span>number_of_cavities_per_tooth))<span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(cavities, <span class="fu">aes</span>(<span class="at">x=</span>stained, <span class="at">y=</span>number_of_cavities_per_tooth))<span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <ol start="6" style="list-style-type: decimal">
-<li>An unfortunate incident in Idaho shed more light on the causes of staining. People noticed a slight increase in tooth staining after a town switched to a new water source. Consider the average tooth color (0 is white using analysis tools from the time, 100 is black) of children from families who had children before and after the switch. Data is available @</li>
+<li>An unfortunate incident in Idaho shed more light on the causes of
+staining. People noticed a slight increase in tooth staining after a
+town switched to a new water source. Consider the average tooth color (0
+is white using analysis tools from the time, 100 is black) of children
+from families who had children before and after the switch. Data is
+available @</li>
 </ol>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">family =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>],<span class="at">before =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">3</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>idaho_cavities<span class="sc">$</span>after <span class="ot">&lt;-</span> idaho_cavities<span class="sc">$</span>before <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">3</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(idaho_cavities, <span class="st">&quot;idaho_cavities.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6vCEkF79IKADjr8nugsbrOnHyk15NJbo7_Q4qWRfJ-OrJ8FoFfkkzFQ25mtVwKVZyWF_kh97SJfO/pub?gid=1969060757&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">family =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>],<span class="at">before =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">3</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>idaho_cavities<span class="sc">$</span>after <span class="ot">&lt;-</span> idaho_cavities<span class="sc">$</span>before <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">3</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="fu">write.csv</span>(idaho_cavities, <span class="st">&quot;idaho_cavities.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6vCEkF79IKADjr8nugsbrOnHyk15NJbo7_Q4qWRfJ-OrJ8FoFfkkzFQ25mtVwKVZyWF_kh97SJfO/pub?gid=1969060757&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span></code></pre></div>
 <p>What does the data suggest? Make sure to include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(idaho_cavities<span class="sc">$</span>before, idaho_cavities<span class="sc">$</span>after, <span class="at">paired =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">t.test</span>(idaho_cavities<span class="sc">$</span>before, idaho_cavities<span class="sc">$</span>after, <span class="at">paired =</span> T)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  idaho_cavities$before and idaho_cavities$after
 ## t = -2.1959, df = 24, p-value = 0.03801
-## alternative hypothesis: true difference in means is not equal to 0
+## alternative hypothesis: true mean difference is not equal to 0
 ## 95 percent confidence interval:
 ##  -2.74090556 -0.08490742
 ## sample estimates:
-## mean of the differences 
-##               -1.412906</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(idaho_cavities<span class="sc">$</span>before, idaho_cavities<span class="sc">$</span>after)</span></code></pre></div>
+## mean difference 
+##       -1.412906</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">t.test</span>(idaho_cavities<span class="sc">$</span>before, idaho_cavities<span class="sc">$</span>after)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -809,23 +850,28 @@ body {
 ## mean of x mean of y 
 ##  11.00192  12.41483</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li>Analysis of water from other towns where staining was common eventually revealed high amounts of fluoride. Scientists then collected data on average tooth decay rates and fluoride levels from multiple towns (this part is made up!). Data is available @</li>
+<li>Analysis of water from other towns where staining was common
+eventually revealed high amounts of fluoride. Scientists then collected
+data on average tooth decay rates and fluoride levels from multiple
+towns (this part is made up!). Data is available @</li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">fluoride_ppm =</span> <span class="fu">runif</span>(<span class="dv">50</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>fluoride<span class="sc">$</span>tooth_decay_rates <span class="ot">&lt;-</span> <span class="dv">25</span> <span class="sc">+</span> fluoride<span class="sc">$</span>fluoride_ppm<span class="sc">*</span><span class="dv">15</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="fu">runif</span>(<span class="dv">50</span>) </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(fluoride, <span class="st">&quot;fluoride.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5WyzEIMyj-HGArfu_ZIT5cneHI5RiqmDIW_TaDDKgFTtBgcPXCPA00TLO4ax-xJlknn2bWfBi/pub?gid=1554561003&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">fluoride_ppm =</span> <span class="fu">runif</span>(<span class="dv">50</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>fluoride<span class="sc">$</span>tooth_decay_rates <span class="ot">&lt;-</span> <span class="dv">25</span> <span class="sc">+</span> fluoride<span class="sc">$</span>fluoride_ppm<span class="sc">*</span><span class="dv">15</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="fu">runif</span>(<span class="dv">50</span>) </span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="fu">write.csv</span>(fluoride, <span class="st">&quot;fluoride.csv&quot;</span>, <span class="at">row.names =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5WyzEIMyj-HGArfu_ZIT5cneHI5RiqmDIW_TaDDKgFTtBgcPXCPA00TLO4ax-xJlknn2bWfBi/pub?gid=1554561003&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
 <p>What does the data suggest? Make sure to include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fluoride_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(tooth_decay_rates <span class="sc">~</span> fluoride_ppm, fluoride)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fluoride_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>fluoride_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(tooth_decay_rates <span class="sc">~</span> fluoride_ppm, fluoride)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">summary</span>(fluoride_lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tooth_decay_rates ~ fluoride_ppm, data = fluoride)
@@ -845,7 +891,11 @@ body {
 ## Multiple R-squared:  0.9803, Adjusted R-squared:  0.9799 
 ## F-statistic:  2386 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>#Epilogue</p>
-<p>In the real world, researchers worked to determine how much fluoride was too much in regards to staining (which is a more complicated analysis) before eventually considering its usefulness in low (safe) concentrations. After large-scale studies showed results, it became a major component of preventative dentistry.</p>
+<p>In the real world, researchers worked to determine how much fluoride
+was too much in regards to staining (which is a more complicated
+analysis) before eventually considering its usefulness in low (safe)
+concentrations. After large-scale studies showed results, it became a
+major component of preventative dentistry.</p>
 
 </body>
 </html>

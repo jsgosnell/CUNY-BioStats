@@ -587,14 +587,15 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
@@ -603,7 +604,10 @@ body {
 <h1 id="quiz-4">Quiz 4</h1>
 <p>jsg 11/16/2020</p>
 <h1 id="vaccine-effectiveness">Vaccine effectiveness!</h1>
-<p>A drug company wants to make sure the vaccine they are developing has similar effectiveness for multiple groups. Out of 10,000 patients, they find the following effectivess among groups (labelled with letters to prevent bias!)</p>
+<p>A drug company wants to make sure the vaccine they are developing has
+similar effectiveness for multiple groups. Out of 10,000 patients, they
+find the following effectivess among groups (labelled with letters to
+prevent bias!)</p>
 <table>
 <thead>
 <tr class="header">
@@ -638,30 +642,32 @@ body {
 <ol style="list-style-type: decimal">
 <li>What is the overall effectiveness of the vaccine?</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4600</span><span class="sc">+</span><span class="dv">2750</span><span class="sc">+</span><span class="dv">800</span><span class="sc">+</span><span class="dv">495</span>)<span class="sc">/</span><span class="dv">10000</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>(<span class="dv">4600</span><span class="sc">+</span><span class="dv">2750</span><span class="sc">+</span><span class="dv">800</span><span class="sc">+</span><span class="dv">495</span>)<span class="sc">/</span><span class="dv">10000</span></span></code></pre></div>
 <pre><code>## [1] 0.8645</code></pre>
-<p><em>The overall effectiveness of the vaccine (among all users) could be measured as 86.45%. However, we could also consider it as 0.7829167 given the unequal sample sizes.</em></p>
+<p><em>The overall effectiveness of the vaccine (among all users) could
+be measured as 86.45%. However, we could also consider it as 0.7829167
+given the unequal sample sizes.</em></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Is there any evidence for differences among groups?</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>effectiveness <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4600</span>, <span class="dv">400</span>, <span class="dv">2750</span>, <span class="dv">250</span>, <span class="dv">800</span>, <span class="dv">200</span>, <span class="dv">495</span>, <span class="dv">505</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(effectiveness) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Success&quot;</span>, <span class="st">&quot;Failure&quot;</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(effectiveness) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check it</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>effectiveness</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>effectiveness <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4600</span>, <span class="dv">400</span>, <span class="dv">2750</span>, <span class="dv">250</span>, <span class="dv">800</span>, <span class="dv">200</span>, <span class="dv">495</span>, <span class="dv">505</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">colnames</span>(effectiveness) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Success&quot;</span>, <span class="st">&quot;Failure&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">rownames</span>(effectiveness) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#check it</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>effectiveness</span></code></pre></div>
 <pre><code>##   Success Failure
 ## A    4600     400
 ## B    2750     250
 ## C     800     200
 ## D     495     505</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(effectiveness)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">chisq.test</span>(effectiveness)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  effectiveness
 ## X-squared = 1402.2, df = 3, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(effectiveness, <span class="at">compare =</span> <span class="st">&quot;row&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(effectiveness, <span class="at">compare =</span> <span class="st">&quot;row&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
 <pre><code>##   Comparison  p.Fisher p.adj.Fisher p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
 ## 1      A : B  6.12e-01     6.12e-01   0.598       0.598  6.27e-01    6.27e-01
 ## 2      A : C  2.83e-26     8.49e-26   0.000       0.000  1.49e-30    4.47e-30
@@ -669,23 +675,30 @@ body {
 ## 4      B : C  8.82e-22     1.76e-21   0.000       0.000  8.84e-24    1.77e-23
 ## 5      B : D 7.58e-169    3.79e-168   0.000       0.000 8.33e-191   4.16e-190
 ## 6      C : D  4.84e-47     1.94e-46   0.000       0.000  6.10e-46    2.44e-45</code></pre>
-<p><em>I tested for a difference among groups using a chi^2 test. This led to a test statistics of chi^2<sub>3</sub> = 1402.2, which corresponds to a p-value of &lt;.001. I thus reject the null hypothesis of no difference in effectiveness among groups (the alternative is that there is a difference in effectiveness among groups). Given this result, I used a post-hoc test to compare groups. Data (using the p.adj.Chisq column) indicate that groups A and B do not differ from each other, but all others do.</em></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>effectiveness_t <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4600</span>, <span class="dv">400</span>, <span class="dv">2750</span>, <span class="dv">250</span>, <span class="dv">800</span>, <span class="dv">200</span>, <span class="dv">495</span>, <span class="dv">505</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> F)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(effectiveness_t) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Success&quot;</span>, <span class="st">&quot;Failure&quot;</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(effectiveness_t) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check it</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>effectiveness_t</span></code></pre></div>
+<p><em>I tested for a difference among groups using a chi^2 test. This
+led to a test statistics of chi^2<sub>3</sub> = 1402.2, which
+corresponds to a p-value of &lt;.001. I thus reject the null hypothesis
+of no difference in effectiveness among groups (the alternative is that
+there is a difference in effectiveness among groups). Given this result,
+I used a post-hoc test to compare groups. Data (using the p.adj.Chisq
+column) indicate that groups A and B do not differ from each other, but
+all others do.</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>effectiveness_t <span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4600</span>, <span class="dv">400</span>, <span class="dv">2750</span>, <span class="dv">250</span>, <span class="dv">800</span>, <span class="dv">200</span>, <span class="dv">495</span>, <span class="dv">505</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> F)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">rownames</span>(effectiveness_t) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Success&quot;</span>, <span class="st">&quot;Failure&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">colnames</span>(effectiveness_t) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#check it</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>effectiveness_t</span></code></pre></div>
 <pre><code>##            A    B   C   D
 ## Success 4600 2750 800 495
 ## Failure  400  250 200 505</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(effectiveness_t)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">chisq.test</span>(effectiveness_t)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  effectiveness_t
 ## X-squared = 1402.2, df = 3, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(effectiveness_t, <span class="at">compare =</span> <span class="st">&quot;col&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">pairwiseNominalIndependence</span>(effectiveness_t, <span class="at">compare =</span> <span class="st">&quot;col&quot;</span>, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span></code></pre></div>
 <pre><code>##   Comparison  p.Fisher p.adj.Fisher p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
 ## 1      A : B  6.12e-01     6.12e-01   0.598       0.598  6.27e-01    6.27e-01
 ## 2      A : C  2.83e-26     8.49e-26   0.000       0.000  1.49e-30    4.47e-30
@@ -694,16 +707,22 @@ body {
 ## 5      B : D 7.58e-169    3.79e-168   0.000       0.000 8.33e-191   4.16e-190
 ## 6      C : D  4.84e-47     1.94e-46   0.000       0.000  6.10e-46    2.44e-45</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>How would you related your findings from question 2 to your answer to question 1? Why does it matter (what you would you recommend or do to follow-up)?</li>
+<li>How would you related your findings from question 2 to your answer
+to question 1? Why does it matter (what you would you recommend or do to
+follow-up)?</li>
 </ol>
-<p><em>Even though the overall vaccine was 86% effective, this was heavily influenced by data from groups a and b. Further analysis may be needed to consider effects on other groups.</em></p>
+<p><em>Even though the overall vaccine was 86% effective, this was
+heavily influenced by data from groups a and b. Further analysis may be
+needed to consider effects on other groups.</em></p>
 <p>Make sure your answers include</p>
 <ul>
 <li>null hypothesis</li>
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
-<li>results from statistical test (including post-hoc tests if needed!)</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>results from statistical test (including post-hoc tests if
+needed!)</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 </ul>
 
 </body>

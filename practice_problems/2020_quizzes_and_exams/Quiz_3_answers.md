@@ -69,22 +69,6 @@ fail reject the null hypothesis.*
 
 ``` r
 library(BSDA)
-```
-
-    ## Warning: package 'BSDA' was built under R version 4.1.2
-
-    ## 
-    ## Attaching package: 'BSDA'
-
-    ## The following objects are masked from 'package:carData':
-    ## 
-    ##     Vocab, Wool
-
-    ## The following object is masked from 'package:datasets':
-    ## 
-    ##     Orange
-
-``` r
 z.test(temp, mu = 36.57, sigma.x = .42, alternative = "greater")
 ```
 
@@ -123,9 +107,9 @@ the null hypothesis, which makes sense.*
 
 Make sure your answers include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test
--   clear explanation of how results relate to your stated hypotheses
--   confidence interval for your estimate
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test
+- clear explanation of how results relate to your stated hypotheses
+- confidence interval for your estimate

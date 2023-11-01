@@ -16,7 +16,7 @@ high densities. Past evidence suggests that the parasite should infect
 York due to lower temperatures. In a random sample, 7 of 12 zombies are
 infected with the parasite.
 
--   What is the observed rate of infection in the sample?
+- What is the observed rate of infection in the sample?
 
 ``` r
 7/12
@@ -26,18 +26,18 @@ infected with the parasite.
 
 *The observed rate of infection is .58 (58%).*
 
--   Is there evidence the parasite infects zombies at a different rate
-    in New York? \*\* If so, why \*\* If not, how do you explain any
-    discrepancy between the observed rate of infection and your results?
+- Is there evidence the parasite infects zombies at a different rate in
+  New York? \*\* If so, why \*\* If not, how do you explain any
+  discrepancy between the observed rate of infection and your results?
 
 Make sure your answer includes
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test
--   clear explanation of how results relate to your stated hypotheses
--   confidence interval for your estimate
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test
+- clear explanation of how results relate to your stated hypotheses
+- confidence interval for your estimate
 
 ``` r
 binom.test(7,12, .7)

@@ -36,8 +36,7 @@ In case it helps (it may not, but I want you to know how to melt data into long 
 
 ```{r}
 library(reshape2)
-aphid_density_long <- melt(aphid_density, id.vars = "field", variable.name = "before_after",
-                           value.name = "aphid_density")
+aphid_density_long <- melt(aphid_density, id.vars = "field", variable.name = "before_after", value.name = "aphid_density")
 ```
 
 Make sure your answers include

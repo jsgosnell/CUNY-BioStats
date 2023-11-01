@@ -587,39 +587,66 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
 <body>
 
-<h1 id="2020-bio-2100-final-a-brief-history-of-preventative-dentistry-37-pts-total">2020 Bio 2100 Final: A brief history of preventative dentistry (37 pts total)</h1>
+<h1 id="id_2020-bio-2100-final-a-brief-history-of-preventative-dentistry-37-pts-total">2020
+Bio 2100 Final: A brief history of preventative dentistry (37 pts
+total)</h1>
 <p>jsg 12/12/2020</p>
-<h1 id="instructions-read-this-first">Instructions! Read this first.</h1>
-<p>The exam is open note, open course website, open class-related code repositories (mine and those you produced in class). However, you may not get external help ( from other students, directed internet searches, etc.). Please update the statement below to acknowledge these instructions (and that you can use git).</p>
-<p>I, INSERT YOUR NAME HERE, promise to not seek external help on the exam. I understand any academic issues will result in a D or F on the exam or in the class and be reported to the Dean of Students.</p>
+<h1 id="instructions-read-this-first">Instructions! Read this
+first.</h1>
+<p>The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).</p>
+<p>I, INSERT YOUR NAME HERE, promise to not seek external help on the
+exam. I understand any academic issues will result in a D or F on the
+exam or in the class and be reported to the Dean of Students.</p>
 <p>Good luck!</p>
-<p>Have you ever wondered why we use fluoride in toothpaste? The data below is not exact but follows the general story and gives a good view of how science and statistics can work together. Let’s pretend you were a fellow scientist/dentist/doctor who was part of the story.</p>
+<p>Have you ever wondered why we use fluoride in toothpaste? The data
+below is not exact but follows the general story and gives a good view
+of how science and statistics can work together. Let’s pretend you were
+a fellow scientist/dentist/doctor who was part of the story.</p>
 <ol style="list-style-type: decimal">
-<li>Frederick McKay moved to Colorado Springs, Colorado after completing dental school in 1901. He was surprised to find the locals had extremely stained teeth (to the point they permanently looked like they had recently eaten chocolate candy). In general 8% of people at the time had stained teeth, but in his first month on the job he noted six out of 15 patients had stained teeth.</li>
+<li>Frederick McKay moved to Colorado Springs, Colorado after completing
+dental school in 1901. He was surprised to find the locals had extremely
+stained teeth (to the point they permanently looked like they had
+recently eaten chocolate candy). In general 8% of people at the time had
+stained teeth, but in his first month on the job he noted six out of 15
+patients had stained teeth.</li>
 </ol>
-<p>He thinks this seems like a lot but asks you to help give his feeling a quantitative analysis. How would you evaluate the data? Make sure to include</p>
+<p>He thinks this seems like a lot but asks you to help give his feeling
+a quantitative analysis. How would you evaluate the data? Make sure to
+include</p>
 <ul>
 <li>null hypothesis (1 pt)</li>
 <li>alternative hypothesis (1 pt)</li>
 <li>explanation for test you will use (1 pt)</li>
-<li>results from statistical test (including post-hoc tests if needed!) (2 pt)</li>
-<li>clear explanation of how results relate to your stated hypotheses (1 pt)</li>
+<li>results from statistical test (including post-hoc tests if needed!)
+(2 pt)</li>
+<li>clear explanation of how results relate to your stated hypotheses (1
+pt)</li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li>McKay spent the next several years trying to determine what was causing the staining (or mottling, as he called it) and was assisted by multiple others. Dr. G.V. Black was a primary collaborator. Together they investigated a few ideas. First, they compared tooth staining rates in people who had been in the town for various periods of time. They found</li>
+<li>McKay spent the next several years trying to determine what was
+causing the staining (or mottling, as he called it) and was assisted by
+multiple others. Dr. G.V. Black was a primary collaborator. Together
+they investigated a few ideas. First, they compared tooth staining rates
+in people who had been in the town for various periods of time. They
+found</li>
 </ol>
 <table>
 <thead>
@@ -657,48 +684,76 @@ body {
 <li>null hypothesis (1 pt)</li>
 <li>alternative hypothesis (1 pt)</li>
 <li>explanation for test you will use (1 pt)</li>
-<li>results from statistical test (including post-hoc tests if needed!) (2 pt)</li>
-<li>clear explanation of how results relate to your stated hypotheses (1 pt)</li>
+<li>results from statistical test (including post-hoc tests if needed!)
+(2 pt)</li>
+<li>clear explanation of how results relate to your stated hypotheses (1
+pt)</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li><p>What does your answer to question #2 imply (explain what your results mean!) ? You don’t have to give the right answer here, but propose a hypothesis that may explain these results or clearly explain what the results suggest (2 pts).</p></li>
-<li><p>During their work the dentists also noticed that stained teeth behaved differently than unstained teeth. Data they collected on the number of micro-cavities per tooth in patients with stained and un-stained teeth is found at</p></li>
+<li><p>What does your answer to question #2 imply (explain what your
+results mean!) ? You don’t have to give the right answer here, but
+propose a hypothesis that may explain these results or clearly explain
+what the results suggest (2 pts).</p></li>
+<li><p>During their work the dentists also noticed that stained teeth
+behaved differently than unstained teeth. Data they collected on the
+number of micro-cavities per tooth in patients with stained and
+un-stained teeth is found at</p></li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQsMBSH0ONdoUlkzBFLbzwSEGNaj14ZXePJtr59QY7C3N2AYzKhm4Pdo5bKteqRMzwTZT9c/pub?gid=220386619&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRuczoRwyQsMBSH0ONdoUlkzBFLbzwSEGNaj14ZXePJtr59QY7C3N2AYzKhm4Pdo5bKteqRMzwTZT9c/pub?gid=220386619&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
 <p>What does the data suggest? Make sure to include</p>
 <ul>
 <li>null hypothesis (1 pt)</li>
 <li>alternative hypothesis (1 pt)</li>
 <li>explanation for test you will use (1 pt)</li>
-<li>results from statistical test (including post-hoc tests if needed!) (2 pt)</li>
-<li>clear explanation of how results relate to your stated hypotheses (1 pt)</li>
+<li>results from statistical test (including post-hoc tests if needed!)
+(2 pt)</li>
+<li>clear explanation of how results relate to your stated hypotheses (1
+pt)</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Provide a properly-labeled graph of the data from question 4. Make sure it shows both the signal and noise in the data (5 pts)!</p></li>
-<li><p>An unfortunate incident in Idaho shed more light on the causes of staining. People noticed a slight increase in tooth staining after a town switched to a new water source. Consider the average tooth color (0 is score assigned to pure white using color-measuring tools from the time, 100 is the score for pure black) of children from families who had children before and after the switch. Data is available @</p></li>
+<li><p>Provide a properly-labeled graph of the data from question 4.
+Make sure it shows both the signal and noise in the data (5
+pts)!</p></li>
+<li><p>An unfortunate incident in Idaho shed more light on the causes of
+staining. People noticed a slight increase in tooth staining after a
+town switched to a new water source. Consider the average tooth color (0
+is score assigned to pure white using color-measuring tools from the
+time, 100 is the score for pure black) of children from families who had
+children before and after the switch. Data is available @</p></li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6vCEkF79IKADjr8nugsbrOnHyk15NJbo7_Q4qWRfJ-OrJ8FoFfkkzFQ25mtVwKVZyWF_kh97SJfO/pub?gid=1969060757&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>idaho_cavities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6vCEkF79IKADjr8nugsbrOnHyk15NJbo7_Q4qWRfJ-OrJ8FoFfkkzFQ25mtVwKVZyWF_kh97SJfO/pub?gid=1969060757&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span></code></pre></div>
 <p>What does the data suggest? Make sure to include</p>
 <ul>
 <li>null hypothesis (1 pt)</li>
 <li>alternative hypothesis (1 pt)</li>
 <li>explanation for test you will use (1 pt)</li>
-<li>results from statistical test (including post-hoc tests if needed!) (2 pt)</li>
-<li>clear explanation of how results relate to your stated hypotheses (1 pt)</li>
+<li>results from statistical test (including post-hoc tests if needed!)
+(2 pt)</li>
+<li>clear explanation of how results relate to your stated hypotheses (1
+pt)</li>
 </ul>
 <ol start="7" style="list-style-type: decimal">
-<li>Analysis of water from other towns where staining was common eventually revealed high amounts of fluoride. Scientists then collected data on average tooth decay rates and fluoride levels from multiple towns (this part is made up!). Data is available @</li>
+<li>Analysis of water from other towns where staining was common
+eventually revealed high amounts of fluoride. Scientists then collected
+data on average tooth decay rates and fluoride levels from multiple
+towns (this part is made up!). Data is available @</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5WyzEIMyj-HGArfu_ZIT5cneHI5RiqmDIW_TaDDKgFTtBgcPXCPA00TLO4ax-xJlknn2bWfBi/pub?gid=1554561003&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fluoride <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS7VvJ5WyzEIMyj-HGArfu_ZIT5cneHI5RiqmDIW_TaDDKgFTtBgcPXCPA00TLO4ax-xJlknn2bWfBi/pub?gid=1554561003&amp;single=true&amp;output=csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
 <ul>
 <li>null hypothesis (1 pt)</li>
 <li>alternative hypothesis (1 pt)</li>
 <li>explanation for test you will use (1 pt)</li>
-<li>results from statistical test (including post-hoc tests if needed!) (2 pt)</li>
-<li>clear explanation of how results relate to your stated hypotheses (1 pt)</li>
+<li>results from statistical test (including post-hoc tests if needed!)
+(2 pt)</li>
+<li>clear explanation of how results relate to your stated hypotheses (1
+pt)</li>
 </ul>
 <h2 id="epilogue">Epilogue</h2>
-<p>In the real world, researchers worked to determine how much fluoride was too much in regards to staining (which is a more complicated analysis) before eventually considering its usefulness in low (safe) concentrations. After large-scale studies showed results, it became a major component of preventative dentistry.</p>
+<p>In the real world, researchers worked to determine how much fluoride
+was too much in regards to staining (which is a more complicated
+analysis) before eventually considering its usefulness in low (safe)
+concentrations. After large-scale studies showed results, it became a
+major component of preventative dentistry.</p>
 
 </body>
 </html>

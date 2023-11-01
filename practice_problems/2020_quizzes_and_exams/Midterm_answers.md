@@ -35,32 +35,33 @@ times out of 20.
 
 Make sure your answers include (if applicable)
 
--   null hypothesis
+- null hypothesis
 
 *(For a sided test) The mind reader can not detect the presence of
 people, so they will guess correctly 50% or less of the time (what we
-would expect by chance).* ->H<sub>O</sub>: p \<= .5
+would expect by chance).* -\>H<sub>O</sub>: p \<= .5
 
 *(For a non-sided test) The mind reader can not detect the presence of
 people, so they will guess correctly 50% of the time (what we would
-expect by chance).* ->H<sub>O</sub>: p = .5
+expect by chance).* -\>H<sub>O</sub>: p = .5
 
--   alternative hypothesis
+- alternative hypothesis
 
 *(For a sided test) The mind reader can detect the presence of people,
 so they will guess correctly greater than 50% of the time
-.*->H<sub>A</sub>: p \>.5
+.*-\>H<sub>A</sub>: p \>.5
 
 *(For a non-sided test) The mind reader can detect the presence of
 people, so the proportion of times they will guess correctly is not
-equal to 50% (what we would expect by chance).* ->H<sub>A</sub>: p != .5
+equal to 50% (what we would expect by chance).* -\>H<sub>A</sub>: p !=
+.5
 
--   explanation for test you will use
+- explanation for test you will use
 
 *I will use binomial test since its discrete data (counts) that falls
 into 2 groups.*
 
--   results from statistical test
+- results from statistical test
 
 ``` r
 binom.test(12,20, alternative="greater", .5)
@@ -98,7 +99,7 @@ binom.test(12,20, .5)
 
 *For the non-sided version, I found a p-value of .5034*
 
--   clear explanation of how results relate to your stated hypotheses
+- clear explanation of how results relate to your stated hypotheses
 
 *In both cases I fail to reject the null hypothesis. The data does not
 contain enough evidence to indicate mind readers can detect the presence
@@ -177,13 +178,6 @@ ggplot(ghosts, aes (x = Present, y = Temperature)) +
 ``` r
 #with confidence interval
 library(Rmisc)
-```
-
-    ## Loading required package: lattice
-
-    ## Loading required package: plyr
-
-``` r
 ghosts_summary <- summarySE(ghosts, measurevar = "Temperature", groupvars = "Present")
 ggplot(ghosts_summary, aes (x = Present, y = Temperature)) +
   geom_point() +
@@ -207,7 +201,7 @@ As a hint, remember you can subset the data using
 
 Make sure your answers include (if applicable)
 
--   null hypothesis
+- null hypothesis
 
 *People had issues with my wording here, so I was very open to
 interpretation.  
@@ -216,19 +210,19 @@ general, so our null hypothesis would be the temperature when ghosts are
 “detected” is no different than 56 degrees. H<sub>O</sub>: mean
 temperature = 56*
 
--   alternative hypothesis
+- alternative hypothesis
 
 The temperature when ghosts are “detected” is different than 56 degrees.
 H<sub>A</sub>: mean temperature != 56
 
--   explanation for test you will use
+- explanation for test you will use
 
 *This is continuous data from one population, so we can use a t.test if
 we assume the data (and thus residusals, as we now know) are normally
 distributed. We could also bootstrap the data. Other options (sign tests
 or rank tests) also work but have less power.*
 
--   results from statistical test
+- results from statistical test
 
 ``` r
 t.test(ghosts[ghosts$Present == "Present", "Temperature"], mu=56)
@@ -252,33 +246,23 @@ source("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_ex
 bootstrapjsg(ghosts[ghosts$Present == "Present", "Temperature"], null=56)
 ```
 
-    ## 
-    ## Attaching package: 'boot'
+    ## Warning in boot.ci(a, conf): bootstrap variances needed for studentized intervals
 
-    ## The following object is masked from 'package:lattice':
-    ## 
-    ##     melanoma
-
-    ## Simple Bootstrap Routines (1.1-7)
-
-    ## Warning in boot.ci(a, conf): bootstrap variances needed for studentized
-    ## intervals
-
-    ##                                                                         
-    ##                  "0.95" "% Confidence Interval"      "54.0977180783118" 
-    ##                                                                         
-    ##      "57.4744338173198"               "p-value"                "0.8583"
+    ##                                                                                                                         
+    ##                  "0.95" "% Confidence Interval"      "54.1026186552466"      "57.5320483951952"               "p-value" 
+    ##                         
+    ##                "0.8611"
 
 \*Using the t-test I found a test value t<sub>29</sub>=0.18536, which
 corresponds to a p-value of 0.8542. Bootstrap tests led to similar
 p-value (.8494)
 
--   clear explanation of how results relate to your stated hypotheses
+- clear explanation of how results relate to your stated hypotheses
 
 *Using either method I reject the null hypothesis. There is not enough
 evidence to indicate the presence of ghosts lowers temperatures.*
 
--   confidence interval for your estimate
+- confidence interval for your estimate
 
 *From the t-test, I get a 95% confidence interval of 54.00882-57.66024;
 the bootstrap interval is 54.06-57.52. Note both include 56.*

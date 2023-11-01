@@ -587,14 +587,15 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
@@ -604,9 +605,16 @@ body {
 <p>jsg 10/16/2020</p>
 <hr />
 <h1 id="zombies">ZOMBIES!</h1>
-<p>You wake up one morning and find that zombies have taken over your neighborhood (bummer). One idea is to use biocontrol to reduce zombie attacks. A zombie parasite is identified. Test plots (neighborhoods!) are subjected to one or two releases of the parasite at low, medium, or high densities. Use the data (in R chunk below!) to construct a graph (You should use a bar graph with confidence intervals!) that properly summarizes how the number of releases impacts the number of zombie attacks.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>biocontrol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/biocontrol.csv&quot;</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<p>You wake up one morning and find that zombies have taken over your
+neighborhood (bummer). One idea is to use biocontrol to reduce zombie
+attacks. A zombie parasite is identified. Test plots (neighborhoods!)
+are subjected to one or two releases of the parasite at low, medium, or
+high densities. Use the data (in R chunk below!) to construct a graph
+(You should use a bar graph with confidence intervals!) that properly
+summarizes how the number of releases impacts the number of zombie
+attacks.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>biocontrol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/biocontrol.csv&quot;</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>                       <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
 
 </body>
 </html>

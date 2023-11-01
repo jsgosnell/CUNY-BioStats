@@ -35,11 +35,11 @@ times out of 20.
 
 Make sure your answers include (if applicable)
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test
+- clear explanation of how results relate to your stated hypotheses
 
 2.  Calculate a confidence interval for the mind-reader data. Share it
     and clearly explain what it means (3 pts).
@@ -78,12 +78,12 @@ As a hint, remember you can subset the data using
 
 Make sure your answers include (if applicable)
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test
--   clear explanation of how results relate to your stated hypotheses
--   confidence interval for your estimate
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test
+- clear explanation of how results relate to your stated hypotheses
+- confidence interval for your estimate
 
 6.  The investigator is confused. He found an average temerature of
     55.8, which is less than 56. He thinks that should confirm the

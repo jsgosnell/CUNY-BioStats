@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="id_2020-bio-2100-midterm-halloween-redux-26-pts-total">2020 Bio
+2100 Midterm: Halloween Redux (26 pts total)</h1>
+<p>jsg 10/27/2020</p>
+<h1 id="instructions-read-this-first">Instructions! Read this
+first.</h1>
+<p>The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).</p>
+<p>I, INSERT YOUR NAME HERE, promise to not seek external help on the
+exam. I understand any academic issues will result in a D or F on the
+exam or in the class and be reported to the Dean of Students.</p>
+<p>Good luck!</p>
+<h1 id="mind-reading">Mind reading</h1>
+<h2 id="questions-1---3"><em>Questions 1 - 3</em></h2>
+<p>Researchers want to determine if mind-reading is possible. To test
+this, they place a purported mind-reader in a soundproof room. Directly
+outside the room is a chair. For each data point, a volunteer sits in
+the chair or doesn’t. All the mind-reader has to do is “detect” the
+presence of the volunteer (this should be the first step in reading
+minds!). Even though the mind-reader can’t see or hear if the volunteer
+is present, he correctly determines if a person is present or not 12
+times out of 20.</p>
+<ol style="list-style-type: decimal">
+<li>How would you assess this evidence to see if it offers evidence
+supporting the existence of mind-reading (6 pts)?</li>
+</ol>
+<p>Make sure your answers include (if applicable)</p>
+<ul>
+<li>null hypothesis</li>
+</ul>
+<p><em>(For a sided test) The mind reader can not detect the presence of
+people, so they will guess correctly 50% or less of the time (what we
+would expect by chance).</em> -&gt;H<sub>O</sub>: p &lt;= .5</p>
+<p><em>(For a non-sided test) The mind reader can not detect the
+presence of people, so they will guess correctly 50% of the time (what
+we would expect by chance).</em> -&gt;H<sub>O</sub>: p = .5</p>
+<ul>
+<li>alternative hypothesis</li>
+</ul>
+<p><em>(For a sided test) The mind reader can detect the presence of
+people, so they will guess correctly greater than 50% of the time
+.</em>-&gt;H<sub>A</sub>: p &gt;.5</p>
+<p><em>(For a non-sided test) The mind reader can detect the presence of
+people, so the proportion of times they will guess correctly is not
+equal to 50% (what we would expect by chance).</em> -&gt;H<sub>A</sub>:
+p != .5</p>
+<ul>
+<li>explanation for test you will use</li>
+</ul>
+<p><em>I will use binomial test since its discrete data (counts) that
+falls into 2 groups.</em></p>
+<ul>
+<li>results from statistical test</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">12</span>,<span class="dv">20</span>, <span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>, .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  12 and 20
+## number of successes = 12, number of trials = 20, p-value = 0.2517
+## alternative hypothesis: true probability of success is greater than 0.5
+## 95 percent confidence interval:
+##  0.3935849 1.0000000
+## sample estimates:
+## probability of success 
+##                    0.6</code></pre>
+<p><em>For the sided version, I found a p-value of .2517.</em></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">12</span>,<span class="dv">20</span>, .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  12 and 20
+## number of successes = 12, number of trials = 20, p-value = 0.5034
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.3605426 0.8088099
+## sample estimates:
+## probability of success 
+##                    0.6</code></pre>
+<p><em>For the non-sided version, I found a p-value of .5034</em></p>
+<ul>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
+</ul>
+<p><em>In both cases I fail to reject the null hypothesis. The data does
+not contain enough evidence to indicate mind readers can detect the
+presence of people.</em></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Calculate a confidence interval for the mind-reader data. Share it
+and clearly explain what it means (3 pts).</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#non-sided option</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">binom.confint</span>(<span class="dv">12</span>,<span class="dv">20</span>) </span></code></pre></div>
+<pre><code>##           method  x  n      mean     lower     upper
+## 1  agresti-coull 12 20 0.6000000 0.3860304 0.7817446
+## 2     asymptotic 12 20 0.6000000 0.3852967 0.8147033
+## 3          bayes 12 20 0.5952381 0.3904659 0.7951753
+## 4        cloglog 12 20 0.6000000 0.3572920 0.7760495
+## 5          exact 12 20 0.6000000 0.3605426 0.8088099
+## 6          logit 12 20 0.6000000 0.3800981 0.7858454
+## 7         probit 12 20 0.6000000 0.3811790 0.7907655
+## 8        profile 12 20 0.6000000 0.3829371 0.7928411
+## 9            lrt 12 20 0.6000000 0.3829334 0.7928930
+## 10     prop.test 12 20 0.6000000 0.3641167 0.8002291
+## 11        wilson 12 20 0.6000000 0.3865815 0.7811935</code></pre>
+<p><em>Using the Agresti-Coull method, we find a 95% confidence interval
+of .39 - .78. a 95% confidencei interval means 95% of the time we sample
+the population and create this interval it will contain the true
+parameter. Note that this interval contains .5, meaning the data does
+not offer much evidence against the parameter under the null
+hypothesis.</em></p>
+<ol start="3" style="list-style-type: decimal">
+<li>If the mind-reader wanted to redo the experiment, what could they do
+to reduce the width of the confidence interval <strong>ASSUMING</strong>
+the noted signal in the data remains the same. Make sure you explain and
+justify your answer (3 pts).</li>
+</ol>
+<p><em>Given the formula for confidence intervals, the best approach is
+to have a larger sample size. A larger sample size where the mind reader
+guessed correctly 60% of the time could lead to “significant”
+outcome.</em></p>
+<h1 id="ghosts">Ghosts</h1>
+<h2 id="questions-4---6"><em>Questions 4 - 6</em></h2>
+<p>People who hunt for ghosts typically note their “presence” is
+associated with lower temperatures. To note this, they use a “ghost
+detecting machine” to document the presence or absence of ghosts in a
+room. The machine also documents the room temperature. Data is available
+using</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>ghosts <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/ghosts.csv&quot;</span>, <span class="at">stringsAsFactors =</span> T)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Provide a graph of the data that clearly displays patterns in the
+central tendency and variance of the data (many options here!) (5
+pts).</li>
+</ol>
+<p><em>Lots of options here. Some shown below. Key was to include some
+measure of central tendency and variation OR just plot the
+data!</em></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#dotplot</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">ggplot</span>(ghosts, <span class="fu">aes</span> (<span class="at">x =</span> Present, <span class="at">y =</span> Temperature)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Room temperature depends on presence of ghosts&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Ghost Reading&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Temperature in degrees F&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#with confidence interval</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>ghosts_summary <span class="ot">&lt;-</span> <span class="fu">summarySE</span>(ghosts, <span class="at">measurevar =</span> <span class="st">&quot;Temperature&quot;</span>, <span class="at">groupvars =</span> <span class="st">&quot;Present&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="fu">ggplot</span>(ghosts_summary, <span class="fu">aes</span> (<span class="at">x =</span> Present, <span class="at">y =</span> Temperature)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Temperature <span class="sc">-</span> ci, <span class="at">ymax =</span> Temperature <span class="sc">+</span> ci))<span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Room temperature depends on presence of ghosts&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Ghost Reading&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Temperature in degrees F&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<ol start="4" style="list-style-type: decimal">
+<li>One issue with the data is that ghosts mainly occur in old (and
+poorly insulated) homes. Data shows the average temperature of homes
+where ghosts are present is on average 56 degrees when ghosts are not
+detected. Using this information, how would you assess the evidence to
+see if it offers evidence supporting the existence of ghosts (6
+pts)?</li>
+</ol>
+<p>As a hint, remember you can subset the data using
+<code>ghosts[ghosts$Present == &quot;Present&quot;, &quot;Temperature&quot;]</code>.</p>
+<p>Make sure your answers include (if applicable)</p>
+<ul>
+<li>null hypothesis</li>
+</ul>
+<p><em>People had issues with my wording here, so I was very open to
+interpretation.<br />
+What I was trying to point out is that old houses tend to be colder in
+general, so our null hypothesis would be the temperature when ghosts are
+“detected” is no different than 56 degrees. H<sub>O</sub>: mean
+temperature = 56</em></p>
+<ul>
+<li>alternative hypothesis</li>
+</ul>
+<p>The temperature when ghosts are “detected” is different than 56
+degrees. H<sub>A</sub>: mean temperature != 56</p>
+<ul>
+<li>explanation for test you will use</li>
+</ul>
+<p><em>This is continuous data from one population, so we can use a
+t.test if we assume the data (and thus residusals, as we now know) are
+normally distributed. We could also bootstrap the data. Other options
+(sign tests or rank tests) also work but have less power.</em></p>
+<ul>
+<li>results from statistical test</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">t.test</span>(ghosts[ghosts<span class="sc">$</span>Present <span class="sc">==</span> <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Temperature&quot;</span>], <span class="at">mu=</span><span class="dv">56</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ghosts[ghosts$Present == &quot;Present&quot;, &quot;Temperature&quot;]
+## t = -0.18536, df = 29, p-value = 0.8542
+## alternative hypothesis: true mean is not equal to 56
+## 95 percent confidence interval:
+##  54.00882 57.66024
+## sample estimates:
+## mean of x 
+##  55.83453</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#or bootstrap</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/code_examples/bootstrapjsg.R&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">bootstrapjsg</span>(ghosts[ghosts<span class="sc">$</span>Present <span class="sc">==</span> <span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Temperature&quot;</span>], <span class="at">null=</span><span class="dv">56</span>)</span></code></pre></div>
+<pre><code>## Warning in boot.ci(a, conf): bootstrap variances needed for studentized intervals
+
+##                                                                                                                         
+##                  &quot;0.95&quot; &quot;% Confidence Interval&quot;      &quot;54.1026186552466&quot;      &quot;57.5320483951952&quot;               &quot;p-value&quot; 
+##                         
+##                &quot;0.8611&quot;</code></pre>
+<p>*Using the t-test I found a test value t<sub>29</sub>=0.18536, which
+corresponds to a p-value of 0.8542. Bootstrap tests led to similar
+p-value (.8494)</p>
+<ul>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
+</ul>
+<p><em>Using either method I reject the null hypothesis. There is not
+enough evidence to indicate the presence of ghosts lowers
+temperatures.</em></p>
+<ul>
+<li>confidence interval for your estimate</li>
+</ul>
+<p><em>From the t-test, I get a 95% confidence interval of
+54.00882-57.66024; the bootstrap interval is 54.06-57.52. Note both
+include 56.</em></p>
+<ol start="5" style="list-style-type: decimal">
+<li>The investigator is confused. He found an average temerature of
+55.8, which is less than 56. He thinks that should confirm the existence
+of ghosts. Explain any issues you see with his rationale in plain
+English. Also explain to him what a p-value means as part of your answer
+(3 pts).</li>
+</ol>
+<p><em>The small difference he observed between 55.8 and 56 degrees may
+be explained by sampling error. A p-value indicates hwo likely we were
+to see the observed signal or something more extreme if the null
+hypothesis were true and multiple samples were collected. 55.8 is within
+the region of acceptable variation from 56; it does not indicate a
+devation from the average temperature of 56.</em></p>
+
+</body>
+</html>

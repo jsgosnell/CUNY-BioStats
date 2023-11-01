@@ -587,14 +587,15 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
 }
 </style>
+
 
 </head>
 
@@ -604,15 +605,24 @@ body {
 <p>jsg 10/21/2020</p>
 <hr />
 <h1 id="zombies">ZOMBIES!</h1>
-<p>You wake up one morning and find that zombies have taken over your neighborhood (bummer). One idea is to use biocontrol to reduce zombie attacks. A zombie parasite is identified. Test plots (neighborhoods!) are subjected to one or two releases of the parasite at low, medium, or high densities. Past evidence suggests that the parasite should infect 70% of the zombies, but some citizens are concerned it won’t work in New York due to lower temperatures. In a random sample, 7 of 12 zombies are infected with the parasite.</p>
+<p>You wake up one morning and find that zombies have taken over your
+neighborhood (bummer). One idea is to use biocontrol to reduce zombie
+attacks. A zombie parasite is identified. Test plots (neighborhoods!)
+are subjected to one or two releases of the parasite at low, medium, or
+high densities. Past evidence suggests that the parasite should infect
+70% of the zombies, but some citizens are concerned it won’t work in New
+York due to lower temperatures. In a random sample, 7 of 12 zombies are
+infected with the parasite.</p>
 <ul>
 <li>What is the observed rate of infection in the sample?</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="sc">/</span><span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="dv">7</span><span class="sc">/</span><span class="dv">12</span></span></code></pre></div>
 <pre><code>## [1] 0.5833333</code></pre>
 <p><em>The observed rate of infection is .58 (58%).</em></p>
 <ul>
-<li>Is there evidence the parasite infects zombies at a different rate in New York? ** If so, why ** If not, how do you explain any discrepancy between the observed rate of infection and your results?</li>
+<li>Is there evidence the parasite infects zombies at a different rate
+in New York? ** If so, why ** If not, how do you explain any discrepancy
+between the observed rate of infection and your results?</li>
 </ul>
 <p>Make sure your answer includes</p>
 <ul>
@@ -620,10 +630,11 @@ body {
 <li>alternative hypothesis</li>
 <li>explanation for test you will use</li>
 <li>results from statistical test</li>
-<li>clear explanation of how results relate to your stated hypotheses</li>
+<li>clear explanation of how results relate to your stated
+hypotheses</li>
 <li>confidence interval for your estimate</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">7</span>,<span class="dv">12</span>, .<span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">7</span>,<span class="dv">12</span>, .<span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
@@ -635,8 +646,8 @@ body {
 ## sample estimates:
 ## probability of success 
 ##              0.5833333</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.confint</span>(<span class="dv">7</span>,<span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">binom.confint</span>(<span class="dv">7</span>,<span class="dv">12</span>)</span></code></pre></div>
 <pre><code>##           method x  n      mean     lower     upper
 ## 1  agresti-coull 7 12 0.5833333 0.3188773 0.8073737
 ## 2     asymptotic 7 12 0.5833333 0.3043937 0.8622730
@@ -649,7 +660,16 @@ body {
 ## 9            lrt 7 12 0.5833333 0.3088656 0.8254763
 ## 10     prop.test 7 12 0.5833333 0.2859928 0.8350075
 ## 11        wilson 7 12 0.5833333 0.3195113 0.8067397</code></pre>
-<p><em>I analyzed the data using a binomial test looking for any deviations from 70% infection rates. Using this method I found a p-value of .3614, so I fail to reject the null hypothesis that the infection rate is 70%. The alternative hypothesis is that the infection rate is not equal to 70%. Although the rate I observed was 58%, the small sample size means this isn’t that unlikely to occur by chance if the true infection rate is 70%. The small sample size means the 95% confidence interval for our estimate of infection rate is .32-.81 (using Agresti-Coul estimates). We need more zombies to truly assess the population for any differences in infection rate.</em></p>
+<p><em>I analyzed the data using a binomial test looking for any
+deviations from 70% infection rates. Using this method I found a p-value
+of .3614, so I fail to reject the null hypothesis that the infection
+rate is 70%. The alternative hypothesis is that the infection rate is
+not equal to 70%. Although the rate I observed was 58%, the small sample
+size means this isn’t that unlikely to occur by chance if the true
+infection rate is 70%. The small sample size means the 95% confidence
+interval for our estimate of infection rate is .32-.81 (using
+Agresti-Coul estimates). We need more zombies to truly assess the
+population for any differences in infection rate.</em></p>
 
 </body>
 </html>

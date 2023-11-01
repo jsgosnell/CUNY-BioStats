@@ -27,8 +27,8 @@ prevent bias!)
 
 Make sure your answers include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses

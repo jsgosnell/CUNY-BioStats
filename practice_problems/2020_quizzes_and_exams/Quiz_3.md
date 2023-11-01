@@ -22,9 +22,9 @@ data on 5 survivors of attacks have been recorded. They were: 36.12,
 
 Make sure your answers include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test
--   clear explanation of how results relate to your stated hypotheses
--   confidence interval for your estimate
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test
+- clear explanation of how results relate to your stated hypotheses
+- confidence interval for your estimate

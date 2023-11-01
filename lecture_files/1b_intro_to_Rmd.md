@@ -1,7 +1,7 @@
 ---
 title: "1b. Intro to Rmd files and literate programming"
 author: "stephen's example "
-date: "Last compiled on 12 September, 2022 08:43"
+date: "Last compiled on 01 November, 2023 11:15"
 output:
   html_document:
     toc: true

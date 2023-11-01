@@ -21,12 +21,12 @@ How would you evaluate the data?
 
 Make sure your answers include
 
--   null hypothesis
--   alternative hypothesis
--   explanation for test you will use
--   results from statistical test (including post-hoc tests if needed!)
--   clear explanation of how results relate to your stated hypotheses
--   a graph that clearly displays the data
+- null hypothesis
+- alternative hypothesis
+- explanation for test you will use
+- results from statistical test (including post-hoc tests if needed!)
+- clear explanation of how results relate to your stated hypotheses
+- a graph that clearly displays the data
 
 In case it helps (it may not, but I want you to know how to melt data
 into long format)

@@ -1,7 +1,7 @@
 ---
 title: "13. Multivariate methods"
 author: "jsg"
-date: "Last compiled on 09 May, 2022 09:53"
+date: "Last compiled on 01 November, 2023 10:47"
 output:
   html_document:
     toc: true
@@ -185,7 +185,15 @@ checkPackage("vegan")
 ```
 
 ```
+## Warning: package 'vegan' was built under R version 4.2.3
+```
+
+```
 ## Loading required package: permute
+```
+
+```
+## Warning: package 'permute' was built under R version 4.2.3
 ```
 
 ```
@@ -193,7 +201,7 @@ checkPackage("vegan")
 ```
 
 ```
-## This is vegan 2.6-2
+## This is vegan 2.6-4
 ```
 
 ```r
@@ -246,11 +254,11 @@ install_github("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
 ```
 ## WARNING: Rtools is required to build R packages, but is not currently installed.
 ## 
-## Please download and install Rtools 4.0 from https://cran.r-project.org/bin/windows/Rtools/.
+## Please download and install Rtools 4.2 from https://cran.r-project.org/bin/windows/Rtools/ or https://www.r-project.org/nosvn/winutf8/ucrt3/.
 ```
 
 ```
-## Skipping install of 'pairwiseAdonis' from a github remote, the SHA1 (ece560d2) has not changed since last install.
+## Skipping install of 'pairwiseAdonis' from a github remote, the SHA1 (cb190f76) has not changed since last install.
 ##   Use `force = TRUE` to force installation
 ```
 
@@ -302,7 +310,7 @@ summary(a)
 ## 
 ## Upper quantiles of permutations (null model):
 ##    90%    95%  97.5%    99% 
-## 0.0137 0.0204 0.0242 0.0327 
+## 0.0150 0.0208 0.0288 0.0363 
 ## 
 ## Dissimilarity ranks between and within classes:
 ##            0%    25%    50%     75%    100%    N
@@ -327,70 +335,12 @@ install_github("jarioksa/natto")
 ```
 ## WARNING: Rtools is required to build R packages, but is not currently installed.
 ## 
-## Please download and install Rtools 4.0 from https://cran.r-project.org/bin/windows/Rtools/.
+## Please download and install Rtools 4.2 from https://cran.r-project.org/bin/windows/Rtools/ or https://www.r-project.org/nosvn/winutf8/ucrt3/.
 ```
 
 ```
-## Downloading GitHub repo jarioksa/natto@HEAD
-```
-
-```
-## permute (0.9-5 -> 0.9-7) [CRAN]
-```
-
-```
-## Installing 1 packages: permute
-```
-
-```
-## Warning: package 'permute' is in use and will not be installed
-```
-
-```
-## WARNING: Rtools is required to build R packages, but is not currently installed.
-## 
-## Please download and install Rtools 4.0 from https://cran.r-project.org/bin/windows/Rtools/.
-```
-
-```
-##   
-  
-  
-v  checking for file 'C:\Users\steph\AppData\Local\Temp\RtmpoVEqmg\remotes4b28697663d\jarioksa-natto-71b3157/DESCRIPTION'
-## 
-  
-  
-  
--  preparing 'natto':
-##    checking DESCRIPTION meta-information ...
-  
-   checking DESCRIPTION meta-information ... 
-  
-v  checking DESCRIPTION meta-information
-## 
-  
-  
-  
--  checking for LF line-endings in source and make files and shell scripts
-## 
-  
-  
-  
--  checking for empty or unneeded directories
-## 
-  
-  
-  
--  building 'natto_0.2.tar.gz'
-## 
-  
-   
-## 
-```
-
-```
-## Installing package into 'C:/Users/steph/Documents/R/win-library/4.1'
-## (as 'lib' is unspecified)
+## Skipping install of 'natto' from a github remote, the SHA1 (12eeb0ff) has not changed since last install.
+##   Use `force = TRUE` to force installation
 ```
 
 ```r
@@ -879,6 +829,14 @@ ggplot(impact_summary, aes(x=Use, y=pc1, shape=Use, color=Use))+
 ```
 
 ```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```
 ## Warning: Using shapes for an ordinal variable is not advised
 ```
 
@@ -1084,7 +1042,7 @@ RsquareAdj(cca_dune, 100)
 ## [1] 0.7106267
 ## 
 ## $adj.r.squared
-## [1] 0.205453
+## [1] 0.2091022
 ```
 
 ### Hypothesis testing
@@ -1105,7 +1063,7 @@ anova(rda_dune, permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df Variance      F Pr(>F)   
-## Model    12   63.206 1.7627  0.004 **
+## Model    12   63.206 1.7627  0.008 **
 ## Residual  7   20.917                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1123,11 +1081,11 @@ anova(rda_dune, by='margin', permutations=999)
 ## 
 ## Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df Variance      F Pr(>F)
-## A1          1   2.3704 0.7933  0.625
-## Moisture    3  11.9409 1.3320  0.166
-## Management  2   7.1574 1.1976  0.293
-## Use         2   4.9785 0.8330  0.667
-## Manure      3   9.6257 1.0737  0.416
+## A1          1   2.3704 0.7933  0.654
+## Moisture    3  11.9409 1.3320  0.183
+## Management  2   7.1574 1.1976  0.281
+## Use         2   4.9785 0.8330  0.659
+## Manure      3   9.6257 1.0737  0.403
 ## Residual    7  20.9175
 ```
 
@@ -1142,7 +1100,7 @@ anova(cca_dune, permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##          Df ChiSquare      F Pr(>F)  
-## Model    12    1.5032 1.4325  0.047 *
+## Model    12    1.5032 1.4325  0.028 *
 ## Residual  7    0.6121                
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1160,11 +1118,11 @@ anova(cca_dune, by='margin', permutations = 999)
 ## 
 ## Model: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
 ##            Df ChiSquare      F Pr(>F)
-## A1          1   0.11070 1.2660  0.237
-## Moisture    3   0.31587 1.2041  0.238
-## Management  2   0.15882 0.9081  0.551
-## Use         2   0.13010 0.7439  0.780
-## Manure      3   0.25490 0.9717  0.500
+## A1          1   0.11070 1.2660  0.233
+## Moisture    3   0.31587 1.2041  0.235
+## Management  2   0.15882 0.9081  0.590
+## Use         2   0.13010 0.7439  0.776
+## Manure      3   0.25490 0.9717  0.532
 ## Residual    7   0.61210
 ```
 
@@ -1202,41 +1160,39 @@ nmds_dune <- metaMDS(dune, k =2)
 ## Run 0 stress 0.1192678 
 ## Run 1 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 0.02026912  max resid 0.0649576 
+## ... Procrustes: rmse 0.02026979  max resid 0.06495956 
 ## Run 2 stress 0.1192678 
-## Run 3 stress 0.1922241 
-## Run 4 stress 0.1192678 
+## Run 3 stress 0.1809577 
+## Run 4 stress 0.1192679 
 ## Run 5 stress 0.1192678 
-## Run 6 stress 0.1192678 
-## Run 7 stress 0.1192679 
-## Run 8 stress 0.1192678 
-## Run 9 stress 0.1183186 
+## Run 6 stress 0.1183186 
 ## ... New best solution
-## ... Procrustes: rmse 1.001776e-05  max resid 2.036678e-05 
+## ... Procrustes: rmse 7.057357e-06  max resid 2.249647e-05 
 ## ... Similar to previous best
-## Run 10 stress 0.1192679 
-## Run 11 stress 0.1183186 
-## ... New best solution
-## ... Procrustes: rmse 3.089263e-06  max resid 9.277179e-06 
+## Run 7 stress 0.1192678 
+## Run 8 stress 0.1183186 
+## ... Procrustes: rmse 5.81422e-06  max resid 2.078633e-05 
 ## ... Similar to previous best
+## Run 9 stress 0.1192678 
+## Run 10 stress 0.1183186 
+## ... Procrustes: rmse 6.507868e-06  max resid 2.132521e-05 
+## ... Similar to previous best
+## Run 11 stress 0.1192678 
 ## Run 12 stress 0.1192678 
-## Run 13 stress 0.2035424 
-## Run 14 stress 0.1192678 
-## Run 15 stress 0.2035424 
-## Run 16 stress 0.1183186 
-## ... Procrustes: rmse 1.373953e-05  max resid 4.266271e-05 
-## ... Similar to previous best
-## Run 17 stress 0.1192679 
+## Run 13 stress 0.1192678 
+## Run 14 stress 0.1192679 
+## Run 15 stress 0.188964 
+## Run 16 stress 0.1886532 
+## Run 17 stress 0.1192678 
 ## Run 18 stress 0.1183186 
-## ... Procrustes: rmse 7.542897e-06  max resid 2.33827e-05 
+## ... New best solution
+## ... Procrustes: rmse 5.612526e-06  max resid 1.77014e-05 
 ## ... Similar to previous best
-## Run 19 stress 0.1183186 
-## ... Procrustes: rmse 5.935079e-06  max resid 1.797489e-05 
-## ... Similar to previous best
+## Run 19 stress 0.1192678 
 ## Run 20 stress 0.1183186 
-## ... Procrustes: rmse 3.078803e-05  max resid 9.234988e-05 
+## ... Procrustes: rmse 4.78354e-06  max resid 1.485872e-05 
 ## ... Similar to previous best
-## *** Solution reached
+## *** Best solution repeated 2 times
 ```
 
 ```r
@@ -1256,7 +1212,8 @@ nmds_dune
 ## Dimensions: 2 
 ## Stress:     0.1183186 
 ## Stress type 1, weak ties
-## Two convergent solutions found after 20 tries
+## Best solution was repeated 2 times in 20 tries
+## The best solution was from try 18 (random start)
 ## Scaling: centring, PC rotation, halfchange scaling 
 ## Species: expanded scores based on 'dune'
 ```
@@ -1380,6 +1337,10 @@ library(factoextra)
 ```
 
 ```
+## Warning: package 'factoextra' was built under R version 4.2.3
+```
+
+```
 ## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
 ```
 
@@ -1418,36 +1379,36 @@ print(final)
 ```
 
 ```
-## K-means clustering with 4 clusters of sizes 4, 6, 4, 6
+## K-means clustering with 4 clusters of sizes 6, 4, 6, 4
 ## 
 ## Cluster means:
 ##   Achimill Agrostol Airaprae  Alopgeni Anthodor  Bellpere Bromhord  Chenalbu
-## 1 0.000000 5.000000     0.00 1.0000000 0.000000 0.0000000      0.0 0.0000000
-## 2 2.333333 0.000000     0.00 0.3333333 2.166667 1.1666667      2.0 0.0000000
-## 3 0.500000 0.000000     1.25 0.0000000 2.000000 0.5000000      0.0 0.0000000
-## 4 0.000000 4.666667     0.00 5.0000000 0.000000 0.6666667      0.5 0.1666667
+## 1 2.333333 0.000000     0.00 0.3333333 2.166667 1.1666667      2.0 0.0000000
+## 2 0.000000 5.000000     0.00 1.0000000 0.000000 0.0000000      0.0 0.0000000
+## 3 0.000000 4.666667     0.00 5.0000000 0.000000 0.6666667      0.5 0.1666667
+## 4 0.500000 0.000000     1.25 0.0000000 2.000000 0.5000000      0.0 0.0000000
 ##    Cirsarve Comapalu  Eleopalu Elymrepe Empenigr Hyporadi Juncarti  Juncbufo
-## 1 0.0000000        1 5.2500000 0.000000      0.0     0.00 2.500000 0.0000000
-## 2 0.0000000        0 0.0000000 2.000000      0.0     0.00 0.000000 0.3333333
-## 3 0.0000000        0 0.0000000 0.000000      0.5     2.25 0.000000 0.0000000
-## 4 0.3333333        0 0.6666667 2.333333      0.0     0.00 1.333333 1.8333333
+## 1 0.0000000        0 0.0000000 2.000000      0.0     0.00 0.000000 0.3333333
+## 2 0.0000000        1 5.2500000 0.000000      0.0     0.00 2.500000 0.0000000
+## 3 0.3333333        0 0.6666667 2.333333      0.0     0.00 1.333333 1.8333333
+## 4 0.0000000        0 0.0000000 0.000000      0.5     2.25 0.000000 0.0000000
 ##   Lolipere Planlanc  Poaprat  Poatriv  Ranuflam  Rumeacet Sagiproc Salirepe
-## 1 0.000000        0 0.000000 0.500000 2.5000000 0.0000000     0.00     1.25
-## 2 5.333333        3 3.500000 4.666667 0.0000000 2.3333333     0.00     0.00
-## 3 2.250000        2 2.000000 0.000000 0.0000000 0.0000000     1.25     1.50
-## 4 2.833333        0 3.166667 5.500000 0.6666667 0.6666667     2.50     0.00
+## 1 5.333333        3 3.500000 4.666667 0.0000000 2.3333333     0.00     0.00
+## 2 0.000000        0 0.000000 0.500000 2.5000000 0.0000000     0.00     1.25
+## 3 2.833333        0 3.166667 5.500000 0.6666667 0.6666667     2.50     0.00
+## 4 2.250000        2 2.000000 0.000000 0.0000000 0.0000000     1.25     1.50
 ##   Scorautu Trifprat Trifrepe  Vicilath Bracruta Callcusp
-## 1 1.500000      0.0 1.750000 0.0000000     3.00      2.5
-## 2 2.833333      1.5 3.333333 0.1666667     2.00      0.0
-## 3 4.500000      0.0 1.750000 0.7500000     3.25      0.0
-## 4 2.166667      0.0 2.166667 0.0000000     2.00      0.0
+## 1 2.833333      1.5 3.333333 0.1666667     2.00      0.0
+## 2 1.500000      0.0 1.750000 0.0000000     3.00      2.5
+## 3 2.166667      0.0 2.166667 0.0000000     2.00      0.0
+## 4 4.500000      0.0 1.750000 0.7500000     3.25      0.0
 ## 
 ## Clustering vector:
 ##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
-##  2  2  4  4  2  2  2  4  4  2  3  4  4  1  1  1  3  3  3  1 
+##  1  1  3  3  1  1  1  3  3  1  4  3  3  2  2  2  4  4  4  2 
 ## 
 ## Within cluster sum of squares by cluster:
-## [1] 115.2500 263.6667 144.2500 254.1667
+## [1] 263.6667 115.2500 254.1667 144.2500
 ##  (between_SS / total_SS =  51.4 %)
 ## 
 ## Available components:
@@ -1484,11 +1445,11 @@ text(iris_tree_initial)
 
 ```r
 #or for a prettier graph
-require(rattle)
+library(rattle)
 ```
 
 ```
-## Loading required package: rattle
+## Warning: package 'rattle' was built under R version 4.2.3
 ```
 
 ```
@@ -1530,10 +1491,10 @@ iris_tree_initial$cptable
 
 ```
 ##     CP nsplit rel error xerror       xstd
-## 1 0.50      0      1.00   1.15 0.05180090
-## 2 0.44      1      0.50   0.65 0.06069047
-## 3 0.02      2      0.06   0.10 0.03055050
-## 4 0.01      3      0.04   0.11 0.03192700
+## 1 0.50      0      1.00   1.16 0.05127703
+## 2 0.44      1      0.50   0.61 0.06016090
+## 3 0.02      2      0.06   0.09 0.02908608
+## 4 0.01      3      0.04   0.10 0.03055050
 ```
 
 ```r
@@ -1552,11 +1513,7 @@ levels(iris$virginica)[levels(iris$virginica) %in% c("setosa", "versicolor")] <-
 iris$virginica <- as.numeric(as.character(iris$virginica))
 
 #compare glm and gam 
-require(mgcv)
-```
-
-```
-## Loading required package: mgcv
+library(mgcv)
 ```
 
 ```
@@ -1564,11 +1521,11 @@ require(mgcv)
 ```
 
 ```
-## This is mgcv 1.8-39. For overview type 'help("mgcv-package")'.
+## This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.
 ```
 
 ```r
-require(MASS)
+library(MASS)
 library(MuMIn)
 ```
 
@@ -1635,7 +1592,9 @@ iris_glm_final <- stepAIC(iris_glm)
 
 ```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+```
 
+```
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 
 ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
@@ -1784,11 +1743,11 @@ AICc(iris_gam_b,  iris_glm_final)
 ```r
 #compare visually using AUC
 #calculate AUROC (AUC)
-require(ROCR)
+library(ROCR)
 ```
 
 ```
-## Loading required package: ROCR
+## Warning: package 'ROCR' was built under R version 4.2.3
 ```
 
 ```r
@@ -2152,7 +2111,7 @@ str(iris_glm_final_cv)
 ##  $ call : language cv.glm(data = iris, glmfit = iris_glm_final)
 ##  $ K    : num 150
 ##  $ delta: num [1:2] 0.0259 0.0259
-##  $ seed : int [1:626] 10403 591 515190382 2133433928 917665867 1283494313 1101294840 1366013990 -351622847 676521683 ...
+##  $ seed : int [1:626] 10403 245 -531716202 -2009050608 1302797035 1869243141 1536888801 -1393492820 -1110966239 371800656 ...
 ```
 
 ```r
@@ -2167,148 +2126,26 @@ Needs to be updated.
 
 ```r
 library(lavaan)
-```
-
-```
-## This is lavaan 0.6-11
-## lavaan is FREE software! Please report any bugs.
-```
-
-```r
 #data from Keeley et al. 2005 and extensions in Grace and Keeley 2006 exploring how 
 #fire severity interacts with stand age and cover
-keeley <- read.csv("http://byrneslab.net/classes/lavaan_materials/Keeley_rawdata_select4.csv ")
+keeley <- read.csv("http://byrneslab.net/classes/lavaan_materials/Keeley_rawdata_select4.csv")
 
 #sem vs lm####
 keeley_formula1 <- 'firesev ~ age'
 class(keeley_formula1)
-```
-
-```
-## [1] "character"
-```
-
-```r
 keeley_sem1 <- sem(keeley_formula1, data = keeley)
 summary(keeley_sem1)
-```
 
-```
-## lavaan 0.6-11 ended normally after 1 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                         2
-##                                                       
-##   Number of observations                            90
-##                                                       
-## Model Test User Model:
-##                                                       
-##   Test statistic                                 0.000
-##   Degrees of freedom                                 0
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                             Standard
-##   Information                                 Expected
-##   Information saturated (h1) model          Structured
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(>|z|)
-##   firesev ~                                           
-##     age               0.060    0.012    4.832    0.000
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(>|z|)
-##    .firesev           2.144    0.320    6.708    0.000
-```
-
-```r
 keeley_lm <- lm(firesev ~ age, data = keeley)
 summary(keeley_lm)
-```
-
-```
-## 
-## Call:
-## lm(formula = firesev ~ age, data = keeley)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.7199 -1.1131 -0.1747  0.9603  4.6091 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  3.03921    0.35543   8.551 3.45e-13 ***
-## age          0.05968    0.01249   4.778 7.03e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.481 on 88 degrees of freedom
-## Multiple R-squared:  0.206,	Adjusted R-squared:  0.197 
-## F-statistic: 22.83 on 1 and 88 DF,  p-value: 7.028e-06
-```
-
-```r
 summary(keeley_sem1, standardize = T, rsq = T)
-```
 
-```
-## lavaan 0.6-11 ended normally after 1 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                         2
-##                                                       
-##   Number of observations                            90
-##                                                       
-## Model Test User Model:
-##                                                       
-##   Test statistic                                 0.000
-##   Degrees of freedom                                 0
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                             Standard
-##   Information                                 Expected
-##   Information saturated (h1) model          Structured
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##   firesev ~                                                             
-##     age               0.060    0.012    4.832    0.000    0.060    0.454
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##    .firesev           2.144    0.320    6.708    0.000    2.144    0.794
-## 
-## R-Square:
-##                    Estimate
-##     firesev           0.206
-```
-
-```r
 #plot
 library(lavaanPlot)
 lavaanPlot(model = keeley_sem1, coefs = TRUE)
-```
-
-```{=html}
-<div id="htmlwidget-0746f80e52b0eaa6f2fe" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0746f80e52b0eaa6f2fe">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 lavaanPlot(model = keeley_sem1, coefs = TRUE,
            stand=TRUE)
-```
 
-```{=html}
-<div id="htmlwidget-5679a2854603c950af07" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5679a2854603c950af07">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 #2nd model####
 keeley_formula2 <- '
 firesev ~ age
@@ -2317,67 +2154,10 @@ cover ~ firesev
 
 keeley_sem2 <- sem(keeley_formula2, data = keeley)
 summary(keeley_sem2, standardize = T, rsq = T)
-```
-
-```
-## lavaan 0.6-11 ended normally after 1 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                         4
-##                                                       
-##   Number of observations                            90
-##                                                       
-## Model Test User Model:
-##                                                       
-##   Test statistic                                 3.297
-##   Degrees of freedom                                 1
-##   P-value (Chi-square)                           0.069
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                             Standard
-##   Information                                 Expected
-##   Information saturated (h1) model          Structured
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##   firesev ~                                                             
-##     age               0.060    0.012    4.832    0.000    0.060    0.454
-##   cover ~                                                               
-##     firesev          -0.084    0.018   -4.611    0.000   -0.084   -0.437
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##    .firesev           2.144    0.320    6.708    0.000    2.144    0.794
-##    .cover             0.081    0.012    6.708    0.000    0.081    0.809
-## 
-## R-Square:
-##                    Estimate
-##     firesev           0.206
-##     cover             0.191
-```
-
-```r
 lavaanPlot(model = keeley_sem2, coefs = TRUE)
-```
-
-```{=html}
-<div id="htmlwidget-b4426b7fb4ede40d9b85" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b4426b7fb4ede40d9b85">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.08\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 lavaanPlot(model = keeley_sem2, coefs = TRUE,
            stand=TRUE)
-```
 
-```{=html}
-<div id="htmlwidget-88a0732d3f12e46180db" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-88a0732d3f12e46180db">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.44\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 #3rd model####
 keeley_formula3 <- '
 firesev ~ age
@@ -2386,84 +2166,14 @@ cover ~ firesev + age
 
 keeley_sem3 <- sem(keeley_formula3, data = keeley)
 summary(keeley_sem3, standardize = T)
-```
-
-```
-## lavaan 0.6-11 ended normally after 1 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                         5
-##                                                       
-##   Number of observations                            90
-##                                                       
-## Model Test User Model:
-##                                                       
-##   Test statistic                                 0.000
-##   Degrees of freedom                                 0
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                             Standard
-##   Information                                 Expected
-##   Information saturated (h1) model          Structured
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##   firesev ~                                                             
-##     age               0.060    0.012    4.832    0.000    0.060    0.454
-##   cover ~                                                               
-##     firesev          -0.067    0.020   -3.353    0.001   -0.067   -0.350
-##     age              -0.005    0.003   -1.833    0.067   -0.005   -0.191
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-##    .firesev           2.144    0.320    6.708    0.000    2.144    0.794
-##    .cover             0.078    0.012    6.708    0.000    0.078    0.780
-```
-
-```r
 lavaanPlot(model = keeley_sem3, coefs = TRUE)
-```
-
-```{=html}
-<div id="htmlwidget-b3dd43fa59794a84f5e3" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3dd43fa59794a84f5e3">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.06\"] firesev->cover [label = \"-0.07\"] age->cover [label = \"0\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 lavaanPlot(model = keeley_sem3, coefs = TRUE,
            stand=TRUE)
-```
-
-```{=html}
-<div id="htmlwidget-1222a0e6c43c96a8d8be" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1222a0e6c43c96a8d8be">{"x":{"diagram":" digraph plot { \n graph [ overlap = true, fontsize = 10 ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"-0.19\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 #another layout
 lavaanPlot(model = keeley_sem3, coefs = TRUE, stand=TRUE,
            graph_options = list(layout = "circo"),sig = 0.05)
-```
 
-```{=html}
-<div id="htmlwidget-f73054443ff74b017511" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f73054443ff74b017511">{"x":{"diagram":" digraph plot { \n graph [ layout = circo ] \n node [ shape = box ] \n node [shape = box] \n age; firesev; cover \n node [shape = oval] \n  \n \n edge [ color = black ] \n age->firesev [label = \"0.45\"] firesev->cover [label = \"-0.35\"] age->cover [label = \"\"]  \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-```r
 #compare####
 anova(keeley_sem2, keeley_sem3) #null is that models are different!
-```
-
-```
-## Chi-Squared Difference Test
-## 
-##             Df   AIC   BIC  Chisq Chisq diff Df diff Pr(>Chisq)  
-## keeley_sem3  0 359.4 371.9 0.0000                                
-## keeley_sem2  1 360.7 370.7 3.2974     3.2974       1    0.06939 .
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
