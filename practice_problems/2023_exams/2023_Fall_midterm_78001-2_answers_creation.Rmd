@@ -1,0 +1,195 @@
+---
+title: "2023 Fall 78001-2 Midterm"
+subtitle:  "Happy (late) Halloween"
+author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class) - you can even look
+for help with R-specific issues! However, you may not get external help
+( from other students, directed internet searches re, etc.) regarding
+the dataa. Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students.
+
+Good luck!
+
+# Oysters, predators, and climate change
+
+## Background
+
+Oysters are bivalves (molluscs with 2 shells) that grow in cluster we
+call reefs as adults.  Oysters are susceptible to mortality due to both
+biotic (predator) and abiotic (heat stress) cues. These factors may also
+impact growth.
+
+A study was undertaken to consider these issues in South Carolina. The
+focal site had been previously surveyed in 1980 through a set of
+undergraduate projects.
+
+## #1
+
+Following up on the 78001 exam, conduct the analysis you recommended for
+assessing oyster mortality. Remember:
+
+> Oyster traits were assessed using a random sample. A drone was used to
+> capture high-resolution aerial images of the site. These images were
+> stitched together using photoshop software, and 1000 points were
+> randomly placed on the resulting image. The oyster that was closest to
+> each dot was then measured for status (dead/alive) and length.
+
+> Previous studies had noted approximately 15% of oysters on the reef
+> were dead. Our study found 155 dead oysters.
+
+```{r}
+binom.test(155,1000, .13)
+```
+
+### interpretation
+
+## #2
+
+## contingency
+
+Unlike the previous study
+
+```{r}
+set.seed(21)
+x <- rmultinom(n = 1, size = 500, prob = c(.4, .4, .4, .6, .6, .6, .8))
+y <- rmultinom(n = 1, size = 500, prob = c( .6, .6, .6, .4, .4, .4,.2))
+colSums(x+y)
+
+oyster_table <- matrix(c(x,y), nrow=2, byrow = T)
+colnames(oyster_table) <- c("<15 mm","15-30 mm", "30-45 mm",
+                            "45-60 mm", "60-90 mm", "90-120 mm", "120+mm")
+rownames(oyster_table) <- c("Alive", "Dead")
+oyster_table
+
+chisq.test(oyster_table)
+
+library(rcompanion)
+bonf_correct <- pairwiseNominalIndependence(oyster_table, compare="col", method = "holm")
+bonf_correct
+```
+
+## #3
+
+```{r}
+set.seed(19)
+x <- runif(10, 1,5)
+
+reef_wide <- data.frame(reef = rep(1:10),
+                   old_survey_predator_density = x,
+                   new_predator_density = x*1.15)
+
+reef_wide$change <- reef_wide$new_predator_density-
+  reef_wide$old_survey_predator_density
+
+
+reef_long <- data.frame(reef = rep(1:10,2),
+                        measure = factor(c(rep("old_survey", 10),
+                                         rep("new_survey", 10))),
+                        predator_density = c(x, x*1.15))
+write.csv(reef_wide, "reef_wide.csv", row.names = F)
+write.csv(reef_long, "reef_long.csv", row.names = F)
+```
+
+```{r}
+reef_long <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSTXRWNfzYrCmCnEYXoeGdgD-uhaXph4XFNwzZdMOTuk9sLUtWVVp91YaBcATCfoAQ4rNgfE4nar5Yj/pub?gid=2007431006&single=true&output=csv", stringsAsFactors = T)
+reef_wide <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQK9toq6hztnK3E5roPGO66eofkrjhhnIHfM29UDPXuhQ6w4cAIuswfGsuVBTG7B7dcJ6S2utEQsKZw/pub?gid=1962481186&single=true&output=csv", stringsAsFactors = T)
+```
+
+```{r}
+t.test(reef_wide$old_survey_predator_density, reef_wide$new_predator_density)
+t.test(reef_wide$old_survey_predator_density, reef_wide$new_predator_density,paired = T)
+```
+
+```{r}
+reef_long_approach <- lm(predator_density~factor(reef)+measure, reef_long)
+plot(reef_long_approach)
+Anova(reef_long_approach, type = "III")
+```
+
+```{r}
+reef_colleague <- lm(change~reef, reef_wide)
+Anova(reef_colleague, type = "III")
+summary(reef_colleague)
+```
+
+```{r}
+ggplot(reef_wide, aes(x=change))+
+       geom_histogram()
+```
+
+## #3
+
+## factorial
+
+An experiment was carried out
+
+```{r}
+set.seed(19)
+experiment <- data.frame(temperature = factor(c(rep("ambient",75), rep("elevated_scenario1", 75), rep("elevated_scenario2", 75))),
+                         predator_cue = factor(c(rep(c(rep("none",25),
+                                               rep("normal",25),
+                                               rep("high",25)),3))),
+                         growth = c(rnorm(25,2),
+                                    rnorm(25, 1.5),
+                                    rnorm(25, .7),
+                                    rnorm(25,2.7),
+                                    rnorm(25,1.0),
+                                    rnorm(25, .4),
+                                    rnorm(25, 3.1),
+                                    rnorm(25, 3.1),
+                                    rnorm(25, 3.1)))
+experiment[experiment$growth<0, "growth"] <- 0
+write.csv(experiment, "experiment.csv", row.names = F)
+```
+
+
+```{r}
+experiment <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRXgAuynB8tusTIkEc93S0Az-dNBvWC8hxj3co4N2907P9wqbmnYBV8SK0GVYaY7ILUdDXQQngVs_Hn/pub?gid=157339363&single=true&output=csv", stringsAsFactors = T)
+
+experiment$temperature <- factor(experiment$temperature, levels=c('ambient', 'elevated_scenario1', "elevated_scenario2"))
+
+experiment$predator_cue <- factor(experiment$predator_cue, levels=c('none', 'normal', "high"))
+
+
+
+growth_lm <- lm(growth~predator_cue*temperature, experiment)
+plot(growth_lm)
+library(car)
+Anova(growth_lm, type="III")
+```
+
+## #4
+
+## plot
+
+```{r}
+library(ggplot2)
+library(Rmisc)
+experiment_summary <- summarySE(experiment, measurevar = "growth", groupvars = c("temperature", "predator_cue"))
+ggplot(experiment_summary, aes(x=temperature, 
+                           y=growth,
+                           fill=predator_cue)) +
+  geom_col(color="black", position=position_dodge()) +
+  geom_errorbar(aes(ymin=growth, ymax=growth+ci), position = position_dodge()) +
+  labs(title="Impact of increasing predator cue depends on temperature",
+       x= "Temperature",
+       y= "growth (cm)",
+       fill = "Predator cue level")
+```

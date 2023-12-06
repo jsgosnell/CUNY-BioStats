@@ -1,0 +1,166 @@
+---
+title: "2023 Fall 78002 Midterm"
+author: "jsg"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class) - you can even look
+for help with R-specific issues! However, you may not get external help
+( from other students, directed internet searches re, etc.) regarding
+the dataa. Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students.
+
+Good luck!
+
+# Oysters, predators, and climate change
+
+## Background
+
+Oysters are bivalves (molluscs with 2 shells) that grow in clusters we
+call reefs as adults.  Oysters are susceptible to mortality due to both
+biotic (predator) and abiotic (heat stress) cues. These factors may also
+impact growth.
+
+A colleague who knows you are taking statistics wants your help.  They
+took a course a long time ago but some things are hazy. Your colleague's
+work focuses on how increased temperatures and predators impact growth
+in oysters.
+
+## #1
+
+Following up on the 78001 exam, conduct the analysis you recommended for
+assessing oyster mortality. Remember:
+
+> Their first question focuses on work from one reef.  Oysters at the
+> reef were assessed using a random sampling protocol. A drone was used
+> to capture high-resolution aerial images of the site. These images
+> were stitched together using photoshop software, and 1000 points were
+> randomly placed on the resulting image. The oyster that was closest to
+> each dot was then measured for status (dead/alive) and length.
+>
+> 155 of the surveyed oysters were dead.  Previous studies had noted
+> approximately 15% of oysters on the reef were dead.  
+
+Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis (1 pt)
+-   explanation for test you will use (1 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (2
+    pt)
+
+## #2
+
+Following up on the 78001 exam, conduct the analysis you recommended for
+assessing oyster mortality given additional age class data. Remember:
+
+> Given your colleagues ability to measure mortality and length, they
+> are curious if there is anything else they can do with the data. 
+> Below is a sample from a different reef.  
+
+|       |                |       |       |       |       |        |      |
+|-------|----------------|-------|-------|-------|-------|--------|------|
+|       | size range(mm) |       |       |       |       |        |      |
+|       | \<15           | 15-30 | 30-45 | 45-60 | 60-90 | 90-120 | 120+ |
+| Alive | 60             | 54    | 62    | 74    | 69    | 81     | 100  |
+| Dead  | 104            | 95    | 81    | 61    | 77    | 52     | 30   |
+
+Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis (1 pt)
+-   explanation for test you will use (1 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (2
+    pt)
+
+## #3
+
+Following up on the 78001 exam, conduct the analysis you recommended for
+assessing changes in predator density. As a reminder:
+
+> Besides measuring oysters, your colleague also measured predator
+> density in order to determine if it may have changed.  They chose 10
+> sites where predator (blue crab) density had been measured for
+> undergraduate research projects in the 1980's and carried out new
+> surveys at those sites using the same methods.  They felt better about
+> working with numerical data, so this time they bring  you some
+> preliminary analysis...
+>
+> They knew sites were paired or something, so they subtracted the old
+> from the new density to get the change column. Densities are crabs/m2.
+
+The data they used can be found in 2 formats using the inputs below.
+
+```{r}
+reef_long <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSTXRWNfzYrCmCnEYXoeGdgD-uhaXph4XFNwzZdMOTuk9sLUtWVVp91YaBcATCfoAQ4rNgfE4nar5Yj/pub?gid=2007431006&single=true&output=csv", stringsAsFactors = T)
+reef_wide <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQK9toq6hztnK3E5roPGO66eofkrjhhnIHfM29UDPXuhQ6w4cAIuswfGsuVBTG7B7dcJ6S2utEQsKZw/pub?gid=1962481186&single=true&output=csv", stringsAsFactors = T)
+```
+
+and their initial analysis code (screenshots shown on test) is
+
+```{r}
+reef_colleague <- lm(change~reef, reef_wide)
+library(car)
+Anova(reef_colleague, type = "III")
+summary(reef_colleague)
+```
+
+Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis (1 pt)
+-   explanation for test you will use (1 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (2
+    pt)
+
+## #4
+
+Following up on the 78001 exam, conduct the analysis you recommended for
+assessing changes in oyster growth from the lab experiment. As a
+reminder:
+
+> Given the acknowledgement your colleague gave you at a conference
+> presentation,  you are asked to help with a related manuscript. 
+> Another lab member followed up on the work by carrying out a
+> controlled lab experiment. Oysters were placed in individual tanks and
+> held at normal summer (calculated using recent data) temperature or at
+> temperatures predicted under 2 IPCC --- Intergovernmental Panel on
+> Climate Change- scenarios. Oysters were exposed to predator cues by
+> dropping in water from tanks with 0, low (.25/m2), or high (2/m2)
+> predators. After two months changes in oyster shell length (growth)
+> was measured.  Twenty-five oysters were measured for each treatment
+> combination.  
+
+Data can be downloaded using
+
+```{r}
+experiment <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRXgAuynB8tusTIkEc93S0Az-dNBvWC8hxj3co4N2907P9wqbmnYBV8SK0GVYaY7ILUdDXQQngVs_Hn/pub?gid=157339363&single=true&output=csv", stringsAsFactors = T)
+```
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis (1 pt)
+-   explanation for test you will use (1 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (2
+    pt)
+
+## #5
+
+Plot the data from the lab experiment (#4).
