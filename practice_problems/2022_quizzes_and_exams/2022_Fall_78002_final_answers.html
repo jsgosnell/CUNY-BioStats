@@ -1488,7 +1488,7 @@ border-radius: 0px;
 total)</h1>
 <h3 class="subtitle">Thanks for a good semester! Good luck!</h3>
 <h4 class="author">jsg answers</h4>
-<h4 class="date">Last compiled on 01 November, 2023 10:08</h4>
+<h4 class="date">Last compiled on 07 December, 2023 16:06</h4>
 
 </div>
 
@@ -1637,7 +1637,9 @@ may want to use a quasi-binomial, but not required</p>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Interaction is significant, so we should divide the data. Before we
-do that, let’s compare the various fits (not required for test)</p>
+do that, let’s compare the various fits (not required for test)
+(<strong>Note</strong>: I’m not sure this is valid - can we use AIC to
+compare different likelihood methods given different outcomes?)</p>
 <pre class="r"><code>juvenile_fit_lm &lt;- lm(Juveniles_colonized ~ adults*source.habitat, 
     juvenile)
 juvenile_fit_quasi &lt;- glm(cbind(Juveniles_colonized, Juveniles_not_colonized) ~ adults*source.habitat, 

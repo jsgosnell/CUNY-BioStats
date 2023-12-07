@@ -2,7 +2,7 @@
 title: "2022 Fall 78002 Final (30 points total)"
 subtitle:  "Thanks for a good semester! Good luck!"
 author: "jsg answers"
-date: "Last compiled on 01 November, 2023 10:08"
+date: "Last compiled on 07 December, 2023 16:06"
 output:
   html_document:
     toc: true
@@ -192,7 +192,8 @@ Anova(juvenile_fit_glm, type = "III")
 ```
 
 Interaction is significant, so we should divide the data.  Before we do that, let's 
-compare the various fits (not required for test)
+compare the various fits (not required for test) (**Note**: I'm not sure this is 
+valid - can we use AIC to compare different likelihood methods given different outcomes?)
 
 
 ```r

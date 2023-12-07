@@ -123,7 +123,8 @@ Anova(juvenile_fit_glm, type = "III")
 ```
 
 Interaction is significant, so we should divide the data.  Before we do that, let's 
-compare the various fits (not required for test)
+compare the various fits (not required for test) (**Note**: I'm not sure this is 
+valid - can we use AIC to compare different likelihood methods given different outcomes?)
 
 ```{r}
 juvenile_fit_lm <- lm(Juveniles_colonized ~ adults*source.habitat, 
