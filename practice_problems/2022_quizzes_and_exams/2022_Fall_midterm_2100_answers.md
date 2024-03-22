@@ -2,7 +2,7 @@
 title: "2022 Fall Midterm (30 points total)"
 subtitle:  "Happy Halloween"
 author: "jsg answers"
-date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+date: "Last compiled on 21 March, 2024 20:00"
 output:
   html_document:
     toc: true
@@ -59,13 +59,43 @@ evidence that transformations are becoming more common with this strain?
   a given value.*
 * results from statistical test (1 pt)
 
-```{r}
-binom.test(17,111, p=.1)
 
+```r
+binom.test(17,111, p=.1)
+```
+
+```
+## 
+## 	Exact binomial test
+## 
+## data:  17 and 111
+## number of successes = 17, number of trials = 111, p-value = 0.07899
+## alternative hypothesis: true probability of success is not equal to 0.1
+## 95 percent confidence interval:
+##  0.09182302 0.23385176
+## sample estimates:
+## probability of success 
+##              0.1531532
+```
+
+```r
 #or 
 
 binom.test(17,111, p=.1, alternative = "greater")
+```
 
+```
+## 
+## 	Exact binomial test
+## 
+## data:  17 and 111
+## number of successes = 17, number of trials = 111, p-value = 0.05001
+## alternative hypothesis: true probability of success is greater than 0.1
+## 95 percent confidence interval:
+##  0.09999738 1.00000000
+## sample estimates:
+## probability of success 
+##              0.1531532
 ```
 * clear explanation of how results relate to your stated hypotheses (2 pt)
   * *I found a p-value of .07 (>.05), so I fail to reject the null hypothesis. The 
@@ -77,9 +107,25 @@ binom.test(17,111, p=.1, alternative = "greater")
 2. A local agency wants to know how many people they might predict will transform 
 as the new strain spreads.  What would you tell them? (2 pts) 
 
-```{r}
+
+```r
 library(binom)
 binom.confint(17,111)
+```
+
+```
+##           method  x   n      mean      lower     upper
+## 1  agresti-coull 17 111 0.1531532 0.09690907 0.2326014
+## 2     asymptotic 17 111 0.1531532 0.08615667 0.2201496
+## 3          bayes 17 111 0.1562500 0.09184534 0.2241365
+## 4        cloglog 17 111 0.1531532 0.09357770 0.2262487
+## 5          exact 17 111 0.1531532 0.09182302 0.2338518
+## 6          logit 17 111 0.1531532 0.09738342 0.2326298
+## 7         probit 17 111 0.1531532 0.09570835 0.2297693
+## 8        profile 17 111 0.1531532 0.09441152 0.2277211
+## 9            lrt 17 111 0.1531532 0.09440270 0.2277208
+## 10     prop.test 17 111 0.1531532 0.09428549 0.2367357
+## 11        wilson 17 111 0.1531532 0.09787476 0.2316357
 ```
 
 *The 95% confidence interval is 9.7-23.3% using the Agresti-Coull method (1 pts). A 
@@ -92,7 +138,8 @@ would contain the true population parameter. (1 pts)*
 
 Make the data (not evaluating as already made!)
 
-```{r, eval = F}
+
+```r
 set.seed(25)
 size_wide <- data.frame(subject = 1:82, weight_human_form = c(runif(82, 50, 100)))
 size_wide$weight_wolf_form <- size_wide$weight_human_form +3 +runif(82,-2,2)
@@ -101,7 +148,8 @@ write.csv(size_wide, "wolf_human_weight_wide.csv", row.names = F)
 
 make long (not evaluating as already made!)
 
-```{r, eval = F}
+
+```r
 library(reshape2)
 size_long <- melt(size_wide, id.vars = "subject", variable.name = "form", 
                   value.name = "weight")
@@ -113,7 +161,8 @@ write.csv(size_long, "wolf_human_weight_long.csv", row.names = F)
 
 Now testing below
 
-```{r, eval = F}
+
+```r
 t.test(size_wide$weight_wolf_form, size_wide$weight_human_form, paired = T)
 t.test(size_wide$weight_human_form, size_wide$weight_wolf_form, paired = T)
 
@@ -133,14 +182,16 @@ at a secure facility.
 
 Data is available using (wide format)
 
-```{r}
+
+```r
 size_wide <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQPEgn69EFpp6-FLOCuMjBHQg2de2eufsk1tot5_pet4PBWw7LONCpzHRgV9F7o4_qR8lxAjhfltCjK/pub?gid=1132258987&single=true&output=csv", 
                       stringsAsFactors = T)
 ```
 
 or (long format)
 
-```{r}
+
+```r
 size_long <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTuKbRFnuaRITxnQXmeTBzlBVtJYcRYH50MFrvhXnud8PevFo2E-eTeqvqqZvrSNp0iV-R96YZub0Du/pub?gid=528744338&single=true&output=csv",
                       stringsAsFactors = T)
 ```
@@ -160,26 +211,120 @@ Investigate the question. Make sure you include
   assumptions are appropriate.*
 * results from statistical test (1 pt)
 
-```{r}
-t.test(size_wide$weight_wolf_form, size_wide$weight_human_form, paired = T)
 
+```r
+t.test(size_wide$weight_wolf_form, size_wide$weight_human_form, paired = T)
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  size_wide$weight_wolf_form and size_wide$weight_human_form
+## t = 22.532, df = 81, p-value < 2.2e-16
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  2.612064 3.118066
+## sample estimates:
+## mean difference 
+##        2.865065
+```
+
+```r
 t.test(weight~form, size_long, paired = T)
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  weight by form
+## t = -22.532, df = 81, p-value < 2.2e-16
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  -3.118066 -2.612064
+## sample estimates:
+## mean difference 
+##       -2.865065
 ```
 or (note order matters!)
 
 
-```{r}
+
+```r
 t.test(size_wide$weight_wolf_form, size_wide$weight_human_form, paired = T,
        alternative = "greater")
+```
 
+```
+## 
+## 	Paired t-test
+## 
+## data:  size_wide$weight_wolf_form and size_wide$weight_human_form
+## t = 22.532, df = 81, p-value < 2.2e-16
+## alternative hypothesis: true mean difference is greater than 0
+## 95 percent confidence interval:
+##  2.653492      Inf
+## sample estimates:
+## mean difference 
+##        2.865065
+```
+
+```r
 t.test(weight~form, size_long, paired = T, alternative = "less")
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  weight by form
+## t = -22.532, df = 81, p-value < 2.2e-16
+## alternative hypothesis: true mean difference is less than 0
+## 95 percent confidence interval:
+##       -Inf -2.653492
+## sample estimates:
+## mean difference 
+##       -2.865065
 ```
 
 Not 
 
-```{r}
+
+```r
 t.test(size_wide$weight_wolf_form, size_wide$weight_human_form)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  size_wide$weight_wolf_form and size_wide$weight_human_form
+## t = 1.2992, df = 161.97, p-value = 0.1957
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.489576  7.219705
+## sample estimates:
+## mean of x mean of y 
+##  75.15196  72.28690
+```
+
+```r
 t.test(weight~form, size_long)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  weight by form
+## t = -1.2992, df = 161.97, p-value = 0.1957
+## alternative hypothesis: true difference in means between group human and group wolf is not equal to 0
+## 95 percent confidence interval:
+##  -7.219705  1.489576
+## sample estimates:
+## mean in group human  mean in group wolf 
+##            72.28690            75.15196
 ```
 
 
@@ -193,23 +338,56 @@ t.test(weight~form, size_long)
 
 4. Graph the data used in question 3 in an appropriate way (several options here!) (5 pts)
 
-```{r}
+
+```r
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 4.3.3
+```
+
+```r
 ggplot(size_long, aes(x=weight, fill=form))+
   geom_histogram()
+```
 
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](2022_Fall_midterm_2100_answers_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
+```r
 ggplot(size_long, aes(x=weight, fill=form))+
   geom_histogram() +
   facet_wrap(~form, ncol=1)
+```
 
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](2022_Fall_midterm_2100_answers_files/figure-html/unnamed-chunk-11-2.png)<!-- -->
+
+```r
 ggplot(size_long, aes(x=form, y=weight))+
   geom_point()
+```
 
+![](2022_Fall_midterm_2100_answers_files/figure-html/unnamed-chunk-11-3.png)<!-- -->
+
+```r
 size_wide$difference <- size_wide$weight_wolf_form - size_wide$weight_human_form
 ggplot(size_wide, aes(x=difference))+
   geom_histogram()
+```
 
 ```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](2022_Fall_midterm_2100_answers_files/figure-html/unnamed-chunk-11-4.png)<!-- -->
 
 
 # #5
@@ -233,15 +411,54 @@ to investigate the impact of the drug. Make sure you include
   I will check assumptions once model is created.
 * results from statistical test (1 pt)
 
-```{r}
+
+```r
 #note order doesn't matter here!
 chisq.test(matrix(c(43,38, 50-43, 50-38), nrow = 2, byrow = T))
+```
 
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(43, 38, 50 - 43, 50 - 38), nrow = 2, byrow = T)
+## X-squared = 1.0396, df = 1, p-value = 0.3079
+```
+
+```r
 chisq.test(matrix(c(43,50-43, 38, 50-38), nrow = 2, byrow = T))
+```
 
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(43, 50 - 43, 38, 50 - 38), nrow = 2, byrow = T)
+## X-squared = 1.0396, df = 1, p-value = 0.3079
+```
+
+```r
 chisq.test(matrix(c(43,38, 50-43, 50-38), nrow = 2))
+```
 
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(43, 38, 50 - 43, 50 - 38), nrow = 2)
+## X-squared = 1.0396, df = 1, p-value = 0.3079
+```
+
+```r
 chisq.test(matrix(c(43,50-43, 38, 50-38), nrow = 2))
+```
+
+```
+## 
+## 	Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  matrix(c(43, 50 - 43, 38, 50 - 38), nrow = 2)
+## X-squared = 1.0396, df = 1, p-value = 0.3079
 ```
 
 * clear explanation of how results relate to your stated hypotheses (2 pts)
