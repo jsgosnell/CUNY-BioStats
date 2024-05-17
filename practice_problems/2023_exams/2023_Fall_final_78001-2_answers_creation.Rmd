@@ -1,0 +1,404 @@
+---
+title: "2023 Fall 78001-2 Final: Snakes on an exam!"
+subtitle:  "Thanks for a good semester"
+author: "jsg answers"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
+    self_contained: true
+    toc_depth: 6
+bibliography: references.bib
+---
+
+# Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class) - you can even look
+for help with R-specific issues! However, you may not get external help
+(from other students, directed internet searches re, etc.) regarding the
+data. Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students.
+
+Good luck!
+
+# Snakes
+
+Understanding how environmental factors impact species can be important
+to conservation and management (and relates directly to exploring how
+factors impact outcomes - analysis!). A colleague is focused on how
+various factors impact snake behavior, habitat use, and species
+interactions for a species that lives in semi-arid deserts that are occasionally
+impacted by heavy (monsoon) rains. They've collected a lot of data but aren't sure how to
+analyze it.
+
+## 1
+
+From [@blais2023]; I downloaded data and
+
+-   averaged environmental variable start and end time
+
+    -   ambient temperature (TA,°C)
+
+    -   relative humidity (RH)
+
+    -   barometic pressure (BP, millibars)
+
+    -   wind (wind speed, m/s)
+
+-   only included a subset for student use
+
+For one study, the researcher used visual surveys (eg, walking through
+the area) to count snakes in a local reserve. For each survey, they
+documented
+
+-   were snakes observed (column in dataset: pres , 1=yes, 0= no)
+
+-   season (column in dataset: season, pre-monsoon, monsoon,
+    post-monsoon)
+
+-   ambient temperature (column in dataset: TA,°C)
+
+-   relative humidity (column in dataset: RH)
+
+-   barometic pressure (column in dataset: BP, millibars)
+
+-   wind speed(column in dataset: wind , m/s)
+
+-   stream flow (column in dataset: streamflow..m3., max stream flow
+    (m3/s) during survey window)
+
+They tried to use a linear model to determine which factors were
+important to determing snake presence. They haven't had stats in a
+while, but they found some code online. They started by building a model
+with all factors, checking the p-values, and checking their assumptions.
+However, this led to some issues.
+
+-   season had 3 levels - only 2 are listed
+
+    ```{r}
+snakes <- read.csv ("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1L-2LEdYMV-HNo3b6aexfT2DyNfC7PhujoNQ33Y6gIBFIPrrWtvdKIUz146or6q43QI05gv0KR9Fa/pub?gid=1499758404&single=true&output=csv", 
+                        stringsAsFactors = T, na.strings = c("NA", "#DIV/0!"))
+    ```
+
+
+    ```{r}
+    str(snakes)
+    panel.cor <- function(x, y, digits=2, prefix="", cex.cor) 
+{
+  usr <- par("usr"); on.exit(par(usr)) 
+  par(usr = c(0, 1, 0, 1)) 
+  r <- abs(cor(x, y)) 
+  txt <- format(c(r, 0.123456789), digits=digits)[1] 
+  txt <- paste(prefix, txt, sep="") 
+  if(missing(cex.cor)) cex <- 0.8/strwidth(txt) 
+  
+  test <- cor.test(x,y) 
+  # borrowed from printCoefmat
+  Signif <- symnum(test$p.value, corr = FALSE, na = FALSE, 
+                   cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                   symbols = c("***", "**", "*", ".", " ")) 
+  
+  text(0.5, 0.5, txt, cex = cex * r) 
+  text(.8, .8, Signif, cex=cex, col=2) 
+}
+pairs(snakes, lower.panel=panel.smooth, upper.panel=panel.cor)
+library(psych)
+pairs.panels(snakes, stars=T)
+    ```
+
+    ```{r}
+    snake_presence_lm <- lm(pres ~ season+TA+RH+BP+wind+streamflow..m3.,
+                          data= na.omit(snakes))
+    summary(snake_presence_lm)
+    
+    ```
+
+-   Some of these plots looked odd (note the na.omit(snakes) portion is
+    just removing all rows with an NA - use it as needed)
+
+    ```{r}
+    plot(snake_presence_lm)
+    
+    ```
+
+Do you have any advice to offer on how they may want to analyze the
+data? Make sure you justify your approach and explain any needed steps; also list
+hypotheses if needed.
+
+
+### Answer
+
+```{r}
+library(psych)
+pairs.panels(snakes, stars=T)
+```
+
+
+```{r}
+library(MASS)
+snake_presence <- glm(pres ~ season+TA+RH+BP+wind+streamflow..m3.,
+                      data= na.omit(snakes),
+                      family = "binomial")
+summary(snake_presence)
+library(car)
+Anova(snake_presence, type = "III")
+```
+
+Dispersion estimate looks ok. Could stop here (one option) or move forward 
+with model selection. Top-down using AIC shown here
+
+```{r}
+stepAIC(snake_presence)
+```
+
+Note "perfect prediction" issues, so we get large standard errors.  
+
+
+
+## 2
+
+For the survey, they also noted they weren't sure how to specify season. 
+Although they originally specified it as a factor with 3 levels based on date 
+(pre-monsoon, monsoon, post-monsoon),they could also just specify it as wet or dry.
+They know the 2 measures are related based on the following table:
+
+```{r}
+seasons <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1L-2LEdYMV-HNo3b6aexfT2DyNfC7PhujoNQ33Y6gIBFIPrrWtvdKIUz146or6q43QI05gv0KR9Fa/pub?gid=1603572731&single=true&output=csv",
+                    stringsAsFactors = T, na.strings = c("NA", "#DIV/0!"))
+```
+
+```{r}
+table(seasons$season.2, seasons$season)
+```
+Are there any issues with including both variables (labeled season and season.2
+in the dataset) in the model? If so, how would you choose which one (if either)
+to include?
+
+
+### Answer
+```{r}
+chisq.test(table(seasons$season.2, seasons$season))
+```
+
+
+
+
+
+```{r}
+AIC(glm(pres~season.2, family="binomial", data=seasons))
+AIC(glm(pres~season, family="binomial", data=seasons))
+AIC(glm(pres~season+season.2, family="binomial", data=seasons))
+
+AIC(glm(pres~season.2, family="binomial", data=seasons),glm(pres~season, family="binomial", data=seasons), glm(pres~season+season.2, family="binomial", data=seasons))
+
+
+AIC(lm(pres~season.2,data=seasons))
+AIC(lm(pres~season,  data=seasons))
+AIC(lm(pres~season+season.2,  data=seasons))
+
+
+```
+
+```{r}
+seasons$pres2 <- seasons$pres
+levels(seasons$pres2)<- c("no", "yes")
+seasons_full<- lm(pres ~ season + season.2, data= na.omit(seasons)) 
+seasons_final <- step(seasons_full)
+AIC(seasons_final, lm(pres~season,  data=seasons))
+```
+
+
+## 3
+
+As part of their surveys, they also collected morphometric data including
+
+-   snout-vent length (SVL, mm)
+-   mass (mass, g)
+-   age (age, factor labelled as neonate, immature, or adult)
+
+A common measure of body condition in their field is log(SVL)/log(M). They are 
+curious if this condition index (focus on this for now) differs among age.  
+How  would you recommend they
+analyze the data? Make sure you justify your approach and explain any needed steps; also list
+hypotheses if needed.
+
+```{r}
+size <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1L-2LEdYMV-HNo3b6aexfT2DyNfC7PhujoNQ33Y6gIBFIPrrWtvdKIUz146or6q43QI05gv0KR9Fa/pub?gid=276877765&single=true&output=csv",
+                 stringsAsFactors = T)
+```
+
+-   snout-vent length (SVL, mm)
+-   mass (mass, g)
+-   age (age, labeled as neonate ())
+
+### Answer
+
+```{r}
+condition <- lm(logM.logSVL~age, size)
+plot(condition)
+Anova(condition, type="III")
+library(multcomp)
+summary(glht(condition, linfct = mcp(age = "Tukey")))
+```
+
+## 4
+
+They are curious why  condition index is presented in such a manner (why the logs?). Can you
+offer any insight or recommend any other way you could analyze the data?  Note this
+is a shorter question (fewer points), so I'm just looking for some general ideas 
+they could use to get started.
+
+## 5
+
+Plot the data on condition index and age.
+
+### Answer
+
+```{r}
+library(ggplot2)
+ggplot(size, aes(x=age, y=logM.logSVL))+
+  geom_jitter()
+```
+
+## 6
+
+Given that age classes may respond diffently to stressors, the researcher
+also wanted to know if snake movement (defined as 0=observed snake not moving;
+1=observed snake moving) differed among ages classes.  They share this table:  
+
+```{r, include=F}
+behavior <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1L-2LEdYMV-HNo3b6aexfT2DyNfC7PhujoNQ33Y6gIBFIPrrWtvdKIUz146or6q43QI05gv0KR9Fa/pub?gid=1276145787&single=true&output=csv",
+                     stringsAsFactors = T)
+behavior_table <- table(behavior$movement, behavior$ageclass)
+```
+
+```{r}
+behavior_table
+```
+Do you have any advice to offer on how they may want to analyze the
+data? Make sure you justify your approach and explain any needed steps; also list
+hypotheses if needed. 
+
+### Answer
+```{r}
+chisq.test(behavior_table)
+```
+
+
+
+```{r}
+chisq.test(behavior_table)$expected
+```
+
+```{r}
+fisher.test(behavior_table)
+```
+note
+
+```{r}
+as_glm <- glm(movement~ageclass, behavior, family = "binomial")
+summary(as_glm)
+Anova(as_glm, type="III")
+chisq.test(behavior_table, correct = F)
+```
+
+
+## 7
+
+Based on @cyriac2019
+
+In a fun/odd twist, they were also curious about how snakes interacted with
+their predators. Although many other snakes in use camouflage (brown or black 
+color), this snake has several colorful versions (red and yellow)  The researchers
+built snake models in these colors out of play dough, plus an orange morph, to 
+determine how the bright color impacts predation rates (measured as bird strikes
+on the models). They put 50 models of each color in 4 different areas and checked the
+models for bird strikes after 48 hours.  All models were collected.
+
+Data includes
+
+* Model (representing color of model: Bl(ack), Br(own), N(orange, novel color),
+R(ed), Y(ellow))
+* Avian.Attack (evidence of bird attack? 0=no, 1 = yes)
+* Transect (location of model)
+
+Do you have any advice to offer on how they may want to analyze the
+data? Make sure you justify your approach and explain any needed steps; also list
+hypotheses if needed. 
+
+
+```{r}
+color <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQHWuORlDpmKhPsHDWSsGrwlzK66EqP2-GGIikhljBgsRF0nNsqbcFV5_c6JdN6sBAF55-XX4oAZJlc/pub?gid=187879458&single=true&output=csv", stringsAsFactors = T)
+```
+
+
+### Answer
+```{r}
+str(color)
+```
+
+```{r}
+color_lm <- lm(Avian.Attack ~ Model + Transect, color)
+summary(color_lm)
+plot(color_lm)
+Anova(color_lm, type="III")
+```
+
+
+```{r}
+library(lme4)
+color_glmm <- glmer(Avian.Attack ~ Model + (1|Transect), family="binomial", color)
+dispersion_glmer <- function(modelglmer){
+  n <- length(residuals(modelglmer))
+  return(sqrt(sum(c(residuals(modelglmer), modelglmer@u)^2)/n))
+}
+dispersion_glmer(color_glmm)
+```
+
+
+```{r}
+summary(color_glmm)
+Anova(color_glmm, type="III")
+```
+
+```{r}
+summary(glht(color_glmm, linfct = mcp(Model = "Tukey")))
+```
+
+or
+
+```{r}
+color_table <- aggregate(color, Avian.Attack~Model + Transect, sum)
+color_table$not_attacked <- 50 - color_table$Avian.Attack
+color_table
+```
+
+```{r}
+color_glmm_p <- glmer(Avian.Attack ~ Model + (1|Transect), family="poisson", color_table)
+summary(color_glmm_p)
+Anova(color_glmm_p, type="III")
+summary(glht(color_glmm_p, linfct = mcp(Model = "Tukey")))
+```
+
+```{r}
+color_glmm_prop <- glmer(cbind(Avian.Attack, not_attacked) ~ Model + (1|Transect), family="binomial", color_table)
+summary(color_glmm_prop)
+Anova(color_glmm_prop, type="III")
+```
+
+
+```{r}
+attack <- color$Avian.Attack == 1
+nonattack <- color$Avian.Attack == 0
+attack_presence_lm <- glmer(cbind(attack, nonattack) ~ Model + (1|Transect), data= color, family = 'binomial')
+
+summary(attack_presence_lm)
+```
+

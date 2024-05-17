@@ -1,0 +1,263 @@
+---
+title: "2024 Spring Midterm (29 points total) solutions"
+format:
+  html:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    number_sections: true
+    code_folding: hide
+    theme: readable
+---
+
+## Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students. Infractions will
+also result in me being unable to obtain a letter of recommendation from
+the department for professional school applications.
+
+Good luck!
+
+## Background
+
+Billion Oyster Project (BOP) is a local group in New York focused on
+restoring oysters. They are considering new restoration locations, one
+in Manhattan and one in Queens. To help determine which site is better,
+they put out oyster cages (small mesh cages holding live oysters) at
+each site. Each cage held 50 oysters. Oysters at each site were measured
+after 3 months. Now they need help analyzing the data.
+
+## #1
+
+At the Queens site, 15 oysters were dead after 3 months. At the
+Manhattan site, 21 were dead. Is there a difference in mortality among
+the sites?
+
+Investigate the question. Make sure you include
+
+-   null hypothesis
+
+    -   *H~0~: \# there is no difference in mortality rate/proportion
+        among sites; mortality rate is not contingent on site*
+
+-   alternative hypothesis
+
+    -   *H~A~: \# there is a difference in mortality rate/proportion
+        among sites; mortality rate is contingent on site*
+
+-   explanation for test you will use
+
+    -   I will attempt to use a $\chi^2$ test given we have discrete
+        data from 2 populations.
+
+-   results from statistical test
+
+```{r}
+chisq.test(matrix(c(15,21,50-15,50-21), nrow=2, byrow = T))
+```
+
+Note
+
+```{r}
+chisq.test(matrix(c(15,21,50-15,50-21), nrow=2, byrow = F))
+```
+
+-   clear explanation of how results relate to your stated hypotheses
+    -   The test led to a value of $\chi^2 = 1.0851$, with a
+        corresponding p-value of 0.2976. Thus I fail to reject the null
+        hypothesis.
+
+## #2
+
+Make the data
+
+```{r}
+set.seed(19)
+length <- data.frame(site = c(rep("Queens", 35), rep("Manhattan", 29), rep("Gov_Island", 50)), length=c(rnorm(35,40,5), rnorm(29,39,5), rnorm(50,35,4)))
+length$site <- factor(length$site)
+length_model <- lm(length~site, length)
+library(car)
+Anova(length_model, type="III")
+library(multcomp)
+summary(glht(length_model, linfct = mcp(site="Tukey")))
+write.csv(length, "oyster_measures.csv", row.names = F)
+
+```
+
+The oysters that were alive at the end of the sampling period were
+measured (length, mm). Data is available using
+
+```{r}
+oyster_measures <-read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQAWMON6TYoGDl2VYhK9ONDJW3eul7n0-hw-62F4FQ56bnKuKm8N32jtOMktuLHoS-Lbvl6kmgeUQ6x/pub?gid=0&single=true&output=csv", stringsAsFactors = T)
+```
+
+The dataset also includes a sample from Governor's Island, a current
+restoration site. How do the sites compare?
+
+Investigate the question. Make sure you include
+
+-   null hypothesis
+
+    -   *H~0~: \# there is no difference in mean length among the 3
+        sites;*
+        $\mu_{length, Queens}=\mu_{length,Manhattan}=\mu_{length,\textrm{Governor's Island}}$
+
+-   alternative hypothesis
+
+    -   *H~A~: \# there is a difference in mean length among the 3
+        sites; means are not all equal; at least one population mean is
+        different from the others*
+
+-   explanation for test you will use
+
+    -   the outcome is a continuous variable, and we are considering
+        differences among 3 groups. Given the large sample size (\>25)
+        and focus on length, I will use an ANOVA and check assumptions.
+
+-   results from statistical test
+
+```{r}
+length_model_om <- lm(length~site, oyster_measures)
+library(car)
+Anova(length_model_om, type="III")
+plot(length_model_om)
+library(multcomp)
+summary(glht(length_model_om, linfct = mcp(site="Tukey")))
+
+```
+
+-   clear explanation of how results relate to your stated hypotheses
+    -   All assumptions were met, so I used the ANOVA. The overall test
+        led to a p-value of \<0.001 (F~2,111~=18.986), thus I reject the
+        null hypothesis. Follow-up post-hoc tests (using the Tukey
+        approach to account for FWER) indicated Governor's Island
+        differed significantly from the other sites.
+
+## #3
+
+Graph the data from question 2.
+
+Several options
+
+```{r}
+library(ggplot2)
+library(Rmisc)
+oyster_measure_summary <- summarySE(oyster_measures, measurevar = "length", groupvars = "site")
+
+cld_output <- fortify(cld(glht(length_model_om, linfct = mcp(site="Tukey"))))
+cld_output$site <- cld_output$lhs
+
+oyster_measure_summary <- merge(oyster_measure_summary, cld_output)
+
+
+ggplot(oyster_measure_summary, aes(x=site, y=length))+
+  geom_col(aes(fill=site)) +
+  geom_errorbar(aes(ymin=length-ci, ymax=length+ci)) +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")+
+  geom_text(aes(label=letters,y=length+3*ci))
+
+library(plyr)
+oyster_measure_summary$Site <- revalue(oyster_measure_summary$site,
+                                       c("Gov_Island"="Governor's Island"))
+ggplot(oyster_measure_summary, aes(x=Site, y=length))+
+  geom_col(aes(fill=Site)) +
+  geom_errorbar(aes(ymin=length-ci, ymax=length+ci)) +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")+
+  geom_text(aes(label=letters,y=length+3*ci))
+
+ggplot(oyster_measures, aes(x=site, y=length, color=site))+
+  geom_jitter() +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")
+
+ggplot(oyster_measures, aes(x=site, y=length, color=site))+
+  geom_boxplot() +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")
+
+```
+
+## #4
+
+Extra funding was available for the Queen site to determine the
+prevalence of bacterial infection in the oysters. Of the 35 tested
+(alive at the end of the 3 months) oysters, 13 were found to have
+bacterial infection. Historically, the rate has been 40%. Is there
+evidence the infection rate has changed?
+
+Investigate the question. Make sure you include
+
+-   null hypothesis
+
+    -   *H~0~: \# of oysters with bacterial infection is 40%*
+
+-   alternative hypothesis
+
+    -   *H~0~: \# of oysters with bacterial infection is not 40%*
+
+-   explanation for test you will use
+
+    -   *I will use a binomial test to compare the calculated
+        transformation rate to a a given value.*
+
+-   results from statistical test
+
+    ```{r}
+    binom.test(13,35, .4)
+    ```
+
+-   clear explanation of how results relate to your stated hypotheses
+
+    -   *I found a p-value of .87 (\>.05), so I fail to reject the null
+        hypothesis. The number of people transforming has not changed.
+        **BONUS/not required** It appears to be increasing.*
+
+## #5
+
+The BOP office is confused about your bacteria analysis. They found a
+signal of `r 13/35` in the data and took that as p. Why is your value
+different? Make sure you explain what a p-value is!
+
+*A p-value is the probability you would see the signal you saw or
+something more extreme if the null hypothesis was true and you repeated
+the test many times. They are confusing the rate of infection with this
+value.*
+
+## #6
+
+The following year, the BOP puts out multiple cages across the Queens
+site. They are surprised, given your initial analysis, when all the
+cages don't have `r 13/35*100` % showing bacterial infection. Why is
+that not true? And is there another summary/output you could provide to
+help them think about what they should expect for most cages?
+
+*The p-value we found denotes how likely we are to see `r 13/35`*`*100`%
+of oysters showing a bacterial infection if we sampled multiple times
+given that we expected 40% of the oysters to have infections. A high (or
+low) p-value does not mean we see the value again; due to sampling error
+we should expect to get a range of values. We could use a confidence
+interval to give a range that will contain the true mean (which should
+influence what we see!) for some given % of the time. For example, a 95%
+confidence interval
+
+```{r}
+library(binom)
+binom.confint(13,35)
+```
+
+(using the Agresti-Coull method) suggests we 23.1% to 53.7% of oysters
+may show infections.

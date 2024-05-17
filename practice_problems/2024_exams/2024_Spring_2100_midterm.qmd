@@ -1,0 +1,110 @@
+---
+title: "2024 Spring Midterm (29 points total) solutions"
+---
+
+## Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students. Infractions will
+also result in me being unable to obtain a letter of recommendation from
+the department for professional school applications.
+
+Good luck!
+
+## Background
+
+Billion Oyster Project (BOP) is a local group in New York focused on
+restoring oysters. They are considering new restoration locations, one
+in Manhattan and one in Queens. To help determine which site is better,
+they put out oyster cages (small mesh cages holding live oysters) at
+each site. Each cage held 50 oysters. Oysters at each site were measured
+after 3 months. Now they need help analyzing the data.
+
+## #1
+
+At the Queens site, 15 oysters were dead after 3 months. At the
+Manhattan site, 21 were dead. Is there a difference in mortality among
+the sites? (6 points)
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 point)
+
+-   alternative hypothesis (1 point)
+
+-   explanation for test you will use (1.5 point)
+
+-   results from statistical test (1 point)
+
+-   clear explanation of how results relate to your stated hypotheses (1.5 point)
+
+## #2
+
+The oysters that were alive at the end of the sampling period were
+measured (length, mm). Data is available using
+
+```{r}
+oyster_measures <-read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQAWMON6TYoGDl2VYhK9ONDJW3eul7n0-hw-62F4FQ56bnKuKm8N32jtOMktuLHoS-Lbvl6kmgeUQ6x/pub?gid=0&single=true&output=csv", stringsAsFactors = T)
+```
+
+The data set also includes a sample from Governor's Island, a current
+restoration site. How do the three sites compare? (6 points)
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 point)
+
+-   alternative hypothesis (1 point)
+
+-   explanation for test you will use (1.5 point)
+
+-   results from statistical test (1 point)
+
+-   clear explanation of how results relate to your stated hypotheses (1.5 point)
+
+## #3
+
+Graph the data from question 2. (5 points)
+
+## #4
+
+Extra funding was available for the Queen site to determine the
+prevalence of bacterial infection in the oysters. Of the 35 tested
+(alive at the end of the 3 months) oysters, 13 were found to have
+bacterial infection. Historically, the rate has been 40%. Is there
+evidence the infection rate has changed? (6 point)
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 point)
+
+-   alternative hypothesis (1 point)
+
+-   explanation for test you will use (1.5 point)
+
+-   results from statistical test (1 point)
+
+-   clear explanation of how results relate to your stated hypotheses (1.5 point)
+
+## #5
+
+The BOP office is confused about your bacteria analysis. They found a
+signal of `r 13/35`
+<!--new trick! render this and note it gives you the answer! this is an in-line code chunk  -->
+in the data and took that as p. Why is your value different? Make sure
+you explain what a p-value is! (3 points)
+
+## #6
+
+The following year, the BOP puts out multiple cages across the Queens
+site. They are surprised, given your initial analysis, when all the
+cages don't have `r 13/35*100` % showing bacterial infection. Why is
+that not true? And is there another summary/output you could provide to
+help them think about what they should expect for most cages? (3 points)
