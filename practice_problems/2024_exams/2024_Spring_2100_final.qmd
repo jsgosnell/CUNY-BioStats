@@ -1,0 +1,125 @@
+---
+title: "2024 Spring Final (29 points total) solutions"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    number_sections: true
+    code_folding: hide
+    theme: readable
+---
+
+## Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students. Infractions will
+also result in me being unable to obtain a letter of recommendation from
+the department for professional school applications.
+
+Good luck!
+
+## Background
+
+Scenario is based on real issues but not real data; images are from a
+variety of sources.
+
+[![](images/clipboard-1549301531.png)](https://www.pickpik.com/dawn-drone-dusk-mountains-outdoors-sunrise-132011#google_vignette)
+
+Drones (unmanned aerial vehicles) are becoming increasingly common.
+Their impact on wildlife, however, is unknown. A lab interested in
+considering drone impacts and has collected data from a number of
+studies.
+
+## #1
+
+For one study, the impact of drones no owl residence was considered. Two
+sites at a local park were considered; previous studies had indicated
+the two areas had similar environmental conditions and were accessed by
+a local population of screech owl. Each site contained 48 nest boxes
+similar to the one shown below. (6 pts)
+
+[![CC BY NC 2.0. Roy
+Niswanger.](49753433596_290c5ff6d2_c.jpg)](https://www.flickr.com/photos/motleypixel/32283297714)
+
+Site A was disturbed by a drone for 2 hours on June 3, 2023; Site B was
+not. The following morning nest boxes were checked. At Site A, 35 boxes
+were occupied by owls. At Site B, 22 boxes were occupied by owls. Does
+the data indicate an impact of drones on owl occupancy?
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis(1 pt)
+-   explanation for test you will use  (1.5 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (1.5 pt)
+
+## #2
+
+Are there any potential issues with the data used in problem number 1 or
+the resulting conclusions? How would you make the experiment better? (3
+pts)
+
+
+## #3
+
+A follow-up study considered the impact of drones urban and rural parks.
+Similar to the study in question #1, plots at 15 urban and 15 rural
+parks were considered. For each type of park, 5 sites had no drone
+activity, 5 sites had low drone activity, and 5 sites had high drone
+activity. Impacts were considered by measuring the acoustic activity of
+birds at each site (in decibels, db).
+
+Data can be read in using this chunk. Is there any evidence for impacts
+of park type or drone activity levels on bird activity? (6 pts)
+
+```{r}
+decibel <- readRDS("decibel.rds")
+```
+
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis(1 pt)
+-   explanation for test you will use  (1.5 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (1.5 pt)
+
+## #4
+
+Graph the data from question 3.(5 pt)
+
+## #5
+
+Another investigator considered the level of drone activity as number of
+flying minutes per day. They then wanted to compare this to measured
+decibels of bird activity. 
+
+
+Data can be downloaded using this chunk
+
+```{r}
+decibel_2 <- readRDS("decibel_2.rds")
+```
+
+
+
+Investigate the question. (6 pts)
+
+Make sure you include
+
+-   null hypothesis (1 pt)
+-   alternative hypothesis(1 pt)
+-   explanation for test you will use  (1.5 pt)
+-   results from statistical test (1 pt)
+-   clear explanation of how results relate to your stated hypotheses (1.5 pt)

@@ -1,0 +1,310 @@
+---
+title: "2024 Spring Final (26 points total) solutions"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    number_sections: true
+    code_folding: hide
+    theme: readable
+---
+
+## Instructions! Read this first.
+
+The exam is open note, open course website, open class-related code
+repositories (mine and those you produced in class). However, you may
+not get external help ( from other students, directed internet searches,
+etc.). Please update the statement below to acknowledge these
+instructions (and that you can use git).
+
+I, INSERT YOUR NAME HERE, promise to not seek external help on the exam.
+I understand any academic issues will result in a D or F on the exam or
+in the class and be reported to the Dean of Students. Infractions will
+also result in me being unable to obtain a letter of recommendation from
+the department for professional school applications.
+
+Good luck!
+
+## Background
+
+Scenario is based on real issues but not real data; images are from a
+variety of sources.
+
+[![](images/clipboard-1549301531.png)](https://www.pickpik.com/dawn-drone-dusk-mountains-outdoors-sunrise-132011#google_vignette)
+
+Drones (unmanned aerial vehicles) are becoming increasingly common.
+Their impact on wildlife, however, is unknown. A lab interested in
+considering drone impacts and has collected data from a number of
+studies.
+
+## #1
+
+For one study, the impact of drones no owl residence was considered. Two
+sites at a local park were considered; previous studies had indicated
+the two areas had similar environmental conditions and were accessed by
+a local population of screech owl. Each site contained 48 nest boxes
+similar to the one shown below. (6 pts)
+
+[![CC BY NC 2.0. Roy
+Niswanger.](49753433596_290c5ff6d2_c.jpg)](https://www.flickr.com/photos/motleypixel/32283297714)
+
+Site A was disturbed by a drone for 2 hours on June 3, 2023; Site B was
+not. The following morning nest boxes were checked. At Site A, 35 boxes
+were occupied by owls. At Site B, 22 boxes were occupied by owls. Does
+the data indicate an impact of drones on owl occupancy?
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 pt)
+
+    -   *H~0~: there is no difference in owl occupancy among sites or
+        drone impacts (confounded, which is common!); occupancy is not
+        contingent on site or drones*
+
+-   alternative hypothesis(1 pt)
+
+    -   *H~A~: there is a difference in owl occupancy among sites or
+        drone impacts (confounded, which is common!); occupancy is
+        contingent on site or drones*
+
+-   explanation for test you will use (1.5 pt)
+
+    -   I will attempt to use a $\chi^2$ test given we have discrete
+        data from 2 populations (contingency analysis)
+
+-   results from statistical test (1 pt)
+
+```{r}
+chisq.test(matrix(c(35,22,48-35,48-22), nrow=2, byrow = T))
+```
+
+Note
+
+```{r}
+chisq.test(matrix(c(35,22,48-35,48-22), nrow=2, byrow = F))
+```
+
+-   clear explanation of how results relate to your stated hypotheses
+    (1.5 pt)
+    -   The test led to a value of $\chi^2 = 6.22$, with a corresponding
+        p-value of 0.012. Thus I reject the null hypothesis.
+
+## #2
+
+Are there any potential issues with the data used in problem number 1 or
+the resulting conclusions? How would you make the experiment better? (3
+pts)
+
+*A lack of replication means potential differences may be due to sites.
+However, the before/after approach minimizes this. A larger sample (or
+more sites) would also be useful.*
+
+## #3
+
+A follow-up study considered the impact of drones urban and rural parks.
+Similar to the study in question #1, plots at 15 urban and 15 rural
+parks were considered. For each type of park, 5 sites had no drone
+activity, 5 sites had low drone activity, and 5 sites had high drone
+activity. Impacts were considered by measuring the acoustic activity of
+birds at each site (in decibels, db).
+
+Make the data
+
+```{r}
+set.seed(42)
+decibel <- data.frame(park_type = c(rep("rural", 30), rep("urban", 30)), 
+                       drone_activity = rep(c(rep("none", 10), rep("low", 10), rep("high", 10)), 2),
+                       db = c(rnorm(10, 40 ,10), rnorm(10, 60, 10), rnorm(10, 80,  10), rnorm(30, 70, 10)), stringsAsFactors = T) 
+saveRDS(decibel, file = "decibel.rds")
+```
+
+Data can be read in using this chunk. Is there any evidence for impacts
+of park type or drone activity levels on bird activity? (6 pts)
+
+```{r}
+decibel <- readRDS("decibel.rds")
+```
+
+Investigate the question. Make sure you include
+
+-   null hypothesis (1 pt)
+
+    -   *H~0~: \# there is no difference in mean decibel level between
+        the 2 park types sites;*
+    -   *H~0~: \# there is no difference in mean decibel level among the
+        three levels of drone activity;*
+    -   *H~0~: \# there is no interaction between park type and drone
+        activity level on mean decibel level*
+
+-   alternative hypothesis (1 pt)
+
+    -   *H~0~: \# there is a difference in mean decibel level between
+        the 2 park types sites;*
+    -   *H~0~: \# there is a difference in mean decibel level among the
+        three levels of drone activity;*
+    -   *H~0~: \# there is a interaction between park type and drone
+        activity level on mean decibel level*
+
+-   explanation for test you will use (1.5 pt)
+
+    -   the outcome is a continuous variable, and we are considering
+        differences based on membership in 2 categories. Given the lack
+        of linkages among measurements, this is a factorial ANOVA. I
+        will use that approach to consider main effects and interaction.
+
+-   results from statistical test (1 pt)
+
+```{r}
+decibel_model <- lm(db~park_type*drone_activity, decibel)
+plot(decibel_model)
+```
+
+Assumptinons appear to be met
+
+```{r}
+library(car)
+Anova(decibel_model, type="III")
+```
+
+there is an interaction, so I will investigate the impact of drone
+activity level separately for each park.
+
+```{r}
+decibel_model_urban <- lm(db~drone_activity, 
+                          decibel[decibel$park_type=="urban",])
+plot(decibel_model_urban)
+```
+
+Assumptions are met for the urban park model.
+
+```{r}
+Anova(decibel_model_urban, type="III")
+```
+
+There is no impact of drone activity level on mean decibel level in
+urban parks (F~2,27~ = 0,38,
+p=`r round(data.frame(Anova(decibel_model_urban, type="III"))["drone_activity","Pr..F."],2)`).
+
+For rural parks,
+
+```{r}
+decibel_model_rural <- lm(db~drone_activity, 
+                          decibel[decibel$park_type=="rural",])
+plot(decibel_model_rural)
+```
+
+Assumptions are met
+
+```{r}
+Anova(decibel_model_rural, type="III")
+```
+
+There does appear to be an impact of drone activity (F~2,27~==5.442, p =
+\<0.01). A post hoc test using Tukeys approach to correct for FWER was
+employed to determine which groups were different
+
+```{r}
+library(multcomp)
+summary(glht(decibel_model_rural, linfct = mcp(drone_activity="Tukey")))
+```
+
+Results indicate all activity levels differ rom others. - clear
+explanation of how results relate to your stated hypotheses (1.5 pt) - I
+reject the null hypothesis of no interaction. Further investigation
+suggests the difference is based on rural, and not urban, parks.
+
+## #4
+
+Graph the data from question 3.(5 pt)
+
+Several options
+
+```{r}
+library(ggplot2)
+library(Rmisc)
+decibel_summary <- summarySE(decibel, measurevar = "db", groupvars = c("drone_activity", "park_type"))
+
+ggplot(decibel_summary, aes(x=drone_activity, color=park_type, y=db))+
+  geom_col(aes(fill=park_type), position=position_dodge()) +
+  geom_errorbar(aes(ymin=db-ci, ymax=db+ci), position=position_dodge()) +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")
+
+ggplot(decibel_summary, aes(x=drone_activity, color=park_type, y=db, group=park_type))+
+  geom_point() +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")+
+  geom_line()
+
+ggplot(decibel, aes(x=drone_activity, color=park_type, y=db))+
+  geom_boxplot() +
+  labs(title="Oyster lengths at 3 restoration sites",
+       y= "Oyster length (mm)",
+       x= "Site")
+
+
+
+```
+
+## #5
+
+Another investigator considered the level of drone activity as number of
+flying minutes per day. They then wanted to compare this to measured
+decibels of bird activity.
+
+```{r}
+set.seed(18)
+decibel_2 <- data.frame(minutes_flying = runif(100,0,100))
+decibel_2$db <- 80-decibel_2$minutes_flying*.4 + runif(100,-2,2)
+saveRDS(decibel_2, "decibel_2.rds")
+```
+
+Data can be downloaded using this chunk
+
+```{r}
+decibel_2 <- readRDS("decibel_2.rds")
+```
+
+Investigate the question. (6 pts)
+
+Make sure you include
+
+-   null hypothesis (1 pt)
+
+    -   *H~0~: there is no relationship between the noise level of
+        drones and bird activity.*
+
+-   alternative hypothesis (1 pt)
+
+    -   *H~0~: there is a relationship between the noise level of drones
+        and bird activity.*
+
+-   explanation for test you will use (1.5 pt)
+
+    -   *I will use a regression to compare the relationship between
+        bird and drone noise levels.*
+
+-   results from statistical test (1 pt)
+
+```{r}
+regression <- lm(db~minutes_flying, decibel_2)
+plot(regression)
+```
+
+Assumptions are met.
+
+```{r}
+Anova(regression, type = "III")
+summary(regression)
+```
+
+Output shows a significant, negative relationship.
+
+-   clear explanation of how results relate to your stated hypotheses
+
+    -   *I found a p-value of \<0.01, so I reject the null (1.5 pt)
+        hypothesis.*
