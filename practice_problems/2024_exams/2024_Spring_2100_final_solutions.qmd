@@ -132,7 +132,7 @@ Investigate the question. Make sure you include
 -   null hypothesis (1 pt)
 
     -   *H~0~: \# there is no difference in mean decibel level between
-        the 2 park types sites;*
+        the 2 park types ;*
     -   *H~0~: \# there is no difference in mean decibel level among the
         three levels of drone activity;*
     -   *H~0~: \# there is no interaction between park type and drone
@@ -141,7 +141,7 @@ Investigate the question. Make sure you include
 -   alternative hypothesis (1 pt)
 
     -   *H~0~: \# there is a difference in mean decibel level between
-        the 2 park types sites;*
+        the 2 park types;*
     -   *H~0~: \# there is a difference in mean decibel level among the
         three levels of drone activity;*
     -   *H~0~: \# there is a interaction between park type and drone
@@ -210,10 +210,14 @@ library(multcomp)
 summary(glht(decibel_model_rural, linfct = mcp(drone_activity="Tukey")))
 ```
 
-Results indicate all activity levels differ rom others. - clear
-explanation of how results relate to your stated hypotheses (1.5 pt) - I
-reject the null hypothesis of no interaction. Further investigation
-suggests the difference is based on rural, and not urban, parks.
+Results indicate that or rural parks, high drone activity areas differ from low 
+and none.
+
+- clear explanation of how results relate to your stated hypotheses (1.5 pt) 
+
+    * I reject the null hypothesis of no interaction. Further investigation
+    suggests the difference is based on rural, and not urban, parks.In rural parks,
+    only high drone activity areas differ from others.
 
 ## #4
 
@@ -229,25 +233,26 @@ decibel_summary <- summarySE(decibel, measurevar = "db", groupvars = c("drone_ac
 ggplot(decibel_summary, aes(x=drone_activity, color=park_type, y=db))+
   geom_col(aes(fill=park_type), position=position_dodge()) +
   geom_errorbar(aes(ymin=db-ci, ymax=db+ci), position=position_dodge()) +
-  labs(title="Oyster lengths at 3 restoration sites",
-       y= "Oyster length (mm)",
-       x= "Site")
+  labs(title="Drone activity level impacts birds at rural but not urban parks",
+       y= "Bird noise (db)",
+       x= "Drone activity level",
+       color= "Park setting",
+       fill=  "Park setting")
 
 ggplot(decibel_summary, aes(x=drone_activity, color=park_type, y=db, group=park_type))+
   geom_point() +
-  labs(title="Oyster lengths at 3 restoration sites",
-       y= "Oyster length (mm)",
-       x= "Site")+
+  labs(title="Drone activity level impacts birds at rural but not urban parks",
+       y= "Bird noise (db)",
+       x= "Drone activity level",
+       color= "Park setting")+
   geom_line()
 
 ggplot(decibel, aes(x=drone_activity, color=park_type, y=db))+
   geom_boxplot() +
-  labs(title="Oyster lengths at 3 restoration sites",
-       y= "Oyster length (mm)",
-       x= "Site")
-
-
-
+  labs(title="Drone activity level impacts birds at rural but not urban parks",
+       y= "Bird noise (db)",
+       x= "Drone activity level",
+       color= "Park setting")
 ```
 
 ## #5
